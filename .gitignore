@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+node_modules/
+.next/
+
+*.joblib
+.ipynb_checkpoints/
+
+.DS_Store
+
+# local tooling
+.claude/
+
+# ML: raw/intermediate datasets are large and reproducible (see ml/src/download_datasets.py)
+ml/data/

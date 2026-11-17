@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --color-paper: #f7f6f3;
+  --color-surface: #ffffff;
+  --color-ink: #14171c;
+  --color-ink-soft: #5b6470;
+  --color-ink-faint: #8a9099;
+  --color-line: #e3e1db;
+  --color-line-strong: #d3d0c8;
+  --color-accent: #a6522a;
+  --color-accent-ink: #ffffff;
+  --color-ok: #3b8f6b;
+  --color-ok-bg: #e7f1ec;
+  --color-warn: #ad7a1e;
+  --color-warn-bg: #f7edd9;
+  --color-critical: #c13b3b;
+  --color-critical-bg: #fbeaea;
+}
+
+/* SmartCar-Ops follows the OS color-scheme preference; there is no manual toggle in Sprint 2. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #0e1013;
+    --color-surface: #17191d;
+    --color-ink: #edeef0;
+    --color-ink-soft: #9aa1ac;
+    --color-ink-faint: #6b7280;
+    --color-line: #262a30;
+    --color-line-strong: #33383f;
+    --color-accent: #d9895f;
+    --color-accent-ink: #17191d;
+    --color-ok: #58b790;
+    --color-ok-bg: #16261f;
+    --color-warn: #e0ac5c;
+    --color-warn-bg: #2b2416;
+    --color-critical: #e1706f;
+    --color-critical-bg: #2c1918;
+  }
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+.card-shadow {
+  box-shadow:
+    0 1px 2px rgba(20, 23, 28, 0.04),
+    0 8px 24px -12px rgba(20, 23, 28, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .card-shadow {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.3),
+      0 8px 24px -12px rgba(0, 0, 0, 0.5);
+  }
+}
