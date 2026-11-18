@@ -17,3 +17,5 @@ node_modules/
 
 # ML: raw/intermediate datasets are large and reproducible (see ml/src/download_datasets.py)
 ml/data/
+ml/*.log
+*.tsbuildinfo

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { VehicleProfile } from "@/lib/types";
+import type { MileageInfo, VehicleProfile } from "@/lib/types";
 
 function SpecRow({ label, value, tag }: { label: string; value: ReactNode; tag?: string }) {
   return (
@@ -17,7 +17,10 @@ function SpecRow({ label, value, tag }: { label: string; value: ReactNode; tag?:
   );
 }
 
-export function VehicleSpecCard({ vehicle }: { vehicle: VehicleProfile }) {
+const km = (n: number) => `${n.toLocaleString("en-US")} km`;
+
+export function VehicleSpecCard({ vehicle, mileage }: { vehicle: VehicleProfile; mileage: MileageInfo }) {
+  const measured = mileage.primary_source === "measured";
   return (
     <article className="card-shadow flex flex-col gap-6 rounded-[14px] border border-line bg-surface p-7">
       <div>
@@ -34,23 +37,37 @@ export function VehicleSpecCard({ vehicle }: { vehicle: VehicleProfile }) {
       </div>
 
       <dl className="border-t border-line">
-        <SpecRow
-          label="Manufacture year"
-          value={<span className="font-mono text-[13.5px]">{vehicle.manufacture_year}</span>}
-        />
+        <SpecRow label="Manufacture year" value={<span className="font-mono text-[13.5px]">{vehicle.manufacture_year}</span>} />
         <SpecRow label="Fuel type" value={vehicle.fuel_type} />
         <SpecRow label="Ownership" value={vehicle.ownership} />
         <SpecRow label="Color" value={vehicle.color ?? "Not reported"} />
         <SpecRow
-          label="Estimated mileage"
-          tag="ML"
-          value={<span className="font-mono text-[13.5px] text-ink-faint">Pending &mdash; Sprint 3</span>}
+          label={measured ? "Odometer (measured)" : "Estimated mileage"}
+          tag={measured ? "MEASURED" : "ML"}
+          value={<span className="font-mono text-[13.5px]">{km(mileage.primary_km)}</span>}
         />
-        <SpecRow
-          label="Last MOT test"
-          value={<span className="font-mono text-[13.5px]">{vehicle.last_test_date ?? "—"}</span>}
-        />
+        {!measured && (
+          <SpecRow
+            label="Indicative range (80%)"
+            value={
+              <span className="font-mono text-[13px] text-ink-soft">
+                {mileage.estimated_low_km.toLocaleString("en-US")} &ndash; {mileage.estimated_high_km.toLocaleString("en-US")} km
+              </span>
+            }
+          />
+        )}
+        <SpecRow label="Last MOT test" value={<span className="font-mono text-[13.5px]">{vehicle.last_test_date ?? "—"}</span>} />
+        <SpecRow label="License valid until" value={<span className="font-mono text-[13.5px]">{vehicle.license_valid_until ?? "—"}</span>} />
       </dl>
+
+      <p className="text-[12px] leading-relaxed text-ink-soft">{mileage.label}</p>
+      {mileage.notes.length > 0 && (
+        <ul className="list-disc pl-5 text-[12px] text-ink-faint">
+          {mileage.notes.map((n) => (
+            <li key={n}>{n}</li>
+          ))}
+        </ul>
+      )}
     </article>
   );
 }

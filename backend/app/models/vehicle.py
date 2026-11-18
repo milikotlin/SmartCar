@@ -19,3 +19,6 @@ class Vehicle(Base):
     maintenance_records: Mapped[list["MaintenanceRecord"]] = relationship(
         back_populates="vehicle", cascade="all, delete-orphan"
     )
+    inspection_records: Mapped[list["InspectionRecord"]] = relationship(
+        back_populates="vehicle", cascade="all, delete-orphan"
+    )

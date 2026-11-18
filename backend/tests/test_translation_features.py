@@ -1,0 +1,67 @@
+from datetime import date
+
+import pytest
+
+from app.services import features, translation
+
+
+def test_every_real_row_is_translated(registry_rows):
+    for row in registry_rows:
+        p = translation.translate_vehicle_record(row)
+        assert p.license_plate == str(row["mispar_rechev"])
+        assert p.make and not any("֐" <= ch <= "׿" for ch in p.make), f"manufacturer not translated: {p.make_raw!r} -> {p.make!r}"
+        assert p.fuel_type in {"Petrol", "Diesel", "Hybrid", "Electric", "LPG/CNG"}
+        assert p.ownership in {"Private", "Leasing", "Company", "Rental", "Dealer"}
+
+
+@pytest.mark.parametrize(
+    "hebrew,english",
+    [("בנזין", "Petrol"), ("דיזל", "Diesel"), ("חשמל", "Electric"), ("חשמל/בנזין", "Hybrid"), ("חשמל/דיזל", "Hybrid"), ('גפמ"', "LPG/CNG")],
+)
+def test_fuel_values_found_in_the_registry(hebrew, english):
+    assert translation.translate_fuel(hebrew) == english
+
+
+@pytest.mark.parametrize(
+    "raw,english",
+    [("טויוטה אנגליה", "Toyota"), ("ב מ וו ארהב\"", "BMW"), ("מרצדס בנץ גרמנ", "Mercedes-Benz"), ("בי ווי די סין", "BYD"), ("סקודה צ'כיה", "Skoda"), ("אופל פולין", "Opel")],
+)
+def test_manufacturer_prefixes(raw, english):
+    assert translation.translate_manufacturer(raw) == english
+
+
+def test_unknown_values_are_returned_as_published_not_guessed():
+    assert translation.translate_manufacturer("יצרן לא מוכר") == "יצרן לא מוכר"
+    assert translation.translate_fuel("משהו") == "משהו"
+
+
+def test_cc_string_extraction_never_raises():
+    assert translation.parse_cc("1600 CC") == 1600
+    assert translation.parse_cc("1,600 CC") == 1600
+    assert translation.parse_cc(None) is None
+    assert translation.parse_cc("n/a") is None
+
+
+def test_age_and_make_vocabulary(profiles):
+    toyota = profiles[4908732]
+    assert features.model_make(toyota) == "Toyota"
+    assert features.model_make(profiles[6246816]) == "Bmw"                    # title case, the spelling of the training data
+    assert features.model_make(profiles[4639434]) == "Opel"
+    assert features.fuel_key(profiles[88328404]) == "electric"
+    assert features.fuel_key(profiles[43983303]) == "hybrid"
+    assert features.ownership_key(profiles[67687703]) == "leasing"
+
+
+def test_planned_gap_uses_the_registry_dates_and_falls_back_to_one_year(profiles):
+    p = profiles[4908732].model_copy(update={"last_test_date": "2026-04-15", "license_valid_until": "2027-02-19"})
+    assert features.planned_gap_years(p, date(2026, 4, 15)) == pytest.approx(0.847, abs=0.01)
+    p2 = p.model_copy(update={"license_valid_until": "2031-01-01"})              # implausible interval: ignored
+    assert features.planned_gap_years(p2, date(2026, 4, 15)) == 1.0
+    assert features.planned_gap_years(p.model_copy(update={"license_valid_until": None}), date(2026, 4, 15)) == 1.0
+
+
+def test_age_of_the_last_inspection_uses_first_registration_year(profiles):
+    p = profiles[4908732].model_copy(update={"first_registration": "2015-6", "last_test_date": "2026-04-15"})
+    x = features.risk_inputs(p, None, None)
+    assert x.age_year == 2026 - 2015
+    assert x.previous is None and x.odometer_km is None

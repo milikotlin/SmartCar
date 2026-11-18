@@ -10,3 +10,8 @@ class VehicleProfile(BaseModel):
     ownership: str
     color: str | None = None
     last_test_date: str | None = None
+    # added in the final implementation (all taken from the same registry record)
+    license_valid_until: str | None = None      # tokef_dt: the next annual test is due by this date
+    first_registration: str | None = None       # moed_aliya_lakvish, "YYYY-M"
+    trim_level: str | None = None
+    make_raw: str | None = None                 # Hebrew manufacturer string as published

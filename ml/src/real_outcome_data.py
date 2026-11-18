@@ -155,6 +155,12 @@ def load_uk_veh(year: int):
     # where do the items stop being trustworthy? share of tests per week that have at least one item row
     res["date"] = pd.to_datetime(res.test_date, errors="coerce")
     res["has_item"] = res.test_id.isin(set(items.test_id))
+    report_path = INTERIM_DIR / f"uk_mot_{year}_extraction_report.json"
+    verified = False
+    if report_path.exists():
+        import json
+        rep = json.loads(report_path.read_text(encoding="utf-8"))
+        verified = bool(rep.get("results_stream", {}).get("integrity_verified") and rep.get("items_stream", {}).get("integrity_verified"))
     wk = res.groupby(res.date.dt.to_period("W")).has_item.agg(["mean", "size"])
     wk = wk[wk["size"] >= 200]
     ref = wk["mean"].iloc[:8].median()
@@ -164,6 +170,10 @@ def load_uk_veh(year: int):
     bad = wk[wk["mean"] < 0.5 * ref]
     if len(bad):
         clean_until = min(clean_until, bad.index.min().start_time)
+    if verified:                                  # both zip members passed the CRC32 + size check of the full stream: the whole year is usable
+        clean_until = pd.Timestamp(f"{year + 1}-01-01")
+        weak = wk[wk["mean"] < 0.5 * ref]
+        print(f"[load_uk_veh {year}] integrity verified; weekly share of tests with items: min {wk['mean'].min():.2f}, median {wk['mean'].median():.2f}; weeks below half the reference: {len(weak)}")
     det = pd.read_csv(RAW_DIR / "uk_mot_lookup" / "dft_item_detail_extract.csv")
     rfr2sec = det[det.test_class_id == 4].drop_duplicates("rfr_id").set_index("rfr_id").test_item_set_section_id
     items["section"] = items.rfr_id.map(rfr2sec)

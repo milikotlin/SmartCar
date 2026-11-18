@@ -41,7 +41,7 @@ def _get(url: str, a: int, b: int, retries: int = 40) -> bytes:
     raise RuntimeError(f"giving up on range {a}-{b}")
 
 
-def stream_member(zip_name: str, block: int = 4 * 1024 * 1024, workers: int = 4, frac: float = 1.0):
+def stream_member(zip_name: str, block: int = 4 * 1024 * 1024, workers: int = 3, frac: float = 1.0, report: dict | None = None):
     """Yield decompressed chunks of the single member of a remote Deflate64 zip.
 
     Blocks are fetched concurrently (up to `workers` ahead) but decompressed strictly in order.
@@ -52,12 +52,24 @@ def stream_member(zip_name: str, block: int = 4 * 1024 * 1024, workers: int = 4,
     with RemoteZip(url) as z:
         info = z.infolist()[0]
         off, comp = info.header_offset, info.compress_size
+        ctype, exp_crc, exp_size = info.compress_type, info.CRC, info.file_size
     loc = _get(url, off, off + 29)
     name_len, extra_len = struct.unpack("<HH", loc[26:30])
     start = off + 30 + name_len + extra_len
     ranges = [(pos, min(pos + block, comp)) for pos in range(0, comp, block)]
     ranges = ranges[: max(1, int(len(ranges) * frac))]          # only the first part of the stream is needed (Jan-Jun; later items are corrupted by the decoder)
-    inflater = inflate64.Inflater()
+    # ROOT CAUSE of the corrupted item files found in round 3: the DVSA "items" zips use plain Deflate (type 8) while the "results" zips use Deflate64 (type 9).
+    # Decoding a type-8 stream with a Deflate64 decoder silently garbles everything after the first long match. The decoder is now chosen from the zip header.
+    import zlib
+    if ctype == 9:
+        inflater = inflate64.Inflater()
+        inflate = inflater.inflate
+    elif ctype == 8:
+        dec = zlib.decompressobj(-zlib.MAX_WBITS)
+        inflate = dec.decompress
+    else:
+        raise RuntimeError(f"unsupported compression type {ctype}")
+    crc, size = 0, 0
     with ThreadPoolExecutor(max_workers=workers) as ex:
         futures = [ex.submit(_get, url, start + a, start + b - 1) for a, b in ranges[:workers]]
         nxt = workers
@@ -68,7 +80,28 @@ def stream_member(zip_name: str, block: int = 4 * 1024 * 1024, workers: int = 4,
                 a, b = ranges[nxt]
                 futures.append(ex.submit(_get, url, start + a, start + b - 1))
                 nxt += 1
-            yield inflater.inflate(chunk)
+            out = inflate(chunk)
+            crc, size = zlib.crc32(out, crc), size + len(out)
+            yield out
+    if frac >= 1.0:
+        ok = (crc & 0xFFFFFFFF) == exp_crc and size == exp_size
+        if report is not None:
+            report.update({"member": info.filename, "compress_type": ctype, "expected_crc32": hex(exp_crc), "actual_crc32": hex(crc & 0xFFFFFFFF), "expected_bytes": exp_size, "actual_bytes": size, "integrity_verified": ok})
+        if not ok:
+            raise RuntimeError(f"integrity check FAILED for {zip_name}: crc {crc & 0xFFFFFFFF:#x} vs {exp_crc:#x}, bytes {size} vs {exp_size}")
+
+
+REPORT: dict = {}
+
+
+def write_report(year: int) -> None:
+    import json
+    REPORT["year"] = year
+    REPORT["completed_at"] = time.strftime("%Y-%m-%d %H:%M:%S")
+    REPORT["source"] = "DVSA anonymised MOT data (Open Government Licence v3.0), https://edh-dvsa-data-gov-uk-files-prod.s3.eu-west-1.amazonaws.com/"
+    path = INTERIM_DIR / f"uk_mot_{year}_extraction_report.json"
+    path.write_text(json.dumps(REPORT, indent=2), encoding="utf-8")
+    log(f"extraction report -> {path}")
 
 
 def log(msg: str) -> None:
@@ -85,13 +118,14 @@ def main(year: int = 2023, one_in: int = 40) -> None:
         kept_ids = {int(l.split(b"|", 1)[0]) for l in res_path.read_bytes().split(b"\n")[1:] if l.split(b"|", 1)[0].isdigit()}
         log(f"results sample reused: {len(kept_ids):,} tests")
         _items(year, item_path, kept_ids)
+        write_report(year)
         return
     log(f"streaming results {year} (keep cars, NT, vehicle_id % {one_in} == 0)")
-    n_lines = 0
+    n_lines = n_bad_res = 0
     leftover = b""
     with open(res_path, "wb") as fout:
         header_done = False
-        for data in stream_member(f"dft_test_result_{year}.zip", frac=0.56):
+        for data in stream_member(f"dft_test_result_{year}.zip", report=REPORT.setdefault("results_stream", {})):
             data = leftover + data
             lines = data.split(b"\n")
             leftover = lines.pop()
@@ -105,6 +139,7 @@ def main(year: int = 2023, one_in: int = 40) -> None:
                 try:
                     tid, vid = int(f[0]), int(f[1])
                 except (ValueError, IndexError):
+                    n_bad_res += 1
                     continue                      # damaged line
                 if vid % one_in:
                     continue
@@ -113,9 +148,11 @@ def main(year: int = 2023, one_in: int = 40) -> None:
                     fout.write(line + b"\n")
             if n_lines and (n_lines // 1_000_000) != ((n_lines - len(lines)) // 1_000_000):
                 log(f"  results: {n_lines:,} lines read, {len(kept_ids):,} kept")
-    log(f"results done: {n_lines:,} lines, {len(kept_ids):,} kept tests -> {res_path}")
+    log(f"results done: {n_lines:,} lines, {len(kept_ids):,} kept tests, {n_bad_res:,} damaged lines -> {res_path}")
+    REPORT["results"] = {"lines_read": n_lines, "kept_tests": len(kept_ids), "damaged_lines": n_bad_res, "sampling_rule": f"vehicle_id % {one_in} == 0, test_class_id == 4, test_type == NT"}
 
     _items(year, item_path, kept_ids)
+    write_report(year)
 
 
 def _items(year: int, item_path: Path, kept_ids: set) -> None:
@@ -124,7 +161,7 @@ def _items(year: int, item_path: Path, kept_ids: set) -> None:
     leftover = b""
     with open(item_path, "wb") as fout:
         header_done = False
-        for data in stream_member(f"dft_test_item_{year}.zip", frac=0.53):
+        for data in stream_member(f"dft_test_item_{year}.zip", report=REPORT.setdefault("items_stream", {})):
             data = leftover + data
             lines = data.split(b"\n")
             leftover = lines.pop()
@@ -145,6 +182,7 @@ def _items(year: int, item_path: Path, kept_ids: set) -> None:
             if n_lines and (n_lines // 2_000_000) != ((n_lines - len(lines)) // 2_000_000):
                 log(f"  items: {n_lines:,} lines read, {n_kept:,} kept")
     log(f"items done: {n_lines:,} lines, {n_kept:,} kept, {n_bad:,} damaged lines skipped -> {item_path}")
+    REPORT["items"] = {"lines_read": n_lines, "kept_item_rows": n_kept, "damaged_lines": n_bad, "distinct_tests_with_items_kept": len(kept_ids)}
 
 
 if __name__ == "__main__":
