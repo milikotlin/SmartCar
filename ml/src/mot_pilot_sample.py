@@ -7,6 +7,7 @@ Nothing else is stored (the full files are 1.2 GB + 0.46 GB for 2023).
 Usage: python -I mot_pilot_sample.py [year=2023] [one_in=40]
 """
 import struct
+import subprocess
 import sys
 import time
 import urllib.request
@@ -21,20 +22,29 @@ from config import INTERIM_DIR  # noqa: E402
 BASE = "https://edh-dvsa-data-gov-uk-files-prod.s3.eu-west-1.amazonaws.com/"
 
 
-def _get(url: str, a: int, b: int, retries: int = 6) -> bytes:
+def _get(url: str, a: int, b: int, retries: int = 10) -> bytes:
+    """Fetch bytes a..b with a HARD total time limit per attempt (urllib timeouts only cover idle sockets, and S3 sometimes trickles)."""
+    want = b - a + 1
     for attempt in range(retries):
         try:
-            req = urllib.request.Request(url, headers={"Range": f"bytes={a}-{b}", "User-Agent": "smartcar-ml-research"})
-            with urllib.request.urlopen(req, timeout=45) as r:
-                return r.read()
-        except Exception as exc:  # network hiccup: retry the same byte range
-            print(f"  retry {attempt + 1} for range {a}-{b}: {exc}", flush=True)
-            time.sleep(2 * (attempt + 1))
+            out = subprocess.run(["curl", "-s", "-f", "-m", "30", "-r", f"{a}-{b}", "-A", "smartcar-ml-research", url],
+                                 capture_output=True, timeout=45).stdout
+            if len(out) == want:
+                return out
+            print(f"  short read {len(out)}/{want} for {a}-{b}, retry {attempt + 1}", flush=True)
+        except subprocess.TimeoutExpired:
+            print(f"  timeout for {a}-{b}, retry {attempt + 1}", flush=True)
+        time.sleep(1 + attempt)
     raise RuntimeError(f"giving up on range {a}-{b}")
 
 
-def stream_member(zip_name: str, block: int = 8 * 1024 * 1024):
-    """Yield decompressed chunks of the single member of a remote Deflate64 zip, using independent 8 MB range requests with retries."""
+def stream_member(zip_name: str, block: int = 4 * 1024 * 1024, workers: int = 8):
+    """Yield decompressed chunks of the single member of a remote Deflate64 zip.
+
+    Blocks are fetched concurrently (up to `workers` ahead) but decompressed strictly in order.
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
     url = BASE + zip_name
     with RemoteZip(url) as z:
         info = z.infolist()[0]
@@ -42,13 +52,19 @@ def stream_member(zip_name: str, block: int = 8 * 1024 * 1024):
     loc = _get(url, off, off + 29)
     name_len, extra_len = struct.unpack("<HH", loc[26:30])
     start = off + 30 + name_len + extra_len
+    ranges = [(pos, min(pos + block, comp)) for pos in range(0, comp, block)]
     inflater = inflate64.Inflater()
-    pos = 0
-    while pos < comp:
-        end = min(pos + block, comp)
-        chunk = _get(url, start + pos, start + end - 1)
-        yield inflater.inflate(chunk)
-        pos = end
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        futures = [ex.submit(_get, url, start + a, start + b - 1) for a, b in ranges[:workers]]
+        nxt = workers
+        for i in range(len(ranges)):
+            chunk = futures[i].result()
+            futures[i] = None
+            if nxt < len(ranges):
+                a, b = ranges[nxt]
+                futures.append(ex.submit(_get, url, start + a, start + b - 1))
+                nxt += 1
+            yield inflater.inflate(chunk)
 
 
 def log(msg: str) -> None:
@@ -61,6 +77,11 @@ def main(year: int = 2023, one_in: int = 40) -> None:
     kept_ids = set()
     res_path, item_path = out_dir / f"uk_mot_{year}_results_sample.csv", out_dir / f"uk_mot_{year}_items_sample.csv"
 
+    if res_path.exists() and res_path.stat().st_size > 1_000_000 and "--items-only" in sys.argv:
+        kept_ids = {int(l.split(b"|", 1)[0]) for l in res_path.read_bytes().split(b"\n")[1:] if l.split(b"|", 1)[0].isdigit()}
+        log(f"results sample reused: {len(kept_ids):,} tests")
+        _items(year, item_path, kept_ids)
+        return
     log(f"streaming results {year} (keep cars, NT, test_id % {one_in} == 0)")
     n_lines = 0
     leftover = b""
@@ -87,8 +108,12 @@ def main(year: int = 2023, one_in: int = 40) -> None:
                 log(f"  results: {n_lines:,} lines read, {len(kept_ids):,} kept")
     log(f"results done: {n_lines:,} lines, {len(kept_ids):,} kept tests -> {res_path}")
 
+    _items(year, item_path, kept_ids)
+
+
+def _items(year: int, item_path: Path, kept_ids: set) -> None:
     log(f"streaming items {year} (keep items of kept tests)")
-    n_lines = n_kept = 0
+    n_lines = n_kept = n_bad = 0
     leftover = b""
     with open(item_path, "wb") as fout:
         header_done = False
@@ -102,12 +127,17 @@ def main(year: int = 2023, one_in: int = 40) -> None:
                     header_done = True
                     continue
                 n_lines += 1
-                if int(line[: line.index(b"|")]) in kept_ids:
+                try:
+                    tid = int(line[: line.index(b"|")])
+                except ValueError:          # a few bytes of the stream were lost at a block boundary: skip the damaged line
+                    n_bad += 1
+                    continue
+                if tid in kept_ids:
                     fout.write(line + b"\n")
                     n_kept += 1
             if n_lines and (n_lines // 2_000_000) != ((n_lines - len(lines)) // 2_000_000):
                 log(f"  items: {n_lines:,} lines read, {n_kept:,} kept")
-    log(f"items done: {n_lines:,} lines, {n_kept:,} kept -> {item_path}")
+    log(f"items done: {n_lines:,} lines, {n_kept:,} kept, {n_bad:,} damaged lines skipped -> {item_path}")
 
 
 if __name__ == "__main__":
