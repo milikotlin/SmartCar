@@ -134,3 +134,53 @@ def load_both(cache: bool = True):
     if cache:
         pd.to_pickle(out, p)
     return out
+
+
+def load_uk_veh(year: int):
+    """Vehicle-level UK sample (mot_vehicle_sample.py): all car tests of a 1-in-41 subset of vehicles. Returns (table, clean_until).
+
+    The defect-items stream is only trustworthy for the first part of the year (decoder limit, see notebook 04), and the sampler also stopped
+    reading it early. `clean_until` is the last week in which at least half of the usual share of tests has any item row; tests after it are dropped.
+    """
+    res = pd.read_csv(INTERIM_DIR / f"uk_mot_{year}_veh_results.csv", sep="|", low_memory=False, on_bad_lines="skip", dtype=str)
+    res = res[res.test_id.str.fullmatch(r"\d+") & res.vehicle_id.str.fullmatch(r"\d+")].copy()
+    res["test_id"] = res.test_id.astype("int64")                 # vehicle_id can exceed int64: keep it as a string, check the sampling rule with Python ints
+    res = res[res.vehicle_id.map(lambda v: int(v) % 41 == 0) & (res.test_class_id == "4") & (res.test_type == "NT")].drop_duplicates("test_id")
+    for c in ["test_mileage", "cylinder_capacity"]:
+        res[c] = pd.to_numeric(res[c], errors="coerce")
+    items = pd.read_csv(INTERIM_DIR / f"uk_mot_{year}_veh_items.csv", sep="|", low_memory=False, on_bad_lines="skip", dtype=str)
+    items["test_id"] = pd.to_numeric(items.test_id, errors="coerce"); items["rfr_id"] = pd.to_numeric(items.rfr_id, errors="coerce")   # damaged lines may hold huge numbers
+    items = items[items.test_id.isin(set(res.test_id)) & items.rfr_id.notna()].copy()
+    items["test_id"] = items.test_id.astype("int64"); items["rfr_id"] = items.rfr_id.astype("int64")
+    # where do the items stop being trustworthy? share of tests per week that have at least one item row
+    res["date"] = pd.to_datetime(res.test_date, errors="coerce")
+    res["has_item"] = res.test_id.isin(set(items.test_id))
+    wk = res.groupby(res.date.dt.to_period("W")).has_item.agg(["mean", "size"])
+    wk = wk[wk["size"] >= 200]
+    ref = wk["mean"].iloc[:8].median()
+    good = wk[wk["mean"] >= 0.5 * ref]
+    clean_until = good.index.max().end_time.normalize() if len(good) else pd.Timestamp(f"{year}-01-01")
+    # the first break (not the last good week) is what matters: stop at the first week that falls below the threshold
+    bad = wk[wk["mean"] < 0.5 * ref]
+    if len(bad):
+        clean_until = min(clean_until, bad.index.min().start_time)
+    det = pd.read_csv(RAW_DIR / "uk_mot_lookup" / "dft_item_detail_extract.csv")
+    rfr2sec = det[det.test_class_id == 4].drop_duplicates("rfr_id").set_index("rfr_id").test_item_set_section_id
+    items["section"] = items.rfr_id.map(rfr2sec)
+    SYSTEM = {5430: "brakes", 20003: "brakes", 5000: "electrical", 20158: "electrical", 5730: "engine_emissions", 20385: "engine_emissions"}
+    items["system"] = items.section.map(SYSTEM).fillna("other")
+    defects = items[items.rfr_type_code.isin(["F", "P"])]
+    d = res[res.date < clean_until].copy()
+    d["first"] = pd.to_datetime(d.first_use_date, errors="coerce")
+    d["age_year"] = d.date.dt.year - d["first"].dt.year
+    d["age"] = (d.date - d["first"]).dt.days / 365.25
+    d = d[d.test_mileage.between(1, 600_000) & d.age.between(0, 30)]
+    FUEL = {"PE": "petrol", "DI": "diesel", "HY": "hybrid", "EL": "electric", "LP": "lpg_cng", "CN": "lpg_cng", "GB": "lpg_cng", "GA": "lpg_cng"}
+    d["fuel"] = d.fuel_type.map(FUEL).fillna("other"); d = d[d.fuel != "other"]
+    d["make"] = d.make.str.title(); d["model"] = d.make + " " + d.model.astype(str).str.title()
+    d["km"] = d.test_mileage * 1.609344; d["cc"] = d.cylinder_capacity
+    for s in ["brakes", "electrical", "engine_emissions"]:
+        d[s] = d.test_id.isin(set(defects[defects.system == s].test_id)).astype(int)
+    d["any_defect"] = d.test_id.isin(set(defects.test_id)).astype(int)
+    d["unit"] = d.vehicle_id; d["country"] = "UK"
+    return d[["country", "unit", "date", "age_year", "age", "fuel", "make", "model", "cc", "km", "brakes", "electrical", "engine_emissions", "any_defect"]].reset_index(drop=True), clean_until
