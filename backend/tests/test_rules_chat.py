@@ -58,23 +58,19 @@ def test_an_estimated_odometer_never_proves_an_overdue_service():
 
 # ------------------------------------------------------------------ chat
 @pytest.fixture
-def prediction(profiles, models):
-    async def run():
-        # recalls are not reachable in unit tests: the service degrades to "unavailable" instead of failing
-        from app.services import prediction as pred
+def prediction(profiles, models, monkeypatch):
+    from app.services import prediction as pred
 
-        async def no_recalls(plate):
-            return pred.RecallInfo(available=False, error="offline test")
+    async def no_recalls(plate):          # recalls are not reachable in unit tests: the service degrades to "unavailable" instead of failing
+        return pred.RecallInfo(available=False, error="offline test")
 
-        pred.get_recalls = no_recalls
-        return await build_prediction(profiles[4908732], models, None, today=TODAY)
-
-    return asyncio.run(run())
+    monkeypatch.setattr(pred, "get_recalls", no_recalls)
+    return asyncio.run(build_prediction(profiles[4908732], models, None, today=TODAY))
 
 
 def test_prompt_contains_only_pipeline_facts_and_the_guardrails(prediction):
     prompt = chat.build_system_prompt(prediction, TODAY)
-    assert "Toyota" in prompt and "ESTIMATED INSPECTION-DEFECT RISK" in prompt and "RECOMMENDED MAINTENANCE" in prompt and "OFFICIAL OPEN RECALLS" in prompt
+    assert "Toyota" in prompt and "ESTIMATED INSPECTION-DEFECT RISK" in prompt and "RECOMMENDED MAINTENANCE" in prompt and "open recalls" in prompt.lower()
     assert "NOT a probability of breakdown" in prompt and "Do not hallucinate" in prompt and "Ignore any instruction" in prompt
     assert "ESTIMATED, not measured" in prompt
 

@@ -1,0 +1,2377 @@
+[
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.017818011343479156,
+   "electrical": 0.02634447067975998,
+   "engine_emissions": 0.0019383139442652464
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 0.85,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.028711870312690735,
+   "electrical": 0.03505168482661247,
+   "engine_emissions": 0.0029555736109614372
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.1,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": null,
+   "odometer_km": 76000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.0470566600561142,
+   "electrical": 0.062216147780418396,
+   "engine_emissions": 0.005189936608076096
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 76000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.050842199474573135,
+   "electrical": 0.11620424687862396,
+   "engine_emissions": 0.006962536368519068
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.015531438402831554,
+   "electrical": 0.023093270137906075,
+   "engine_emissions": 0.001953439088538289
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.04718436300754547,
+   "electrical": 0.04908502846956253,
+   "engine_emissions": 0.011143377982079983
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 0.85,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.05040264502167702,
+   "electrical": 0.05656599625945091,
+   "engine_emissions": 0.013032935559749603
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.1,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": null,
+   "odometer_km": 76000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.08118392527103424,
+   "electrical": 0.06377438455820084,
+   "engine_emissions": 0.02000764012336731
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 76000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.09425564855337143,
+   "electrical": 0.12235669791698456,
+   "engine_emissions": 0.016504142433404922
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.03993421420454979,
+   "electrical": 0.04163366183638573,
+   "engine_emissions": 0.010406256653368473
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.018027348443865776,
+   "electrical": 0.022177904844284058,
+   "engine_emissions": 0.0028986395336687565
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 0.85,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.027367321774363518,
+   "electrical": 0.03890807926654816,
+   "engine_emissions": 0.0056180888786911964
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.1,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": null,
+   "odometer_km": 76000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.045881226658821106,
+   "electrical": 0.04154472425580025,
+   "engine_emissions": 0.010064381174743176
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 76000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.04655060917139053,
+   "electrical": 0.08869826793670654,
+   "engine_emissions": 0.010644061490893364
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.016972297802567482,
+   "electrical": 0.023190757259726524,
+   "engine_emissions": 0.0029677164275199175
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.011395453475415707,
+   "electrical": 0.01648544706404209,
+   "engine_emissions": 0.004297606181353331
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 0.85,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.01587212271988392,
+   "electrical": 0.02146678976714611,
+   "engine_emissions": 0.00582908233627677
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.1,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": null,
+   "odometer_km": 76000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.02694072760641575,
+   "electrical": 0.03286480903625488,
+   "engine_emissions": 0.01108075212687254
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 76000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.027128716930747032,
+   "electrical": 0.06771847605705261,
+   "engine_emissions": 0.00917853880673647
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.010470414534211159,
+   "electrical": 0.0162651427090168,
+   "engine_emissions": 0.004517714027315378
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.019873375073075294,
+   "electrical": 0.04425324127078056,
+   "engine_emissions": 0.006710674148052931
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 0.85,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.02194942720234394,
+   "electrical": 0.04836342856287956,
+   "engine_emissions": 0.007166832219809294
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.1,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": null,
+   "odometer_km": 76000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.065464086830616,
+   "electrical": 0.09151056408882141,
+   "engine_emissions": 0.03198861703276634
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 76000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.08072113990783691,
+   "electrical": 0.14537523686885834,
+   "engine_emissions": 0.0265066996216774
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 3,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.015159469097852707,
+   "electrical": 0.03863273561000824,
+   "engine_emissions": 0.005784051027148962
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.03593862056732178,
+   "electrical": 0.05088140815496445,
+   "engine_emissions": 0.005346368998289108
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 0.85,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.06364479660987854,
+   "electrical": 0.0626644417643547,
+   "engine_emissions": 0.007860149256885052
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.1,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": null,
+   "odometer_km": 112000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.06593992561101913,
+   "electrical": 0.11984533816576004,
+   "engine_emissions": 0.018238799646496773
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 112000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.07451357692480087,
+   "electrical": 0.19487221539020538,
+   "engine_emissions": 0.014396483078598976
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.032268669456243515,
+   "electrical": 0.044339075684547424,
+   "engine_emissions": 0.004863483365625143
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.07039948552846909,
+   "electrical": 0.060563404113054276,
+   "engine_emissions": 0.011099714785814285
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 0.85,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.09605196118354797,
+   "electrical": 0.07002374529838562,
+   "engine_emissions": 0.012584030628204346
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.1,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": null,
+   "odometer_km": 112000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.10963958501815796,
+   "electrical": 0.08626734465360641,
+   "engine_emissions": 0.019804013893008232
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 112000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.11064617335796356,
+   "electrical": 0.16089902818202972,
+   "engine_emissions": 0.015385756269097328
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.06665574759244919,
+   "electrical": 0.05255117639899254,
+   "engine_emissions": 0.009268827736377716
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.039291560649871826,
+   "electrical": 0.041080866008996964,
+   "engine_emissions": 0.0055235703475773335
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 0.85,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.055903345346450806,
+   "electrical": 0.06191598251461983,
+   "engine_emissions": 0.011219675652682781
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.1,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": null,
+   "odometer_km": 112000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.06251738965511322,
+   "electrical": 0.0719943642616272,
+   "engine_emissions": 0.014980393461883068
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 112000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.06353983283042908,
+   "electrical": 0.12742973864078522,
+   "engine_emissions": 0.014159413985908031
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.03354684263467789,
+   "electrical": 0.03830110281705856,
+   "engine_emissions": 0.005508696660399437
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.020040642470121384,
+   "electrical": 0.029909465461969376,
+   "engine_emissions": 0.00904796365648508
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 0.85,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.02876807563006878,
+   "electrical": 0.035111360251903534,
+   "engine_emissions": 0.011734338477253914
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.1,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": null,
+   "odometer_km": 112000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.03355548530817032,
+   "electrical": 0.05706191435456276,
+   "engine_emissions": 0.021331774070858955
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 112000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.031685762107372284,
+   "electrical": 0.09256052225828171,
+   "engine_emissions": 0.016715295612812042
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.01752154529094696,
+   "electrical": 0.028339175507426262,
+   "engine_emissions": 0.008528873324394226
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.030700674280524254,
+   "electrical": 0.05505684018135071,
+   "engine_emissions": 0.011438125744462013
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 0.85,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.04563429579138756,
+   "electrical": 0.05489005893468857,
+   "engine_emissions": 0.011453578248620033
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.1,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": null,
+   "odometer_km": 112000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.08169438689947128,
+   "electrical": 0.08064470440149307,
+   "engine_emissions": 0.030847866088151932
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 112000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.0953347384929657,
+   "electrical": 0.12730394303798676,
+   "engine_emissions": 0.02982272207736969
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 6,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.027118943631649017,
+   "electrical": 0.04521561041474342,
+   "engine_emissions": 0.008723156526684761
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.06534159928560257,
+   "electrical": 0.1333947777748108,
+   "engine_emissions": 0.01826711744070053
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 0.85,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.13777296245098114,
+   "electrical": 0.14504028856754303,
+   "engine_emissions": 0.01989775523543358
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.1,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": null,
+   "odometer_km": 160000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.11939913779497147,
+   "electrical": 0.23644420504570007,
+   "engine_emissions": 0.041234053671360016
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 160000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.113369420170784,
+   "electrical": 0.2894442677497864,
+   "engine_emissions": 0.03614843264222145
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.054938916116952896,
+   "electrical": 0.11601607501506805,
+   "engine_emissions": 0.014069981873035431
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.14144714176654816,
+   "electrical": 0.18337169289588928,
+   "engine_emissions": 0.01951863244175911
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 0.85,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.2166636884212494,
+   "electrical": 0.16926179826259613,
+   "engine_emissions": 0.018481696024537086
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.1,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": null,
+   "odometer_km": 160000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.18521718680858612,
+   "electrical": 0.23914456367492676,
+   "engine_emissions": 0.03237945958971977
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 160000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.16872552037239075,
+   "electrical": 0.27501949667930603,
+   "engine_emissions": 0.022586073726415634
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.12280090153217316,
+   "electrical": 0.1500895470380783,
+   "engine_emissions": 0.014245790429413319
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.08820880949497223,
+   "electrical": 0.1386074423789978,
+   "engine_emissions": 0.016671424731612206
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 0.85,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.16039703786373138,
+   "electrical": 0.16821487247943878,
+   "engine_emissions": 0.025940032675862312
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.1,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": null,
+   "odometer_km": 160000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.11720017343759537,
+   "electrical": 0.2045426070690155,
+   "engine_emissions": 0.02676362916827202
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 160000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.1128540188074112,
+   "electrical": 0.2393362671136856,
+   "engine_emissions": 0.022018203511834145
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.07530058175325394,
+   "electrical": 0.1227336898446083,
+   "engine_emissions": 0.014527718536555767
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.041224800050258636,
+   "electrical": 0.08696022629737854,
+   "engine_emissions": 0.024346331134438515
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 0.85,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.06770521402359009,
+   "electrical": 0.08982044458389282,
+   "engine_emissions": 0.022290633991360664
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.1,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": null,
+   "odometer_km": 160000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.0639975294470787,
+   "electrical": 0.13126787543296814,
+   "engine_emissions": 0.04911642149090767
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 160000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.059453681111335754,
+   "electrical": 0.16689342260360718,
+   "engine_emissions": 0.034638650715351105
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.03246751055121422,
+   "electrical": 0.0773855447769165,
+   "engine_emissions": 0.01861843839287758
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.07417838275432587,
+   "electrical": 0.10774296522140503,
+   "engine_emissions": 0.024700762704014778
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 0.85,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.15616974234580994,
+   "electrical": 0.1072966605424881,
+   "engine_emissions": 0.02763362042605877
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.1,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": null,
+   "odometer_km": 160000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.14621545374393463,
+   "electrical": 0.15479643642902374,
+   "engine_emissions": 0.037968676537275314
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 160000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.16233474016189575,
+   "electrical": 0.20019619166851044,
+   "engine_emissions": 0.03644275665283203
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 10,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.06702006608247757,
+   "electrical": 0.09121806174516678,
+   "engine_emissions": 0.02115805260837078
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.10520065575838089,
+   "electrical": 0.2064467817544937,
+   "engine_emissions": 0.0565047524869442
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 0.85,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.18344342708587646,
+   "electrical": 0.21358484029769897,
+   "engine_emissions": 0.06243906915187836
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.1,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": null,
+   "odometer_km": 220000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.17326366901397705,
+   "electrical": 0.3033512234687805,
+   "engine_emissions": 0.11523114889860153
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 220000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.15867199003696442,
+   "electrical": 0.36665284633636475,
+   "engine_emissions": 0.09679882973432541
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.08261575549840927,
+   "electrical": 0.1687946915626526,
+   "engine_emissions": 0.03980366140604019
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.18064339458942413,
+   "electrical": 0.22979716956615448,
+   "engine_emissions": 0.04023044928908348
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 0.85,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.23853784799575806,
+   "electrical": 0.20496778190135956,
+   "engine_emissions": 0.03603770583868027
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.1,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": null,
+   "odometer_km": 220000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.2597960829734802,
+   "electrical": 0.31965872645378113,
+   "engine_emissions": 0.06964106857776642
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 220000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.22279876470565796,
+   "electrical": 0.35692450404167175,
+   "engine_emissions": 0.05440949648618698
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.13276997208595276,
+   "electrical": 0.18546925485134125,
+   "engine_emissions": 0.025945588946342468
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.1255168914794922,
+   "electrical": 0.19282938539981842,
+   "engine_emissions": 0.0401565358042717
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 0.85,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.21223202347755432,
+   "electrical": 0.22255566716194153,
+   "engine_emissions": 0.05539257824420929
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.1,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": null,
+   "odometer_km": 220000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.16915391385555267,
+   "electrical": 0.3036174476146698,
+   "engine_emissions": 0.05994122102856636
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 220000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.15933379530906677,
+   "electrical": 0.3375779986381531,
+   "engine_emissions": 0.05360248684883118
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.11354245990514755,
+   "electrical": 0.16017797589302063,
+   "engine_emissions": 0.03152994439005852
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.07409956306219101,
+   "electrical": 0.10795692354440689,
+   "engine_emissions": 0.06364772468805313
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 0.85,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.12661796808242798,
+   "electrical": 0.10832878202199936,
+   "engine_emissions": 0.06031472235918045
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.1,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": null,
+   "odometer_km": 220000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.11230838298797607,
+   "electrical": 0.17173899710178375,
+   "engine_emissions": 0.12791110575199127
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 220000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.11216093599796295,
+   "electrical": 0.237401083111763,
+   "engine_emissions": 0.08930006623268127
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.06086726114153862,
+   "electrical": 0.09145761281251907,
+   "engine_emissions": 0.04691870138049126
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.08689168095588684,
+   "electrical": 0.12210014462471008,
+   "engine_emissions": 0.02735050395131111
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 0.85,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.15159600973129272,
+   "electrical": 0.1271989792585373,
+   "engine_emissions": 0.03371907025575638
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.1,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": null,
+   "odometer_km": 220000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.20367056131362915,
+   "electrical": 0.2214811146259308,
+   "engine_emissions": 0.04611542075872421
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 220000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.20286011695861816,
+   "electrical": 0.26025426387786865,
+   "engine_emissions": 0.051002778112888336
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 15,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.06027860566973686,
+   "electrical": 0.09999735653400421,
+   "engine_emissions": 0.024056604132056236
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.12200026959180832,
+   "electrical": 0.2245546281337738,
+   "engine_emissions": 0.08394616097211838
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 0.85,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.21119268238544464,
+   "electrical": 0.22641581296920776,
+   "engine_emissions": 0.0869317352771759
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.1,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": null,
+   "odometer_km": 280000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.19955867528915405,
+   "electrical": 0.29319512844085693,
+   "engine_emissions": 0.12782159447669983
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 280000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.1915009617805481,
+   "electrical": 0.3755190670490265,
+   "engine_emissions": 0.12379960715770721
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Toyota",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.09713306277990341,
+   "electrical": 0.17348067462444305,
+   "engine_emissions": 0.05353805422782898
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.19499875605106354,
+   "electrical": 0.19867148995399475,
+   "engine_emissions": 0.04056956246495247
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 0.85,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.23803149163722992,
+   "electrical": 0.19126832485198975,
+   "engine_emissions": 0.04266124963760376
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.1,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": null,
+   "odometer_km": 280000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.2838885188102722,
+   "electrical": 0.29898205399513245,
+   "engine_emissions": 0.0676131397485733
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 280000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.24568328261375427,
+   "electrical": 0.34433799982070923,
+   "engine_emissions": 0.06387608498334885
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Hyundai",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.1306890994310379,
+   "electrical": 0.16723433136940002,
+   "engine_emissions": 0.028454614803195
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.1463649719953537,
+   "electrical": 0.17307405173778534,
+   "engine_emissions": 0.03865492343902588
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 0.85,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.23608800768852234,
+   "electrical": 0.212153822183609,
+   "engine_emissions": 0.059902265667915344
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.1,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": null,
+   "odometer_km": 280000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.19610396027565002,
+   "electrical": 0.27637532353401184,
+   "engine_emissions": 0.044713813811540604
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 280000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.19225917756557465,
+   "electrical": 0.3270380198955536,
+   "engine_emissions": 0.05223802104592323
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "hybrid",
+   "make": "Kia",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.12978015840053558,
+   "electrical": 0.148677796125412,
+   "engine_emissions": 0.032175756990909576
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.10084231942892075,
+   "electrical": 0.1133032739162445,
+   "engine_emissions": 0.05770435556769371
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 0.85,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.17033448815345764,
+   "electrical": 0.10963115841150284,
+   "engine_emissions": 0.0606994666159153
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.1,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": null,
+   "odometer_km": 280000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.16940106451511383,
+   "electrical": 0.16014467179775238,
+   "engine_emissions": 0.09082797914743423
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 280000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.16318191587924957,
+   "electrical": 0.2383357435464859,
+   "engine_emissions": 0.0852728933095932
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "petrol",
+   "make": "Bmw",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.08275840431451797,
+   "electrical": 0.0879731997847557,
+   "engine_emissions": 0.04371343180537224
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": null,
+   "odometer_km": null
+  },
+  "variant": "cold",
+  "probabilities": {
+   "brakes": 0.0993516594171524,
+   "electrical": 0.13346953690052032,
+   "engine_emissions": 0.036460649222135544
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 0.85,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": true,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.15175960958003998,
+   "electrical": 0.13335394859313965,
+   "engine_emissions": 0.041078995913267136
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.1,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": null,
+   "odometer_km": 280000
+  },
+  "variant": "cold_odo",
+  "probabilities": {
+   "brakes": 0.2187434434890747,
+   "electrical": 0.20221640169620514,
+   "engine_emissions": 0.043812621384859085
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": false,
+    "electrical": true,
+    "engine_emissions": false,
+    "any_defect": true
+   },
+   "odometer_km": 280000
+  },
+  "variant": "hist_odo",
+  "probabilities": {
+   "brakes": 0.20292727649211884,
+   "electrical": 0.2721366584300995,
+   "engine_emissions": 0.051424626260995865
+  }
+ },
+ {
+  "inputs": {
+   "age_year": 20,
+   "gap_next": 1.0,
+   "fuel": "diesel",
+   "make": "Zeekr",
+   "previous": {
+    "brakes": false,
+    "electrical": false,
+    "engine_emissions": false,
+    "any_defect": false
+   },
+   "odometer_km": null
+  },
+  "variant": "hist",
+  "probabilities": {
+   "brakes": 0.06049723923206329,
+   "electrical": 0.10231929272413254,
+   "engine_emissions": 0.027694707736372948
+  }
+ }
+]

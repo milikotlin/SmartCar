@@ -1,0 +1,1794 @@
+[
+ {
+  "plate": "62886204",
+  "make": "Kia",
+  "year": 2026,
+  "fuel": "petrol",
+  "ownership": "ליסינג",
+  "status": 200,
+  "make_en": "Kia",
+  "est_km": 9100,
+  "range": [
+   0,
+   28300
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "6096279",
+  "make": "Kia",
+  "year": 2012,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Kia",
+  "est_km": 196800,
+  "range": [
+   90600,
+   314900
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "69307303",
+  "make": "Mazda",
+  "year": 2024,
+  "fuel": "petrol",
+  "ownership": "השכרה",
+  "status": 200,
+  "make_en": "Mazda",
+  "est_km": 62900,
+  "range": [
+   22500,
+   121800
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "56320903",
+  "make": "Toyota",
+  "year": 2023,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Toyota",
+  "est_km": 52900,
+  "range": [
+   21900,
+   90500
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "38896104",
+  "make": "Renault",
+  "year": 2025,
+  "fuel": "petrol",
+  "ownership": "השכרה",
+  "status": 200,
+  "make_en": "Renault",
+  "est_km": 28900,
+  "range": [
+   4900,
+   62400
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "30139602",
+  "make": "Chevrolet",
+  "year": 2021,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Chevrolet",
+  "est_km": 84300,
+  "range": [
+   36400,
+   133800
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "51840301",
+  "make": "Hyundai",
+  "year": 2018,
+  "fuel": "petrol",
+  "ownership": "סוחר",
+  "status": 200,
+  "make_en": "Hyundai",
+  "est_km": 122100,
+  "range": [
+   57400,
+   198600
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "7226616",
+  "make": "Mazda",
+  "year": 2005,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Mazda",
+  "est_km": 274400,
+  "range": [
+   123100,
+   365700
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "70985703",
+  "make": "Hyundai",
+  "year": 2024,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Hyundai",
+  "est_km": 38000,
+  "range": [
+   13600,
+   73400
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "1286163",
+  "make": "Honda",
+  "year": 2007,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Honda",
+  "est_km": 255300,
+  "range": [
+   112000,
+   342500
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "higher"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "15742903",
+  "make": "Mitsubishi",
+  "year": 2022,
+  "fuel": "petrol",
+  "ownership": "חברה",
+  "status": 200,
+  "make_en": "Mitsubishi",
+  "est_km": 106600,
+  "range": [
+   46000,
+   177500
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "80561701",
+  "make": "Toyota",
+  "year": 2019,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Toyota",
+  "est_km": 121300,
+  "range": [
+   57700,
+   187000
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "5031361",
+  "make": "Mazda",
+  "year": 2007,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Mazda",
+  "est_km": 255300,
+  "range": [
+   112000,
+   342500
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "lower",
+   "electrical": "lower",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "12710401",
+  "make": "Kia",
+  "year": 2017,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Kia",
+  "est_km": 136600,
+  "range": [
+   63000,
+   220700
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "15679802",
+  "make": "Nissan",
+  "year": 2020,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Nissan",
+  "est_km": 97800,
+  "range": [
+   44900,
+   152200
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "64201302",
+  "make": "Seat",
+  "year": 2022,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Seat",
+  "est_km": 67300,
+  "range": [
+   29000,
+   112000
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "2624130",
+  "make": "Mazda",
+  "year": 2016,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Mazda",
+  "est_km": 151900,
+  "range": [
+   66300,
+   252000
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "lower",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "65750804",
+  "make": "Jaecoo",
+  "year": 2026,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Jaecoo",
+  "est_km": 5300,
+  "range": [
+   0,
+   16600
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "4105511",
+  "make": "Hyundai",
+  "year": 2013,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Hyundai",
+  "est_km": 185000,
+  "range": [
+   86700,
+   295300
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "80675402",
+  "make": "Chevrolet",
+  "year": 2023,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Chevrolet",
+  "est_km": 52900,
+  "range": [
+   21900,
+   90500
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "41908101",
+  "make": "Kia",
+  "year": 2018,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Kia",
+  "est_km": 122100,
+  "range": [
+   57400,
+   198600
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "6420278",
+  "make": "Hyundai",
+  "year": 2011,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Hyundai",
+  "est_km": 208500,
+  "range": [
+   90700,
+   326500
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "8901676",
+  "make": "Skoda",
+  "year": 2012,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Skoda",
+  "est_km": 196800,
+  "range": [
+   90600,
+   314900
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "4543537",
+  "make": "Hyundai",
+  "year": 2016,
+  "fuel": "petrol",
+  "ownership": "סוחר",
+  "status": 200,
+  "make_en": "Hyundai",
+  "est_km": 151900,
+  "range": [
+   66300,
+   252000
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "73004302",
+  "make": "Honda",
+  "year": 2023,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Honda",
+  "est_km": 52900,
+  "range": [
+   21900,
+   90500
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "8735266",
+  "make": "Toyota",
+  "year": 2009,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Toyota",
+  "est_km": 231900,
+  "range": [
+   104900,
+   346700
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "8735956",
+  "make": "Mazda",
+  "year": 2005,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Mazda",
+  "est_km": 274400,
+  "range": [
+   123100,
+   365700
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "9144466",
+  "make": "Toyota",
+  "year": 2009,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Toyota",
+  "est_km": 231900,
+  "range": [
+   104900,
+   346700
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "1792268",
+  "make": "Peugeot",
+  "year": 2008,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Peugeot",
+  "est_km": 243600,
+  "range": [
+   98500,
+   333100
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "higher"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "7556912",
+  "make": "Citroen",
+  "year": 2013,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Citroen",
+  "est_km": 185000,
+  "range": [
+   86700,
+   295300
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "higher",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "3083154",
+  "make": "Renault",
+  "year": 2014,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Renault",
+  "est_km": 174000,
+  "range": [
+   83100,
+   286800
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "higher",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "85063002",
+  "make": "Mazda",
+  "year": 2022,
+  "fuel": "petrol",
+  "ownership": "השכרה",
+  "status": 200,
+  "make_en": "Mazda",
+  "est_km": 111600,
+  "range": [
+   48100,
+   185700
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "lower",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "15966803",
+  "make": "Mitsubishi",
+  "year": 2022,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Mitsubishi",
+  "est_km": 67300,
+  "range": [
+   29000,
+   112000
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "3948367",
+  "make": "Skoda",
+  "year": 2009,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Skoda",
+  "est_km": 231900,
+  "range": [
+   104900,
+   346700
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "higher"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "3849376",
+  "make": "Hyundai",
+  "year": 2011,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Hyundai",
+  "est_km": 208500,
+  "range": [
+   90700,
+   326500
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "89417401",
+  "make": "Toyota",
+  "year": 2019,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Toyota",
+  "est_km": 121300,
+  "range": [
+   57700,
+   187000
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "82924101",
+  "make": "Renault",
+  "year": 2019,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Renault",
+  "est_km": 121300,
+  "range": [
+   57700,
+   187000
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "29561304",
+  "make": "Kia",
+  "year": 2025,
+  "fuel": "petrol",
+  "ownership": "השכרה",
+  "status": 200,
+  "make_en": "Kia",
+  "est_km": 28900,
+  "range": [
+   4900,
+   62400
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "1169762",
+  "make": "Toyota",
+  "year": 2007,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Toyota",
+  "est_km": 255300,
+  "range": [
+   112000,
+   342500
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 1
+ },
+ {
+  "plate": "19284601",
+  "make": "Nissan",
+  "year": 2017,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Nissan",
+  "est_km": 136600,
+  "range": [
+   63000,
+   220700
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "higher"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "56306302",
+  "make": "Hyundai",
+  "year": 2021,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Hyundai",
+  "est_km": 84300,
+  "range": [
+   36400,
+   133800
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "35764704",
+  "make": "Hyundai",
+  "year": 2025,
+  "fuel": "petrol",
+  "ownership": "השכרה",
+  "status": 200,
+  "make_en": "Hyundai",
+  "est_km": 28900,
+  "range": [
+   4900,
+   62400
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "9647012",
+  "make": "Suzuki",
+  "year": 2013,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Suzuki",
+  "est_km": 185000,
+  "range": [
+   86700,
+   295300
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "8822452",
+  "make": "Skoda",
+  "year": 2013,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Skoda",
+  "est_km": 185000,
+  "range": [
+   86700,
+   295300
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "6588255",
+  "make": "Hyundai",
+  "year": 2017,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Hyundai",
+  "est_km": 136600,
+  "range": [
+   63000,
+   220700
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "67830401",
+  "make": "Renault",
+  "year": 2019,
+  "fuel": "diesel",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Renault",
+  "est_km": 159600,
+  "range": [
+   83000,
+   232700
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "40189303",
+  "make": "Dacia",
+  "year": 2023,
+  "fuel": "diesel",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Dacia",
+  "est_km": 74600,
+  "range": [
+   33800,
+   121300
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "higher",
+   "engine_emissions": "higher"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "2589884",
+  "make": "Renault",
+  "year": 2017,
+  "fuel": "diesel",
+  "ownership": "חברה",
+  "status": 200,
+  "make_en": "Renault",
+  "est_km": 311400,
+  "range": [
+   153100,
+   465100
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "higher",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "1078355",
+  "make": "Kia",
+  "year": 2017,
+  "fuel": "diesel",
+  "ownership": "חברה",
+  "status": 200,
+  "make_en": "Kia",
+  "est_km": 311400,
+  "range": [
+   153100,
+   465100
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "42061802",
+  "make": "Nissan",
+  "year": 2020,
+  "fuel": "diesel",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Nissan",
+  "est_km": 135400,
+  "range": [
+   70100,
+   201200
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "70796503",
+  "make": "Citroen",
+  "year": 2024,
+  "fuel": "diesel",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Citroen",
+  "est_km": 48700,
+  "range": [
+   17200,
+   89200
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "87247402",
+  "make": "Toyota",
+  "year": 2022,
+  "fuel": "diesel",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Toyota",
+  "est_km": 101800,
+  "range": [
+   46600,
+   165100
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "higher",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "42788304",
+  "make": "Toyota",
+  "year": 2025,
+  "fuel": "diesel",
+  "ownership": "ליסינג",
+  "status": 200,
+  "make_en": "Toyota",
+  "est_km": 31700,
+  "range": [
+   6000,
+   66200
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "86174301",
+  "make": "Nissan",
+  "year": 2020,
+  "fuel": "diesel",
+  "ownership": "חברה",
+  "status": 200,
+  "make_en": "Nissan",
+  "est_km": 214500,
+  "range": [
+   111100,
+   318800
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "41998602",
+  "make": "Dacia",
+  "year": 2021,
+  "fuel": "diesel",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Dacia",
+  "est_km": 125100,
+  "range": [
+   61200,
+   195900
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "higher",
+   "engine_emissions": "higher"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "18249301",
+  "make": "Renault",
+  "year": 2017,
+  "fuel": "diesel",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Renault",
+  "est_km": 196500,
+  "range": [
+   96600,
+   293500
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "higher",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "8821226",
+  "make": "Kia",
+  "year": 2016,
+  "fuel": "diesel",
+  "ownership": "חברה",
+  "status": 200,
+  "make_en": "Kia",
+  "est_km": 339800,
+  "range": [
+   152400,
+   528300
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "58611301",
+  "make": "Nissan",
+  "year": 2018,
+  "fuel": "diesel",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Nissan",
+  "est_km": 173300,
+  "range": [
+   88400,
+   263500
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "76789201",
+  "make": "Renault",
+  "year": 2019,
+  "fuel": "diesel",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Renault",
+  "est_km": 159600,
+  "range": [
+   83000,
+   232700
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "higher",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "66709002",
+  "make": "Nissan",
+  "year": 2021,
+  "fuel": "diesel",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Nissan",
+  "est_km": 125100,
+  "range": [
+   61200,
+   195900
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "higher",
+   "electrical": "typical",
+   "engine_emissions": "higher"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "27188903",
+  "make": "Kia",
+  "year": 2022,
+  "fuel": "hybrid",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Kia",
+  "est_km": 92900,
+  "range": [
+   36900,
+   154500
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "43983303",
+  "make": "Kia",
+  "year": 2023,
+  "fuel": "hybrid",
+  "ownership": "ליסינג",
+  "status": 200,
+  "make_en": "Kia",
+  "est_km": 112600,
+  "range": [
+   45300,
+   199400
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "typical",
+   "electrical": "typical",
+   "engine_emissions": "lower"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "62730001",
+  "make": "Audi",
+  "year": 2019,
+  "fuel": "hybrid",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Audi",
+  "est_km": 150500,
+  "range": [
+   73600,
+   199800
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "lower",
+   "electrical": "lower",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "75406804",
+  "make": "Geely",
+  "year": 2026,
+  "fuel": "hybrid",
+  "ownership": "ליסינג",
+  "status": 200,
+  "make_en": "Geely",
+  "est_km": 10000,
+  "range": [
+   300,
+   31700
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "87209104",
+  "make": "Omoda",
+  "year": 2026,
+  "fuel": "hybrid",
+  "ownership": "חברה",
+  "status": 200,
+  "make_en": "Omoda",
+  "est_km": 9200,
+  "range": [
+   300,
+   29400
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "20423504",
+  "make": "Volvo",
+  "year": 2025,
+  "fuel": "hybrid",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Volvo",
+  "est_km": 16500,
+  "range": [
+   4700,
+   35700
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "12346805",
+  "make": "Geely",
+  "year": 2026,
+  "fuel": "hybrid",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Geely",
+  "est_km": 5800,
+  "range": [
+   200,
+   18600
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "83348504",
+  "make": "Chery",
+  "year": 2026,
+  "fuel": "hybrid",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Chery",
+  "est_km": 5800,
+  "range": [
+   200,
+   18600
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "81785604",
+  "make": "Chery",
+  "year": 2026,
+  "fuel": "hybrid",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Chery",
+  "est_km": 5800,
+  "range": [
+   200,
+   18600
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "34512002",
+  "make": "Volvo",
+  "year": 2020,
+  "fuel": "hybrid",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Volvo",
+  "est_km": 116500,
+  "range": [
+   55300,
+   178900
+  ],
+  "covered": true,
+  "variant": "cold",
+  "bands": {
+   "brakes": "lower",
+   "electrical": "typical",
+   "engine_emissions": "typical"
+  },
+  "recalls": 0
+ },
+ {
+  "plate": "74874302",
+  "make": "Geely",
+  "year": 2021,
+  "fuel": "electric",
+  "ownership": "חברה",
+  "status": 200,
+  "make_en": "Geely",
+  "est_km": 133700,
+  "range": [
+   57700,
+   212100
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "77483203",
+  "make": "Tesla",
+  "year": 2024,
+  "fuel": "electric",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Tesla",
+  "est_km": 38000,
+  "range": [
+   13600,
+   73400
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "66501403",
+  "make": "Geely",
+  "year": 2024,
+  "fuel": "electric",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Geely",
+  "est_km": 38000,
+  "range": [
+   13600,
+   73400
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "74652704",
+  "make": "BMW",
+  "year": 2026,
+  "fuel": "electric",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "BMW",
+  "est_km": 5300,
+  "range": [
+   0,
+   16600
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "42947703",
+  "make": "Hyundai",
+  "year": 2023,
+  "fuel": "electric",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Hyundai",
+  "est_km": 52900,
+  "range": [
+   21900,
+   90500
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "51198004",
+  "make": "Jaecoo",
+  "year": 2026,
+  "fuel": "electric",
+  "ownership": "ליסינג",
+  "status": 200,
+  "make_en": "Jaecoo",
+  "est_km": 9100,
+  "range": [
+   0,
+   28300
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "1925839",
+  "make": "Subaru",
+  "year": 2016,
+  "fuel": "lpg_cng",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Subaru",
+  "est_km": 158000,
+  "range": [
+   76800,
+   230600
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "8207452",
+  "make": "Honda",
+  "year": 2014,
+  "fuel": "lpg_cng",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Honda",
+  "est_km": 178900,
+  "range": [
+   100800,
+   240600
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "71059104",
+  "make": "Unmapped",
+  "year": 2026,
+  "fuel": "electric",
+  "ownership": "סוחר",
+  "status": 200,
+  "make_en": "Lynk & Co",
+  "est_km": 5300,
+  "range": [
+   0,
+   16600
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "83776603",
+  "make": "Hyundai",
+  "year": 2025,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Hyundai",
+  "est_km": 17400,
+  "range": [
+   3000,
+   37600
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "86846604",
+  "make": "Jaecoo",
+  "year": 2026,
+  "fuel": "petrol",
+  "ownership": "ליסינג",
+  "status": 200,
+  "make_en": "Jaecoo",
+  "est_km": 9100,
+  "range": [
+   0,
+   28300
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "68906504",
+  "make": "Jaecoo",
+  "year": 2026,
+  "fuel": "petrol",
+  "ownership": "ליסינג",
+  "status": 200,
+  "make_en": "Jaecoo",
+  "est_km": 9100,
+  "range": [
+   0,
+   28300
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "62225104",
+  "make": "Chery",
+  "year": 2026,
+  "fuel": "hybrid",
+  "ownership": "חברה",
+  "status": 200,
+  "make_en": "Chery",
+  "est_km": 9200,
+  "range": [
+   300,
+   29400
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "3028235",
+  "make": "Peugeot",
+  "year": 2001,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Peugeot",
+  "est_km": 312500,
+  "range": [
+   133400,
+   412700
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "9082056",
+  "make": "Toyota",
+  "year": 2004,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Toyota",
+  "est_km": 283900,
+  "range": [
+   127900,
+   378400
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "7322251",
+  "make": "Mazda",
+  "year": 2003,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Mazda",
+  "est_km": 293500,
+  "range": [
+   127500,
+   387500
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "4306023",
+  "make": "Mazda",
+  "year": 2000,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Mazda",
+  "est_km": 322100,
+  "range": [
+   137500,
+   425300
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ },
+ {
+  "plate": "1058656",
+  "make": "Toyota",
+  "year": 2004,
+  "fuel": "petrol",
+  "ownership": "פרטי",
+  "status": 200,
+  "make_en": "Toyota",
+  "est_km": 283900,
+  "range": [
+   127900,
+   378400
+  ],
+  "covered": false,
+  "variant": null,
+  "bands": {},
+  "recalls": 0
+ }
+]

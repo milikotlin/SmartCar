@@ -29,13 +29,18 @@ def check(cond: bool, msg: str) -> None:
 
 
 def main() -> None:
-    rows, timings_cold, timings_warm = [], [], []
+    rows, timings_cold, timings_warm, retries = [], [], [], []
     with httpx.Client(timeout=90) as c:
         check(c.get(f"{API}/health").json() == {"status": "ok"}, "health")
         for v in PLATES:
             plate = v["plate"]
             t0 = time.perf_counter()
-            r = c.get(f"{API}/api/v1/predict/{plate}")
+            for attempt in range(4):                     # the public data.gov.il service is sometimes slow: the API answers 503, the test retries
+                r = c.get(f"{API}/api/v1/predict/{plate}")
+                if r.status_code != 503:
+                    break
+                retries.append(plate)
+                time.sleep(4)
             timings_cold.append(time.perf_counter() - t0)
             if r.status_code != 200:
                 check(False, f"{plate}: HTTP {r.status_code}")
@@ -64,7 +69,9 @@ def main() -> None:
             else:
                 check(bool(risk["reasons"]) and risk["systems"] == [], f"{plate}: not covered without a reason")
             check(rc["kind"] == "official_recall" and (rc["available"] is False or rc["count"] == len(rc["items"])), f"{plate}: recall block inconsistent")
-            check(len(mt["rules"]) >= 5 and all(x["status"] in ("ok", "due_soon", "overdue", "no_record", "no_record_overdue") for x in mt["rules"]), f"{plate}: maintenance block")
+            keys = {x["key"] for x in mt["rules"]}
+            check({"brakes", "brake_fluid", "tires", "filters"} <= keys and ("oil" not in keys or veh["fuel_type"] != "Electric"), f"{plate}: maintenance rules incomplete {sorted(keys)}")
+            check(all(x["status"] in ("ok", "due_soon", "overdue", "no_record", "no_record_overdue") for x in mt["rules"]), f"{plate}: maintenance statuses")
             check(not any(x["status"] == "no_record_overdue" for x in mt["rules"]), f"{plate}: an estimated odometer must never prove an overdue service")
             rows.append({**v, "status": 200, "make_en": veh["make"], "est_km": m["estimated_km"], "range": (m["estimated_low_km"], m["estimated_high_km"]), "covered": risk["covered"],
                          "variant": risk["variant"], "bands": {s["system"]: s["band"] for s in risk["systems"]}, "recalls": rc["count"] if rc["available"] else None})
@@ -88,6 +95,7 @@ def main() -> None:
              f"* Model 2 produced an estimate for {len(covered)} plates and declined {len(ok) - len(covered)} (electric, gas, or age outside 3-20 years, each with its reason)",
              f"* plates with at least one open recall: {sum(1 for r in ok if r['recalls'])}",
              f"* latency of `/api/v1/predict` (full request incl. live registry call): median {statistics.median(timings_cold):.2f} s cold, {statistics.median(timings_warm) * 1000:.0f} ms with the 24 h cache",
+             f"* registry outages absorbed by the API's own retry and answered as 503, then retried by the test: {len(retries)}",
              f"* chat endpoint answered from: `{chat_source}`", ""]
     if failures:
         lines += ["## Failures", ""] + [f"* {f}" for f in failures] + [""]

@@ -1,5 +1,7 @@
 from datetime import date
 
+import asyncio
+
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -7,7 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
 from app.ml.registry import get_models
 from app.services import chat
-from app.services.prediction import build_prediction
+from app.services.prediction import build_prediction, get_recalls
 from app.services.vehicle_lookup import get_vehicle_profile
 
 router = APIRouter(prefix="/api/v1/chat", tags=["chat"])
@@ -29,10 +31,12 @@ class ChatResponse(BaseModel):
 
 @router.post("", response_model=ChatResponse)
 async def diagnostic_chat(body: ChatRequest, session: AsyncSession = Depends(get_db)) -> ChatResponse:
+    recalls_task = asyncio.create_task(get_recalls(body.license_plate))
     profile = await get_vehicle_profile(body.license_plate)
     if profile is None:
+        recalls_task.cancel()
         raise HTTPException(status_code=404, detail="Vehicle not found in Ministry of Transport registry")
-    prediction = await build_prediction(profile, get_models(), session, odometer_km=body.odometer_km)
+    prediction = await build_prediction(profile, get_models(), session, odometer_km=body.odometer_km, recalls_info=await recalls_task)
     result = await chat.answer(prediction, body.message)
     return ChatResponse(
         answer=result["answer"],

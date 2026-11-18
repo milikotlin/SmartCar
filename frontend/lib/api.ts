@@ -17,6 +17,9 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   if (response.status === 422) {
     throw new InvalidPlateError("The data entered is not valid (check the plate and the numbers).");
   }
+  if (response.status === 503) {
+    throw new ApiError("The Ministry of Transport registry is temporarily unavailable. Please try again in a moment.");
+  }
   if (response.status === 409) {
     throw new ApiError("That record already exists.");
   }

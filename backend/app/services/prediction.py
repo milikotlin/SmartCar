@@ -128,6 +128,7 @@ async def build_prediction(
     session: AsyncSession | None,
     today: date | None = None,
     odometer_km: int | None = None,
+    recalls_info: RecallInfo | None = None,
 ) -> PredictionResponse:
     today = today or date.today()
     inspections, maintenance, vehicle, db_error = await load_history(session, profile.license_plate)
@@ -228,7 +229,7 @@ async def build_prediction(
         rules=[RuleStatus(**r) for r in rules],
     )
 
-    rec = await get_recalls(profile.license_plate)
+    rec = recalls_info if recalls_info is not None else await get_recalls(profile.license_plate)
     history = HistoryInfo(
         inspections=len(inspections),
         maintenance_records=len(maintenance),

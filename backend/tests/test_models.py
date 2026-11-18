@@ -123,3 +123,21 @@ def test_model2_card_records_foreign_validation_and_no_israeli_validation():
     assert any("not validated on Israeli" in x for x in card["limitations"])
     auc = [r["ROC-AUC"] for r in card["uk_test_metrics"]]
     assert all(0.6 < a < 0.85 for a in auc)         # modest, honest discrimination
+
+
+def test_two_stage_inference_stays_under_500_ms(models, profiles):
+    """SRS NFR: the two-stage pipeline (Stage 1 + Stage 2) must not exceed 500 ms."""
+    import statistics
+    import time
+
+    from app.services import features
+
+    prev = {"brakes": True, "electrical": False, "engine_emissions": False, "any_defect": True}
+    times = []
+    for profile in list(profiles.values()) * 4:
+        t0 = time.perf_counter()
+        est = models.mileage.estimate(features.fuel_key(profile), features.vehicle_age(profile), features.ownership_key(profile))
+        models.risk.predict(features.risk_inputs(profile, prev, est.km))
+        times.append(time.perf_counter() - t0)
+    print(f"two-stage inference: median {statistics.median(times) * 1000:.1f} ms, max {max(times) * 1000:.1f} ms over {len(times)} runs")
+    assert max(times) < 0.5

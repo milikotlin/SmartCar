@@ -16,7 +16,7 @@ out = ["# Model cards (generated from the exported artifacts)", "", "Generated b
 # ------------------------------------------------------------------ Model 1
 v = m1["held_out_validation_uncalibrated"]
 c = m1["calibration"]
-out += [f"## Model 1 - {m1['name']} (v{m1['version']}, trained {m1['trained_at']})", "",
+out += [f"## {m1['name']} (v{m1['version']}, trained {m1['trained_at']})", "",
         f"* **Algorithm:** {m1['algorithm']}.",
         f"* **Training data:** {m1['training_data']['rows']:,} cleaned used-car listings " + "(" + ", ".join(f"{k}: {n:,}" for k, n in m1["training_data"]["datasets"].items()) + f"); {m1['training_data']['units']}.",
         f"* **Held-out validation of the learned model (training markets, uncalibrated, {v['n_test']:,} vehicles):** R2 = {f(v['R2'])}, RMSE = {v['RMSE_km']:,.0f} km, MAE = {v['MAE_km']:,.0f} km; the raw 10-90% quantile range covers {v['raw_80pct_interval_coverage_heldout'] * 100:.1f}% of held-out vehicles (nominal 80%).",
@@ -33,10 +33,10 @@ for k, mm in c["marginals"].items():
 out += ["", "**Interval:** " + m1["interval"] + ".", "", "**Limitations**", ""] + [f"* {x}" for x in m1["limitations"]] + [""]
 
 # ------------------------------------------------------------------ Model 2
-out += [f"## Model 2 - {m2['name']} (v{m2['version']}, trained {m2['trained_at']})", "", f"* **Target:** {m2['target']}.",
+out += [f"## {m2['name']} (v{m2['version']}, trained {m2['trained_at']})", "", f"* **Target:** {m2['target']}.",
         f"* **Training data (primary):** {m2['training_data']['primary']}: {m2['training_data']['uk']['pairs']:,} pairs of {m2['training_data']['uk']['vehicles']:,} vehicles. **Validation:** {m2['training_data']['validation']} ({m2['training_data']['nl']['pairs']:,} pairs).",
         "* **Variants:** " + "; ".join(f"`{k}` = {', '.join(cols)}" for k, cols in m2["variants"].items()) + ".",
-        f"* **Not a feature:** {m2['training_data']['mileage_estimated_by_model1']}.",
+        f"* **Mileage estimated by Model 1 is not a feature:** {m2['training_data']['mileage_estimated_by_model1']}.",
         f"* **Coverage:** fuels {', '.join(m2['coverage']['fuels'])}; age at the last inspection {m2['coverage']['age_years_at_last_inspection'][0]}-{m2['coverage']['age_years_at_last_inspection'][1]} years; {m2['coverage']['makes']}.",
         f"* **Development split (UK):** train {m2['uk_development_split']['train']:,} / validation {m2['uk_development_split']['validation']:,} / test {m2['uk_development_split']['test']:,} pairs; test pairs are later in time and from vehicles never seen in training.", "",
         "### UK test set (unseen vehicles, later dates)", "", "| System | Variant | ROC-AUC | PR-AUC (prevalence) | Capture in top 20% | Precision | Recall | F1 | F1 if every vehicle is flagged | ECE |", "|---|---|---|---|---|---|---|---|---|---|"]

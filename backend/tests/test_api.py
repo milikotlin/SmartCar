@@ -147,3 +147,16 @@ async def test_chat_endpoint_answers_from_the_pipeline_facts(client):
     assert b["source"] == "deterministic_fallback" and "brake" in b["answer"].lower() and any("Toyota" in c for c in b["context"])
     assert (await client.post("/api/v1/chat", json={"license_plate": str(PLATE), "message": ""})).status_code == 422
     assert (await client.post("/api/v1/chat", json={"license_plate": str(PLATE), "message": "x" * 1001})).status_code == 422
+
+
+async def test_registry_outage_is_reported_as_503_not_a_crash(client, monkeypatch):
+    async def down(plate):
+        raise gov_api.RegistryUnavailableError("registry unavailable (ReadTimeout)")
+
+    monkeypatch.setattr(gov_api, "fetch_vehicle_record", down)
+    await _redis.delete("vehicle:55555555", "recalls:55555555")
+    for path in ("/api/v1/vehicles/55555555", "/api/v1/predict/55555555"):
+        r = await client.get(path)
+        assert r.status_code == 503 and "temporarily unavailable" in r.json()["detail"]
+    r = await client.post("/api/v1/chat", json={"license_plate": "55555555", "message": "hi"})
+    assert r.status_code == 503
