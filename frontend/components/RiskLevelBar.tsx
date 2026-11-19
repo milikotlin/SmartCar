@@ -27,10 +27,14 @@ interface Props {
 
 export function RiskLevelBar({ title, level, higherThan, cuts, sameAgeLabel, sameAgeYears }: Props) {
   const widths: Record<RiskLevel, number> = { low: cuts[0], moderate: cuts[1] - cuts[0], high: 100 - cuts[1] };
+  // "Engine-related (emissions, fuel, mounts)" -> heading "Engine-related" and a caption, so that the three cards have the same layout
+  const [name, ...rest] = title.split(" (");
+  const caption = rest.length ? rest.join(" (").replace(/\)$/, "") : "";
   return (
-    <div className="rounded-[10px] border border-line bg-paper px-4 py-4" data-testid={`risk-${title}`}>
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h3 className="text-[14px] font-semibold text-ink">{title}</h3>
+    <div className="flex flex-col rounded-[10px] border border-line bg-paper px-4 py-4" data-testid={`risk-${title}`}>
+      <h3 className="text-[14px] font-semibold text-ink">{name}</h3>
+      <p className="min-h-[18px] text-[11.5px] text-ink-faint">{caption}</p>
+      <div className="mt-2">
         <StatusPill status={LEVEL_PILL[level]}>{LEVEL_NAME[level]} relative risk</StatusPill>
       </div>
 

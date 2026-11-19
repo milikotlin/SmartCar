@@ -25,8 +25,17 @@ SAME_AGE_WORDS = {"lower": "lower than most vehicles of the same age", "typical"
 RELATED_RULES = {"brakes": ("brakes", "brake_fluid"), "electrical": ("battery",), "engine_emissions": ("oil", "filters")}
 
 
+STATUS_WORDS = {
+    "ok": "up to date",
+    "due_soon": "due soon",
+    "overdue": "overdue",
+    "no_record": "has no record on file",
+    "no_record_overdue": "overdue (no such service on record although the measured mileage calls for it)",
+}
+
+
 def _status(text: str) -> str:
-    return text.replace("_", " ")
+    return STATUS_WORDS.get(text, text.replace("_", " "))
 
 
 def facts(prediction: PredictionResponse, today: date) -> list[str]:
@@ -97,7 +106,7 @@ def fallback_answer(prediction: PredictionResponse, message: str, today: date | 
             lines.append(f"- Official open recall in this area: {related[0].category} ({related[0].type}). Check it with the dealer.")
         for rule in prediction.maintenance.rules:
             if rule.key in RELATED_RULES[s] and rule.attention:
-                lines.append(f"- Maintenance rule: {rule.label} is {_status(rule.status)}.")
+                lines.append(f"- Maintenance rule: {rule.label}: {_status(rule.status)}.")
     if not hit:
         lines.append("I could not match your description to the brakes, electrical or engine-related systems.")
     lines.append("Data on file: " + " ".join(facts(prediction, today)[:2]))

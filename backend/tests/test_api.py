@@ -7,7 +7,7 @@ import pytest_asyncio
 from sqlalchemy import delete
 
 from app.config import settings
-from app.database import async_session
+from app.database import async_session, engine
 from app.main import app
 from app.models import Vehicle
 from app.redis_client import _redis
@@ -33,6 +33,8 @@ async def client(registry_rows):
 
     gov_api.fetch_vehicle_record, recalls.fetch_open_recalls = fake_registry, fake_recalls
     settings.openai_api_key = None
+    await engine.dispose()
+    await _redis.connection_pool.disconnect()
     plates = [str(p) for p in (PLATE, HYBRID, EV)]
     async with async_session() as s:
         await s.execute(delete(Vehicle).where(Vehicle.license_plate.in_(plates)))
@@ -43,6 +45,8 @@ async def client(registry_rows):
     async with async_session() as s:
         await s.execute(delete(Vehicle).where(Vehicle.license_plate.in_(plates)))
         await s.commit()
+    await engine.dispose()
+    await _redis.connection_pool.disconnect()
 
 
 async def test_health_and_models_are_loaded(client):

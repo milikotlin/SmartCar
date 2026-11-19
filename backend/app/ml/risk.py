@@ -82,9 +82,11 @@ class RiskModel:
     def check_coverage(self, x: RiskInputs) -> list[str]:
         reasons = []
         if x.fuel not in self.fuels:
-            reasons.append(f"fuel type '{x.fuel}' is not covered (training data: {', '.join(self.fuels)})")
-        if not (self.age_min <= x.age_year <= self.age_max):
-            reasons.append(f"vehicle age {x.age_year} at the last inspection is outside the covered range {self.age_min}-{self.age_max} years")
+            reasons.append(f"fuel type '{x.fuel}' is not covered: the inspection data used to train the model are petrol, diesel and hybrid cars")
+        if x.age_year < self.age_min:
+            reasons.append(f"the vehicle is under {self.age_min} years old at its last inspection: its first annual inspection has not taken place yet, and the model learns from vehicles that already had one")
+        elif x.age_year > self.age_max:
+            reasons.append(f"the vehicle is more than {self.age_max} years old at its last inspection: the training data hold too few vehicles of that age for a reliable estimate")
         return reasons
 
     def choose_variant(self, x: RiskInputs) -> str:

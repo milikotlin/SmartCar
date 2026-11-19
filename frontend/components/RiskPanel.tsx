@@ -14,6 +14,8 @@ export function RiskPanel({ risk }: { risk: InspectionRisk }) {
       <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-wider text-ink-faint">Machine learning &middot; Model 2</p>
       <h2 className="text-xl font-semibold tracking-tight text-ink">Risk of a defect at the next annual inspection</h2>
 
+      {risk.covered && risk.scale ? (
+        <>
       <div className="mt-3 rounded-[10px] border border-line bg-paper px-4 py-3 text-[13px] leading-relaxed text-ink-soft">
         <p>
           <strong className="font-semibold text-ink">How to read this.</strong> Each bar compares the vehicle with <strong className="text-ink">reference vehicles of all ages</strong> from UK
@@ -26,8 +28,6 @@ export function RiskPanel({ risk }: { risk: InspectionRisk }) {
         </p>
       </div>
 
-      {risk.covered && risk.scale ? (
-        <>
           <div className="mt-5 grid grid-cols-3 gap-4 max-[900px]:grid-cols-1">
             {risk.systems.map((s) => (
               <RiskLevelBar
@@ -101,11 +101,11 @@ export function RiskPanel({ risk }: { risk: InspectionRisk }) {
               <li key={r}>{r}</li>
             ))}
           </ul>
-          <p className="mt-2">The model was trained on petrol, diesel and hybrid cars tested at 3 to 20 years of age. See the maintenance and recall panels below for what is known.</p>
+          <p className="mt-2">The model learns from petrol, diesel and hybrid cars that have already had annual inspections, between 3 and 20 years of age. For other vehicles no risk estimate is shown rather than guessing one. The estimated mileage, the recommended maintenance and the official recalls below still apply.</p>
         </div>
       )}
 
-      <p className="mt-5 border-t border-line pt-4 text-[12.5px] text-ink-soft">{risk.disclaimer}</p>
+      {risk.covered && <p className="mt-5 border-t border-line pt-4 text-[12.5px] text-ink-soft">{risk.disclaimer}</p>}
     </article>
   );
 }

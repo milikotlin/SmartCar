@@ -9,6 +9,8 @@ const STATUS: Record<RuleStatus["status"], { pill: RiskStatus; text: string }> =
   no_record_overdue: { pill: "critical", text: "No record, overdue" },
 };
 
+const cap = (t: string | null) => (t ? t.charAt(0).toUpperCase() + t.slice(1) + (t.endsWith(".") ? "" : ".") : null);
+
 export function MaintenancePanel({ info }: { info: MaintenanceInfo }) {
   return (
     <section className="card-shadow rounded-[14px] border border-line bg-surface p-7">
@@ -28,7 +30,7 @@ export function MaintenancePanel({ info }: { info: MaintenanceInfo }) {
                 Every {r.interval}.{" "}
                 {r.last_service_date
                   ? `Last: ${r.last_service_date} at ${r.last_service_km?.toLocaleString("en-US")} km (${r.months_since} months ago${r.km_since !== null ? `, ${r.km_since.toLocaleString("en-US")} km since` : ""}).`
-                  : r.basis ?? "No record on file."}
+                  : cap(r.basis) ?? "No record on file."}
               </p>
               {r.attention && <p className="mt-0.5 text-[12px] text-ink">{r.advice}</p>}
             </div>

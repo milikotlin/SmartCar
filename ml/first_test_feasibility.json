@@ -1,0 +1,68 @@
+[
+ {
+  "data": "UK first MOT (age 3)",
+  "system": "brakes",
+  "n": 54261,
+  "defect_rate": 0.016549639704391737,
+  "AUC (make + fuel only)": 0.6267507782871501,
+  "AUC 95% interval": [
+   0.6084999087100829,
+   0.6455381080648299
+  ]
+ },
+ {
+  "data": "UK first MOT (age 3)",
+  "system": "electrical",
+  "n": 54261,
+  "defect_rate": 0.030556016291627505,
+  "AUC (make + fuel only)": 0.6315422597751641,
+  "AUC 95% interval": [
+   0.6196611775635321,
+   0.6422192632767474
+  ]
+ },
+ {
+  "data": "UK first MOT (age 3)",
+  "system": "engine_emissions",
+  "n": 54261,
+  "defect_rate": 0.004275630747682497,
+  "AUC (make + fuel only)": 0.4927852443228127,
+  "AUC 95% interval": [
+   0.45707794095826354,
+   0.5260013564317734
+  ]
+ },
+ {
+  "data": "NL first APK (age 4)",
+  "system": "brakes",
+  "n": 19175,
+  "defect_rate": 0.02404172099087353,
+  "AUC (make + fuel only)": 0.533545071758311,
+  "AUC 95% interval": [
+   0.507445448611401,
+   0.5583738922889463
+  ]
+ },
+ {
+  "data": "NL first APK (age 4)",
+  "system": "electrical",
+  "n": 19175,
+  "defect_rate": 0.078748370273794,
+  "AUC (make + fuel only)": 0.5464119568945965,
+  "AUC 95% interval": [
+   0.5327299390906483,
+   0.5610868832256685
+  ]
+ },
+ {
+  "data": "NL first APK (age 4)",
+  "system": "engine_emissions",
+  "n": 19175,
+  "defect_rate": 0.002816166883963494,
+  "AUC (make + fuel only)": 0.45668471934096116,
+  "AUC 95% interval": [
+   0.3584293871418618,
+   0.5449269768179476
+  ]
+ }
+]

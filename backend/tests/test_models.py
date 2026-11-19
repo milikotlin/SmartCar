@@ -139,7 +139,7 @@ def test_model2_same_age_label_is_relative_to_the_age_group(models):
 
 @pytest.mark.parametrize(
     "kw,fragment",
-    [(dict(fuel="electric"), "fuel type"), (dict(fuel="lpg_cng"), "fuel type"), (dict(age_year=1), "outside the covered range"), (dict(age_year=35), "outside the covered range")],
+    [(dict(fuel="electric"), "fuel type"), (dict(fuel="lpg_cng"), "fuel type"), (dict(age_year=1), "first annual inspection"), (dict(age_year=35), "more than 20 years old")],
 )
 def test_model2_declines_vehicles_outside_the_training_coverage(models, kw, fragment):
     r = models.risk.predict(RiskInputs(**dict(BASE, **kw)))

@@ -1,0 +1,639 @@
+{
+ "A_agreement_with_cbs_only_estimates": [
+  {
+   "baseline": "B1 CBS age bands",
+   "median ratio Model 1 / baseline": 0.9376543209876543,
+   "median |difference| %": 7.158590308370039,
+   "share within 10%": 0.6689895470383276,
+   "share differing by more than 25%": 0.16576226652196263,
+   "Spearman correlation": 0.9725341288334814
+  },
+  {
+   "baseline": "B2 + CBS ownership",
+   "median ratio Model 1 / baseline": 1.016417635122671,
+   "median |difference| %": 2.7717646625337267,
+   "share within 10%": 0.8433769349403096,
+   "share differing by more than 25%": 0.07299937167989946,
+   "Spearman correlation": 0.9836630123763666
+  },
+  {
+   "baseline": "B3 + CBS propulsion",
+   "median ratio Model 1 / baseline": 1.099311027368581,
+   "median |difference| %": 10.22651230808933,
+   "share within 10%": 0.4662135145941623,
+   "share differing by more than 25%": 0.010624321699891472,
+   "Spearman correlation": 0.9924675202576968
+  }
+ ],
+ "A_mean_annual_km_thousand_age_ge_1": {
+  "Model 1": 17.67780393031452,
+  "B1": 17.079459841664157,
+  "B2": 17.35120936262329,
+  "B3": 16.9998331130593,
+  "CBS fleet 2022 / 2023-24": [
+   15.2,
+   14.7
+  ]
+ },
+ "A_by_group": [
+  {
+   "group": "fuel: diesel",
+   "n": 1153,
+   "Model 1 mean annual km": 23800.40810009304,
+   "B3 mean annual km": 25638.818973196758,
+   "CBS published mean": 22800.0
+  },
+  {
+   "group": "fuel: electric",
+   "n": 1086,
+   "Model 1 mean annual km": 19533.729902949515,
+   "B3 mean annual km": 20037.12789397527,
+   "CBS published mean": null
+  },
+  {
+   "group": "fuel: hybrid",
+   "n": 433,
+   "Model 1 mean annual km": 24441.218773528242,
+   "B3 mean annual km": 30180.043503668116,
+   "CBS published mean": 21100.0
+  },
+  {
+   "group": "fuel: lpg_cng",
+   "n": 69,
+   "Model 1 mean annual km": 14492.747861989643,
+   "B3 mean annual km": 17323.633842439565,
+   "CBS published mean": 18800.0
+  },
+  {
+   "group": "fuel: petrol",
+   "n": 14766,
+   "Model 1 mean annual km": 16879.775488459352,
+   "B3 mean annual km": 15713.863576402511,
+   "CBS published mean": 14000.0
+  },
+  {
+   "group": "ownership: company",
+   "n": 685,
+   "Model 1 mean annual km": 28119.276172911104,
+   "B3 mean annual km": 30155.95238870937,
+   "CBS published mean": 24400.0
+  },
+  {
+   "group": "ownership: dealer",
+   "n": 500,
+   "Model 1 mean annual km": 17224.563131402487,
+   "B3 mean annual km": 16284.610923024677,
+   "CBS published mean": 13900.0
+  },
+  {
+   "group": "ownership: leasing",
+   "n": 1003,
+   "Model 1 mean annual km": 31403.595166880314,
+   "B3 mean annual km": 35541.201184362435,
+   "CBS published mean": 28300.0
+  },
+  {
+   "group": "ownership: private",
+   "n": 15118,
+   "Model 1 mean annual km": 16148.16697831437,
+   "B3 mean annual km": 15005.993118638156,
+   "CBS published mean": 13900.0
+  },
+  {
+   "group": "ownership: rental",
+   "n": 201,
+   "Model 1 mean annual km": 29778.772802653402,
+   "B3 mean annual km": 31385.655259023442,
+   "CBS published mean": 26100.0
+  }
+ ],
+ "A_interval_relative_width_by_age_band": {
+  "0-3": {
+   "median (high-low)/estimate": 1.5736842105263158,
+   "median low": 13600.0,
+   "median estimate": 38000.0,
+   "median high": 73400.0
+  },
+  "10-13": {
+   "median (high-low)/estimate": 1.1570397111913358,
+   "median low": 76100.0,
+   "median estimate": 166200.0,
+   "median high": 268400.0
+  },
+  "14-19": {
+   "median (high-low)/estimate": 1.0426908150064682,
+   "median low": 98500.0,
+   "median estimate": 231900.0,
+   "median high": 333100.0
+  },
+  "20-29": {
+   "median (high-low)/estimate": 0.8877887788778878,
+   "median low": 123100.0,
+   "median estimate": 274400.0,
+   "median high": 365700.0
+  },
+  "4-6": {
+   "median (high-low)/estimate": 1.1553973902728352,
+   "median low": 36400.0,
+   "median estimate": 84300.0,
+   "median high": 133800.0
+  },
+  "7-9": {
+   "median (high-low)/estimate": 1.1544655929721817,
+   "median low": 57700.0,
+   "median estimate": 122100.0,
+   "median high": 198600.0
+  }
+ },
+ "A_annual_km_percentiles": {
+  "1": 12904.545454545454,
+  "5": 13436.842105263158,
+  "50": 16300.0,
+  "95": 29700.0,
+  "99": 33908.276923075355
+ },
+ "A_grid_fuel_ownership_age": [
+  {
+   "fuel": "petrol",
+   "ownership": "private",
+   "age": 3,
+   "estimate": 52900,
+   "low": 21900,
+   "high": 90500,
+   "annual": 17600
+  },
+  {
+   "fuel": "petrol",
+   "ownership": "private",
+   "age": 7,
+   "estimate": 121300,
+   "low": 57700,
+   "high": 187000,
+   "annual": 17300
+  },
+  {
+   "fuel": "petrol",
+   "ownership": "private",
+   "age": 12,
+   "estimate": 174000,
+   "low": 83100,
+   "high": 286800,
+   "annual": 14500
+  },
+  {
+   "fuel": "petrol",
+   "ownership": "leasing",
+   "age": 3,
+   "estimate": 90400,
+   "low": 37500,
+   "high": 154600,
+   "annual": 30100
+  },
+  {
+   "fuel": "petrol",
+   "ownership": "leasing",
+   "age": 7,
+   "estimate": 207100,
+   "low": 98500,
+   "high": 319300,
+   "annual": 29600
+  },
+  {
+   "fuel": "petrol",
+   "ownership": "leasing",
+   "age": 12,
+   "estimate": 297200,
+   "low": 141800,
+   "high": 489800,
+   "annual": 24800
+  },
+  {
+   "fuel": "petrol",
+   "ownership": "company",
+   "age": 3,
+   "estimate": 83900,
+   "low": 34800,
+   "high": 143500,
+   "annual": 28000
+  },
+  {
+   "fuel": "petrol",
+   "ownership": "company",
+   "age": 7,
+   "estimate": 192300,
+   "low": 91400,
+   "high": 296400,
+   "annual": 27500
+  },
+  {
+   "fuel": "petrol",
+   "ownership": "company",
+   "age": 12,
+   "estimate": 275800,
+   "low": 131600,
+   "high": 454600,
+   "annual": 23000
+  },
+  {
+   "fuel": "petrol",
+   "ownership": "rental",
+   "age": 3,
+   "estimate": 87800,
+   "low": 36400,
+   "high": 150100,
+   "annual": 29300
+  },
+  {
+   "fuel": "petrol",
+   "ownership": "rental",
+   "age": 7,
+   "estimate": 201200,
+   "low": 95700,
+   "high": 310100,
+   "annual": 28700
+  },
+  {
+   "fuel": "petrol",
+   "ownership": "rental",
+   "age": 12,
+   "estimate": 288600,
+   "low": 137700,
+   "high": 475600,
+   "annual": 24000
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "private",
+   "age": 3,
+   "estimate": 74600,
+   "low": 33800,
+   "high": 121300,
+   "annual": 24900
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "private",
+   "age": 7,
+   "estimate": 159600,
+   "low": 83000,
+   "high": 232700,
+   "annual": 22800
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "private",
+   "age": 12,
+   "estimate": 266400,
+   "low": 133400,
+   "high": 380600,
+   "annual": 22200
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "leasing",
+   "age": 3,
+   "estimate": 127400,
+   "low": 57600,
+   "high": 207200,
+   "annual": 42500
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "leasing",
+   "age": 7,
+   "estimate": 272500,
+   "low": 141700,
+   "high": 397400,
+   "annual": 38900
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "leasing",
+   "age": 12,
+   "estimate": 454900,
+   "low": 227800,
+   "high": 649800,
+   "annual": 37900
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "company",
+   "age": 3,
+   "estimate": 118300,
+   "low": 53500,
+   "high": 192300,
+   "annual": 39400
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "company",
+   "age": 7,
+   "estimate": 252900,
+   "low": 131600,
+   "high": 368900,
+   "annual": 36100
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "company",
+   "age": 12,
+   "estimate": 422300,
+   "low": 211500,
+   "high": 603200,
+   "annual": 35200
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "rental",
+   "age": 3,
+   "estimate": 123700,
+   "low": 56000,
+   "high": 201200,
+   "annual": 41200
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "rental",
+   "age": 7,
+   "estimate": 264600,
+   "low": 137600,
+   "high": 385900,
+   "annual": 37800
+  },
+  {
+   "fuel": "diesel",
+   "ownership": "rental",
+   "age": 12,
+   "estimate": 441800,
+   "low": 221300,
+   "high": 631100,
+   "annual": 36800
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "private",
+   "age": 3,
+   "estimate": 65900,
+   "low": 26600,
+   "high": 116800,
+   "annual": 22000
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "private",
+   "age": 7,
+   "estimate": 150500,
+   "low": 73600,
+   "high": 199800,
+   "annual": 21500
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "private",
+   "age": 12,
+   "estimate": 341300,
+   "low": 126200,
+   "high": 375700,
+   "annual": 28400
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "leasing",
+   "age": 3,
+   "estimate": 112600,
+   "low": 45300,
+   "high": 199400,
+   "annual": 37500
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "leasing",
+   "age": 7,
+   "estimate": 256900,
+   "low": 125700,
+   "high": 341100,
+   "annual": 36700
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "leasing",
+   "age": 12,
+   "estimate": 582800,
+   "low": 215500,
+   "high": 641500,
+   "annual": 48600
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "company",
+   "age": 3,
+   "estimate": 104500,
+   "low": 42100,
+   "high": 185100,
+   "annual": 34800
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "company",
+   "age": 7,
+   "estimate": 238500,
+   "low": 116700,
+   "high": 316700,
+   "annual": 34100
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "company",
+   "age": 12,
+   "estimate": 541000,
+   "low": 200000,
+   "high": 595500,
+   "annual": 45100
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "rental",
+   "age": 3,
+   "estimate": 109300,
+   "low": 44000,
+   "high": 193700,
+   "annual": 36400
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "rental",
+   "age": 7,
+   "estimate": 249500,
+   "low": 122100,
+   "high": 331300,
+   "annual": 35600
+  },
+  {
+   "fuel": "hybrid",
+   "ownership": "rental",
+   "age": 12,
+   "estimate": 566000,
+   "low": 209300,
+   "high": 623000,
+   "annual": 47200
+  }
+ ],
+ "B_leave_one_market_out": [
+  {
+   "target market": "UK",
+   "method": "uncalibrated ML (trained on the other two markets)",
+   "RMSE": 38948.23576375414,
+   "MAE": 31505.877774709945,
+   "R2": -0.33510330363408314,
+   "bias": 26850.32631958321
+  },
+  {
+   "target market": "UK",
+   "method": "ML calibrated with age-band aggregates",
+   "RMSE": 24982.724837214908,
+   "MAE": 17109.177172075102,
+   "R2": 0.4506882367752618,
+   "bias": 75.84533132372304
+  },
+  {
+   "target market": "UK",
+   "method": "lookup: age-band means only (analogue of CBS by age)",
+   "RMSE": 25172.926031911167,
+   "MAE": 18566.833035493233,
+   "R2": 0.4422922373304784,
+   "bias": 45.71836707149591
+  },
+  {
+   "target market": "UK",
+   "method": "lookup: age band x fuel means (analogue of CBS age + propulsion)",
+   "RMSE": 24188.09468131704,
+   "MAE": 17998.726633021422,
+   "R2": 0.4850766216750406,
+   "bias": 54.46536572428025
+  },
+  {
+   "target market": "UK",
+   "method": "oracle: ML trained on the target market's individual vehicles",
+   "RMSE": 21036.947863175188,
+   "MAE": 14367.95606361376,
+   "R2": 0.6105024311109486,
+   "bias": -16.636134651506275
+  },
+  {
+   "target market": "UK",
+   "method": "INTERVAL ML (quantile models x calibration factor)",
+   "coverage": 0.8959606753579825,
+   "median width km": 59816.61028594388
+  },
+  {
+   "target market": "UK",
+   "method": "INTERVAL lookup (age-band 10-90% of the aggregates' own vehicles)",
+   "coverage": 0.8,
+   "median width km": 47414.17105920001
+  },
+  {
+   "target market": "India",
+   "method": "uncalibrated ML (trained on the other two markets)",
+   "RMSE": 74632.20169514668,
+   "MAE": 58723.945498103705,
+   "R2": -3.3480586453329417,
+   "bias": 52985.56533789698
+  },
+  {
+   "target market": "India",
+   "method": "ML calibrated with age-band aggregates",
+   "RMSE": 32071.14488099288,
+   "MAE": 23009.575832128572,
+   "R2": 0.19708085583268298,
+   "bias": 610.2031181669356
+  },
+  {
+   "target market": "India",
+   "method": "lookup: age-band means only (analogue of CBS by age)",
+   "RMSE": 31324.916798098922,
+   "MAE": 22292.670287128105,
+   "R2": 0.23401063866014593,
+   "bias": 404.47397896295297
+  },
+  {
+   "target market": "India",
+   "method": "lookup: age band x fuel means (analogue of CBS age + propulsion)",
+   "RMSE": 29024.210298571943,
+   "MAE": 20542.92876661021,
+   "R2": 0.34239711503865455,
+   "bias": 275.78844745143857
+  },
+  {
+   "target market": "India",
+   "method": "oracle: ML trained on the target market's individual vehicles",
+   "RMSE": 28525.94117533995,
+   "MAE": 20037.04544998351,
+   "R2": 0.36478192090226647,
+   "bias": 312.8459759923008
+  },
+  {
+   "target market": "India",
+   "method": "INTERVAL ML (quantile models x calibration factor)",
+   "coverage": 0.8026432587040142,
+   "median width km": 74783.17248567141
+  },
+  {
+   "target market": "India",
+   "method": "INTERVAL lookup (age-band 10-90% of the aggregates' own vehicles)",
+   "coverage": 0.8025446296478943,
+   "median width km": 67102.0
+  },
+  {
+   "target market": "US",
+   "method": "uncalibrated ML (trained on the other two markets)",
+   "RMSE": 129301.01182887405,
+   "MAE": 106732.2379235489,
+   "R2": -0.940768360390078,
+   "bias": -102843.87883623835
+  },
+  {
+   "target market": "US",
+   "method": "ML calibrated with age-band aggregates",
+   "RMSE": 75776.98188759449,
+   "MAE": 57715.62515090839,
+   "R2": 0.33343199438757565,
+   "bias": 11.202270081169168
+  },
+  {
+   "target market": "US",
+   "method": "lookup: age-band means only (analogue of CBS by age)",
+   "RMSE": 74191.62519888599,
+   "MAE": 57257.344641705284,
+   "R2": 0.3610312395081364,
+   "bias": -224.48034987275997
+  },
+  {
+   "target market": "US",
+   "method": "lookup: age band x fuel means (analogue of CBS age + propulsion)",
+   "RMSE": 73883.88820946314,
+   "MAE": 57060.01459230803,
+   "R2": 0.366320960973592,
+   "bias": -179.16583685668692
+  },
+  {
+   "target market": "US",
+   "method": "oracle: ML trained on the target market's individual vehicles",
+   "RMSE": 72989.44550120138,
+   "MAE": 55837.35105734053,
+   "R2": 0.3815708027280057,
+   "bias": -181.19090250484047
+  },
+  {
+   "target market": "US",
+   "method": "INTERVAL ML (quantile models x calibration factor)",
+   "coverage": 0.826914050276416,
+   "median width km": 216329.58406817546
+  },
+  {
+   "target market": "US",
+   "method": "INTERVAL lookup (age-band 10-90% of the aggregates' own vehicles)",
+   "coverage": 0.8027015750495463,
+   "median width km": 182595.52650240003
+  }
+ ]
+}

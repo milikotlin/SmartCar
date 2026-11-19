@@ -172,8 +172,9 @@ async def build_prediction(
         primary, source = measured, "measured"
     else:
         label = (
-            f"Estimated {est.km:,} km (indicative 80% range {est.km_low:,}-{est.km_high:,}). Population-level estimate calibrated with "
-            "official CBS statistics; not a measurement and not validated for individual Israeli vehicles."
+            f"Estimated {est.km:,} km. Indicative range {est.km_low:,}-{est.km_high:,} km: in the training data about 8 in 10 similar vehicles fall inside such a range, "
+            "so the true value of this vehicle can easily lie anywhere in it. Population-level estimate calibrated with official CBS statistics by age and ownership; "
+            "not a measurement and not validated for individual Israeli vehicles."
         )
         primary, source = est.km, "estimated"
     mileage = MileageInfo(
@@ -260,7 +261,7 @@ async def build_prediction(
         inspections=len(inspections),
         maintenance_records=len(maintenance),
         latest_inspection_date=inspections[0]["inspection_date"].isoformat() if inspections else None,
-        history_used_by_model=previous is not None,
+        history_used_by_model=previous is not None and result.covered,
         note=mismatch_note,
     )
     prov = Provenance(

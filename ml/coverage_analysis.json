@@ -1,0 +1,36 @@
+{
+ "sample": 19200,
+ "covered": 0.7059375,
+ "not_covered_total": 0.2940625,
+ "by_reason_exclusive_first_match": {
+  "age below 3 at the last inspection (first annual test not yet taken)": 0.2526041666666667,
+  "age above 20": 0.019635416666666666,
+  "electric or gas fuel (age within 3-20)": 0.021822916666666668,
+  "missing dates": 0.0
+ },
+ "any_reason": {
+  "fuel not covered": 0.07140625,
+  "age below 3": 0.2526041666666667,
+  "age above 20": 0.019635416666666666
+ },
+ "fuel_mix_of_uncovered_fuel": {
+  "electric": 0.949671772428884,
+  "lpg_cng": 0.05032822757111598
+ },
+ "age_at_last_inspection_of_young_group": {
+  "-1.0": 0.0002061855670103093,
+  "0.0": 0.8736082474226804,
+  "1.0": 0.013814432989690721,
+  "2.0": 0.11237113402061856
+ },
+ "share_of_young_group_that_is_electric_or_gas": 0.1952577319587629,
+ "electric_share_by_manufacture_year_2022_2026": {
+  "2022": 0.11562998405103668,
+  "2023": 0.15849673202614378,
+  "2024": 0.25571725571725573,
+  "2025": 0.21187025534851622,
+  "2026": 0.1275841701122268
+ },
+ "would_be_covered_if_new_cars_were_added": 0.90921875,
+ "would_be_covered_if_electric_were_added_within_age_3_20": 0.7244270833333334
+}

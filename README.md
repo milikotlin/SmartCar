@@ -16,7 +16,7 @@ O sistema **separa três tipos de informação**, na API, na interface e no chat
 Veja `docs/LIMITATIONS.md`.
 
 Documentação: `docs/SRS_v2.md` (SRS atualizado **com o registro das alterações em relação à especificação original**), `docs/MODEL_CARDS.md`,
-`docs/RISK_SCALE.md` (escala de risco, antes e depois), `docs/TEST_REPORT.md`, `docs/E2E_REPORT.md`, `docs/UK_EXTRACTION.md`, `docs/DEMO.md`, `docs/LIMITATIONS.md`. Especificação original:
+`docs/FINAL_REPORT.md` (relatório final de prontidão), `docs/RISK_SCALE.md` (escala de risco, antes e depois), `docs/TEST_REPORT.md`, `docs/E2E_REPORT.md`, `docs/UK_EXTRACTION.md`, `docs/DEMO.md`, `docs/LIMITATIONS.md`. Especificação original:
 `SmartCar-Ops_SRS.pdf` e `SmartCar-Ops_מסמך_אפיון.pdf`.
 
 ## Rodando
@@ -44,6 +44,7 @@ curl "http://localhost:8000/api/v1/predict/4908732?odometer_km=123456"
 ```bash
 docker compose run --rm backend python -m pytest -q          # unitários, modelos, API (com PostgreSQL e Redis reais)
 python scripts/e2e_live.py                                    # ~90 placas israelenses reais contra a stack em execução -> docs/E2E_REPORT.md
+python scripts/visual_check.py                                # Chrome headless: desktop e celular, 101 verificações + capturas em docs/screenshots/
 docker compose run --rm --no-deps frontend npx tsc --noEmit   # tipos do frontend
 ```
 

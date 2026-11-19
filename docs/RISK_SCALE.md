@@ -33,7 +33,7 @@ Evidence that the levels mean something (observed share of vehicles with a defec
 
 In the UK Low is about 0.3 to 0.45 times the base rate, Moderate close to it (0.85 to 0.95) and High 1.7 to 2 times it; the Netherlands shows the same order. Low and High are statistically separated for every variant, system and country (tested). The Dutch fleet is older, so about 40% to 48% of its vehicles fall in High: the order replicates, the proportions and absolute rates differ. Alternative cut points (30/70, 33/67, 20/80, 40/80) are tabulated in `model2_reference.json`.
 
-Covered Israeli fleet (12,597 registry vehicles, scores only): brakes 32% / 30% / 37% in Low / Moderate / High, electrical 36% / 29% / 34%, engine-related 45% / 28% / 27%.
+Covered Israeli fleet (13,554 registry vehicles, 70.6% of the sample, scores only): brakes 30% / 28% / 42% in Low / Moderate / High, electrical 34% / 28% / 39%, engine-related 42% / 26% / 32%: more vehicles in High than in the reference (31%), because the Israeli fleet in the sample has more vehicles in the age range where the scores are high than the reference mix.
 
 ## 3. Standardising the interval does not hurt the models
 

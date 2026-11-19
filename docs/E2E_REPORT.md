@@ -5,7 +5,7 @@ Run: 2026-11-19 against `http://localhost:8000` (live data.gov.il registry and r
 * plates tested: **88** (registry lookups answered: 88); automatic checks: **1570**; failures: **0**
 * Model 2 produced an estimate for 52 plates and declined 36 (electric, gas, or age outside 3-20 years, each with its reason)
 * plates with at least one open recall: 1
-* latency of `/api/v1/predict` (full request incl. live registry call): median 0.64 s cold, 17 ms with the 24 h cache
+* latency of `/api/v1/predict` (full request incl. live registry call): median 0.52 s cold, 23 ms with the 24 h cache
 * registry outages absorbed by the API's own retry and answered as 503, then retried by the test: 0
 * chat endpoint answered from: `deterministic_fallback`
 
