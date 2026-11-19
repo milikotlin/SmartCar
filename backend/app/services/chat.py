@@ -40,7 +40,7 @@ def _status(text: str) -> str:
 
 def facts(prediction: PredictionResponse, today: date) -> list[str]:
     v, m = prediction.vehicle, prediction.mileage
-    out = [f"Vehicle: {v.make} {v.model}, manufacture year {v.manufacture_year}, fuel {v.fuel_type}, ownership {v.ownership}. Plate {v.license_plate}."]
+    out = [f"Vehicle: {v.make} {v.model}, manufacture year {v.manufacture_year}, fuel {v.fuel_type}, ownership {v.ownership}."]       # the plate is not sent to the language model: it adds nothing to the answer
     if m.primary_source == "measured":
         out.append(
             f"Mileage (measured): {m.primary_km:,} km as of {m.measured_as_of}. Model 1 estimate {m.estimated_km:,} km, indicative 80% range {m.estimated_low_km:,}-{m.estimated_high_km:,}."
@@ -48,6 +48,7 @@ def facts(prediction: PredictionResponse, today: date) -> list[str]:
     else:
         out.append(
             f"Mileage (ESTIMATED, not measured): {m.primary_km:,} km, indicative 80% range {m.estimated_low_km:,}-{m.estimated_high_km:,} km."
+            + (f" LOW RELIABILITY: {m.estimate_reliability_reason}; do not rely on this figure." if m.estimate_reliability == "low" else "")
         )
     r = prediction.inspection_risk
     if r.covered:

@@ -1,48 +1,50 @@
-# Demonstration script (about 8 minutes)
+# Demonstration script (definitive, about 11 minutes)
 
-Preparation (once): set `RECORDS_WRITE_KEY` in `.env`, then `docker compose up --build`, `docker compose exec backend alembic upgrade head`, `python scripts/seed_demo.py` (reads the key from `.env`). Open http://localhost:3000. To add a record live, type the workshop key in the "Workshop key" field of the service log (kept for the browser session only); without it the form refuses, which is also worth showing.
-All plates are **real Israeli registrations**; the maintenance records and inspection results created by the seed script are demonstration data, labelled "[DEMO]".
+All plates are **real Israeli registrations** (live data from data.gov.il). The maintenance records and inspection results of the seeded vehicles are demonstration data, shown with a `DEMO` badge. Every figure below was checked against the running system on 2026-11-19.
 
-## 1. The idea in one minute
-"SmartCar-Ops takes a plate and shows three different things: an *estimated inspection-defect risk* (machine learning), *recommended maintenance* (rules) and *official recalls* (facts). They are never mixed, and nothing is presented as a probability validated for Israel."
+## A. Before the audience arrives (30 minutes before)
 
-## 2. A vehicle with no history (cold start) - plate `4908732`
-* Registry profile live from data.gov.il, translated (Toyota Auris, 2015, petrol, private).
-* **Estimated mileage with a range** (about 166,000 km, 80% range 76,000-268,000): Model 1, calibrated with official CBS statistics. Point out the label: *estimate, not a measurement*.
-* **Risk bars:** each system has a level (Low / Moderate / High) on **one scale shared by every vehicle and age**: the further right, the higher the estimated risk that the next annual inspection finds a defect. Read the sentence "Higher than about N of 100 reference vehicles" (a rank, not a probability) and the complementary line, which compares only with vehicles of the same age. Open the details: how the levels were set and how often a defect was actually found in each level of the UK data.
-* Maintenance rules: "No record" everywhere (nothing is invented); recalls: none.
+1. Docker Desktop running. `docker compose up -d`, then `curl http://localhost:8000/health` must answer `{"status":"ok"}`.
+2. `.env` has `RECORDS_WRITE_KEY` (and, optional, `OPENAI_API_KEY`). **Never open `.env` on the shared screen.** Keep the workshop key in a password manager or on paper, and type it only in the key field (it is a password field).
+3. First time on this machine: `docker compose exec backend alembic upgrade head`, then `python scripts/seed_demo.py` (reads the key from `.env`, takes about a minute).
+4. Optional chat check: `python scripts/check_openai.py` (see `docs/OPENAI_SETUP.md`). Without a key the chat still works and says it is rule-based: both are fine to demonstrate.
+5. **Warm the cache:** open each demo plate once (list below). The first call goes to data.gov.il (about half a second, sometimes slower); afterwards the answer is cached for 24 hours.
+6. Browser: Chrome, 100% zoom, window maximised, dashboard at http://localhost:3000 in one tab and `docs/` open in another (this file, `MODEL_CARDS.md`, `MODEL2_VS_AGE_BASELINE.md`, `LIMITATIONS.md`).
+7. **Plan B** if data.gov.il is down (the dashboard says "registry temporarily unavailable"): wait a minute and retry; cached plates still work; otherwise show `docs/screenshots/` (desktop and phone captures of every step) and say so.
 
-## 2b. The case that motivated the new scale - Hyundai i20 2022 (plate `19202803`) against Nissan Micra 2014 (plate `9413531`)
-Look both up one after the other. The i20 shows **Low** in all three systems; the Micra shows **Moderate** for brakes, **High** for electrical and **Moderate** for engine-related. The older car is estimated to be riskier on the same scale, and the same-age line explains that each is "about typical for its age". (Before the change the i20 showed a higher number than the Micra for brakes.)
+## B. The script
 
-## 3. A measured odometer changes the model - same plate
-Type a measured odometer (for example 123456) in the box and press *Use this value*: the card switches to "Odometer (measured)", and the model details say that the *registry + measured odometer* variant is used. Explain: the Model 1 estimate is **not** fed to Model 2 because in every experiment it added nothing; a measured odometer does help (about +0.013 to +0.027 AUC).
+| Time | Plate | What to do | What to say |
+|---|---|---|---|
+| 0:00 | (empty page) | Show the page | "SmartCar-Ops takes a plate and shows **three different things**, never mixed: an estimated inspection-defect risk (machine learning), recommended maintenance (rules) and official recalls (facts). The card also separates official registry data from the machine-learning estimate." |
+| 1:00 | `4908732` | Search | Toyota Auris 2015, petrol, private. **Official registry block** (colour already translated; "last annual test (date)": the registry publishes the date, not the result). **Mileage block:** about 164,700 km, range 74,900-267,800: "an estimate for vehicles like this one, calibrated with official CBS statistics; the range is wide because individual cars differ a lot; not a measurement." |
+| 2:30 | same | Risk panel | Three bars, all **Moderate** (Higher than about 65 / 70 / 50 of 100 reference vehicles). "One scale for every vehicle and age; it is a **relative level**, not a probability; not validated for Israeli vehicles." Open the details: how the levels were set and how often a defect was actually found in each level in the UK data; the line "most of the level reflects age". The complementary line compares only with cars of the same age. |
+| 3:30 | same | Type `123456` in the odometer box, *Use this value* | Card changes to "Odometer (measured)"; the model uses the registry + odometer variant. "A measured odometer improves the model; the **estimate of Model 1 is not an input** of Model 2: it added nothing in any experiment." Clear the box afterwards. |
+| 4:30 | `19202803`, then `9413531` | Look both up | Hyundai i20 2022: **Low, Low, Low**. Nissan Micra 2014: **Moderate** brakes, **High** electrical, **Moderate** engine-related. "The older car sits higher on the same scale." |
+| 6:00 | `6224652` | Search | Seeded vehicle with `DEMO` records and the last inspection result: the variant that uses history and the measured odometer (**High, High, High**); the brake rule says **no record, overdue** (194,227 km measured, no brake service on record). Scroll to the service log: "manual records, not official data". |
+| 7:00 | `4908732` | Service log: try to save an inspection result **without** the key | The form refuses: "Enter the workshop key first". Type a wrong key: "Missing or invalid workshop key". "Writing is reserved for authorised workshops, because a stored inspection result is an input of Model 2." |
+| 7:45 | same | Type the real key, tick *Brakes* defect, save | The risk panel refreshes: variant with history; brakes move from Moderate to **High (about 95 of 100)**, electrical to High. "Only an annual **inspection** result counts as history; a service record never does." **After the demo remove it:** `docker compose exec postgres sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "DELETE FROM vehicles WHERE license_plate='"'"'4908732'"'"';"'` |
+| 8:30 | `19319001` | Search | The SRS anomaly vehicle: 60,000 km measured, oil and tyres recorded, **no brake service**: the **brake rule** flags it. "A rule, not an ML probability; this replaces the SRS 'trips a 90% risk' scenario (change C9)." |
+| 9:00 | `1169762` | Search | Open recall: the official category, type, date and Hebrew text. "A recall is a fact, not a prediction." |
+| 9:20 | `88328404` | Search (Tesla Model 3, 2026) | Model 2 **declines** with the reason (fuel and age); the other panels work; the mileage block shows **Low reliability** (no electric training data). "I prefer to say 'no' than to guess." |
+| 9:50 | `4850581` | Search (Mercedes GLC 350 e, hybrid, 9 years) | **Low reliability** box: "the training data hold too few hybrid vehicles older than 7 years"; estimate 163,100 km. "An earlier version produced 40,000 km per year here, from 4 or 5 training vehicles per age; now the system flags it and uses the growth of petrol cars." |
+| 10:20 | any | Open the chat, type "Hearing a squeaking noise when braking" | Answer from the pipeline facts only (open "data used"); says whether it came from the language model or from the rule-based template. Not a diagnosis. |
+| 11:00 | slides / `docs/` | Close | Limitations in one minute (below), then questions. |
 
-## 4. History from the last inspection - plate `6224652` (seeded)
-* Service log with [DEMO] records and the inspection result of the registry's last test: Model 2 uses the **history variant**; the note says the last inspection result is used. Add a new inspection result with a brake defect in the form and watch the brake gauge move (only an *inspection* result counts; a service record never becomes history).
-* The brake rule says **no record, overdue**: a measured 194,000 km with no brake service on record.
+## C. The one-minute limitations (say it yourself, before they ask)
 
-## 5. The SRS anomaly vehicle - plate `19319001`
-60,000 km measured, oil and tyres recorded, **no brake service**: the *brake rule* flags it (a rule, not an ML probability). This replaces the original "trips a 90% risk" scenario (change C9).
+* "Israeli inspection results are not open data. Model 2 learned from **UK** inspections and was validated on **Dutch** ones. I show relative levels, not probabilities, and I say it is not validated for Israel."
+* "The target is a **defect found at the next annual inspection**, not a breakdown."
+* "Most of the level reflects the vehicle's **age**. Compared with an age-only classification the model adds a modest part: small for registry-only brakes, larger for electrical and engine-related, and larger again when the previous inspection result or the odometer is known (`docs/MODEL2_VS_AGE_BASELINE.md`)."
+* "The mileage is an estimate for a *type* of vehicle, not for this car, and the system flags the cases where the data cannot support it."
+* "About 29% of the fleet (new, electric, gas, very old cars) gets no risk estimate, with the reason."
 
-## 6. Official recall - plate `1169762` (Toyota 2007)
-The open-recall panel lists the official category, type, date and the official Hebrew text. Stress: a recall is a fact, not a prediction.
+## D. Questions to expect
 
-## 7. A vehicle the model declines - plate `88328404` (electric)
-"Not covered" with the reason (training data: petrol, diesel and hybrid cars 3-20 years old). The other panels still work.
-
-## 8. Diagnostic chat
-Open the chat, type "Hearing a squeaking noise when braking". Without an API key the answer is rule-based and says so; open "data used" to see the facts injected. With `OPENAI_API_KEY` set in `.env`, gpt-4o-mini answers using exactly those facts, forbidden from presenting the risk as a breakdown probability.
-
-## 9. The evidence (slides or `docs/`)
-* Why the original Dataset 1 was dropped (labels are rules, AUC 0.50) and what replaced it: real inspections from the UK (training) and the Netherlands (independent validation).
-* `docs/MODEL_CARDS.md`: AUC, calibration, Logistic Regression benchmark, Dutch validation.
-* `docs/UK_EXTRACTION.md`: CRC32-verified extraction and the decoder root cause.
-* `docs/SRS_v2.md` section 11: every change against the original specification.
-* `docs/LIMITATIONS.md`: what the system does not claim.
-
-## Questions to expect
 * *Why not predict breakdowns?* No open per-vehicle breakdown data with a denominator exists; the inspection defect is the closest real, validated event.
-* *Why UK data for Israel?* Israeli inspection results are not open data; the system says so everywhere and proposes replacing the foreign data when the Ministry provides them.
-* *Why does the mileage estimate not feed Model 2?* Measured: it adds no information beyond age and fuel; forcing it would be artificial.
-* *Is XGBoost better than Logistic Regression?* Equal within noise (model cards); XGBoost is kept as required by the specification.
+* *Why UK data for Israel?* Israeli inspection results are not open; the system says so everywhere and proposes replacing the foreign data when the Ministry provides them.
+* *Why does the mileage estimate not feed Model 2?* Measured: it adds no information beyond age and fuel (change C24); forcing it would be artificial. The measured odometer does help and is used.
+* *Is XGBoost better than a simple age rule?* Modestly (section "Limitations" above and `MODEL2_VS_AGE_BASELINE.md`); and equal to Logistic Regression within noise (`MODEL_CARDS.md`); XGBoost is kept as the specification requires.
+* *Why not use the vehicle model name?* It does not transfer from the UK to the Netherlands and only about half of the Israeli vehicles have a name that exists in the training data.
+* *What protects the records?* A shared workshop key, rate limits and checks; it is deliberately simple (no user accounts, as the SRS requires); see `LIMITATIONS.md`.
+* *What if the OpenAI key is missing?* The chat answers from a rule-based template built from the same facts and says so.

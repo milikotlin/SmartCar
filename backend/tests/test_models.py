@@ -43,7 +43,8 @@ def test_model1_population_level_matches_cbs_by_age_band(models):
 
 
 def test_model1_notes_unvalidated_cases(models):
-    assert any("electric" in n for n in models.mileage.estimate("electric", 3, "private").notes)
+    ev = models.mileage.estimate("electric", 3, "private")
+    assert ev.reliability == "low" and "electric" in ev.reliability_reason and ev.km == models.mileage.estimate("petrol", 3, "private").km
     assert any("capped" in n for n in models.mileage.estimate("petrol", 80, "private").notes)
     assert any("official yearly rates" in n for n in models.mileage.estimate("petrol", 25, "private").notes)
 
@@ -223,3 +224,28 @@ def test_model2_has_no_input_from_model1():
     used = {c for cols in card["variants"].values() for c in cols}
     assert used == {"age_year", "gap_next", "fuel", "make_c", "km", "cur_brakes", "cur_electrical", "cur_engine_emissions", "cur_any_defect"}
     assert not any("estimate" in c or "model1" in c for c in used)
+
+
+def test_model1_flags_low_reliability_where_the_training_data_cannot_support_the_estimate(models):
+    """Hybrids older than 7 years have 2 to 5 training vehicles per year of age: the old estimate gave 35,000 to 46,000 km per year there."""
+    m1 = models.mileage
+    prev = m1.estimate("hybrid", 7, "private")
+    assert prev.reliability == "ok"
+    for age in range(8, 16):
+        e, before = m1.estimate("hybrid", age, "private"), m1.estimate("hybrid", age - 1, "private")
+        assert e.reliability == "low" and "hybrid" in e.reliability_reason and "older than 7" in e.reliability_reason
+        assert 8_000 <= e.km - before.km <= 18_000, (age, e.km - before.km)          # the yearly growth of the petrol curve, not the 5-vehicle data
+    lpg = m1.estimate("lpg_cng", 10, "private")
+    assert lpg.reliability == "low" and "LPG/CNG" in lpg.reliability_reason
+    for fuel in ("petrol", "diesel"):
+        assert all(m1.estimate(fuel, a, "private").reliability == "ok" for a in range(1, 30))
+
+
+def test_model1_flags_estimates_that_imply_more_than_the_official_statistics_publish(models):
+    from app.ml.mileage import MAX_PLAUSIBLE_ANNUAL_KM
+
+    flagged = [(f, o, a) for f in ("petrol", "diesel", "hybrid") for o in ("private", "leasing", "company", "rental") for a in range(1, 14)
+               if models.mileage.estimate(f, a, o).annual_km > MAX_PLAUSIBLE_ANNUAL_KM]
+    assert flagged and all(models.mileage.estimate(*x[:1], x[2], x[1]).reliability == "low" for x in flagged)
+    assert all("official statistics" in models.mileage.estimate(f, a, o).reliability_reason for f, o, a in flagged if f != "hybrid" or a <= 7)
+    assert models.mileage.estimate("petrol", 8, "private").reliability == "ok"

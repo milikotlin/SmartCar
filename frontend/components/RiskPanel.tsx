@@ -50,6 +50,10 @@ export function RiskPanel({ risk }: { risk: InspectionRisk }) {
                 estimate, using {risk.variant ? VARIANT_TEXT[risk.variant] : "the available data"}.
               </p>
               <p>
+                <strong className="text-ink">How much comes from age:</strong> most of the level reflects the age of the vehicle (age alone already ranks vehicles almost as well). The model adds a smaller
+                part, larger when the result of the previous inspection or the measured odometer is known; the same-age line shows that part.
+              </p>
+              <p>
                 <strong className="text-ink">Where the levels start:</strong> the cut points were chosen from the data, so that the three levels best separate how often a defect was
                 actually found at the next inspection, with each level holding at least a fifth of the reference vehicles.
               </p>

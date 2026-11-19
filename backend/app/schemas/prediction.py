@@ -13,6 +13,8 @@ class MileageInfo(BaseModel):
     measured_km: int | None = None
     measured_as_of: str | None = None
     notes: list[str] = []
+    estimate_reliability: str = "ok"       # ok | low: low when the training data do not support this fuel type at this age
+    estimate_reliability_reason: str | None = None
     label: str
 
 

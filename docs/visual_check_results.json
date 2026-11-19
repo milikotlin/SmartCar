@@ -195,12 +195,67 @@
   "detail": ""
  },
  {
+  "check": "desktop/hybrid aged 9: Model 1 flags LOW RELIABILITY with the reason",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/hybrid aged 9: no exaggerated yearly mileage is shown",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/hybrid aged 9: does not contain 'times the average'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/hybrid aged 9: does not contain 'x the average'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/hybrid aged 9: does not contain 'probability of failure'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/hybrid aged 9: does not contain 'chance of failure'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/hybrid aged 9: does not contain '% chance'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/hybrid aged 9: does not contain 'will fail'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/hybrid aged 9: does not contain 'failure risk'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/hybrid aged 9: no horizontal overflow",
+  "passed": true,
+  "detail": ""
+ },
+ {
   "check": "desktop/not covered/electric: says why and keeps the other panels",
   "passed": true,
   "detail": ""
  },
  {
   "check": "desktop/not covered/electric: no risk bars or levels invented",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/not covered/electric: mileage flagged low reliability (no electric training data)",
   "passed": true,
   "detail": ""
  },
@@ -470,12 +525,67 @@
   "detail": ""
  },
  {
+  "check": "mobile/hybrid aged 9: Model 1 flags LOW RELIABILITY with the reason",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/hybrid aged 9: no exaggerated yearly mileage is shown",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/hybrid aged 9: does not contain 'times the average'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/hybrid aged 9: does not contain 'x the average'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/hybrid aged 9: does not contain 'probability of failure'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/hybrid aged 9: does not contain 'chance of failure'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/hybrid aged 9: does not contain '% chance'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/hybrid aged 9: does not contain 'will fail'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/hybrid aged 9: does not contain 'failure risk'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/hybrid aged 9: no horizontal overflow",
+  "passed": true,
+  "detail": ""
+ },
+ {
   "check": "mobile/not covered/electric: says why and keeps the other panels",
   "passed": true,
   "detail": ""
  },
  {
   "check": "mobile/not covered/electric: no risk bars or levels invented",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/not covered/electric: mileage flagged low reliability (no electric training data)",
   "passed": true,
   "detail": ""
  },

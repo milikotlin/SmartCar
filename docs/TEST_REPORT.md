@@ -4,7 +4,7 @@ Environment: Docker Compose stack (backend Python 3.13 with the exact library ve
 
 ## 1. Automatic tests (pytest inside the backend container, real PostgreSQL and Redis)
 
-Command: `docker compose exec -T backend python -m pytest -q`  ->  **111 passed** (61 at the first delivery, 66 after the risk-scale change, 84 after the final flow matrix, 111 after the final technical review: security, independence of the two models, colour and manufacturer translation; see FINAL_TECHNICAL_REVIEW.md).
+Command: `docker compose exec -T backend python -m pytest -q`  ->  **115 passed** (61 at the first delivery, 66 after the risk-scale change, 84 after the final flow matrix, 111 after the final technical review: security, independence of the two models, colour and manufacturer translation; see FINAL_TECHNICAL_REVIEW.md).
 
 | File | Tests | What is checked |
 |---|---|---|
@@ -24,7 +24,7 @@ The government HTTP services are replaced in `test_api.py` by recorded real regi
 
 ## 2b. Visual and functional check in a real browser (final round)
 
-`scripts/visual_check.py` drives headless **Chrome 157** through the DevTools protocol against the running stack at desktop (1280 x 900) and phone (390 x 844, mobile emulation) size, light and dark: 10 scenarios (empty, covered without records, covered with records and history, the refusal of the records form without the workshop key, chat, electric not covered, new car not covered, open recall, anomaly vehicle, unknown plate, invalid plate), **111 assertions**, horizontal-overflow and bar-geometry measurements, and 23 screenshots in `docs/screenshots/` that were looked at, not only asserted. Details, what was fixed after looking and what could not be verified: [FINAL_REPORT.md](FINAL_REPORT.md) section 2.
+`scripts/visual_check.py` drives headless **Chrome 157** through the DevTools protocol against the running stack at desktop (1280 x 900) and phone (390 x 844, mobile emulation) size, light and dark: 10 scenarios (empty, covered without records, covered with records and history, the refusal of the records form without the workshop key, chat, electric not covered, new car not covered, open recall, anomaly vehicle, unknown plate, invalid plate), **133 assertions**, horizontal-overflow and bar-geometry measurements, and 23 screenshots in `docs/screenshots/` that were looked at, not only asserted. Details, what was fixed after looking and what could not be verified: [FINAL_REPORT.md](FINAL_REPORT.md) section 2.
 
 ## 3. End-to-end with real Israeli plates (`scripts/e2e_live.py`)
 

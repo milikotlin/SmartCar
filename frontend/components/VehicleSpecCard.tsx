@@ -70,6 +70,11 @@ export function VehicleSpecCard({ vehicle, mileage }: { vehicle: VehicleProfile;
             />
           )}
         </dl>
+        {!measured && mileage.estimate_reliability === "low" && (
+          <p role="note" data-testid="low-reliability" className="mt-2 rounded-md border border-warn bg-paper px-3 py-2 text-[12px] leading-relaxed text-ink">
+            <strong className="font-semibold text-warn">Low reliability.</strong> {(mileage.estimate_reliability_reason ?? "").replace(/^./, (c) => c.toUpperCase())}. Treat this figure as a rough guide only.
+          </p>
+        )}
         <p className="mt-2 text-[12px] leading-relaxed text-ink-soft">{mileage.label}</p>
         {mileage.notes.length > 0 && (
           <ul className="mt-1.5 list-disc pl-5 text-[12px] text-ink-faint">

@@ -23,6 +23,8 @@ export interface MileageInfo {
   measured_km: number | null;
   measured_as_of: string | null;
   notes: string[];
+  estimate_reliability: "ok" | "low";
+  estimate_reliability_reason: string | null;
   label: string;
 }
 

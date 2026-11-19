@@ -1,4 +1,7 @@
-"""FINAL REVIEW fix for Model 1: smooth the learned age curve before the CBS calibration (the trained XGBoost boosters are NOT changed or retrained).
+"""(Second pass, hybrids) Fuel types with too few training vehicles at an age (< 30 per year of age) continue with the yearly growth of the petrol curve above the last
+supported age (hybrid and LPG/CNG: 7 years) and are flagged low reliability by the API; the support table is stored as `support_max_age` in calibration.json.
+
+FINAL REVIEW fix for Model 1: smooth the learned age curve before the CBS calibration (the trained XGBoost boosters are NOT changed or retrained).
 
 Problem found by ml/src/model1_curve_audit.py: the tree model spends the kilometres of a fuel in steps, so the calibrated yearly increment of a petrol car is
 800 km at age 8 and 15,400 km at age 9, and 84,600 km for a hybrid at age 11. Consecutive ages could therefore get almost the same estimate, or jump.
@@ -23,10 +26,11 @@ import cbs_reference as cbs  # noqa: E402
 import mileage_data as md  # noqa: E402
 from config import INTERIM_DIR  # noqa: E402
 from israel_registry import normalise_registry  # noqa: E402
-from app.ml.mileage import MileageModel, smooth_cumulative  # noqa: E402
+from app.ml.mileage import MileageModel, apply_support, smooth_cumulative  # noqa: E402
 
 ART = ROOT / "backend" / "app" / "ml" / "artifacts"
 FUELS = ["diesel", "electric", "hybrid", "lpg_cng", "petrol"]
+MIN_ROWS_PER_AGE = 30
 
 
 def raked(curves, il, a_sup, rates_km):
@@ -82,6 +86,17 @@ def main() -> None:
     P = pd.concat([md.load_clean(k)[0] for k in ["d7_uk", "d8_in", "d3_cardekho"]], ignore_index=True)
     P = P[P.fuel.isin(FUELS)].reset_index(drop=True)
     age_i = P.age.round().astype(int).clip(0, cal.MAX_AGE).to_numpy()
+    counts = P.assign(a=age_i).groupby(["fuel", "a"]).size()
+    support = {}
+    for f in FUELS:
+        if f in ("electric", "petrol"):                      # electric: no data at all (always low reliability, petrol curve); petrol is the fallback
+            continue
+        a = 3
+        while a <= cal.MAX_AGE and counts.get((f, a), 0) >= MIN_ROWS_PER_AGE:
+            a += 1
+        if a - 1 < a_sup:                                    # support ends before the age where the CBS rates take over anyway
+            support[f] = a - 1
+    print("support_max_age (last age with >= 30 training vehicles):", support)
 
     def fit_quality(curves):
         pred = np.zeros(len(P))
@@ -93,7 +108,7 @@ def main() -> None:
 
     results = {}
     for w in (1, 3, 5):
-        curves = {f: smooth_cumulative(c, a_sup, w) for f, c in raw_curves.items()}
+        curves = {f: smooth_cumulative(c, a_sup, w) for f, c in apply_support(raw_curves, support).items()}
         factors, cells, marg = raked(curves, il, a_sup, rates_km)
         results[w] = {"window": w, "joint_cell_mean_abs_pct_error": round(float(np.mean([c["abs_pct_error"] for c in cells])), 2), **lumpiness(curves, factors, a_sup, rates_km), **fit_quality(curves),
                       "_payload": (factors, cells, marg, curves)}
@@ -104,6 +119,8 @@ def main() -> None:
     calj["age_band_factors"] = {k: float(v) for k, v in factors["age"].items()}
     calj["ownership_factors"] = {k: float(v) for k, v in factors["own"].items()}
     calj["smoothing_window"] = int(apply)
+    calj["support_max_age"] = support
+    calj["min_training_vehicles_per_age"] = MIN_ROWS_PER_AGE
     calj["learned_curve_cumulative_km"] = {f: [float(x) for x in c] for f, c in curves.items()}
     (ART / "model1" / "calibration.json").write_text(json.dumps(calj), encoding="utf-8")
 
@@ -112,6 +129,7 @@ def main() -> None:
     card["version"] = "1.0.1"
     card["trained_at_note"] = "boosters trained " + card["trained_at"] + " (unchanged); calibration curve smoothed in the final technical review " + time.strftime("%Y-%m-%d")
     card["calibration"].update({"marginals": marg, "held_out_joint_cells": cells, "joint_cell_mean_abs_pct_error": float(np.mean([c["abs_pct_error"] for c in cells])),
+                                "support": f"fuel types with fewer than {MIN_ROWS_PER_AGE} training vehicles at an age continue with the yearly growth of the petrol curve above the last supported age {support}; electric always uses the petrol curve; the API flags these estimates as low reliability",
                                 "smoothing": f"centred moving average of the learned yearly increments, window {apply} years (ages 1 to {a_sup}), total preserved; boosters not retrained",
                                 "smoothing_comparison": {str(w): {k: v for k, v in r.items() if not k.startswith("_")} for w, r in results.items()}})
     for ref in card["reference_points"]:

@@ -11,6 +11,10 @@ from pathlib import Path
 import numpy as np
 import xgboost as xgb
 
+# The highest yearly mileage the official statistics publish for any group is 28,400 km (leasing cars, CBS Publication 1923, Table 8). A calibrated estimate that implies
+# more than 40,000 km per year comes from multiplying age, fuel and ownership effects that the CBS does not publish jointly: it is shown, but flagged low reliability.
+MAX_PLAUSIBLE_ANNUAL_KM = 40_000
+
 FUEL_COLUMNS = ["diesel", "electric", "hybrid", "lpg_cng", "petrol"]      # feature order used in training: [age, one-hot fuel...]
 
 
@@ -21,6 +25,8 @@ class MileageEstimate:
     km_high: int
     annual_km: int
     notes: tuple[str, ...]
+    reliability: str = "ok"                   # ok | low: "low" when the training data do not support this fuel type at this age
+    reliability_reason: str | None = None
 
 
 def smooth_cumulative(curve: np.ndarray, a_sup: int, window: int) -> np.ndarray:
@@ -40,6 +46,21 @@ def smooth_cumulative(curve: np.ndarray, a_sup: int, window: int) -> np.ndarray:
     out = c.copy()
     out[1: a_sup + 1] = c[0] + np.cumsum(sm)
     out[a_sup + 1:] = out[a_sup] + (c[a_sup + 1:] - c[a_sup])
+    return out
+
+
+def apply_support(curves: dict, support_max_age: dict, fallback: str = "petrol") -> dict:
+    """Where the training data hold too few vehicles of a fuel type at an age, continue that fuel's curve with the yearly growth of the petrol curve.
+
+    support_max_age[fuel] = last age with enough training vehicles of that fuel (>= 30 per year of age). Up to there the curve is the fuel's own; above it only the
+    level reached at that age is kept and the yearly increments of the fallback curve are added. Fuels without an entry are untouched.
+    """
+    out = {f: np.asarray(c, dtype=float).copy() for f, c in curves.items()}
+    fb = np.asarray(curves[fallback], dtype=float)
+    for fuel, a_max in support_max_age.items():
+        if fuel == fallback or fuel not in out or a_max >= len(fb) - 1:
+            continue
+        out[fuel][a_max + 1:] = out[fuel][a_max] + (fb[a_max + 1:] - fb[a_max])
     return out
 
 
@@ -75,6 +96,11 @@ class MileageModel:
             self.q10[fuel] = np.clip(boosters["q10"].predict(dm), 0, None)
             self.q90[fuel] = np.clip(boosters["q90"].predict(dm), 0, None)
         self.curve = {f: np.maximum.accumulate(c) for f, c in self.mean_raw.items()}          # cumulative, non-decreasing
+        self.support_max_age = {k: int(v) for k, v in self.cal.get("support_max_age", {}).items()}     # fuel -> last age with >= 30 training vehicles
+        if self.support_max_age:
+            self.curve = apply_support(self.curve, self.support_max_age)
+            self.q10 = apply_support(self.q10, self.support_max_age)
+            self.q90 = apply_support(self.q90, self.support_max_age)
         self.smoothing_window = int(self.cal.get("smoothing_window", 1))                      # 1 = none (artifacts older than the final review)
         if self.smoothing_window > 1:
             self.curve = {f: smooth_cumulative(c, self.a_sup, self.smoothing_window) for f, c in self.curve.items()}
@@ -101,8 +127,6 @@ class MileageModel:
         if fuel_key not in self.curve:
             fuel_key = "petrol"
             notes.append("unknown fuel type: petrol curve used")
-        if fuel == "electric":
-            notes.append("electric vehicle: petrol curve used (no official or training data for electric vehicles)")
         a = int(min(max(age, 0), self.max_age))
         if age > self.max_age:
             notes.append(f"age above {self.max_age}: capped")
@@ -117,5 +141,15 @@ class MileageModel:
         lo, hi = min(lo, est), max(hi, est)
         if a > self.a_sup:
             notes.append(f"age above {self.a_sup}: the training data carry no information; official yearly rates were used")
+        reliability, reason = "ok", None
+        if fuel == "electric":
+            reliability, reason = "low", "no training data exist for electric vehicles: the petrol curve is used"
+        elif fuel_key in self.support_max_age and a > self.support_max_age[fuel_key] and fuel_key != "petrol":
+            reliability, reason = "low", (f"the training data hold too few {fuel_key.replace('lpg_cng', 'LPG/CNG')} vehicles older than {self.support_max_age[fuel_key]} years "
+                                          "(under 30 per year of age): from there on the yearly growth of petrol vehicles was used")
         annual = est / max(a, 1) if a > 0 else est
-        return MileageEstimate(km=int(round(est, -2)), km_low=int(round(lo, -2)), km_high=int(round(hi, -2)), annual_km=int(round(annual, -2)), notes=tuple(notes))
+        if reliability == "ok" and a > 0 and annual > MAX_PLAUSIBLE_ANNUAL_KM:
+            reliability, reason = "low", (f"the estimate implies about {int(round(annual, -3)):,} km per year, more than the official statistics publish for any group "
+                                          "(highest average 28,400 km, leasing cars): the combination of age, fuel type and ownership is not covered by them")
+        return MileageEstimate(km=int(round(est, -2)), km_low=int(round(lo, -2)), km_high=int(round(hi, -2)), annual_km=int(round(annual, -2)), notes=tuple(notes),
+                               reliability=reliability, reliability_reason=reason)

@@ -1,10 +1,10 @@
 {
  "vehicles_age_ge_1": 17507,
  "share_estimate_above_400k_km": 0.00039984006397441024,
- "share_estimate_above_300k_km": 0.012794882047181128,
+ "share_estimate_above_300k_km": 0.012737762038041927,
  "share_annual_above_40k": 0.0038841606214656994,
  "share_annual_above_35k": 0.02816016450562632,
- "max_estimate": 507100,
+ "max_estimate": 508800,
  "max_annual": 46800,
  "high_range_above_500k": 0.00274176043868167,
  "worst_groups": {

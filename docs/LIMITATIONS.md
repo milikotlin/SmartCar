@@ -23,6 +23,20 @@ These limits are shown, in shorter form, in the interface and in the API (`discl
 * A **measured odometer** (entered by the user) improves the model by about 0.013 to 0.016 AUC. The mileage *estimated* by Model 1 is not a feature of Model 2 because it added no information in any experiment.
 * The indicators are computed for a **standard interval of 12 months** to the next inspection; the planned interval of the plate is not used (it varied only with the timing of the test and did not improve the ranking).
 
+## Mileage estimate (Model 1): when it is flagged "low reliability"
+
+The mileage block shows a **Low reliability** warning (field `estimate_reliability` of the API) when the training data cannot support the figure:
+
+* **Electric vehicles** (no training data, no CBS figure): the petrol curve is used. Always flagged.
+* **Hybrid and LPG/CNG vehicles older than 7 years**: the training data hold 2 to 5 vehicles per year of age (hybrids aged 8 to 12: 5, 4, 5, 4 and 2 vehicles, all UK listings). A previous version produced 35,000 to 46,000 km per year there: the tiny sample, multiplied by the CBS age-band factor (2.2 to 3.4) that was fitted on a petrol-dominated fleet. Now the curve of such a fuel keeps its own level up to age 7 and continues with the yearly growth of petrol vehicles (about 12,000 to 15,000 km per year); the figure is flagged.
+* **Any estimate that implies more than 40,000 km per year**: the highest group average published by the CBS is 28,400 km (leasing cars). Such values appear only for combinations the CBS does not publish jointly (for example a diesel or hybrid car under leasing). The figure is shown, flagged.
+
+On the 19,200 passenger vehicles of the registry sample 7.6% are flagged (6.8% electric, 0.4% hybrid or LPG/CNG over 7 years, 0.35% above 40,000 km per year); the other 92.4% are not affected (`ml/model1_reliability_share.json`).
+
+## Model 2 compared with age alone
+
+Most of the level reflects the age of the vehicle: age alone reproduces 85% to 97% of the discrimination (AUC above 0.5) of the registry-only model. The registry-only model adds AUC +0.021 to +0.031 over an age-only classification in the UK and only +0.005 (brakes), +0.015 (electrical) and +0.019 (engine-related) on the independent Dutch data; with the previous inspection result the gain is +0.024 to +0.063, and with the odometer as well up to +0.083 (UK). Details and Recall / Precision in `docs/MODEL2_VS_AGE_BASELINE.md`.
+
 ## Data and method
 
 * UK data: a 1-in-41 sample of vehicles from the full 2022 and 2023 MOT files (the extraction was verified end to end with the CRC32 and size recorded in the zip files; see `docs/UK_EXTRACTION.md`). Pairs are an inspection in 2022 and the next inspection of the same vehicle in 2023.

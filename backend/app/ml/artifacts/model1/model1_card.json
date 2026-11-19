@@ -36,22 +36,22 @@
       },
       "age:4-6": {
         "n_registry_sample": 3358,
-        "model_thousand_km_per_year": 16.43180339729209,
+        "model_thousand_km_per_year": 16.431803397292086,
         "cbs_2022": 16.0
       },
       "age:7-9": {
         "n_registry_sample": 3085,
-        "model_thousand_km_per_year": 14.583225515096728,
+        "model_thousand_km_per_year": 14.58322551509673,
         "cbs_2022": 14.2
       },
       "age:10-13": {
         "n_registry_sample": 3236,
-        "model_thousand_km_per_year": 12.940045175367523,
+        "model_thousand_km_per_year": 12.94004517536752,
         "cbs_2022": 12.6
       },
       "age:14-19": {
         "n_registry_sample": 3138,
-        "model_thousand_km_per_year": 11.810358691803692,
+        "model_thousand_km_per_year": 11.810358691803689,
         "cbs_2022": 11.5
       },
       "age:20-29": {
@@ -66,22 +66,22 @@
       },
       "own:private": {
         "n_registry_sample": 15618,
-        "model_thousand_km_per_year": 13.900000000000002,
+        "model_thousand_km_per_year": 13.9,
         "cbs_2022": 13.9
       },
       "own:leasing": {
         "n_registry_sample": 1003,
-        "model_thousand_km_per_year": 28.300000000000008,
+        "model_thousand_km_per_year": 28.300000000000004,
         "cbs_2022": 28.3
       },
       "own:company": {
         "n_registry_sample": 685,
-        "model_thousand_km_per_year": 24.400000000000002,
+        "model_thousand_km_per_year": 24.4,
         "cbs_2022": 24.4
       },
       "own:rental": {
         "n_registry_sample": 201,
-        "model_thousand_km_per_year": 26.100000000000005,
+        "model_thousand_km_per_year": 26.1,
         "cbs_2022": 26.1
       }
     },
@@ -90,95 +90,96 @@
         "ownership": "private",
         "age_group": "new",
         "n": 2675,
-        "model": 16.183480125398024,
+        "model": 16.17766425551117,
         "cbs": 16.0,
-        "abs_pct_error": 1.146750783737649
+        "abs_pct_error": 1.110401596944821
       },
       {
         "ownership": "private",
         "age_group": "old",
         "n": 12943,
-        "model": 13.428060779151691,
+        "model": 13.429262776520718,
         "cbs": 13.4,
-        "abs_pct_error": 0.20940879963948777
+        "abs_pct_error": 0.21837892925908875
       },
       {
         "ownership": "leasing",
         "age_group": "new",
         "n": 941,
-        "model": 28.3006897021668,
+        "model": 28.29921218912546,
         "cbs": 28.4,
-        "abs_pct_error": 0.3496841473000001
+        "abs_pct_error": 0.35488665800894603
       },
       {
         "ownership": "leasing",
         "age_group": "old",
         "n": 62,
-        "model": 28.28953210098462,
+        "model": 28.31195693601531,
         "cbs": 26.2,
-        "abs_pct_error": 7.975313362536718
+        "abs_pct_error": 8.060904335936293
       },
       {
         "ownership": "company",
         "age_group": "new",
         "n": 322,
-        "model": 25.697751567939303,
+        "model": 25.750667971496323,
         "cbs": 26.5,
-        "abs_pct_error": 3.027352573813946
+        "abs_pct_error": 2.8276680320893477
       },
       {
         "ownership": "company",
         "age_group": "old",
         "n": 363,
-        "model": 23.248826432847224,
+        "model": 23.20188681316304,
         "cbs": 22.3,
-        "abs_pct_error": 4.254827053126564
+        "abs_pct_error": 4.044335485036044
       },
       {
         "ownership": "rental",
         "age_group": "new",
         "n": 178,
-        "model": 26.148098648490624,
+        "model": 26.147585782051742,
         "cbs": 26.5,
-        "abs_pct_error": 1.3279296283372655
+        "abs_pct_error": 1.3298649733896495
       },
       {
         "ownership": "rental",
         "age_group": "old",
         "n": 23,
-        "model": 25.727758285594287,
+        "model": 25.731727425860473,
         "cbs": 23.2,
-        "abs_pct_error": 10.895509851699515
+        "abs_pct_error": 10.912618214915826
       }
     ],
-    "joint_cell_mean_abs_pct_error": 3.6483470250238934,
+    "joint_cell_mean_abs_pct_error": 3.6073822781975013,
     "smoothing": "centred moving average of the learned yearly increments, window 3 years (ages 1 to 13), total preserved; boosters not retrained",
     "smoothing_comparison": {
       "1": {
         "window": 1,
-        "joint_cell_mean_abs_pct_error": 4.47,
-        "smallest_yearly_increment_km": 791,
+        "joint_cell_mean_abs_pct_error": 4.44,
+        "smallest_yearly_increment_km": 799,
         "largest_jump_over_previous_year": 19.4,
-        "R2_in_sample": 0.544,
-        "RMSE_km": 23622
+        "R2_in_sample": 0.5439,
+        "RMSE_km": 23625
       },
       "3": {
         "window": 3,
-        "joint_cell_mean_abs_pct_error": 3.65,
-        "smallest_yearly_increment_km": 9545,
-        "largest_jump_over_previous_year": 1.9,
-        "R2_in_sample": 0.5404,
-        "RMSE_km": 23715
+        "joint_cell_mean_abs_pct_error": 3.61,
+        "smallest_yearly_increment_km": 9948,
+        "largest_jump_over_previous_year": 1.4,
+        "R2_in_sample": 0.5403,
+        "RMSE_km": 23718
       },
       "5": {
         "window": 5,
-        "joint_cell_mean_abs_pct_error": 4.33,
-        "smallest_yearly_increment_km": 10816,
-        "largest_jump_over_previous_year": 1.7,
+        "joint_cell_mean_abs_pct_error": 4.34,
+        "smallest_yearly_increment_km": 10499,
+        "largest_jump_over_previous_year": 1.3,
         "R2_in_sample": 0.5375,
-        "RMSE_km": 23789
+        "RMSE_km": 23790
       }
-    }
+    },
+    "support": "fuel types with fewer than 30 training vehicles at an age continue with the yearly growth of the petrol curve above the last supported age {'hybrid': 7, 'lpg_cng': 7}; electric always uses the petrol curve; the API flags these estimates as low reliability"
   },
   "reference_points": [
     {
@@ -192,14 +193,14 @@
       "fuel": "petrol",
       "ownership": "private",
       "age": 10,
-      "calibrated_km": 151100.0,
+      "calibrated_km": 151400.0,
       "learned_uncalibrated_km": 77104.01784137718
     },
     {
       "fuel": "diesel",
       "ownership": "company",
       "age": 7,
-      "calibrated_km": 235100.0,
+      "calibrated_km": 235800.0,
       "learned_uncalibrated_km": 85565.56840751496
     },
     {
@@ -213,8 +214,8 @@
       "fuel": "hybrid",
       "ownership": "private",
       "age": 6,
-      "calibrated_km": 119900.0,
-      "learned_uncalibrated_km": 71879.9122940336
+      "calibrated_km": 119800.0,
+      "learned_uncalibrated_km": 71875.81750758203
     }
   ],
   "interval": "indicative 80% range: quantile models scaled by calibrated/learned ratio; coverage of the raw range on held-out training-market vehicles is in held_out_validation_uncalibrated; NOT validated on Israeli vehicles",

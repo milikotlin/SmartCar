@@ -1,0 +1,271 @@
+{
+ "flag_share": 0.31,
+ "uk_pairs": 660202,
+ "nl_pairs": 366950,
+ "rows": [
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "brakes",
+   "model": "age only",
+   "auc": 0.6546788923969773,
+   "within_age_auc": 0.49295453981962967,
+   "recall": 0.5117632897818046,
+   "precision": 0.11425611859495854,
+   "base_rate": 0.06921063553276119,
+   "lift": 1.6508462567270439
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "brakes",
+   "model": "XGBoost cold",
+   "auc": 0.6760580809053988,
+   "within_age_auc": 0.5897501207096134,
+   "recall": 0.5389009257435493,
+   "precision": 0.12031485906099294,
+   "base_rate": 0.06921063553276119,
+   "lift": 1.7383868553560864
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "brakes",
+   "model": "XGBoost cold_odo",
+   "auc": 0.6919116290738181,
+   "within_age_auc": 0.6258283109080867,
+   "recall": 0.561989801501324,
+   "precision": 0.1254696745381432,
+   "base_rate": 0.06921063553276119,
+   "lift": 1.812866961447732
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "brakes",
+   "model": "XGBoost hist",
+   "auc": 0.6903600669354593,
+   "within_age_auc": 0.6164679182567931,
+   "recall": 0.5612238198411135,
+   "precision": 0.12529866170240836,
+   "base_rate": 0.06921063553276119,
+   "lift": 1.8103960574541702
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "brakes",
+   "model": "XGBoost hist_odo",
+   "auc": 0.7027154191928047,
+   "within_age_auc": 0.642840987438948,
+   "recall": 0.5777252533210776,
+   "precision": 0.12898276679223894,
+   "base_rate": 0.06921063553276119,
+   "lift": 1.8636263892011846
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "electrical",
+   "model": "age only",
+   "auc": 0.680825675687052,
+   "within_age_auc": 0.4949384538806192,
+   "recall": 0.5283850745880425,
+   "precision": 0.19850681363998376,
+   "base_rate": 0.11646284016104162,
+   "lift": 1.7044648178379815
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "electrical",
+   "model": "XGBoost cold",
+   "auc": 0.7084870339798403,
+   "within_age_auc": 0.6147430233863144,
+   "recall": 0.5659587197128327,
+   "precision": 0.21262270170963976,
+   "base_rate": 0.11646284016104162,
+   "lift": 1.825669899648943
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "electrical",
+   "model": "XGBoost cold_odo",
+   "auc": 0.726886490529744,
+   "within_age_auc": 0.6504431381925697,
+   "recall": 0.5946104124126989,
+   "precision": 0.22338673819889282,
+   "base_rate": 0.11646284016104162,
+   "lift": 1.9180945432036498
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "electrical",
+   "model": "XGBoost hist",
+   "auc": 0.7243110792874261,
+   "within_age_auc": 0.6420923822828303,
+   "recall": 0.587327185943373,
+   "precision": 0.22065053282713534,
+   "base_rate": 0.11646284016104162,
+   "lift": 1.8946003078924216
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "electrical",
+   "model": "XGBoost hist_odo",
+   "auc": 0.7374423440987704,
+   "within_age_auc": 0.66637114298927,
+   "recall": 0.6098531649520738,
+   "precision": 0.22911322515549953,
+   "base_rate": 0.11646284016104162,
+   "lift": 1.9672646213907203
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "engine_emissions",
+   "model": "age only",
+   "auc": 0.6835765655949504,
+   "within_age_auc": 0.48914333444568503,
+   "recall": 0.5744079524412825,
+   "precision": 0.05759712307549484,
+   "base_rate": 0.03108442567577802,
+   "lift": 1.8529254384898082
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "engine_emissions",
+   "model": "XGBoost cold",
+   "auc": 0.7148600015169972,
+   "within_age_auc": 0.6267262796223446,
+   "recall": 0.6117337491472566,
+   "precision": 0.06133986113757738,
+   "base_rate": 0.03108442567577802,
+   "lift": 1.973331010756791
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "engine_emissions",
+   "model": "XGBoost cold_odo",
+   "auc": 0.74114299800318,
+   "within_age_auc": 0.6759041238621522,
+   "recall": 0.6505701198713576,
+   "precision": 0.0652340677113108,
+   "base_rate": 0.03108442567577802,
+   "lift": 2.09860939338967
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "engine_emissions",
+   "model": "XGBoost hist",
+   "auc": 0.747035242805047,
+   "within_age_auc": 0.6735638709950786,
+   "recall": 0.6542734626254751,
+   "precision": 0.06560540986890645,
+   "base_rate": 0.03108442567577802,
+   "lift": 2.1105556381576736
+  },
+  {
+   "test_set": "UK out-of-sample (3-fold by vehicle)",
+   "system": "engine_emissions",
+   "model": "XGBoost hist_odo",
+   "auc": 0.7667237238438803,
+   "within_age_auc": 0.7091999213843716,
+   "recall": 0.6859467888120067,
+   "precision": 0.06878136253255351,
+   "base_rate": 0.03108442567577802,
+   "lift": 2.212727468410335
+  },
+  {
+   "test_set": "NL independent (UK-trained)",
+   "system": "brakes",
+   "model": "age only",
+   "auc": 0.6377806170953104,
+   "within_age_auc": 0.5,
+   "recall": 0.4982064807837227,
+   "precision": 0.1452959895915748,
+   "base_rate": 0.0904074124540128,
+   "lift": 1.6071247439526262
+  },
+  {
+   "test_set": "NL independent (UK-trained)",
+   "system": "brakes",
+   "model": "XGBoost cold (exported)",
+   "auc": 0.6423248527878406,
+   "within_age_auc": 0.5387736402640483,
+   "recall": 0.49829691032403917,
+   "precision": 0.1453223622905568,
+   "base_rate": 0.0904074124540128,
+   "lift": 1.6074164534293842
+  },
+  {
+   "test_set": "NL independent (UK-trained)",
+   "system": "brakes",
+   "model": "XGBoost hist (exported)",
+   "auc": 0.6618339556906994,
+   "within_age_auc": 0.5828451094914541,
+   "recall": 0.5158703843255463,
+   "precision": 0.15044745679272817,
+   "base_rate": 0.0904074124540128,
+   "lift": 1.6641053284127085
+  },
+  {
+   "test_set": "NL independent (UK-trained)",
+   "system": "electrical",
+   "model": "age only",
+   "auc": 0.6408987878773521,
+   "within_age_auc": 0.5,
+   "recall": 0.4731391242000159,
+   "precision": 0.3132549185083601,
+   "base_rate": 0.20524322114729526,
+   "lift": 1.526261947933223
+  },
+  {
+   "test_set": "NL independent (UK-trained)",
+   "system": "electrical",
+   "model": "XGBoost cold (exported)",
+   "auc": 0.6557024689997917,
+   "within_age_auc": 0.5709487338445636,
+   "recall": 0.4846110948827575,
+   "precision": 0.3208502558151801,
+   "base_rate": 0.20524322114729526,
+   "lift": 1.5632684676339106
+  },
+  {
+   "test_set": "NL independent (UK-trained)",
+   "system": "electrical",
+   "model": "XGBoost hist (exported)",
+   "auc": 0.6852734046361345,
+   "within_age_auc": 0.623602417311533,
+   "recall": 0.5171282895610377,
+   "precision": 0.34237916908416405,
+   "base_rate": 0.20524322114729526,
+   "lift": 1.6681631050725496
+  },
+  {
+   "test_set": "NL independent (UK-trained)",
+   "system": "engine_emissions",
+   "model": "age only",
+   "auc": 0.7178967204388416,
+   "within_age_auc": 0.5,
+   "recall": 0.6259502418797512,
+   "precision": 0.06369885894122404,
+   "base_rate": 0.03154653222509879,
+   "lift": 2.0192032039117276
+  },
+  {
+   "test_set": "NL independent (UK-trained)",
+   "system": "engine_emissions",
+   "model": "XGBoost cold (exported)",
+   "auc": 0.7371684243095846,
+   "within_age_auc": 0.6002062072555303,
+   "recall": 0.6560988251554941,
+   "precision": 0.06676688292279832,
+   "base_rate": 0.03154653222509879,
+   "lift": 2.116457125822464
+  },
+  {
+   "test_set": "NL independent (UK-trained)",
+   "system": "engine_emissions",
+   "model": "XGBoost hist (exported)",
+   "auc": 0.7600464875107933,
+   "within_age_auc": 0.6371733127742717,
+   "recall": 0.6958362128541811,
+   "precision": 0.0708106967667071,
+   "base_rate": 0.03154653222509879,
+   "lift": 2.2446428108624024
+  }
+ ]
+}

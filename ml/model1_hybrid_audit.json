@@ -1,0 +1,374 @@
+{
+ "before": {
+  "hybrid": [
+   {
+    "age": 6,
+    "training_vehicles": 137,
+    "mean_km_of_those_vehicles": 66700,
+    "learned_increment_km_unsmoothed": 4400,
+    "cbs_age_band_factor": 1.94,
+    "served_estimate_km": 119900,
+    "served_yearly_km": 13700,
+    "reliability": "ok"
+   },
+   {
+    "age": 7,
+    "training_vehicles": 72,
+    "mean_km_of_those_vehicles": 76800,
+    "learned_increment_km_unsmoothed": 9700,
+    "cbs_age_band_factor": 3.4,
+    "served_estimate_km": 145600,
+    "served_yearly_km": 25700,
+    "reliability": "ok"
+   },
+   {
+    "age": 8,
+    "training_vehicles": 5,
+    "mean_km_of_those_vehicles": 103900,
+    "learned_increment_km_unsmoothed": 10200,
+    "cbs_age_band_factor": 3.4,
+    "served_estimate_km": 173600,
+    "served_yearly_km": 28000,
+    "reliability": "ok"
+   },
+   {
+    "age": 9,
+    "training_vehicles": 4,
+    "mean_km_of_those_vehicles": 76700,
+    "learned_increment_km_unsmoothed": 6700,
+    "cbs_age_band_factor": 3.4,
+    "served_estimate_km": 212000,
+    "served_yearly_km": 38400,
+    "reliability": "ok"
+   },
+   {
+    "age": 10,
+    "training_vehicles": 5,
+    "mean_km_of_those_vehicles": 108100,
+    "learned_increment_km_unsmoothed": 19500,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 257800,
+    "served_yearly_km": 45800,
+    "reliability": "ok"
+   },
+   {
+    "age": 11,
+    "training_vehicles": 4,
+    "mean_km_of_those_vehicles": 114400,
+    "learned_increment_km_unsmoothed": 41600,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 304000,
+    "served_yearly_km": 46200,
+    "reliability": "ok"
+   },
+   {
+    "age": 12,
+    "training_vehicles": 2,
+    "mean_km_of_those_vehicles": 203700,
+    "learned_increment_km_unsmoothed": 7300,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 338900,
+    "served_yearly_km": 34900,
+    "reliability": "ok"
+   },
+   {
+    "age": 13,
+    "training_vehicles": 0,
+    "mean_km_of_those_vehicles": null,
+    "learned_increment_km_unsmoothed": 2700,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 349100,
+    "served_yearly_km": 10200,
+    "reliability": "ok"
+   },
+   {
+    "age": 14,
+    "training_vehicles": 0,
+    "mean_km_of_those_vehicles": null,
+    "learned_increment_km_unsmoothed": 0,
+    "cbs_age_band_factor": 1.08,
+    "served_estimate_km": 360800,
+    "served_yearly_km": 11700,
+    "reliability": "ok"
+   }
+  ],
+  "petrol": [
+   {
+    "age": 6,
+    "training_vehicles": 2859,
+    "mean_km_of_those_vehicles": 57700,
+    "learned_increment_km_unsmoothed": 7400,
+    "cbs_age_band_factor": 1.94,
+    "served_estimate_km": 97600,
+    "served_yearly_km": 14300,
+    "reliability": "ok"
+   },
+   {
+    "age": 7,
+    "training_vehicles": 1945,
+    "mean_km_of_those_vehicles": 64800,
+    "learned_increment_km_unsmoothed": 6700,
+    "cbs_age_band_factor": 3.4,
+    "served_estimate_km": 112800,
+    "served_yearly_km": 15200,
+    "reliability": "ok"
+   },
+   {
+    "age": 8,
+    "training_vehicles": 978,
+    "mean_km_of_those_vehicles": 64200,
+    "learned_increment_km_unsmoothed": 200,
+    "cbs_age_band_factor": 3.4,
+    "served_estimate_km": 124700,
+    "served_yearly_km": 11900,
+    "reliability": "ok"
+   },
+   {
+    "age": 9,
+    "training_vehicles": 815,
+    "mean_km_of_those_vehicles": 68900,
+    "learned_increment_km_unsmoothed": 4200,
+    "cbs_age_band_factor": 3.4,
+    "served_estimate_km": 137800,
+    "served_yearly_km": 13100,
+    "reliability": "ok"
+   },
+   {
+    "age": 10,
+    "training_vehicles": 642,
+    "mean_km_of_those_vehicles": 76500,
+    "learned_increment_km_unsmoothed": 7900,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 151100,
+    "served_yearly_km": 13300,
+    "reliability": "ok"
+   },
+   {
+    "age": 11,
+    "training_vehicles": 595,
+    "mean_km_of_those_vehicles": 84200,
+    "learned_increment_km_unsmoothed": 7400,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 164400,
+    "served_yearly_km": 13300,
+    "reliability": "ok"
+   },
+   {
+    "age": 12,
+    "training_vehicles": 422,
+    "mean_km_of_those_vehicles": 87900,
+    "learned_increment_km_unsmoothed": 4100,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 176200,
+    "served_yearly_km": 11800,
+    "reliability": "ok"
+   },
+   {
+    "age": 13,
+    "training_vehicles": 316,
+    "mean_km_of_those_vehicles": 94900,
+    "learned_increment_km_unsmoothed": 5700,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 186200,
+    "served_yearly_km": 10000,
+    "reliability": "ok"
+   },
+   {
+    "age": 14,
+    "training_vehicles": 181,
+    "mean_km_of_those_vehicles": 91200,
+    "learned_increment_km_unsmoothed": 0,
+    "cbs_age_band_factor": 1.08,
+    "served_estimate_km": 198000,
+    "served_yearly_km": 11800,
+    "reliability": "ok"
+   }
+  ]
+ },
+ "after": {
+  "hybrid": [
+   {
+    "age": 6,
+    "training_vehicles": 137,
+    "mean_km_of_those_vehicles": 66700,
+    "learned_increment_km_unsmoothed": 4400,
+    "cbs_age_band_factor": 1.94,
+    "served_estimate_km": 119800,
+    "served_yearly_km": 13600,
+    "reliability": "ok"
+   },
+   {
+    "age": 7,
+    "training_vehicles": 72,
+    "mean_km_of_those_vehicles": 76800,
+    "learned_increment_km_unsmoothed": 9700,
+    "cbs_age_band_factor": 3.43,
+    "served_estimate_km": 135100,
+    "served_yearly_km": 15300,
+    "reliability": "ok"
+   },
+   {
+    "age": 8,
+    "training_vehicles": 5,
+    "mean_km_of_those_vehicles": 103900,
+    "learned_increment_km_unsmoothed": 10200,
+    "cbs_age_band_factor": 3.43,
+    "served_estimate_km": 150000,
+    "served_yearly_km": 14900,
+    "reliability": "low"
+   },
+   {
+    "age": 9,
+    "training_vehicles": 4,
+    "mean_km_of_those_vehicles": 76700,
+    "learned_increment_km_unsmoothed": 6700,
+    "cbs_age_band_factor": 3.43,
+    "served_estimate_km": 163100,
+    "served_yearly_km": 13100,
+    "reliability": "low"
+   },
+   {
+    "age": 10,
+    "training_vehicles": 5,
+    "mean_km_of_those_vehicles": 108100,
+    "learned_increment_km_unsmoothed": 19500,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 176300,
+    "served_yearly_km": 13200,
+    "reliability": "low"
+   },
+   {
+    "age": 11,
+    "training_vehicles": 4,
+    "mean_km_of_those_vehicles": 114400,
+    "learned_increment_km_unsmoothed": 41600,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 189400,
+    "served_yearly_km": 13100,
+    "reliability": "low"
+   },
+   {
+    "age": 12,
+    "training_vehicles": 2,
+    "mean_km_of_those_vehicles": 203700,
+    "learned_increment_km_unsmoothed": 7300,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 201000,
+    "served_yearly_km": 11600,
+    "reliability": "low"
+   },
+   {
+    "age": 13,
+    "training_vehicles": 0,
+    "mean_km_of_those_vehicles": null,
+    "learned_increment_km_unsmoothed": 2700,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 211000,
+    "served_yearly_km": 10000,
+    "reliability": "low"
+   },
+   {
+    "age": 14,
+    "training_vehicles": 0,
+    "mean_km_of_those_vehicles": null,
+    "learned_increment_km_unsmoothed": 0,
+    "cbs_age_band_factor": 1.08,
+    "served_estimate_km": 222700,
+    "served_yearly_km": 11700,
+    "reliability": "low"
+   }
+  ],
+  "petrol": [
+   {
+    "age": 6,
+    "training_vehicles": 2859,
+    "mean_km_of_those_vehicles": 57700,
+    "learned_increment_km_unsmoothed": 7400,
+    "cbs_age_band_factor": 1.94,
+    "served_estimate_km": 97600,
+    "served_yearly_km": 14300,
+    "reliability": "ok"
+   },
+   {
+    "age": 7,
+    "training_vehicles": 1945,
+    "mean_km_of_those_vehicles": 64800,
+    "learned_increment_km_unsmoothed": 6700,
+    "cbs_age_band_factor": 3.43,
+    "served_estimate_km": 112900,
+    "served_yearly_km": 15300,
+    "reliability": "ok"
+   },
+   {
+    "age": 8,
+    "training_vehicles": 978,
+    "mean_km_of_those_vehicles": 64200,
+    "learned_increment_km_unsmoothed": 200,
+    "cbs_age_band_factor": 3.43,
+    "served_estimate_km": 124800,
+    "served_yearly_km": 11900,
+    "reliability": "ok"
+   },
+   {
+    "age": 9,
+    "training_vehicles": 815,
+    "mean_km_of_those_vehicles": 68900,
+    "learned_increment_km_unsmoothed": 4200,
+    "cbs_age_band_factor": 3.43,
+    "served_estimate_km": 138100,
+    "served_yearly_km": 13300,
+    "reliability": "ok"
+   },
+   {
+    "age": 10,
+    "training_vehicles": 642,
+    "mean_km_of_those_vehicles": 76500,
+    "learned_increment_km_unsmoothed": 7900,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 151400,
+    "served_yearly_km": 13300,
+    "reliability": "ok"
+   },
+   {
+    "age": 11,
+    "training_vehicles": 595,
+    "mean_km_of_those_vehicles": 84200,
+    "learned_increment_km_unsmoothed": 7400,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 164700,
+    "served_yearly_km": 13300,
+    "reliability": "ok"
+   },
+   {
+    "age": 12,
+    "training_vehicles": 422,
+    "mean_km_of_those_vehicles": 87900,
+    "learned_increment_km_unsmoothed": 4100,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 176400,
+    "served_yearly_km": 11700,
+    "reliability": "ok"
+   },
+   {
+    "age": 13,
+    "training_vehicles": 316,
+    "mean_km_of_those_vehicles": 94900,
+    "learned_increment_km_unsmoothed": 5700,
+    "cbs_age_band_factor": 2.18,
+    "served_estimate_km": 186500,
+    "served_yearly_km": 10100,
+    "reliability": "ok"
+   },
+   {
+    "age": 14,
+    "training_vehicles": 181,
+    "mean_km_of_those_vehicles": 91200,
+    "learned_increment_km_unsmoothed": 0,
+    "cbs_age_band_factor": 1.08,
+    "served_estimate_km": 198200,
+    "served_yearly_km": 11700,
+    "reliability": "ok"
+   }
+  ]
+ }
+}

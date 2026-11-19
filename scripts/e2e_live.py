@@ -58,6 +58,11 @@ def main() -> None:
             check(m["estimated_low_km"] <= m["estimated_km"] <= m["estimated_high_km"], f"{plate}: mileage range does not bracket the estimate")
             check(m["primary_source"] == "estimated" and "not a measurement" in m["label"], f"{plate}: estimate not labelled as an estimate")
             age = date.today().year - veh["manufacture_year"]
+            check(m["estimate_reliability"] in ("ok", "low") and (m["estimate_reliability"] == "ok") == (m["estimate_reliability_reason"] is None), f"{plate}: reliability fields inconsistent")
+            if veh["fuel_type"] in ("Hybrid", "Electric") and (veh["fuel_type"] == "Electric" or age > 8):
+                check(m["estimate_reliability"] == "low", f"{plate}: {veh['fuel_type']} age {age} not flagged low reliability")
+            if m["estimate_reliability"] == "ok" and age >= 1:
+                check(m["estimated_km"] / age <= 40_000, f"{plate}: implausible yearly mileage not flagged")
             if age >= 1:
                 check(m["estimated_km"] > 0, f"{plate}: zero mileage for age {age}")
             check(m["estimated_annual_km"] < 80_000, f"{plate}: implausible annual km {m['estimated_annual_km']}")

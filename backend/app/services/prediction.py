@@ -186,6 +186,8 @@ async def build_prediction(
         measured_km=measured,
         measured_as_of=measured_as_of,
         notes=list(est.notes),
+        estimate_reliability=est.reliability,
+        estimate_reliability_reason=est.reliability_reason,
         label=label,
     )
 

@@ -117,3 +117,19 @@ def test_openai_failure_falls_back_instead_of_breaking(prediction, monkeypatch):
     transport = httpx.MockTransport(lambda request: httpx.Response(429, json={"error": "quota"}))
     out = asyncio.run(chat.answer(prediction, "brake noise", transport, TODAY))
     assert out["source"] == "deterministic_fallback" and "HTTPStatusError" in out["note"]
+
+
+def test_the_plate_is_not_sent_to_the_language_model(prediction):
+    assert "4908732" not in chat.build_system_prompt(prediction, TODAY)
+
+
+def test_low_reliability_mileage_is_passed_to_the_language_model_as_such(profiles, models, monkeypatch):
+    from app.services import prediction as pred
+
+    async def no_recalls(plate):
+        return pred.RecallInfo(available=False, error="offline test")
+
+    monkeypatch.setattr(pred, "get_recalls", no_recalls)
+    old_hybrid = profiles[4908732].model_copy(update={"fuel_type": "Hybrid", "manufacture_year": TODAY.year - 9})       # a real registry row turned into a 9-year-old hybrid
+    prompt = chat.build_system_prompt(asyncio.run(build_prediction(old_hybrid, models, None, today=TODAY)), TODAY)
+    assert "LOW RELIABILITY" in prompt and "do not rely on this figure" in prompt

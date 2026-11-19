@@ -33,6 +33,8 @@ python scripts/seed_demo.py   # opcional: 21 placas reais + registros de demonst
 - Frontend: `http://localhost:3000` · API: `http://localhost:8000` (docs interativas em `/docs`). As portas ficam presas a `127.0.0.1`.
 - Gravar registros (manutenção / resultado de inspeção) exige a **chave da oficina** (`RECORDS_WRITE_KEY` no `.env`, campo "Workshop key" no painel; leitura é livre). Sem chave configurada a gravação fica desabilitada. O `.env` não vai para o git; para compartilhar o projeto use `python scripts/make_share_zip.py` (só arquivos versionados).
 - Sem `OPENAI_API_KEY` o chat responde por um modelo determinístico baseado nos mesmos fatos (e diz isso).
+- Chat com a OpenAI: veja `docs/OPENAI_SETUP.md` (configurar e testar sem expor a chave: `python scripts/check_openai.py --direct`). Roteiro da apresentação: `docs/DEMO.md`. Limitações em linguagem simples: `docs/DEFESA_LIMITACOES_PT.md`. Modelo 2 contra uma regra só por idade: `docs/MODEL2_VS_AGE_BASELINE.md`.
+
 
 ```bash
 curl http://localhost:8000/health

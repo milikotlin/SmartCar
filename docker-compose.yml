@@ -36,9 +36,9 @@ services:
 
   frontend:
     build: ./frontend
-    env_file:
-      - .env
+    # No env_file on purpose: the browser app only needs the public API address. The workshop key, the database password and the OpenAI key stay in the backend.
     environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
       # Windows bind mounts don't emit native fs events into the container,
       # so Next.js needs polling to pick up file edits during `next dev`.
       WATCHPACK_POLLING: "true"

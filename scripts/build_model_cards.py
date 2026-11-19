@@ -22,7 +22,8 @@ out += [f"## {m1['name']} (v{m1['version']}, trained {m1['trained_at']})", "",
         f"* **Held-out validation of the learned model (training markets, uncalibrated, {v['n_test']:,} vehicles):** R2 = {f(v['R2'])}, RMSE = {v['RMSE_km']:,.0f} km, MAE = {v['MAE_km']:,.0f} km; the raw 10-90% quantile range covers {v['raw_80pct_interval_coverage_heldout'] * 100:.1f}% of held-out vehicles (nominal 80%).",
         f"* **Calibration to Israel:** {c['source']}. Families fitted: {', '.join(c['families'])}; supported age {c['supported_age']} years (above it the official yearly rate replaces the flat learned curve). Registry sample used: {c['registry_sample_rows']:,} real vehicles.",
         f"* **Check on CBS Table 8 joint cells never used in the fit:** mean absolute error {c['joint_cell_mean_abs_pct_error']:.1f}% over {len(c['held_out_joint_cells'])} cells.",
-        f"* **Curve smoothing (final technical review):** {c.get('smoothing', 'none')}.", "",
+        f"* **Curve smoothing (final technical review):** {c.get('smoothing', 'none')}.",
+        f"* **Low-support fuels (hybrid, LPG/CNG) and low reliability:** {c.get('support', 'none')}.", "",
         "| Age band | CBS 2022 (thousand km/yr) | Model implied on the Israeli registry sample |", "|---|---|---|"]
 for k, mm in c["marginals"].items():
     if k.startswith("age:"):
