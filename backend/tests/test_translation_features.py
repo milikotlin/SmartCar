@@ -52,12 +52,14 @@ def test_age_and_make_vocabulary(profiles):
     assert features.ownership_key(profiles[67687703]) == "leasing"
 
 
-def test_planned_gap_uses_the_registry_dates_and_falls_back_to_one_year(profiles):
-    p = profiles[4908732].model_copy(update={"last_test_date": "2026-04-15", "license_valid_until": "2027-02-19"})
-    assert features.planned_gap_years(p, date(2026, 4, 15)) == pytest.approx(0.847, abs=0.01)
-    p2 = p.model_copy(update={"license_valid_until": "2031-01-01"})              # implausible interval: ignored
-    assert features.planned_gap_years(p2, date(2026, 4, 15)) == 1.0
-    assert features.planned_gap_years(p.model_copy(update={"license_valid_until": None}), date(2026, 4, 15)) == 1.0
+def test_registry_dates_do_not_change_the_risk_indicator(profiles, models):
+    """The planned interval (licence valid until minus last test) is not an input: identical vehicles must get identical indicators."""
+    base = profiles[4908732].model_copy(update={"first_registration": "2015-6", "last_test_date": "2026-04-15", "license_valid_until": "2027-04-20"})
+    other = base.model_copy(update={"license_valid_until": "2027-11-13"})
+    a, b = features.risk_inputs(base, None, None), features.risk_inputs(other, None, None)
+    assert a == b
+    ra, rb = models.risk.predict(a), models.risk.predict(b)
+    assert [(s.system, s.probability, s.level) for s in ra.systems] == [(s.system, s.probability, s.level) for s in rb.systems]
 
 
 def test_age_of_the_last_inspection_uses_first_registration_year(profiles):

@@ -20,7 +20,8 @@ SYSTEM_NAMES = {
     "electrical": "electrical system (mostly lighting)",
     "engine_emissions": "engine-related items (emissions, fuel system, mounts)",
 }
-BAND_WORDS = {"higher": "higher than similar vehicles", "typical": "typical for its age", "lower": "lower than similar vehicles"}
+LEVEL_WORDS = {"low": "Low", "moderate": "Moderate", "high": "High"}
+SAME_AGE_WORDS = {"lower": "lower than most vehicles of the same age", "typical": "about typical for the same age", "higher": "higher than most vehicles of the same age"}
 RELATED_RULES = {"brakes": ("brakes", "brake_fluid"), "electrical": ("battery",), "engine_emissions": ("oil", "filters")}
 
 
@@ -43,10 +44,10 @@ def facts(prediction: PredictionResponse, today: date) -> list[str]:
     if r.covered:
         basis = "uses the previous inspection result" if r.uses_history else "registry data only"
         out.append(
-            "ESTIMATED INSPECTION-DEFECT RISK (a statistical estimate learned from UK/Dutch inspections; NOT a probability of breakdown; NOT validated for Israel; " + basis + "):"
+            "ESTIMATED INSPECTION-DEFECT RISK (a relative level compared with UK reference vehicles, learned from UK/Dutch inspections; NOT a probability of breakdown; NOT validated for Israel; " + basis + "):"
         )
         for s in r.systems:
-            out.append(f"  - {s.title}: {BAND_WORDS[s.band]} (percentile {s.percentile_same_age} among vehicles of the same age, relative risk {s.relative_risk}x).")
+            out.append(f"  - {s.title}: {LEVEL_WORDS[s.level]} relative risk against reference vehicles of all ages; {SAME_AGE_WORDS[s.same_age_label]} ({s.same_age_years} years).")
     else:
         out.append("Estimated inspection-defect risk: NOT AVAILABLE for this vehicle (" + "; ".join(r.reasons) + ").")
     attention = [x for x in prediction.maintenance.rules if x.attention]
@@ -90,7 +91,7 @@ def fallback_answer(prediction: PredictionResponse, message: str, today: date | 
         lines.append(f"Your description mentions the {SYSTEM_NAMES[s]}.")
         sr = next((x for x in prediction.inspection_risk.systems if x.system == s), None)
         if sr:
-            lines.append(f"- Estimated inspection-defect risk ({sr.title}): {BAND_WORDS[sr.band]} (statistical estimate, not validated for Israel).")
+            lines.append(f"- Estimated inspection-defect risk ({sr.title}): {LEVEL_WORDS[sr.level]} relative risk against reference vehicles (statistical estimate, not validated for Israel).")
         related = [i for i in prediction.recalls.items if i.related_system == s]
         if related:
             lines.append(f"- Official open recall in this area: {related[0].category} ({related[0].type}). Check it with the dealer.")

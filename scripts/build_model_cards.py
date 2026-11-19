@@ -56,6 +56,27 @@ out += ["", "### Cross-fitted scores on all UK pairs (basis of the same-age band
 for r in m2["uk_cross_fitted"]:
     out.append(f"| {SYS[r['system']]} | {r['variant']} | {f(r['ROC-AUC'])} | {f(r['ECE'], 4)} | {f(r['share_flagged_higher_band'])} | {f(r['share_of_defects_in_higher_band'])} | {f(r['defect_rate_in_higher_band'])} |")
 out += ["", "**Bands:** " + "; ".join(f"{k}: {v}" for k, v in m2["bands"].items()) + ".", "", "**Limitations**", ""] + [f"* {x}" for x in m2["limitations"]] + [""]
+# ------------------------------------------------------------------ Model 2 reference scale (levels)
+ref_path = ART / "model2" / "model2_reference.json"
+if ref_path.exists():
+    ref = json.loads(ref_path.read_text(encoding="utf-8"))
+    sel = ref["level_selection"]
+    out += [f"## Model 2 - reference scale of the risk levels (v{ref['version']}, built {ref['built_on']})", "",
+            f"* **Reference population:** {ref['reference_population']}.",
+            f"* **Levels:** Low = lowest {ref['level_cut_percentiles']['brakes'][0]}% of reference vehicles, Moderate = the next {ref['level_cut_percentiles']['brakes'][1] - ref['level_cut_percentiles']['brakes'][0]}%, High = the top {100 - ref['level_cut_percentiles']['brakes'][1]}% (same cut points for the three systems).",
+            f"* **How the cut points were chosen:** {sel['criterion']}. Per-system optima: " + ", ".join(f"{SYS[k]} {v[0]}/{v[1]}" for k, v in sel['per_system_optimum'].items()) + f"; common optimum {sel['common_optimum'][0]}/{sel['common_optimum'][1]}; share of the log-likelihood gain lost by using the common cut points: " + ", ".join(f"{SYS[k]} {v * 100:.1f}%" for k, v in sel['share_of_gain_lost_with_common_cuts'].items()) + ".",
+            "* **Same-age comparison (complementary):** " + ref["same_age_bands"]["lower"] + " = lower; " + ref["same_age_bands"]["higher"] + " = higher; otherwise typical.", "",
+            "### Observed defect rate at the next inspection, by level (95% interval); the Dutch data are scored by the UK-trained exported models", "",
+            "| System | Variant | Data | Base rate | Low | Moderate | High |", "|---|---|---|---|---|---|---|"]
+    pc = lambda x: f"{x['rate'] * 100:.1f}% ({x['ci95'][0] * 100:.1f}-{x['ci95'][1] * 100:.1f}), {x['share'] * 100:.0f}% of vehicles"
+    for r in ref["level_rates"]:
+        out.append(f"| {SYS[r['system']]} | {r['variant']} | {r['data']} | {r['base_rate'] * 100:.1f}% | {pc(r['low'])} | {pc(r['moderate'])} | {pc(r['high'])} |")
+    out += ["", "### Standardising the interval to 12 months does not hurt the models (ROC-AUC; UK cross-fitted for every variant, Dutch out-of-sample)", "", "| Variant | System | Realised interval | Standardised 12 months | Change |", "|---|---|---|---|---|"]
+    for r in ref["interval_standardisation_check"]:
+        a, b = r["UK cross-fitted AUC, realised interval"], r["UK cross-fitted AUC, standardised 12 months"]
+        out.append(f"| {r['variant']} | {SYS[r['system']]} | {f(a, 4)} | {f(b, 4)} | {b - a:+.4f} |")
+    out.append("")
+
 (ROOT / "docs").mkdir(exist_ok=True)
 (ROOT / "docs" / "MODEL_CARDS.md").write_text("\n".join(out), encoding="utf-8")
 print("written docs/MODEL_CARDS.md,", len(out), "lines")

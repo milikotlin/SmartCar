@@ -19,10 +19,12 @@ from app.schemas.prediction import (
     InspectionRisk,
     MaintenanceInfo,
     MileageInfo,
+    ObservedRates,
     PredictionResponse,
     Provenance,
     RecallInfo,
     RecallItem,
+    RiskScale,
     RuleStatus,
     SystemRiskOut,
 )
@@ -35,14 +37,23 @@ SYSTEM_TITLES = {
     "engine_emissions": "Engine-related (emissions, fuel, mounts)",
 }
 RISK_DEFINITION = (
-    "Estimated risk that the next annual inspection finds a defect in this system, learned from UK and Dutch inspection data. "
+    "Relative risk that the next annual inspection finds a defect in this system, compared with reference vehicles from UK inspection data. "
     "It is not a prediction of a breakdown and it has not been validated on Israeli vehicles."
 )
 RISK_DISCLAIMER = (
-    "Ranks the vehicle against vehicles of the same age. The probability is calibrated on foreign inspections and is shown for reference only; "
-    "it is not a validated probability for Israel."
+    "These indicators are positions in a ranking, not probabilities of failure. The model was trained on UK inspections and checked on Dutch inspections; "
+    "no Israeli inspection results are available, so the levels show relative risk against the reference data only."
 )
-BAND_TEXT = {"higher": "Higher than similar vehicles", "typical": "Typical for its age", "lower": "Lower than similar vehicles"}
+LEVEL_TEXT = {"low": "Low", "moderate": "Moderate", "high": "High"}
+SAME_AGE_TEXT = {"lower": "lower than most", "typical": "about typical for", "higher": "higher than most"}
+
+
+def round_to_5(x: float) -> int:
+    return int(min(max(5 * round(x / 5), 5), 95))
+
+
+def whole_percent(rate: float) -> float:
+    return float(max(1, round(rate * 100)))
 
 
 async def load_history(session: AsyncSession | None, plate: str) -> tuple[list[dict], list[dict], Vehicle | None, str | None]:
@@ -193,21 +204,35 @@ async def build_prediction(
         odo_for_model = odometer_km  # a measured value supplied with the request is taken as the odometer at the last inspection
     rx = features.risk_inputs(profile, previous, odo_for_model, inspection_date)
     result = models.risk.predict(rx)
-    systems = [
-        SystemRiskOut(
-            system=s.system,
-            title=SYSTEM_TITLES[s.system],
-            band=s.band,
-            percentile_same_age=s.percentile_same_age,
-            relative_risk=round(s.relative_risk, 2),
-            foreign_probability=round(s.probability, 4),
-            explanation=(
-                f"{BAND_TEXT[s.band]}: ranked at the {s.percentile_same_age}th percentile among vehicles of the same age; "
-                f"{s.relative_risk:.1f} times the average rate of that age in the training data."
-            ),
+    cuts = models.risk.cuts
+    systems = []
+    for r in result.systems:
+        higher_than = round_to_5(r.reference_percentile)
+        systems.append(
+            SystemRiskOut(
+                system=r.system,
+                title=SYSTEM_TITLES[r.system],
+                level=r.level,
+                higher_than_of_100=higher_than,
+                same_age_label=r.same_age_label,
+                same_age_years=rx.age_year,
+                observed_in_reference=ObservedRates(**{k: whole_percent(v) for k, v in r.observed_rates.items()}),
+                explanation=(
+                    f"{LEVEL_TEXT[r.level]} relative risk: the estimate is higher than about {higher_than} of 100 reference vehicles of all ages. "
+                    f"Among vehicles aged {rx.age_year} it is {SAME_AGE_TEXT[r.same_age_label]} that age group."
+                ),
+            )
         )
-        for s in result.systems
-    ]
+    scale = None
+    if result.covered:
+        a_b = {s: cuts[s] for s in cuts}
+        scale = RiskScale(
+            reference="UK MOT inspections (2022 to 2023), out-of-sample scores of vehicles aged 3 to 20, petrol, diesel and hybrid",
+            cut_percentiles={s: list(a_b[s]) for s in a_b},
+            level_rule={s: f"Low: the lowest {a_b[s][0]}% of reference vehicles; Moderate: the next {a_b[s][1] - a_b[s][0]}%; High: the top {100 - a_b[s][1]}%" for s in a_b},
+            interval="Standard interval of 12 months to the next annual inspection for every vehicle",
+            country_note="The same order of risk was found in Dutch inspection data, with different absolute defect rates. Israeli inspection results are not available.",
+        )
     risk = InspectionRisk(
         definition=RISK_DEFINITION,
         covered=result.covered,
@@ -215,6 +240,7 @@ async def build_prediction(
         variant=result.variant,
         uses_history=result.uses_history,
         uses_measured_odometer=result.uses_measured_odometer,
+        scale=scale,
         systems=systems,
         disclaimer=RISK_DISCLAIMER,
     )

@@ -65,7 +65,9 @@ def main() -> None:
                 check(fuel_ok, f"{plate}: covered although fuel {veh['fuel_type']}")
                 check(len(risk["systems"]) == 3 and risk["variant"] in ("cold", "cold_odo", "hist", "hist_odo"), f"{plate}: bad risk block")
                 for s in risk["systems"]:
-                    check(0 < s["foreign_probability"] < 1 and 1 <= s["percentile_same_age"] <= 99 and s["band"] in ("lower", "typical", "higher"), f"{plate}: bad system risk {s}")
+                    check(s["level"] in ("low", "moderate", "high") and s["same_age_label"] in ("lower", "typical", "higher") and 5 <= s["higher_than_of_100"] <= 95 and s["higher_than_of_100"] % 5 == 0, f"{plate}: bad system risk {s}")
+                    check("foreign_probability" not in s and "relative_risk" not in s, f"{plate}: a probability or multiple leaked into the response")
+                    check(s["observed_in_reference"]["low"] <= s["observed_in_reference"]["moderate"] <= s["observed_in_reference"]["high"], f"{plate}: reference rates not ordered")
             else:
                 check(bool(risk["reasons"]) and risk["systems"] == [], f"{plate}: not covered without a reason")
             check(rc["kind"] == "official_recall" and (rc["available"] is False or rc["count"] == len(rc["items"])), f"{plate}: recall block inconsistent")
@@ -74,7 +76,7 @@ def main() -> None:
             check(all(x["status"] in ("ok", "due_soon", "overdue", "no_record", "no_record_overdue") for x in mt["rules"]), f"{plate}: maintenance statuses")
             check(not any(x["status"] == "no_record_overdue" for x in mt["rules"]), f"{plate}: an estimated odometer must never prove an overdue service")
             rows.append({**v, "status": 200, "make_en": veh["make"], "est_km": m["estimated_km"], "range": (m["estimated_low_km"], m["estimated_high_km"]), "covered": risk["covered"],
-                         "variant": risk["variant"], "bands": {s["system"]: s["band"] for s in risk["systems"]}, "recalls": rc["count"] if rc["available"] else None})
+                         "variant": risk["variant"], "levels": {s["system"]: (s["level"], s["higher_than_of_100"]) for s in risk["systems"]}, "recalls": rc["count"] if rc["available"] else None})
 
         # negative cases
         for bad in ("123456", "123456789", "abcdefgh", "1234567x"):
@@ -101,7 +103,7 @@ def main() -> None:
         lines += ["## Failures", ""] + [f"* {f}" for f in failures] + [""]
     lines += ["## Sample of results", "", "| plate | make | year | fuel | estimated km (80% range) | Model 2 | recalls |", "|---|---|---|---|---|---|---|"]
     for r in ok[:30]:
-        lines.append(f"| {r['plate']} | {r['make_en']} | {r['year']} | {r['fuel']} | {r['est_km']:,} ({r['range'][0]:,}-{r['range'][1]:,}) | {'covered: ' + ', '.join(f'{k} {v}' for k, v in r['bands'].items()) if r['covered'] else 'not covered'} | {r['recalls']} |")
+        lines.append(f"| {r['plate']} | {r['make_en']} | {r['year']} | {r['fuel']} | {r['est_km']:,} ({r['range'][0]:,}-{r['range'][1]:,}) | {'covered: ' + ', '.join(f'{k} {v[0]}' for k, v in r['levels'].items()) if r['covered'] else 'not covered'} | {r['recalls']} |")
     (HERE.parent / "docs").mkdir(exist_ok=True)
     (HERE.parent / "docs" / "E2E_REPORT.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     (HERE.parent / "docs" / "e2e_results.json").write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding="utf-8")

@@ -1,4 +1,4 @@
-# Model 2 risk indicators: audit and proposal (nothing has been changed)
+# Model 2 risk indicators: audit and proposal (historical; **implemented as described in [RISK_SCALE.md](RISK_SCALE.md)** with three levels instead of five)
 
 Status: **proposal for approval.** Training, exported models and front end are untouched. The audit is reproducible with `ml/src/audit_risk_scale.py` (read-only; results in `ml/audit_risk_scale_results.json`).
 

@@ -16,14 +16,31 @@ class MileageInfo(BaseModel):
     label: str
 
 
+class ObservedRates(BaseModel):
+    """Share of the REFERENCE vehicles (UK inspection data) of each level that had a defect found at the next inspection, in whole percent."""
+
+    low: float
+    moderate: float
+    high: float
+
+
 class SystemRiskOut(BaseModel):
     system: str                           # brakes | electrical | engine_emissions
     title: str
-    band: str                             # lower | typical | higher (versus vehicles of the same age)
-    percentile_same_age: int
-    relative_risk: float
-    foreign_probability: float            # UK-calibrated probability; NOT validated for Israel
+    level: str                            # low | moderate | high: position among ALL reference vehicles, any age
+    higher_than_of_100: int               # "higher than about N of 100 reference vehicles" (rounded to 5: it is a rank, not a probability)
+    same_age_label: str                   # lower | typical | higher: position among reference vehicles of the same age
+    same_age_years: int                   # the age group the complementary label refers to
+    observed_in_reference: ObservedRates  # defect rate by level in the reference data (a property of the groups, not of this vehicle)
     explanation: str
+
+
+class RiskScale(BaseModel):
+    reference: str
+    cut_percentiles: dict[str, list[int]]   # per system: [Low/Moderate boundary, Moderate/High boundary] as percentiles of the reference vehicles
+    level_rule: dict[str, str]
+    interval: str
+    country_note: str
 
 
 class InspectionRisk(BaseModel):
@@ -34,6 +51,7 @@ class InspectionRisk(BaseModel):
     variant: str | None = None
     uses_history: bool = False
     uses_measured_odometer: bool = False
+    scale: RiskScale | None = None
     systems: list[SystemRiskOut] = []
     disclaimer: str
 

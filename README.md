@@ -8,7 +8,7 @@ O sistema **separa três tipos de informação**, na API, na interface e no chat
 
 | Tipo | O que é | Origem |
 |---|---|---|
-| **Risco estimado de defeito em inspeção** | Estimativa estatística de que a *próxima inspeção anual* encontre defeito em freios, sistema elétrico ou componentes relacionados ao motor | Model 2 (XGBoost) treinado com inspeções reais do UK (MOT) e validado com a Holanda (RDW) |
+| **Risco relativo de defeito em inspeção** | Nível **Baixo / Moderado / Alto** (por sistema: freios, elétrico, motor) em comparação com todos os veículos de referência do UK, de qualquer idade, para a *próxima inspeção anual*; mais uma comparação complementar com veículos da mesma idade. Não é probabilidade | Model 2 (XGBoost) treinado com inspeções reais do UK (MOT) e validado com a Holanda (RDW) |
 | **Manutenção recomendada** | Intervalos genéricos de serviço aplicados aos registros do próprio veículo | Regras (não é ML) |
 | **Recall oficial** | Fato publicado pela autoridade | Dados abertos do Ministério dos Transportes |
 
@@ -16,7 +16,7 @@ O sistema **separa três tipos de informação**, na API, na interface e no chat
 Veja `docs/LIMITATIONS.md`.
 
 Documentação: `docs/SRS_v2.md` (SRS atualizado **com o registro das alterações em relação à especificação original**), `docs/MODEL_CARDS.md`,
-`docs/TEST_REPORT.md`, `docs/E2E_REPORT.md`, `docs/UK_EXTRACTION.md`, `docs/DEMO.md`, `docs/LIMITATIONS.md`. Especificação original:
+`docs/RISK_SCALE.md` (escala de risco, antes e depois), `docs/TEST_REPORT.md`, `docs/E2E_REPORT.md`, `docs/UK_EXTRACTION.md`, `docs/DEMO.md`, `docs/LIMITATIONS.md`. Especificação original:
 `SmartCar-Ops_SRS.pdf` e `SmartCar-Ops_מסמך_אפיון.pdf`.
 
 ## Rodando

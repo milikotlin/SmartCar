@@ -1,0 +1,842 @@
+[
+ {
+  "model": "i20_2022",
+  "plate": 19202803,
+  "last_test": "2026-11-16",
+  "valid_until": "2027-11-20",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "low",
+    "higher_than_of_100": 20,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "low",
+    "higher_than_of_100": 10,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "low",
+    "higher_than_of_100": 5,
+    "same_age_label": "lower",
+    "same_age_years": 4,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 11898603,
+  "last_test": "2026-10-19",
+  "valid_until": "2027-07-16",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "low",
+    "higher_than_of_100": 20,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "low",
+    "higher_than_of_100": 10,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "low",
+    "higher_than_of_100": 5,
+    "same_age_label": "lower",
+    "same_age_years": 4,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 19132503,
+  "last_test": "2026-10-19",
+  "valid_until": "2027-11-13",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "low",
+    "higher_than_of_100": 20,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "low",
+    "higher_than_of_100": 10,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "low",
+    "higher_than_of_100": 5,
+    "same_age_label": "lower",
+    "same_age_years": 4,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 11876203,
+  "last_test": "2026-07-13",
+  "valid_until": "2027-07-13",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "low",
+    "higher_than_of_100": 20,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "low",
+    "higher_than_of_100": 10,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "low",
+    "higher_than_of_100": 5,
+    "same_age_label": "lower",
+    "same_age_years": 4,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 11533103,
+  "last_test": "2026-06-11",
+  "valid_until": "2027-06-13",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "low",
+    "higher_than_of_100": 20,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "low",
+    "higher_than_of_100": 10,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "low",
+    "higher_than_of_100": 5,
+    "same_age_label": "lower",
+    "same_age_years": 4,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 11957703,
+  "last_test": "2026-06-25",
+  "valid_until": "2027-07-20",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "low",
+    "higher_than_of_100": 20,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "low",
+    "higher_than_of_100": 10,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "low",
+    "higher_than_of_100": 5,
+    "same_age_label": "lower",
+    "same_age_years": 4,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 88144802,
+  "last_test": "2026-04-23",
+  "valid_until": "2027-04-26",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "low",
+    "higher_than_of_100": 20,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "low",
+    "higher_than_of_100": 10,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "low",
+    "higher_than_of_100": 5,
+    "same_age_label": "lower",
+    "same_age_years": 4,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 88356602,
+  "last_test": "2026-06-04",
+  "valid_until": "2027-05-09",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "low",
+    "higher_than_of_100": 20,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "low",
+    "higher_than_of_100": 10,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "low",
+    "higher_than_of_100": 5,
+    "same_age_label": "lower",
+    "same_age_years": 4,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 89543702,
+  "last_test": "2026-10-02",
+  "valid_until": "2027-05-21",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "low",
+    "higher_than_of_100": 20,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "low",
+    "higher_than_of_100": 10,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "low",
+    "higher_than_of_100": 5,
+    "same_age_label": "lower",
+    "same_age_years": 4,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 11232803,
+  "last_test": "2026-08-25",
+  "valid_until": "2027-05-30",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "low",
+    "higher_than_of_100": 20,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "low",
+    "higher_than_of_100": 10,
+    "same_age_label": "typical",
+    "same_age_years": 4,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "low",
+    "higher_than_of_100": 5,
+    "same_age_label": "lower",
+    "same_age_years": 4,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9413531,
+  "last_test": "2026-11-12",
+  "valid_until": "2027-10-29",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "moderate",
+    "higher_than_of_100": 65,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "high",
+    "higher_than_of_100": 80,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "moderate",
+    "higher_than_of_100": 60,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9596031,
+  "last_test": "2025-11-14",
+  "valid_until": "2026-11-29",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "moderate",
+    "higher_than_of_100": 65,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "high",
+    "higher_than_of_100": 75,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "moderate",
+    "higher_than_of_100": 60,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9538331,
+  "last_test": "2026-01-14",
+  "valid_until": "2026-12-08",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "moderate",
+    "higher_than_of_100": 65,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "high",
+    "higher_than_of_100": 80,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "moderate",
+    "higher_than_of_100": 60,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 1867654,
+  "last_test": "2026-01-14",
+  "valid_until": "2027-01-06",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "moderate",
+    "higher_than_of_100": 65,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "high",
+    "higher_than_of_100": 80,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "moderate",
+    "higher_than_of_100": 60,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9577531,
+  "last_test": "2025-11-12",
+  "valid_until": "2026-11-29",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "moderate",
+    "higher_than_of_100": 65,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "high",
+    "higher_than_of_100": 75,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "moderate",
+    "higher_than_of_100": 60,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9512931,
+  "last_test": "2025-12-04",
+  "valid_until": "2026-12-07",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "moderate",
+    "higher_than_of_100": 65,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "high",
+    "higher_than_of_100": 75,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "moderate",
+    "higher_than_of_100": 60,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9098131,
+  "last_test": "2026-10-21",
+  "valid_until": "2027-10-07",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "moderate",
+    "higher_than_of_100": 65,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "high",
+    "higher_than_of_100": 80,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "moderate",
+    "higher_than_of_100": 60,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9100131,
+  "last_test": "2025-12-10",
+  "valid_until": "2026-10-19",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "moderate",
+    "higher_than_of_100": 65,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "high",
+    "higher_than_of_100": 75,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "moderate",
+    "higher_than_of_100": 60,
+    "same_age_label": "typical",
+    "same_age_years": 11,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9289331,
+  "last_test": "2026-10-19",
+  "valid_until": "2027-10-20",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "moderate",
+    "higher_than_of_100": 65,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "high",
+    "higher_than_of_100": 80,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "moderate",
+    "higher_than_of_100": 60,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 2099154,
+  "last_test": "2026-10-18",
+  "valid_until": "2027-01-05",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "level": "moderate",
+    "higher_than_of_100": 65,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 3.0,
+     "moderate": 6.0,
+     "high": 12.0
+    }
+   },
+   "electrical": {
+    "level": "high",
+    "higher_than_of_100": 80,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 4.0,
+     "moderate": 11.0,
+     "high": 21.0
+    }
+   },
+   "engine_emissions": {
+    "level": "moderate",
+    "higher_than_of_100": 60,
+    "same_age_label": "typical",
+    "same_age_years": 12,
+    "observed": {
+     "low": 1.0,
+     "moderate": 3.0,
+     "high": 6.0
+    }
+   }
+  }
+ }
+]

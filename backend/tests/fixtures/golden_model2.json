@@ -2,7 +2,6 @@
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": null,
@@ -13,12 +12,16 @@
    "brakes": 0.017818011343479156,
    "electrical": 0.02634447067975998,
    "engine_emissions": 0.0019383139442652464
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 0.85,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -31,15 +34,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.028711870312690735,
-   "electrical": 0.03505168482661247,
-   "engine_emissions": 0.0029555736109614372
+   "brakes": 0.033899787813425064,
+   "electrical": 0.03583041951060295,
+   "engine_emissions": 0.0033203696366399527
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.1,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": null,
@@ -47,15 +54,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.0470566600561142,
-   "electrical": 0.062216147780418396,
-   "engine_emissions": 0.005189936608076096
+   "brakes": 0.03850119933485985,
+   "electrical": 0.053023431450128555,
+   "engine_emissions": 0.003757983446121216
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -71,12 +82,16 @@
    "brakes": 0.050842199474573135,
    "electrical": 0.11620424687862396,
    "engine_emissions": 0.006962536368519068
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -92,12 +107,16 @@
    "brakes": 0.015531438402831554,
    "electrical": 0.023093270137906075,
    "engine_emissions": 0.001953439088538289
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": null,
@@ -108,12 +127,16 @@
    "brakes": 0.04718436300754547,
    "electrical": 0.04908502846956253,
    "engine_emissions": 0.011143377982079983
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 0.85,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -126,15 +149,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.05040264502167702,
-   "electrical": 0.05656599625945091,
-   "engine_emissions": 0.013032935559749603
+   "brakes": 0.06968282163143158,
+   "electrical": 0.06367740035057068,
+   "engine_emissions": 0.016377879306674004
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.1,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": null,
@@ -142,15 +169,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.08118392527103424,
-   "electrical": 0.06377438455820084,
-   "engine_emissions": 0.02000764012336731
+   "brakes": 0.06150837615132332,
+   "electrical": 0.056181326508522034,
+   "engine_emissions": 0.013224227353930473
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -166,12 +197,16 @@
    "brakes": 0.09425564855337143,
    "electrical": 0.12235669791698456,
    "engine_emissions": 0.016504142433404922
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -187,12 +222,16 @@
    "brakes": 0.03993421420454979,
    "electrical": 0.04163366183638573,
    "engine_emissions": 0.010406256653368473
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": null,
@@ -203,12 +242,16 @@
    "brakes": 0.018027348443865776,
    "electrical": 0.022177904844284058,
    "engine_emissions": 0.0028986395336687565
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 0.85,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -221,15 +264,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.027367321774363518,
-   "electrical": 0.03890807926654816,
-   "engine_emissions": 0.0056180888786911964
+   "brakes": 0.033874958753585815,
+   "electrical": 0.037559401243925095,
+   "engine_emissions": 0.005519883241504431
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.1,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": null,
@@ -237,15 +284,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.045881226658821106,
-   "electrical": 0.04154472425580025,
-   "engine_emissions": 0.010064381174743176
+   "brakes": 0.03812812268733978,
+   "electrical": 0.037516865879297256,
+   "engine_emissions": 0.007426375988870859
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -261,12 +312,16 @@
    "brakes": 0.04655060917139053,
    "electrical": 0.08869826793670654,
    "engine_emissions": 0.010644061490893364
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -282,12 +337,16 @@
    "brakes": 0.016972297802567482,
    "electrical": 0.023190757259726524,
    "engine_emissions": 0.0029677164275199175
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": null,
@@ -298,12 +357,16 @@
    "brakes": 0.011395453475415707,
    "electrical": 0.01648544706404209,
    "engine_emissions": 0.004297606181353331
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 0.85,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -316,15 +379,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.01587212271988392,
-   "electrical": 0.02146678976714611,
-   "engine_emissions": 0.00582908233627677
+   "brakes": 0.020369509235024452,
+   "electrical": 0.024569842964410782,
+   "engine_emissions": 0.006937478203326464
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.1,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": null,
@@ -332,15 +399,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.02694072760641575,
-   "electrical": 0.03286480903625488,
-   "engine_emissions": 0.01108075212687254
+   "brakes": 0.020831871777772903,
+   "electrical": 0.02892320603132248,
+   "engine_emissions": 0.007478425279259682
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -356,12 +427,16 @@
    "brakes": 0.027128716930747032,
    "electrical": 0.06771847605705261,
    "engine_emissions": 0.00917853880673647
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "moderate",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -377,12 +452,16 @@
    "brakes": 0.010470414534211159,
    "electrical": 0.0162651427090168,
    "engine_emissions": 0.004517714027315378
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": null,
@@ -393,12 +472,16 @@
    "brakes": 0.019873375073075294,
    "electrical": 0.04425324127078056,
    "engine_emissions": 0.006710674148052931
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 0.85,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -411,15 +494,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.02194942720234394,
-   "electrical": 0.04836342856287956,
-   "engine_emissions": 0.007166832219809294
+   "brakes": 0.03468611091375351,
+   "electrical": 0.06627167016267776,
+   "engine_emissions": 0.011324501596391201
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "moderate",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.1,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": null,
@@ -427,15 +514,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.065464086830616,
-   "electrical": 0.09151056408882141,
-   "engine_emissions": 0.03198861703276634
+   "brakes": 0.05182014778256416,
+   "electrical": 0.07544336467981339,
+   "engine_emissions": 0.021845363080501556
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -451,12 +542,16 @@
    "brakes": 0.08072113990783691,
    "electrical": 0.14537523686885834,
    "engine_emissions": 0.0265066996216774
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 3,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -472,12 +567,16 @@
    "brakes": 0.015159469097852707,
    "electrical": 0.03863273561000824,
    "engine_emissions": 0.005784051027148962
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": null,
@@ -488,12 +587,16 @@
    "brakes": 0.03593862056732178,
    "electrical": 0.05088140815496445,
    "engine_emissions": 0.005346368998289108
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 0.85,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -506,15 +609,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.06364479660987854,
-   "electrical": 0.0626644417643547,
-   "engine_emissions": 0.007860149256885052
+   "brakes": 0.06777792423963547,
+   "electrical": 0.06572598218917847,
+   "engine_emissions": 0.00904566328972578
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.1,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": null,
@@ -522,15 +629,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.06593992561101913,
-   "electrical": 0.11984533816576004,
-   "engine_emissions": 0.018238799646496773
+   "brakes": 0.054286740720272064,
+   "electrical": 0.10332491993904114,
+   "engine_emissions": 0.013566149398684502
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -546,12 +657,16 @@
    "brakes": 0.07451357692480087,
    "electrical": 0.19487221539020538,
    "engine_emissions": 0.014396483078598976
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -567,12 +682,16 @@
    "brakes": 0.032268669456243515,
    "electrical": 0.044339075684547424,
    "engine_emissions": 0.004863483365625143
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": null,
@@ -583,12 +702,16 @@
    "brakes": 0.07039948552846909,
    "electrical": 0.060563404113054276,
    "engine_emissions": 0.011099714785814285
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 0.85,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -601,15 +724,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.09605196118354797,
-   "electrical": 0.07002374529838562,
-   "engine_emissions": 0.012584030628204346
+   "brakes": 0.11387722194194794,
+   "electrical": 0.07662180811166763,
+   "engine_emissions": 0.015210447832942009
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.1,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": null,
@@ -617,15 +744,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.10963958501815796,
-   "electrical": 0.08626734465360641,
-   "engine_emissions": 0.019804013893008232
+   "brakes": 0.08390601724386215,
+   "electrical": 0.07380455732345581,
+   "engine_emissions": 0.014019482769072056
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -641,12 +772,16 @@
    "brakes": 0.11064617335796356,
    "electrical": 0.16089902818202972,
    "engine_emissions": 0.015385756269097328
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -662,12 +797,16 @@
    "brakes": 0.06665574759244919,
    "electrical": 0.05255117639899254,
    "engine_emissions": 0.009268827736377716
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": null,
@@ -678,12 +817,16 @@
    "brakes": 0.039291560649871826,
    "electrical": 0.041080866008996964,
    "engine_emissions": 0.0055235703475773335
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 0.85,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -696,15 +839,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.055903345346450806,
-   "electrical": 0.06191598251461983,
-   "engine_emissions": 0.011219675652682781
+   "brakes": 0.06527239084243774,
+   "electrical": 0.05938730388879776,
+   "engine_emissions": 0.011028388515114784
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.1,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": null,
@@ -712,15 +859,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.06251738965511322,
-   "electrical": 0.0719943642616272,
-   "engine_emissions": 0.014980393461883068
+   "brakes": 0.05224199965596199,
+   "electrical": 0.06408539414405823,
+   "engine_emissions": 0.010638619773089886
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -736,12 +887,16 @@
    "brakes": 0.06353983283042908,
    "electrical": 0.12742973864078522,
    "engine_emissions": 0.014159413985908031
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -757,12 +912,16 @@
    "brakes": 0.03354684263467789,
    "electrical": 0.03830110281705856,
    "engine_emissions": 0.005508696660399437
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": null,
@@ -773,12 +932,16 @@
    "brakes": 0.020040642470121384,
    "electrical": 0.029909465461969376,
    "engine_emissions": 0.00904796365648508
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 0.85,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -791,15 +954,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.02876807563006878,
-   "electrical": 0.035111360251903534,
-   "engine_emissions": 0.011734338477253914
+   "brakes": 0.031820837408304214,
+   "electrical": 0.04094792157411575,
+   "engine_emissions": 0.014351430349051952
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.1,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": null,
@@ -807,15 +974,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.03355548530817032,
-   "electrical": 0.05706191435456276,
-   "engine_emissions": 0.021331774070858955
+   "brakes": 0.026031024754047394,
+   "electrical": 0.05000334233045578,
+   "engine_emissions": 0.014692737720906734
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -831,12 +1002,16 @@
    "brakes": 0.031685762107372284,
    "electrical": 0.09256052225828171,
    "engine_emissions": 0.016715295612812042
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -852,12 +1027,16 @@
    "brakes": 0.01752154529094696,
    "electrical": 0.028339175507426262,
    "engine_emissions": 0.008528873324394226
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": null,
@@ -868,12 +1047,16 @@
    "brakes": 0.030700674280524254,
    "electrical": 0.05505684018135071,
    "engine_emissions": 0.011438125744462013
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 0.85,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -886,15 +1069,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.04563429579138756,
-   "electrical": 0.05489005893468857,
-   "engine_emissions": 0.011453578248620033
+   "brakes": 0.06175139546394348,
+   "electrical": 0.07264912128448486,
+   "engine_emissions": 0.017272934317588806
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.1,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": null,
@@ -902,15 +1089,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.08169438689947128,
-   "electrical": 0.08064470440149307,
-   "engine_emissions": 0.030847866088151932
+   "brakes": 0.0653904527425766,
+   "electrical": 0.06599361449480057,
+   "engine_emissions": 0.018837817013263702
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -926,12 +1117,16 @@
    "brakes": 0.0953347384929657,
    "electrical": 0.12730394303798676,
    "engine_emissions": 0.02982272207736969
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 6,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -947,12 +1142,16 @@
    "brakes": 0.027118943631649017,
    "electrical": 0.04521561041474342,
    "engine_emissions": 0.008723156526684761
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "low",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": null,
@@ -963,12 +1162,16 @@
    "brakes": 0.06534159928560257,
    "electrical": 0.1333947777748108,
    "engine_emissions": 0.01826711744070053
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 0.85,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -981,15 +1184,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.13777296245098114,
-   "electrical": 0.14504028856754303,
-   "engine_emissions": 0.01989775523543358
+   "brakes": 0.13685080409049988,
+   "electrical": 0.15985801815986633,
+   "engine_emissions": 0.022747159004211426
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.1,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": null,
@@ -997,15 +1204,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.11939913779497147,
-   "electrical": 0.23644420504570007,
-   "engine_emissions": 0.041234053671360016
+   "brakes": 0.09602364897727966,
+   "electrical": 0.2007855474948883,
+   "engine_emissions": 0.03360909968614578
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -1021,12 +1232,16 @@
    "brakes": 0.113369420170784,
    "electrical": 0.2894442677497864,
    "engine_emissions": 0.03614843264222145
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -1042,12 +1257,16 @@
    "brakes": 0.054938916116952896,
    "electrical": 0.11601607501506805,
    "engine_emissions": 0.014069981873035431
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": null,
@@ -1058,12 +1277,16 @@
    "brakes": 0.14144714176654816,
    "electrical": 0.18337169289588928,
    "engine_emissions": 0.01951863244175911
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 0.85,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -1076,15 +1299,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.2166636884212494,
-   "electrical": 0.16926179826259613,
-   "engine_emissions": 0.018481696024537086
+   "brakes": 0.23103728890419006,
+   "electrical": 0.2004469782114029,
+   "engine_emissions": 0.022357666864991188
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.1,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": null,
@@ -1092,15 +1319,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.18521718680858612,
-   "electrical": 0.23914456367492676,
-   "engine_emissions": 0.03237945958971977
+   "brakes": 0.14278490841388702,
+   "electrical": 0.21002522110939026,
+   "engine_emissions": 0.023240523412823677
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -1116,12 +1347,16 @@
    "brakes": 0.16872552037239075,
    "electrical": 0.27501949667930603,
    "engine_emissions": 0.022586073726415634
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -1137,12 +1372,16 @@
    "brakes": 0.12280090153217316,
    "electrical": 0.1500895470380783,
    "engine_emissions": 0.014245790429413319
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": null,
@@ -1153,12 +1392,16 @@
    "brakes": 0.08820880949497223,
    "electrical": 0.1386074423789978,
    "engine_emissions": 0.016671424731612206
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 0.85,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -1171,15 +1414,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.16039703786373138,
-   "electrical": 0.16821487247943878,
-   "engine_emissions": 0.025940032675862312
+   "brakes": 0.1749153584241867,
+   "electrical": 0.18181878328323364,
+   "engine_emissions": 0.025299621745944023
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.1,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": null,
@@ -1187,15 +1434,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.11720017343759537,
-   "electrical": 0.2045426070690155,
-   "engine_emissions": 0.02676362916827202
+   "brakes": 0.09577512741088867,
+   "electrical": 0.1781371533870697,
+   "engine_emissions": 0.01896205171942711
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -1211,12 +1462,16 @@
    "brakes": 0.1128540188074112,
    "electrical": 0.2393362671136856,
    "engine_emissions": 0.022018203511834145
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -1232,12 +1487,16 @@
    "brakes": 0.07530058175325394,
    "electrical": 0.1227336898446083,
    "engine_emissions": 0.014527718536555767
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "low"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": null,
@@ -1248,12 +1507,16 @@
    "brakes": 0.041224800050258636,
    "electrical": 0.08696022629737854,
    "engine_emissions": 0.024346331134438515
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 0.85,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -1266,15 +1529,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.06770521402359009,
-   "electrical": 0.08982044458389282,
-   "engine_emissions": 0.022290633991360664
+   "brakes": 0.07013379037380219,
+   "electrical": 0.10943182557821274,
+   "engine_emissions": 0.027781330049037933
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.1,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": null,
@@ -1282,15 +1549,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.0639975294470787,
-   "electrical": 0.13126787543296814,
-   "engine_emissions": 0.04911642149090767
+   "brakes": 0.04788194224238396,
+   "electrical": 0.10872647911310196,
+   "engine_emissions": 0.03253592923283577
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -1306,12 +1577,16 @@
    "brakes": 0.059453681111335754,
    "electrical": 0.16689342260360718,
    "engine_emissions": 0.034638650715351105
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -1327,12 +1602,16 @@
    "brakes": 0.03246751055121422,
    "electrical": 0.0773855447769165,
    "engine_emissions": 0.01861843839287758
+  },
+  "levels": {
+   "brakes": "low",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": null,
@@ -1343,12 +1622,16 @@
    "brakes": 0.07417838275432587,
    "electrical": 0.10774296522140503,
    "engine_emissions": 0.024700762704014778
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 0.85,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -1361,15 +1644,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.15616974234580994,
-   "electrical": 0.1072966605424881,
-   "engine_emissions": 0.02763362042605877
+   "brakes": 0.1879473775625229,
+   "electrical": 0.14274033904075623,
+   "engine_emissions": 0.03943048417568207
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.1,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": null,
@@ -1377,15 +1664,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.14621545374393463,
-   "electrical": 0.15479643642902374,
-   "engine_emissions": 0.037968676537275314
+   "brakes": 0.11374366283416748,
+   "electrical": 0.12979868054389954,
+   "engine_emissions": 0.024761302396655083
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -1401,12 +1692,16 @@
    "brakes": 0.16233474016189575,
    "electrical": 0.20019619166851044,
    "engine_emissions": 0.03644275665283203
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 10,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -1422,12 +1717,16 @@
    "brakes": 0.06702006608247757,
    "electrical": 0.09121806174516678,
    "engine_emissions": 0.02115805260837078
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": null,
@@ -1438,12 +1737,16 @@
    "brakes": 0.10520065575838089,
    "electrical": 0.2064467817544937,
    "engine_emissions": 0.0565047524869442
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 0.85,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -1456,15 +1759,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.18344342708587646,
-   "electrical": 0.21358484029769897,
-   "engine_emissions": 0.06243906915187836
+   "brakes": 0.18407736718654633,
+   "electrical": 0.2357846349477768,
+   "engine_emissions": 0.06646770983934402
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.1,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": null,
@@ -1472,15 +1779,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.17326366901397705,
-   "electrical": 0.3033512234687805,
-   "engine_emissions": 0.11523114889860153
+   "brakes": 0.14713585376739502,
+   "electrical": 0.26515480875968933,
+   "engine_emissions": 0.10752681642770767
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -1496,12 +1807,16 @@
    "brakes": 0.15867199003696442,
    "electrical": 0.36665284633636475,
    "engine_emissions": 0.09679882973432541
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -1517,12 +1832,16 @@
    "brakes": 0.08261575549840927,
    "electrical": 0.1687946915626526,
    "engine_emissions": 0.03980366140604019
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": null,
@@ -1533,12 +1852,16 @@
    "brakes": 0.18064339458942413,
    "electrical": 0.22979716956615448,
    "engine_emissions": 0.04023044928908348
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 0.85,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -1551,15 +1874,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.23853784799575806,
-   "electrical": 0.20496778190135956,
-   "engine_emissions": 0.03603770583868027
+   "brakes": 0.25352758169174194,
+   "electrical": 0.23661987483501434,
+   "engine_emissions": 0.04165399819612503
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.1,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": null,
@@ -1567,15 +1894,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.2597960829734802,
-   "electrical": 0.31965872645378113,
-   "engine_emissions": 0.06964106857776642
+   "brakes": 0.2138427495956421,
+   "electrical": 0.2790704071521759,
+   "engine_emissions": 0.054916299879550934
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -1591,12 +1922,16 @@
    "brakes": 0.22279876470565796,
    "electrical": 0.35692450404167175,
    "engine_emissions": 0.05440949648618698
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -1612,12 +1947,16 @@
    "brakes": 0.13276997208595276,
    "electrical": 0.18546925485134125,
    "engine_emissions": 0.025945588946342468
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": null,
@@ -1628,12 +1967,16 @@
    "brakes": 0.1255168914794922,
    "electrical": 0.19282938539981842,
    "engine_emissions": 0.0401565358042717
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 0.85,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -1646,15 +1989,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.21223202347755432,
-   "electrical": 0.22255566716194153,
-   "engine_emissions": 0.05539257824420929
+   "brakes": 0.23627342283725739,
+   "electrical": 0.23807567358016968,
+   "engine_emissions": 0.0531347319483757
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.1,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": null,
@@ -1662,15 +2009,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.16915391385555267,
-   "electrical": 0.3036174476146698,
-   "engine_emissions": 0.05994122102856636
+   "brakes": 0.14719687402248383,
+   "electrical": 0.2645314037799835,
+   "engine_emissions": 0.048293087631464005
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -1686,12 +2037,16 @@
    "brakes": 0.15933379530906677,
    "electrical": 0.3375779986381531,
    "engine_emissions": 0.05360248684883118
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -1707,12 +2062,16 @@
    "brakes": 0.11354245990514755,
    "electrical": 0.16017797589302063,
    "engine_emissions": 0.03152994439005852
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": null,
@@ -1723,12 +2082,16 @@
    "brakes": 0.07409956306219101,
    "electrical": 0.10795692354440689,
    "engine_emissions": 0.06364772468805313
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 0.85,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -1741,15 +2104,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.12661796808242798,
-   "electrical": 0.10832878202199936,
-   "engine_emissions": 0.06031472235918045
+   "brakes": 0.1374434381723404,
+   "electrical": 0.1322258710861206,
+   "engine_emissions": 0.07206721603870392
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.1,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": null,
@@ -1757,15 +2124,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.11230838298797607,
-   "electrical": 0.17173899710178375,
-   "engine_emissions": 0.12791110575199127
+   "brakes": 0.09183452278375626,
+   "electrical": 0.1456320881843567,
+   "engine_emissions": 0.09748665988445282
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -1781,12 +2152,16 @@
    "brakes": 0.11216093599796295,
    "electrical": 0.237401083111763,
    "engine_emissions": 0.08930006623268127
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -1802,12 +2177,16 @@
    "brakes": 0.06086726114153862,
    "electrical": 0.09145761281251907,
    "engine_emissions": 0.04691870138049126
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": null,
@@ -1818,12 +2197,16 @@
    "brakes": 0.08689168095588684,
    "electrical": 0.12210014462471008,
    "engine_emissions": 0.02735050395131111
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 0.85,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -1836,15 +2219,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.15159600973129272,
-   "electrical": 0.1271989792585373,
-   "engine_emissions": 0.03371907025575638
+   "brakes": 0.1823435127735138,
+   "electrical": 0.1652606725692749,
+   "engine_emissions": 0.046601902693510056
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.1,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": null,
@@ -1852,15 +2239,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.20367056131362915,
-   "electrical": 0.2214811146259308,
-   "engine_emissions": 0.04611542075872421
+   "brakes": 0.1672850102186203,
+   "electrical": 0.1906350553035736,
+   "engine_emissions": 0.034566719084978104
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -1876,12 +2267,16 @@
    "brakes": 0.20286011695861816,
    "electrical": 0.26025426387786865,
    "engine_emissions": 0.051002778112888336
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 15,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -1897,12 +2292,16 @@
    "brakes": 0.06027860566973686,
    "electrical": 0.09999735653400421,
    "engine_emissions": 0.024056604132056236
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": null,
@@ -1913,12 +2312,16 @@
    "brakes": 0.12200026959180832,
    "electrical": 0.2245546281337738,
    "engine_emissions": 0.08394616097211838
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 0.85,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -1931,15 +2334,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.21119268238544464,
-   "electrical": 0.22641581296920776,
-   "engine_emissions": 0.0869317352771759
+   "brakes": 0.20603221654891968,
+   "electrical": 0.24686479568481445,
+   "engine_emissions": 0.08804021775722504
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.1,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": null,
@@ -1947,15 +2354,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.19955867528915405,
-   "electrical": 0.29319512844085693,
-   "engine_emissions": 0.12782159447669983
+   "brakes": 0.17184370756149292,
+   "electrical": 0.2689591646194458,
+   "engine_emissions": 0.13218720257282257
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -1971,12 +2382,16 @@
    "brakes": 0.1915009617805481,
    "electrical": 0.3755190670490265,
    "engine_emissions": 0.12379960715770721
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Toyota",
    "previous": {
@@ -1992,12 +2407,16 @@
    "brakes": 0.09713306277990341,
    "electrical": 0.17348067462444305,
    "engine_emissions": 0.05353805422782898
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": null,
@@ -2008,12 +2427,16 @@
    "brakes": 0.19499875605106354,
    "electrical": 0.19867148995399475,
    "engine_emissions": 0.04056956246495247
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 0.85,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -2026,15 +2449,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.23803149163722992,
-   "electrical": 0.19126832485198975,
-   "engine_emissions": 0.04266124963760376
+   "brakes": 0.24643169343471527,
+   "electrical": 0.2185080498456955,
+   "engine_emissions": 0.04660378023982048
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.1,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": null,
@@ -2042,15 +2469,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.2838885188102722,
-   "electrical": 0.29898205399513245,
-   "engine_emissions": 0.0676131397485733
+   "brakes": 0.2352668195962906,
+   "electrical": 0.2686461806297302,
+   "engine_emissions": 0.05939708650112152
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -2066,12 +2497,16 @@
    "brakes": 0.24568328261375427,
    "electrical": 0.34433799982070923,
    "engine_emissions": 0.06387608498334885
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Hyundai",
    "previous": {
@@ -2087,12 +2522,16 @@
    "brakes": 0.1306890994310379,
    "electrical": 0.16723433136940002,
    "engine_emissions": 0.028454614803195
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": null,
@@ -2103,12 +2542,16 @@
    "brakes": 0.1463649719953537,
    "electrical": 0.17307405173778534,
    "engine_emissions": 0.03865492343902588
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 0.85,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -2121,15 +2564,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.23608800768852234,
-   "electrical": 0.212153822183609,
-   "engine_emissions": 0.059902265667915344
+   "brakes": 0.2588996887207031,
+   "electrical": 0.22479841113090515,
+   "engine_emissions": 0.05542360246181488
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.1,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": null,
@@ -2137,15 +2584,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.19610396027565002,
-   "electrical": 0.27637532353401184,
-   "engine_emissions": 0.044713813811540604
+   "brakes": 0.17155979573726654,
+   "electrical": 0.24467654526233673,
+   "engine_emissions": 0.041671957820653915
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -2161,12 +2612,16 @@
    "brakes": 0.19225917756557465,
    "electrical": 0.3270380198955536,
    "engine_emissions": 0.05223802104592323
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "hybrid",
    "make": "Kia",
    "previous": {
@@ -2182,12 +2637,16 @@
    "brakes": 0.12978015840053558,
    "electrical": 0.148677796125412,
    "engine_emissions": 0.032175756990909576
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": null,
@@ -2198,12 +2657,16 @@
    "brakes": 0.10084231942892075,
    "electrical": 0.1133032739162445,
    "engine_emissions": 0.05770435556769371
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 0.85,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -2216,15 +2679,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.17033448815345764,
-   "electrical": 0.10963115841150284,
-   "engine_emissions": 0.0606994666159153
+   "brakes": 0.1814722865819931,
+   "electrical": 0.13028983771800995,
+   "engine_emissions": 0.06831959635019302
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.1,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": null,
@@ -2232,15 +2699,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.16940106451511383,
-   "electrical": 0.16014467179775238,
-   "engine_emissions": 0.09082797914743423
+   "brakes": 0.1414947360754013,
+   "electrical": 0.146005317568779,
+   "engine_emissions": 0.07919015735387802
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -2256,12 +2727,16 @@
    "brakes": 0.16318191587924957,
    "electrical": 0.2383357435464859,
    "engine_emissions": 0.0852728933095932
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "petrol",
    "make": "Bmw",
    "previous": {
@@ -2277,12 +2752,16 @@
    "brakes": 0.08275840431451797,
    "electrical": 0.0879731997847557,
    "engine_emissions": 0.04371343180537224
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": null,
@@ -2293,12 +2772,16 @@
    "brakes": 0.0993516594171524,
    "electrical": 0.13346953690052032,
    "engine_emissions": 0.036460649222135544
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 0.85,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -2311,15 +2794,19 @@
   },
   "variant": "hist",
   "probabilities": {
-   "brakes": 0.15175960958003998,
-   "electrical": 0.13335394859313965,
-   "engine_emissions": 0.041078995913267136
+   "brakes": 0.17446008324623108,
+   "electrical": 0.1723242551088333,
+   "engine_emissions": 0.05445803329348564
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.1,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": null,
@@ -2327,15 +2814,19 @@
   },
   "variant": "cold_odo",
   "probabilities": {
-   "brakes": 0.2187434434890747,
-   "electrical": 0.20221640169620514,
-   "engine_emissions": 0.043812621384859085
+   "brakes": 0.1804720163345337,
+   "electrical": 0.1847252994775772,
+   "engine_emissions": 0.0369613841176033
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -2351,12 +2842,16 @@
    "brakes": 0.20292727649211884,
    "electrical": 0.2721366584300995,
    "engine_emissions": 0.051424626260995865
+  },
+  "levels": {
+   "brakes": "high",
+   "electrical": "high",
+   "engine_emissions": "high"
   }
  },
  {
   "inputs": {
    "age_year": 20,
-   "gap_next": 1.0,
    "fuel": "diesel",
    "make": "Zeekr",
    "previous": {
@@ -2372,6 +2867,11 @@
    "brakes": 0.06049723923206329,
    "electrical": 0.10231929272413254,
    "engine_emissions": 0.027694707736372948
+  },
+  "levels": {
+   "brakes": "moderate",
+   "electrical": "moderate",
+   "engine_emissions": "moderate"
   }
  }
 ]

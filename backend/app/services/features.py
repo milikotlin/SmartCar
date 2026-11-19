@@ -55,22 +55,11 @@ def last_test_date(profile: VehicleProfile, inspection_date: date | None = None)
     return inspection_date or _parse_date(profile.last_test_date)
 
 
-def planned_gap_years(profile: VehicleProfile, last_test: date | None) -> float:
-    """Interval to the next annual test from the registry (license valid until - last test); 1.0 when unavailable or implausible."""
-    valid = _parse_date(profile.license_valid_until)
-    if valid and last_test:
-        gap = (valid - last_test).days / 365.25
-        if 0.5 <= gap <= 1.7:
-            return round(gap, 3)
-    return 1.0
-
-
 def risk_inputs(profile: VehicleProfile, previous: dict | None, odometer_km: float | None, inspection_date: date | None = None) -> RiskInputs:
     test_date = last_test_date(profile, inspection_date)
     year_of_test = test_date.year if test_date else current_year()
     return RiskInputs(
         age_year=year_of_test - first_use_year(profile),
-        gap_next=planned_gap_years(profile, test_date),
         fuel=fuel_key(profile),
         make=model_make(profile),
         previous=previous,

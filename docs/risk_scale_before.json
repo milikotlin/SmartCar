@@ -1,0 +1,482 @@
+[
+ {
+  "model": "i20_2022",
+  "plate": 19202803,
+  "last_test": "2026-11-16",
+  "valid_until": "2027-11-20",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 73,
+    "band": "typical",
+    "probability": 0.0338
+   },
+   "electrical": {
+    "same_age_percentile": 49,
+    "band": "typical",
+    "probability": 0.0324
+   },
+   "engine_emissions": {
+    "same_age_percentile": 18,
+    "band": "lower",
+    "probability": 0.0036
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 11898603,
+  "last_test": "2026-10-19",
+  "valid_until": "2027-07-16",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 54,
+    "band": "typical",
+    "probability": 0.0283
+   },
+   "electrical": {
+    "same_age_percentile": 32,
+    "band": "typical",
+    "probability": 0.0268
+   },
+   "engine_emissions": {
+    "same_age_percentile": 18,
+    "band": "lower",
+    "probability": 0.0036
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 19132503,
+  "last_test": "2026-10-19",
+  "valid_until": "2027-11-13",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 84,
+    "band": "higher",
+    "probability": 0.0397
+   },
+   "electrical": {
+    "same_age_percentile": 63,
+    "band": "typical",
+    "probability": 0.0385
+   },
+   "engine_emissions": {
+    "same_age_percentile": 36,
+    "band": "typical",
+    "probability": 0.0054
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 11876203,
+  "last_test": "2026-07-13",
+  "valid_until": "2027-07-13",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 70,
+    "band": "typical",
+    "probability": 0.0326
+   },
+   "electrical": {
+    "same_age_percentile": 40,
+    "band": "typical",
+    "probability": 0.0291
+   },
+   "engine_emissions": {
+    "same_age_percentile": 15,
+    "band": "lower",
+    "probability": 0.0033
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 11533103,
+  "last_test": "2026-06-11",
+  "valid_until": "2027-06-13",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 71,
+    "band": "typical",
+    "probability": 0.0327
+   },
+   "electrical": {
+    "same_age_percentile": 46,
+    "band": "typical",
+    "probability": 0.0311
+   },
+   "engine_emissions": {
+    "same_age_percentile": 17,
+    "band": "lower",
+    "probability": 0.0036
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 11957703,
+  "last_test": "2026-06-25",
+  "valid_until": "2027-07-20",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 84,
+    "band": "higher",
+    "probability": 0.0397
+   },
+   "electrical": {
+    "same_age_percentile": 63,
+    "band": "typical",
+    "probability": 0.0385
+   },
+   "engine_emissions": {
+    "same_age_percentile": 36,
+    "band": "typical",
+    "probability": 0.0054
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 88144802,
+  "last_test": "2026-04-23",
+  "valid_until": "2027-04-26",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 73,
+    "band": "typical",
+    "probability": 0.0338
+   },
+   "electrical": {
+    "same_age_percentile": 49,
+    "band": "typical",
+    "probability": 0.0324
+   },
+   "engine_emissions": {
+    "same_age_percentile": 18,
+    "band": "lower",
+    "probability": 0.0036
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 88356602,
+  "last_test": "2026-06-04",
+  "valid_until": "2027-05-09",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 65,
+    "band": "typical",
+    "probability": 0.0311
+   },
+   "electrical": {
+    "same_age_percentile": 46,
+    "band": "typical",
+    "probability": 0.0311
+   },
+   "engine_emissions": {
+    "same_age_percentile": 26,
+    "band": "typical",
+    "probability": 0.0044
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 89543702,
+  "last_test": "2026-10-02",
+  "valid_until": "2027-05-21",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 53,
+    "band": "typical",
+    "probability": 0.0282
+   },
+   "electrical": {
+    "same_age_percentile": 32,
+    "band": "typical",
+    "probability": 0.0267
+   },
+   "engine_emissions": {
+    "same_age_percentile": 17,
+    "band": "lower",
+    "probability": 0.0035
+   }
+  }
+ },
+ {
+  "model": "i20_2022",
+  "plate": 11232803,
+  "last_test": "2026-08-25",
+  "valid_until": "2027-05-30",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 54,
+    "band": "typical",
+    "probability": 0.0285
+   },
+   "electrical": {
+    "same_age_percentile": 33,
+    "band": "typical",
+    "probability": 0.027
+   },
+   "engine_emissions": {
+    "same_age_percentile": 16,
+    "band": "lower",
+    "probability": 0.0034
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9413531,
+  "last_test": "2026-11-12",
+  "valid_until": "2027-10-29",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 23,
+    "band": "typical",
+    "probability": 0.0744
+   },
+   "electrical": {
+    "same_age_percentile": 60,
+    "band": "typical",
+    "probability": 0.1871
+   },
+   "engine_emissions": {
+    "same_age_percentile": 14,
+    "band": "lower",
+    "probability": 0.0242
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9596031,
+  "last_test": "2025-11-14",
+  "valid_until": "2026-11-29",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 43,
+    "band": "typical",
+    "probability": 0.0814
+   },
+   "electrical": {
+    "same_age_percentile": 67,
+    "band": "typical",
+    "probability": 0.1826
+   },
+   "engine_emissions": {
+    "same_age_percentile": 59,
+    "band": "typical",
+    "probability": 0.0387
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9538331,
+  "last_test": "2026-01-14",
+  "valid_until": "2026-12-08",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 30,
+    "band": "typical",
+    "probability": 0.0794
+   },
+   "electrical": {
+    "same_age_percentile": 62,
+    "band": "typical",
+    "probability": 0.1894
+   },
+   "engine_emissions": {
+    "same_age_percentile": 19,
+    "band": "lower",
+    "probability": 0.0277
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 1867654,
+  "last_test": "2026-01-14",
+  "valid_until": "2027-01-06",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 26,
+    "band": "typical",
+    "probability": 0.0765
+   },
+   "electrical": {
+    "same_age_percentile": 59,
+    "band": "typical",
+    "probability": 0.1861
+   },
+   "engine_emissions": {
+    "same_age_percentile": 16,
+    "band": "lower",
+    "probability": 0.0258
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9577531,
+  "last_test": "2025-11-12",
+  "valid_until": "2026-11-29",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 42,
+    "band": "typical",
+    "probability": 0.0806
+   },
+   "electrical": {
+    "same_age_percentile": 71,
+    "band": "typical",
+    "probability": 0.1862
+   },
+   "engine_emissions": {
+    "same_age_percentile": 57,
+    "band": "typical",
+    "probability": 0.038
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9512931,
+  "last_test": "2025-12-04",
+  "valid_until": "2026-12-07",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 41,
+    "band": "typical",
+    "probability": 0.08
+   },
+   "electrical": {
+    "same_age_percentile": 64,
+    "band": "typical",
+    "probability": 0.1787
+   },
+   "engine_emissions": {
+    "same_age_percentile": 39,
+    "band": "typical",
+    "probability": 0.0317
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9098131,
+  "last_test": "2026-10-21",
+  "valid_until": "2027-10-07",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 23,
+    "band": "typical",
+    "probability": 0.0744
+   },
+   "electrical": {
+    "same_age_percentile": 60,
+    "band": "typical",
+    "probability": 0.1871
+   },
+   "engine_emissions": {
+    "same_age_percentile": 14,
+    "band": "lower",
+    "probability": 0.0242
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9100131,
+  "last_test": "2025-12-10",
+  "valid_until": "2026-10-19",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 34,
+    "band": "typical",
+    "probability": 0.0765
+   },
+   "electrical": {
+    "same_age_percentile": 55,
+    "band": "typical",
+    "probability": 0.1705
+   },
+   "engine_emissions": {
+    "same_age_percentile": 28,
+    "band": "typical",
+    "probability": 0.0269
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 9289331,
+  "last_test": "2026-10-19",
+  "valid_until": "2027-10-20",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 28,
+    "band": "typical",
+    "probability": 0.0776
+   },
+   "electrical": {
+    "same_age_percentile": 61,
+    "band": "typical",
+    "probability": 0.1892
+   },
+   "engine_emissions": {
+    "same_age_percentile": 20,
+    "band": "lower",
+    "probability": 0.028
+   }
+  }
+ },
+ {
+  "model": "micra_2014",
+  "plate": 2099154,
+  "last_test": "2026-10-18",
+  "valid_until": "2027-01-05",
+  "variant": "cold",
+  "systems": {
+   "brakes": {
+    "same_age_percentile": 28,
+    "band": "typical",
+    "probability": 0.0776
+   },
+   "electrical": {
+    "same_age_percentile": 61,
+    "band": "typical",
+    "probability": 0.1892
+   },
+   "engine_emissions": {
+    "same_age_percentile": 20,
+    "band": "lower",
+    "probability": 0.028
+   }
+  }
+ }
+]

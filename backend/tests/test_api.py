@@ -78,7 +78,12 @@ async def test_prediction_without_any_records(client):
     risk = b["inspection_risk"]
     assert risk["covered"] and risk["variant"] == "cold" and not risk["uses_history"] and not risk["uses_measured_odometer"]
     assert [s["system"] for s in risk["systems"]] == ["brakes", "electrical", "engine_emissions"]
-    assert "not been validated on Israeli" in risk["definition"] and "not a validated probability" in risk["disclaimer"]
+    assert "not been validated on Israeli" in risk["definition"] and "not probabilities of failure" in risk["disclaimer"]
+    for s in risk["systems"]:
+        assert s["level"] in ("low", "moderate", "high") and s["same_age_label"] in ("lower", "typical", "higher") and 5 <= s["higher_than_of_100"] <= 95 and s["higher_than_of_100"] % 5 == 0
+        assert set(s["observed_in_reference"]) == {"low", "moderate", "high"} and s["observed_in_reference"]["low"] < s["observed_in_reference"]["high"]
+        assert "foreign_probability" not in s and "relative_risk" not in s and "percentile_same_age" not in s      # no probability, no "times the average"
+    assert risk["scale"]["interval"].startswith("Standard interval of 12 months") and set(risk["scale"]["cut_percentiles"]) == {"brakes", "electrical", "engine_emissions"}
     # the three kinds of statements are kept apart
     assert b["maintenance"]["kind"] == "recommended_maintenance" and b["recalls"]["kind"] == "official_recall" and risk["kind"] == "estimated_inspection_defect_risk"
     assert b["recalls"]["available"] and b["recalls"]["count"] == 1 and b["recalls"]["items"][0]["related_system"] == "brakes"
@@ -116,9 +121,7 @@ async def test_inspection_history_is_used_only_when_it_is_the_last_registry_test
     b2 = (await client.get(f"/api/v1/predict/{PLATE}")).json()
     assert b2["inspection_risk"]["variant"] == "hist_odo" and b2["history"]["history_used_by_model"] and b2["inspection_risk"]["uses_measured_odometer"]
     assert b2["mileage"]["primary_source"] == "measured" and b2["mileage"]["primary_km"] == 118_000
-    brakes_cold = next(s for s in b["inspection_risk"]["systems"] if s["system"] == "brakes")["foreign_probability"]
-    brakes_hist = next(s for s in b2["inspection_risk"]["systems"] if s["system"] == "brakes")["foreign_probability"]
-    assert brakes_hist > brakes_cold                       # a defect at the last inspection raises the risk of one at the next
+    assert all(s["level"] in ("low", "moderate", "high") for s in b2["inspection_risk"]["systems"])
     listing = (await client.get(f"/api/v1/vehicles/{PLATE}/inspections")).json()
     assert len(listing) == 2 and listing[0]["inspection_date"] >= listing[1]["inspection_date"]
 

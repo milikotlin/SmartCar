@@ -19,7 +19,7 @@ The system keeps three kinds of statements strictly apart, in the API, the inter
 
 | Kind | What it is | Source | How it is shown |
 |---|---|---|---|
-| Estimated inspection-defect risk | Statistical estimate that the next annual inspection finds a defect in a system | Model 2 (XGBoost), UK/Dutch inspection data | Rank band against vehicles of the same age; probability only as a labelled reference figure |
+| Estimated inspection-defect risk | Relative risk that the next annual inspection finds a defect in a system | Model 2 (XGBoost), UK/Dutch inspection data | Level Low / Moderate / High against all UK reference vehicles of any age (a rank, not a probability), with a complementary comparison with vehicles of the same age; no probability is shown |
 | Recommended maintenance | Generic service intervals applied to the vehicle's own records | Rules (not learned) | Status per item (up to date, due soon, overdue, no record) |
 | Official recall | A fact published by the authority | Ministry of Transport open data | List with category, type, date and the official text |
 
@@ -92,7 +92,7 @@ Interactive documentation at `/docs`.
 
 ## 8. Interface
 
-Zone A: plate search. Zone B: vehicle card (estimated mileage with range, or measured), three risk gauges with a rank band (not a percentage of failure), recommended maintenance, official recalls, service and inspection history with forms. Zone C: chat widget. The interface states the origin of every figure.
+Zone A: plate search. Zone B: vehicle card (estimated mileage with range, or measured), three risk bars (brakes, electrical, engine-related) with the level Low / Moderate / High on one common scale, a complementary same-age line and plain-language explanations (see [RISK_SCALE.md](RISK_SCALE.md)), recommended maintenance, official recalls, service and inspection history with forms. Zone C: chat widget. The interface states the origin of every figure.
 
 ## 9. Machine learning (summary; details in MODEL_CARDS.md)
 
@@ -109,7 +109,7 @@ Unit and integration tests (pytest, inside the compose stack), model checks on t
 | # | Original (SRS / specification / ML PDFs) | Delivered | Reason and evidence |
 |---|---|---|---|
 | C1 | Model 2 trained on Kaggle Dataset 1 (logistics maintenance history) | Trained on **UK MOT** inspections, validated on **Dutch RDW** inspections | Dataset 1 labels are deterministic rules and the runtime features give ROC-AUC 0.50 (notebook 02); Datasets 4 and 5 add nothing |
-| C2 | "Predict mechanical component failure probabilities" ("Brakes: 85% Failure Risk") | Estimated risk that the **next annual inspection finds a defect** in the system; shown as a rank among vehicles of the same age | No open per-vehicle breakdown data with a denominator exists; the inspection defect is the closest real, validated event. Probabilities are calibrated on foreign data and are not shown as validated for Israel |
+| C2 | "Predict mechanical component failure probabilities" ("Brakes: 85% Failure Risk") | Relative risk that the **next annual inspection finds a defect** in the system; shown as a level Low / Moderate / High among all reference vehicles (and, as complementary information, against vehicles of the same age); revised in round 5 (C21 to C23) | No open per-vehicle breakdown data with a denominator exists; the inspection defect is the closest real, validated event. Probabilities are calibrated on foreign data and are not shown as validated for Israel |
 | C3 | Optimise heavily for Recall | ROC-AUC, PR-AUC, capture, calibration, Precision/Recall/F1 at a validation threshold | Recall alone is met by flagging every vehicle; the data support a ranking, not a screening cut-off |
 | C4 | Class imbalance: SMOTE against `scale_pos_weight` | Both were tested; natural objective used | Natural objective keeps probabilities usable (notebooks 04-05) |
 | C5 | Stage 2 features: age, **mileage from Stage 1**, days since last maintenance, brand reliability index | age, planned interval, fuel, make, previous inspection result, **measured** odometer | The Stage-1 estimate adds no information beyond age and fuel (paired bootstrap, three systems, two countries: notebooks 04, 07, 09); a measured odometer adds 0.013-0.016 AUC. Days-since-maintenance has no labelled data (used by the rules). Make is learned as a category instead of an external index |
@@ -128,3 +128,6 @@ Unit and integration tests (pytest, inside the compose stack), model checks on t
 | C18 | Redis cache for the registry only | Also for the recalls | Same rate-limit reasoning |
 | C19 | (not specified) | Inspection results table and endpoints; recalls; maintenance rules; CBS calibration; coverage check; provenance block | Needed to keep the three statements apart and to feed the history variants |
 | C20 | Test strategy: Logistic Regression against XGBoost by recall | Done by AUC and the other metrics on the same split; they are equal within noise | Reported in MODEL_CARDS.md |
+| C21 | (not specified) The risk indicator initially showed a percentile among vehicles of the same age | **Main indicator: three levels (Low / Moderate / High) against all UK reference vehicles of any age**; same-age comparison kept as a complementary line | The same-age number could not be compared between vehicles (Hyundai i20 2022: brakes 53-84; Nissan Micra 2014: 23-43, although the Micra has more than twice the estimated risk). The all-ages scale keeps the model's order, captures more defects (top 20%: 32-47% of defects against 24-32% within age) and is monotone in observed defect rates (RISK_SCALE_PROPOSAL.md, RISK_SCALE.md) |
+| C22 | (not specified) | Level cut points **chosen from observed defect rates**: Low = lowest 36% of reference vehicles, Moderate = next 33%, High = top 31% | Maximum-likelihood three-level partition of the UK out-of-sample scores with at least 20% per level; the common cut points lose at most 1.8% of the optimum of any system; observed rates Low < Moderate < High in the UK and, independently, in the Dutch data |
+| C23 | (not specified) The score used the planned interval to the next inspection from the registry | Score computed for a **standard 12-month interval**; no probability, "times the average" or exact percentile shown | The planned interval varied from 0.74 to 1.07 years for identical vehicles (timing in the cycle), moved the estimate by 19% to 29% and did not improve the out-of-sample ranking; fixing it changes AUC by at most about 0.002 |

@@ -18,15 +18,15 @@ elec = {"brakes": False, "electrical": True, "engine_emissions": False, "any_def
 cases = []
 for age in (3, 6, 10, 15, 20):
     for fuel, make in (("petrol", "Toyota"), ("diesel", "Hyundai"), ("hybrid", "Kia"), ("petrol", "Bmw"), ("diesel", "Zeekr")):
-        cases += [RiskInputs(age_year=age, gap_next=1.0, fuel=fuel, make=make),
-                  RiskInputs(age_year=age, gap_next=0.85, fuel=fuel, make=make, previous=brk),
-                  RiskInputs(age_year=age, gap_next=1.1, fuel=fuel, make=make, odometer_km=40_000 + 12_000 * age),
-                  RiskInputs(age_year=age, gap_next=1.0, fuel=fuel, make=make, previous=elec, odometer_km=40_000 + 12_000 * age),
-                  RiskInputs(age_year=age, gap_next=1.0, fuel=fuel, make=make, previous=none)]
+        cases += [RiskInputs(age_year=age, fuel=fuel, make=make),
+                  RiskInputs(age_year=age, fuel=fuel, make=make, previous=brk),
+                  RiskInputs(age_year=age, fuel=fuel, make=make, odometer_km=40_000 + 12_000 * age),
+                  RiskInputs(age_year=age, fuel=fuel, make=make, previous=elec, odometer_km=40_000 + 12_000 * age),
+                  RiskInputs(age_year=age, fuel=fuel, make=make, previous=none)]
 out = []
 for x in cases:
     r = model.predict(x)
-    out.append({"inputs": {k: v for k, v in x.__dict__.items()}, "variant": r.variant, "probabilities": {s.system: s.probability for s in r.systems}})
+    out.append({"inputs": {k: v for k, v in x.__dict__.items()}, "variant": r.variant, "probabilities": {s.system: s.probability for s in r.systems}, "levels": {s.system: s.level for s in r.systems}})
 dest = ROOT / "backend" / "tests" / "fixtures" / "golden_model2.json"
 dest.write_text(json.dumps(out, indent=1), encoding="utf-8")
 print(f"{len(out)} golden cases -> {dest}")

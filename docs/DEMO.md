@@ -9,8 +9,11 @@ All plates are **real Israeli registrations**; the maintenance records and inspe
 ## 2. A vehicle with no history (cold start) - plate `4908732`
 * Registry profile live from data.gov.il, translated (Toyota Auris, 2015, petrol, private).
 * **Estimated mileage with a range** (about 166,000 km, 80% range 76,000-268,000): Model 1, calibrated with official CBS statistics. Point out the label: *estimate, not a measurement*.
-* **Risk gauges** are *ranks among vehicles of the same age* with bands (lower / typical / higher), not failure percentages. Open "Model details": the foreign-calibrated probability appears only as a reference figure with its caveat.
+* **Risk bars:** each system has a level (Low / Moderate / High) on **one scale shared by every vehicle and age**: the further right, the higher the estimated risk that the next annual inspection finds a defect. Read the sentence "Higher than about N of 100 reference vehicles" (a rank, not a probability) and the complementary line, which compares only with vehicles of the same age. Open the details: how the levels were set and how often a defect was actually found in each level of the UK data.
 * Maintenance rules: "No record" everywhere (nothing is invented); recalls: none.
+
+## 2b. The case that motivated the new scale - Hyundai i20 2022 (plate `19202803`) against Nissan Micra 2014 (plate `9413531`)
+Look both up one after the other. The i20 shows **Low** in all three systems; the Micra shows **Moderate** for brakes, **High** for electrical and **Moderate** for engine-related. The older car is estimated to be riskier on the same scale, and the same-age line explains that each is "about typical for its age". (Before the change the i20 showed a higher number than the Micra for brakes.)
 
 ## 3. A measured odometer changes the model - same plate
 Type a measured odometer (for example 123456) in the box and press *Use this value*: the card switches to "Odometer (measured)", and the model details say that the *registry + measured odometer* variant is used. Explain: the Model 1 estimate is **not** fed to Model 2 because in every experiment it added nothing; a measured odometer does help (about +0.013 to +0.027 AUC).

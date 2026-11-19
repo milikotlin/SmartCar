@@ -26,16 +26,30 @@ export interface MileageInfo {
   label: string;
 }
 
-export type RiskBand = "lower" | "typical" | "higher";
+export type RiskLevel = "low" | "moderate" | "high";
+export type SameAgeLabel = "lower" | "typical" | "higher";
 
 export interface SystemRisk {
   system: "brakes" | "electrical" | "engine_emissions";
   title: string;
-  band: RiskBand;
-  percentile_same_age: number;
-  relative_risk: number;
-  foreign_probability: number;
+  /** Position among ALL reference vehicles, any age. A relative level, not a probability. */
+  level: RiskLevel;
+  /** "Higher than about N of 100 reference vehicles" (rounded to 5). */
+  higher_than_of_100: number;
+  /** Position among reference vehicles of the SAME age: complementary information. */
+  same_age_label: SameAgeLabel;
+  same_age_years: number;
+  /** Share of reference vehicles of each level that had a defect at the next inspection, whole percent (a property of the groups, not of this vehicle). */
+  observed_in_reference: { low: number; moderate: number; high: number };
   explanation: string;
+}
+
+export interface RiskScale {
+  reference: string;
+  cut_percentiles: Record<string, [number, number]>;
+  level_rule: Record<string, string>;
+  interval: string;
+  country_note: string;
 }
 
 export interface InspectionRisk {
@@ -46,6 +60,7 @@ export interface InspectionRisk {
   variant: "cold" | "cold_odo" | "hist" | "hist_odo" | null;
   uses_history: boolean;
   uses_measured_odometer: boolean;
+  scale: RiskScale | null;
   systems: SystemRisk[];
   disclaimer: string;
 }

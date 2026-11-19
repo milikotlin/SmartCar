@@ -1,10 +1,15 @@
-"""Model 2 inference: risk that the NEXT annual inspection finds a defect, by system.
+"""Model 2 inference: relative risk that the NEXT annual inspection finds a defect, by system.
 
 Four XGBoost variants per system exist (cold, cold_odo, hist, hist_odo); the one used depends only on which REAL inputs are available:
   * history   = the result of the vehicle's previous annual INSPECTION (never a maintenance record: that equivalence was not validated);
   * odometer  = a MEASURED odometer at that inspection (the Model 1 estimate is deliberately not a feature: it did not improve any metric).
-The model was trained on UK MOT data and validated on Dutch RDW data. It has NOT been validated on Israeli vehicles, so the API reports a risk
-RANK among vehicles of the same age (the thing the model does well) and keeps the foreign-calibrated probability as a clearly labelled secondary figure.
+
+The model was trained on UK MOT data and validated on Dutch RDW data; it has NOT been validated on Israeli vehicles. The score is therefore reported only as a
+RELATIVE position:
+  * main indicator   - the position of the vehicle's score among ALL reference vehicles (UK, out-of-sample scores, every age): three levels Low / Moderate / High;
+  * complementary    - the position among reference vehicles of the SAME AGE (lower / typical / higher), explicitly relative to that age group.
+The score is always computed for a STANDARD interval of 12 months to the next inspection (the planned interval of a plate is not used: it never improved the
+ranking out of sample and made identical vehicles look different).
 """
 import json
 from dataclasses import dataclass, field
@@ -16,12 +21,12 @@ import xgboost as xgb
 
 SYSTEMS = ["brakes", "electrical", "engine_emissions"]
 HIST_COLUMNS = {"brakes": "cur_brakes", "electrical": "cur_electrical", "engine_emissions": "cur_engine_emissions"}
+LEVELS = ("low", "moderate", "high")
 
 
 @dataclass(frozen=True)
 class RiskInputs:
     age_year: int                       # calendar year of the last inspection minus year of first use
-    gap_next: float                     # planned interval to the next inspection (years)
     fuel: str                           # petrol | diesel | hybrid | electric | lpg_cng
     make: str                           # title case, UK vocabulary (e.g. "Toyota", "Mercedes-Benz", "Bmw")
     previous: dict | None = None        # {"brakes": bool, "electrical": bool, "engine_emissions": bool, "any_defect": bool} from the previous INSPECTION
@@ -31,10 +36,12 @@ class RiskInputs:
 @dataclass
 class SystemRisk:
     system: str
-    probability: float                  # foreign-calibrated (UK) probability that the next inspection finds a defect in this system
-    relative_risk: float                # probability / average UK rate at the same age
-    percentile_same_age: int            # rank among vehicles of the same age (cross-fitted UK scores)
-    band: str                           # lower | typical | higher
+    probability: float                  # raw model output at a 12-month interval; internal only (UK-calibrated, not validated for Israel): never shown as a probability
+    reference_percentile: float         # 0-100: share of reference vehicles (all ages) with a lower score
+    level: str                          # low | moderate | high
+    same_age_percentile: float          # 0-100 among reference vehicles of the same age
+    same_age_label: str                 # lower | typical | higher
+    observed_rates: dict[str, float]    # share of reference vehicles of each level that had a defect at the next inspection (UK data)
 
 
 @dataclass
@@ -51,14 +58,19 @@ class RiskModel:
     def __init__(self, artifact_dir: Path):
         d = Path(artifact_dir) / "model2"
         self.card = json.loads((d / "model2_card.json").read_text(encoding="utf-8"))
+        self.reference = json.loads((d / "model2_reference.json").read_text(encoding="utf-8"))
         self.variants: dict[str, list[str]] = self.card["variants"]
         self.cats: dict[str, list[str]] = self.card["categories"]
         self.makes = set(self.card["makes_in_training"])
         self.fuels = list(self.card["coverage"]["fuels"])
         self.age_min, self.age_max = self.card["coverage"]["age_years_at_last_inspection"]
-        self.levels = np.array(self.card["decile_levels"])
-        self.deciles = self.card["same_age_score_deciles"]
-        self.ref_rate = self.card["reference_rate_by_age"]
+        self.standard_gap = float(self.reference["standard_gap_years"])
+        self.quantile_pct = np.array(self.reference["quantile_levels"]) * 100          # 0, 1, ..., 100
+        self.ref_quantiles = {k: np.array(v) for k, v in self.reference["reference_quantiles"].items()}
+        self.decile_pct = np.array(self.reference["decile_levels"]) * 100
+        self.same_age = self.reference["same_age_score_deciles"]
+        self.cuts = self.reference["level_cut_percentiles"]
+        self.rates = {(r["variant"], r["system"]): {k: r[k]["rate"] for k in LEVELS} for r in self.reference["level_rates"] if r["data"] == "UK cross-fitted"}
         self.boosters: dict[str, xgb.Booster] = {}
         for v in self.variants:
             for s in SYSTEMS:
@@ -81,7 +93,8 @@ class RiskModel:
 
     # ---------------------------------------------------------------- prediction
     def _frame(self, x: RiskInputs, variant: str) -> pd.DataFrame:
-        row = {"age_year": x.age_year, "gap_next": x.gap_next, "fuel": x.fuel, "make_c": x.make if x.make in self.makes else "OTHER", "km": x.odometer_km if x.odometer_km is not None else np.nan}
+        row = {"age_year": x.age_year, "gap_next": self.standard_gap, "fuel": x.fuel, "make_c": x.make if x.make in self.makes else "OTHER",
+               "km": x.odometer_km if x.odometer_km is not None else np.nan}
         if x.previous is not None:
             prev = x.previous
             row.update({"cur_brakes": int(bool(prev.get("brakes"))), "cur_electrical": int(bool(prev.get("electrical"))), "cur_engine_emissions": int(bool(prev.get("engine_emissions"))),
@@ -92,13 +105,17 @@ class RiskModel:
                 df[c] = pd.Categorical(df[c], categories=self.cats[c])
         return df
 
-    def _percentile(self, variant: str, system: str, age: int, p: float) -> int:
-        dec = self.deciles[f"{variant}/{system}"]
-        key = str(min(max(age, self.age_min), self.age_max))
-        q = np.array(dec[key])
-        # piecewise-linear rank between the deciles; below the 10th / above the 90th percentile the rank is clamped to 5 / 95
-        pct = float(np.interp(p, q, self.levels, left=0.05, right=0.95)) * 100
-        return int(round(min(max(pct, 1), 99)))
+    def reference_percentile(self, variant: str, system: str, p: float) -> float:
+        """Share of the reference vehicles (all ages, out-of-sample UK scores, same variant) whose score is lower; piecewise-linear between 101 quantiles."""
+        return float(np.interp(p, self.ref_quantiles[f"{variant}/{system}"], self.quantile_pct))
+
+    def same_age_percentile(self, variant: str, system: str, age: int, p: float) -> float:
+        dec = self.same_age[f"{variant}/{system}"][str(min(max(age, self.age_min), self.age_max))]
+        return float(np.interp(p, dec, self.decile_pct, left=5.0, right=95.0))
+
+    def level_of(self, system: str, percentile: float) -> str:
+        a, b = self.cuts[system]
+        return "low" if percentile <= a else ("moderate" if percentile <= b else "high")
 
     def predict(self, x: RiskInputs) -> RiskResult:
         reasons = self.check_coverage(x)
@@ -112,9 +129,8 @@ class RiskModel:
         out = []
         for s in SYSTEMS:
             p = float(self.boosters[f"{variant}/{s}"].predict(dm)[0])
-            age_key = str(min(max(x.age_year, self.age_min), self.age_max))
-            pct = self._percentile(variant, s, x.age_year, p)
-            q = self.deciles[f"{variant}/{s}"][age_key]
-            band = "higher" if p >= q[7] else ("lower" if p <= q[1] else "typical")      # 80th / 20th percentile of the same age
-            out.append(SystemRisk(system=s, probability=p, relative_risk=p / max(self.ref_rate[s][age_key], 1e-6), percentile_same_age=pct, band=band))
+            pct = self.reference_percentile(variant, s, p)
+            sa = self.same_age_percentile(variant, s, x.age_year, p)
+            out.append(SystemRisk(system=s, probability=p, reference_percentile=pct, level=self.level_of(s, pct), same_age_percentile=sa,
+                                  same_age_label="higher" if sa >= 80 else ("lower" if sa <= 20 else "typical"), observed_rates=self.rates[(variant, s)]))
         return RiskResult(covered=True, reasons=notes, variant=variant, uses_history=x.previous is not None, uses_measured_odometer=x.odometer_km is not None, systems=out)
