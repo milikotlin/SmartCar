@@ -1,18 +1,20 @@
 {
  "vehicles_age_ge_1": 17507,
- "share_estimate_above_400k_km": 0.0006283201005312161,
- "share_estimate_above_300k_km": 0.013366082138573142,
- "share_annual_above_40k": 0.0019420803107328497,
- "share_annual_above_35k": 0.007882561261209802,
- "max_estimate": 519100,
- "max_annual": 43500,
- "high_range_above_500k": 0.002970240475238476,
+ "share_estimate_above_400k_km": 0.00039984006397441024,
+ "share_estimate_above_300k_km": 0.012794882047181128,
+ "share_annual_above_40k": 0.0038841606214656994,
+ "share_annual_above_35k": 0.02816016450562632,
+ "max_estimate": 507100,
+ "max_annual": 46800,
+ "high_range_above_500k": 0.00274176043868167,
  "worst_groups": {
-  "diesel/leasing": 16,
-  "diesel/company": 13,
-  "hybrid/leasing": 8,
-  "diesel/rental": 4,
-  "petrol/company": 4
+  "diesel/leasing": 22,
+  "hybrid/leasing": 17,
+  "diesel/company": 16,
+  "hybrid/company": 15,
+  "hybrid/rental": 2,
+  "petrol/company": 2,
+  "diesel/rental": 1
  },
  "share_of_ownership_by_age_ge_8": {
   "company": 0.23941605839416058,

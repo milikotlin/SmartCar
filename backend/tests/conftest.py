@@ -4,6 +4,18 @@ from pathlib import Path
 import pytest
 
 FIXTURES = Path(__file__).parent / "fixtures"
+TEST_WRITE_KEY = "test-workshop-key"            # test value only: the real key lives in .env and is never read by the tests
+
+
+@pytest.fixture(autouse=True)
+def _security_settings():
+    """Functional suites run with a known test key and generous rate limits; test_security.py tightens them on purpose."""
+    from app.config import settings
+
+    saved = (settings.records_write_key, settings.write_rate_per_minute, settings.chat_rate_per_minute)
+    settings.records_write_key, settings.write_rate_per_minute, settings.chat_rate_per_minute = TEST_WRITE_KEY, 100_000, 100_000
+    yield
+    settings.records_write_key, settings.write_rate_per_minute, settings.chat_rate_per_minute = saved
 
 
 @pytest.fixture(scope="session")

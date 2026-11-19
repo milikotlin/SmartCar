@@ -17,6 +17,15 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   if (response.status === 422) {
     throw new InvalidPlateError("The data entered is not valid (check the plate and the numbers).");
   }
+  if (response.status === 401) {
+    throw new ApiError("Missing or invalid workshop key. Only authorised workshops can add records.");
+  }
+  if (response.status === 403) {
+    throw new ApiError("Adding records is disabled on this server (no workshop key configured).");
+  }
+  if (response.status === 429) {
+    throw new ApiError("Too many requests. Please wait a minute and try again.");
+  }
   if (response.status === 503) {
     throw new ApiError("The Ministry of Transport registry is temporarily unavailable. Please try again in a moment.");
   }
@@ -42,7 +51,8 @@ export const fetchInspections = (plate: string) => request<InspectionRecord[]>(`
 export const addMaintenance = (
   plate: string,
   body: { service_date: string; mileage_at_service: number; description: string; maintenance_category: string | null; total_cost: number },
-) => request<MaintenanceRecord>(`/api/v1/vehicles/${plate}/maintenance`, { method: "POST", body: JSON.stringify(body) });
+  writeKey: string,
+) => request<MaintenanceRecord>(`/api/v1/vehicles/${plate}/maintenance`, { method: "POST", body: JSON.stringify(body), headers: { "X-Write-Key": writeKey } });
 
 export const addInspection = (
   plate: string,
@@ -54,7 +64,8 @@ export const addInspection = (
     engine_defect: boolean;
     other_defect: boolean;
   },
-) => request<InspectionRecord>(`/api/v1/vehicles/${plate}/inspections`, { method: "POST", body: JSON.stringify(body) });
+  writeKey: string,
+) => request<InspectionRecord>(`/api/v1/vehicles/${plate}/inspections`, { method: "POST", body: JSON.stringify(body), headers: { "X-Write-Key": writeKey } });
 
 export const askChat = (plate: string, message: string, odometerKm?: number | null) =>
   request<ChatAnswer>(`/api/v1/chat`, {

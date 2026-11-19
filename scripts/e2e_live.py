@@ -29,6 +29,7 @@ def check(cond: bool, msg: str) -> None:
 
 
 def main() -> None:
+    security_checked = False
     rows, timings_cold, timings_warm, retries = [], [], [], []
     with httpx.Client(timeout=90) as c:
         check(c.get(f"{API}/health").json() == {"status": "ok"}, "health")
@@ -89,12 +90,23 @@ def main() -> None:
         check(ch.status_code == 200 and ch.json()["answer"] and ch.json()["context"], "chat answer")
         chat_source = ch.json().get("source")
 
+        # security of the write endpoints (no key is ever sent in this test: only the refusals are checked, nothing is written)
+        rec = {"service_date": "2026-01-15", "mileage_at_service": 50000, "description": "e2e security probe, must be refused"}
+        no_key = c.post(f"{API}/api/v1/vehicles/{ok_plate}/maintenance", json=rec)
+        bad_key = c.post(f"{API}/api/v1/vehicles/{ok_plate}/maintenance", json=rec, headers={"X-Write-Key": "wrong-key"})
+        check(no_key.status_code in (401, 403) and bad_key.status_code in (401, 403), f"write without a valid key not refused ({no_key.status_code}, {bad_key.status_code})")
+        check(not any("security probe" in x["description"] for x in c.get(f"{API}/api/v1/vehicles/{ok_plate}/maintenance").json()), "refused record was stored")
+        cors = c.options(f"{API}/api/v1/vehicles/{ok_plate}/maintenance", headers={"Origin": "https://evil.example", "Access-Control-Request-Method": "POST"})
+        check("access-control-allow-origin" not in cors.headers, "CORS allows a foreign origin")
+        security_checked = True
+
     ok = [r for r in rows if r.get("status") == 200]
     covered = [r for r in ok if r["covered"]]
     lines = ["# End-to-end test with real Israeli plates", "",
              f"Run: {date.today().isoformat()} against `{API}` (live data.gov.il registry and recall services, PostgreSQL, Redis, exported models).", "",
              f"* plates tested: **{len(rows)}** (registry lookups answered: {len(ok)}); automatic checks: **{checks}**; failures: **{len(failures)}**",
              f"* Model 2 produced an estimate for {len(covered)} plates and declined {len(ok) - len(covered)} (electric, gas, or age outside 3-20 years, each with its reason)",
+             f"* security: record writes without / with a wrong workshop key are refused ({'checked' if security_checked else 'not checked'}), foreign CORS origin gets no permission",
              f"* plates with at least one open recall: {sum(1 for r in ok if r['recalls'])}",
              f"* latency of `/api/v1/predict` (full request incl. live registry call): median {statistics.median(timings_cold):.2f} s cold, {statistics.median(timings_warm) * 1000:.0f} ms with the 24 h cache",
              f"* registry outages absorbed by the API's own retry and answered as 503, then retried by the test: {len(retries)}",

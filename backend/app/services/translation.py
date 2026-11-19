@@ -48,6 +48,10 @@ MANUFACTURER_TRANSLATIONS: dict[str, str] = {
     "פורשה": "Porsche", "יגואר": "Jaguar", "ביואיק": "Buick", "קאדילאק": "Cadillac", "סאנגיונג": "SsangYong", "מקסוס": "Maxus",
     "אורה": "Ora", "לינק אנד קו": "Lynk & Co", "ליפמוטור": "Leapmotor", "זיקר": "Zeekr", "סרס": "Seres", "סקיוול": "Skywell",
     "דונגפנג": "Dongfeng", "אוואטר": "Avatr", "אף איי דבליו": "FAW", "איון": "Aion", "קיי ג'י מובילי": "KGM",
+    # spellings seen in the registry sample that the list above missed (only brands that are unambiguous; an unknown name stays as published)
+    "אודי": "Audi", "דיימלר קרייזלר": "Daimler Chrysler", "דימלרקריזלר": "Daimler Chrysler", "דודג'": "Dodge", "מזארטי": "Maserati", "די אס": "DS",
+    "אסטון מרטין": "Aston Martin", "ג'י.אמ.סי": "GMC", "דייהו": "Daewoo", "לוטוס": "Lotus", "פולסטאר": "Polestar", "ג'יי איי סי": "JAC",
+    "גי.איי.סי": "GAC", "פורתינג": "Forthing", "ניאו": "Nio",
 }
 _PREFIXES = sorted(MANUFACTURER_TRANSLATIONS, key=len, reverse=True)
 
@@ -58,6 +62,52 @@ def translate_manufacturer(raw: str) -> str:
         if s.startswith(hebrew):
             return MANUFACTURER_TRANSLATIONS[hebrew]
     return s
+
+
+# `tzeva_rechev` (colour) is free Hebrew text: "<shade> <colour> <finish>". Translated word by word; if any word is unknown the value is shown as published.
+_COLOR_PHRASES = {"שנהב לבן": "White (ivory)", "שן פיל": "Ivory", "רב גווני": "Multicolour", "ירוק ים": "Sea green", "כסף ים": "Sea silver", "אפור פלדה": "Steel gray"}
+_COLOR_WORDS = {
+    "לבן": "white", "שחור": "black", "אפור": "gray", "כסף": "silver", "כסוף": "silver", "כחול": "blue", "תכלת": "light blue", "אדום": "red", "ירוק": "green",
+    "צהוב": "yellow", "כתום": "orange", "חום": "brown", "בז": "beige", "זהב": "gold", "זהוב": "golden", "סגול": "purple", "ורוד": "pink", "בורדו": "burgundy",
+    "קרם": "cream", "קפה": "coffee", "ברונזה": "bronze", "נחושת": "copper", "טורקיז": "turquoise", "זית": "olive", "פלטינה": "platinum", "פלדה": "steel",
+    "חציל": "eggplant", "פחם": "charcoal", "סהרה": "Sahara", "רוז": "rose", "אקווה": "aqua", "טוניק": "tonic", "לימון": "lemon", "מלאנג": "melange",
+    "כחלחל": "bluish", "ירקרק": "greenish", "אדמדם": "reddish", "פנינה": "pearl", "מילניום": "millennium", "קריסטל": "crystal", "קלאסי": "classic",
+    "זוהר": "bright", "חזק": "vivid", "(יין)": "(wine)", "ים": "sea",
+}
+_COLOR_METALLIC = {"מטלי", "מטאלי", "מטל", "מתכתי"}
+
+
+def translate_color(raw: str | None) -> str | None:
+    if not raw or not str(raw).strip():
+        return None
+    s = re.sub(r"\s+", " ", str(raw).strip().replace("'", "").replace("’", ""))
+    if s in _COLOR_PHRASES:
+        return _COLOR_PHRASES[s]
+    dark = light = metallic = False
+    words: list[str] = []
+    i = 0
+    toks = s.split(" ")
+    while i < len(toks):
+        t = toks[i]
+        if i + 1 < len(toks) and f"{t} {toks[i + 1]}" in _COLOR_PHRASES:
+            words.append(_COLOR_PHRASES[f"{t} {toks[i + 1]}"].lower())
+            i += 2
+            continue
+        if t in _COLOR_METALLIC:
+            metallic = True
+        elif t == "כהה":
+            dark = True
+        elif t == "בהיר":
+            light = True
+        elif t in _COLOR_WORDS:
+            words.append(_COLOR_WORDS[t])
+        else:
+            return str(raw).strip()          # a word we do not know: keep what the registry published
+        i += 1
+    if not words:
+        return str(raw).strip()
+    text = " ".join(([("dark" if dark else "light")] if dark or light else []) + words)
+    return (text[0].upper() + text[1:]) + (" metallic" if metallic else "")
 
 
 def translate_fuel(raw: str) -> str:
@@ -83,7 +133,7 @@ def translate_vehicle_record(record: dict[str, Any]) -> VehicleProfile:
         manufacture_year=int(record["shnat_yitzur"]),
         fuel_type=translate_fuel(record.get("sug_delek_nm", "")),
         ownership=translate_ownership(record.get("baalut", "")),
-        color=record.get("tzeva_rechev"),
+        color=translate_color(record.get("tzeva_rechev")),
         last_test_date=record.get("mivchan_acharon_dt"),
         license_valid_until=record.get("tokef_dt"),
         first_registration=record.get("moed_aliya_lakvish"),

@@ -145,6 +145,9 @@ def main():
             page.search("4908732")
             t = page.text()
             record(tag("covered/no records: vehicle card"), "Toyota" in t and "2015" in t and "Petrol" in t)
+            record(tag("covered/no records: Israeli wording, official data separated from the ML estimate"), "Last annual test (date)" in t and "Last MOT" not in t and "OFFICIAL REGISTRY DATA" in t.upper()
+                   and "not its result" in t and "MACHINE-LEARNING ESTIMATE" in t.upper())
+            record(tag("covered/no records: no Hebrew left on the page (colour translated)"), not __import__("re").search(r"[֐-׿]", t), t[:0])
             record(tag("covered/no records: mileage is labelled as an ESTIMATE with a range"), "Estimated mileage" in t and "Indicative range (80%)" in t and "not a measurement" in t)
             record(tag("covered/no records: three risk bars with level words"), t.count("RELATIVE RISK") == 3 and "Higher than about" in t and "Compared with vehicles aged" in t)
             record(tag("covered/no records: explanation says relative, not a probability, not validated"), "relative level" in t and "not a probability" in t and "not been validated for Israeli" in t)
@@ -169,11 +172,25 @@ def main():
             page.search("6224652")
             t = page.text()
             record(tag("covered/with records: measured odometer shown as MEASURED and the estimate kept for comparison"), "Odometer (measured)" in t and "Model 1 estimate for comparison" in t)
-            record(tag("covered/with records: maintenance rows and inspection result listed"), "[DEMO] Oil and filter change" in t and "ANNUAL INSPECTION RESULTS ON FILE" in t)
+            record(tag("covered/with records: maintenance rows and inspection result listed"), "DEMO" in t and "Oil and filter change" in t and "ANNUAL INSPECTION RESULTS ON FILE" in t and "Manual records, not official data" in t)
             record(tag("covered/with records: the model says the last inspection result is used"), "the last inspection result is used by the risk model" in t)
             record(tag("covered/with records: brake rule flags a missing service"), "NO RECORD, OVERDUE" in t)
             common_checks(page, tag("covered/with records"))
             page.shot(f"{mode}_03_records_full")
+
+            # ---- 2b. writing records needs the workshop key (the form must refuse without it and with a wrong one)
+            fill = """(async (key) => { const set = (el, v) => { Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(el, v); el.dispatchEvent(new Event('input', {bubbles: true})); };
+              const form = [...document.querySelectorAll('form')].find(f => f.querySelector('input[name=description]'));
+              set(document.querySelector('input[aria-label="Workshop key"]'), key);
+              set(form.querySelector('input[name=date]'), '2026-01-15'); set(form.querySelector('input[name=km]'), '61000'); set(form.querySelector('input[name=description]'), 'visual check, must not be stored');
+              form.requestSubmit(); await new Promise(r => setTimeout(r, 1500)); return document.querySelector('[role=status]') ? document.querySelector('[role=status]').innerText : ''; })"""
+            msg = page.js(fill + "('')")
+            record(tag("records form: refuses without a workshop key"), "Enter the workshop key first" in msg, msg)
+            msg = page.js(fill + "('definitely-wrong-key')")
+            record(tag("records form: a wrong key is rejected by the server"), "invalid workshop key" in msg.lower(), msg)
+            record(tag("records form: nothing was stored"), "must not be stored" not in page.text())
+            page.js("(() => { const i = document.querySelector('input[aria-label=\"Workshop key\"]'); Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(i, ''); i.dispatchEvent(new Event('input', {bubbles: true})); })()")
+            page.shot(f"{mode}_03b_key_refused", "section:has(form)")
 
             # ---- 3. chat on that vehicle (no OpenAI key configured in the stack)
             page.js("document.querySelector('button[aria-label^=\"Open the AI\"]').click()")

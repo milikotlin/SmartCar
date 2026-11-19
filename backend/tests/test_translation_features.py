@@ -67,3 +67,38 @@ def test_age_of_the_last_inspection_uses_first_registration_year(profiles):
     x = features.risk_inputs(p, None, None)
     assert x.age_year == 2026 - 2015
     assert x.previous is None and x.odometer_km is None
+
+
+@pytest.mark.parametrize("raw,expected", [
+    ("שנהב לבן", "White (ivory)"), ("כסף מטלי", "Silver metallic"), ("אפור כהה מטלי", "Dark gray metallic"), ("תכלת מטאלי", "Light blue metallic"),
+    ("שחור", "Black"), ("אדום כהה (יין)", "Dark red (wine)"), ("ירוק ים", "Sea green"), ("שן פיל", "Ivory"), ("בז מטאלי", "Beige metallic"),
+])
+def test_registry_colours_are_translated(raw, expected):
+    from app.services.translation import translate_color
+
+    assert translate_color(raw) == expected
+
+
+def test_unknown_colour_words_are_kept_as_published_and_empty_is_none():
+    from app.services.translation import translate_color
+
+    assert translate_color("סגול אלמוני") == "סגול אלמוני"        # one unknown word: nothing is guessed
+    assert translate_color("") is None and translate_color(None) is None
+
+
+def test_every_colour_in_the_real_registry_rows_is_translated(registry_rows):
+    import re
+
+    from app.services.translation import translate_vehicle_record
+
+    hebrew = re.compile(r"[\u0590-\u05FF]")
+    for r in registry_rows:
+        p = translate_vehicle_record(r)
+        assert p.color is None or not hebrew.search(p.color), (r.get("tzeva_rechev"), p.color)
+
+
+@pytest.mark.parametrize("raw,expected", [("אודי מקסיקו", "Audi"), ("דודג' קנדה", "Dodge"), ("מזארטי איטליה", "Maserati"), ("לוטוס אנגליה", "Lotus"), ("טויוטה יפן", "Toyota")])
+def test_more_manufacturer_spellings(raw, expected):
+    from app.services.translation import translate_manufacturer
+
+    assert translate_manufacturer(raw) == expected

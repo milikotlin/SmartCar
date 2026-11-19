@@ -24,13 +24,14 @@ Documentação: `docs/SRS_v2.md` (SRS atualizado **com o registro das alteraçõ
 Pré-requisito: Docker Desktop.
 
 ```bash
-cp .env.example .env          # opcional: preencha OPENAI_API_KEY para ativar o chat com o modelo de linguagem
+cp .env.example .env          # preencha RECORDS_WRITE_KEY (chave da oficina; gere com: python -c "import secrets; print(secrets.token_urlsafe(18))") e, opcional, OPENAI_API_KEY
 docker compose up --build
 docker compose exec backend alembic upgrade head
 python scripts/seed_demo.py   # opcional: 21 placas reais + registros de demonstração rotulados "[DEMO]"
 ```
 
-- Frontend: `http://localhost:3000` · API: `http://localhost:8000` (docs interativas em `/docs`)
+- Frontend: `http://localhost:3000` · API: `http://localhost:8000` (docs interativas em `/docs`). As portas ficam presas a `127.0.0.1`.
+- Gravar registros (manutenção / resultado de inspeção) exige a **chave da oficina** (`RECORDS_WRITE_KEY` no `.env`, campo "Workshop key" no painel; leitura é livre). Sem chave configurada a gravação fica desabilitada. O `.env` não vai para o git; para compartilhar o projeto use `python scripts/make_share_zip.py` (só arquivos versionados).
 - Sem `OPENAI_API_KEY` o chat responde por um modelo determinístico baseado nos mesmos fatos (e diz isso).
 
 ```bash
@@ -44,7 +45,7 @@ curl "http://localhost:8000/api/v1/predict/4908732?odometer_km=123456"
 ```bash
 docker compose run --rm backend python -m pytest -q          # unitários, modelos, API (com PostgreSQL e Redis reais)
 python scripts/e2e_live.py                                    # ~90 placas israelenses reais contra a stack em execução -> docs/E2E_REPORT.md
-python scripts/visual_check.py                                # Chrome headless: desktop e celular, 101 verificações + capturas em docs/screenshots/
+python scripts/visual_check.py                                # Chrome headless: desktop e celular, 111 verificações + capturas em docs/screenshots/
 docker compose run --rm --no-deps frontend npx tsc --noEmit   # tipos do frontend
 ```
 

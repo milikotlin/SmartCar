@@ -1,6 +1,6 @@
 # Demonstration script (about 8 minutes)
 
-Preparation (once): `docker compose up --build`, `docker compose exec backend alembic upgrade head`, `python scripts/seed_demo.py`. Open http://localhost:3000.
+Preparation (once): set `RECORDS_WRITE_KEY` in `.env`, then `docker compose up --build`, `docker compose exec backend alembic upgrade head`, `python scripts/seed_demo.py` (reads the key from `.env`). Open http://localhost:3000. To add a record live, type the workshop key in the "Workshop key" field of the service log (kept for the browser session only); without it the form refuses, which is also worth showing.
 All plates are **real Israeli registrations**; the maintenance records and inspection results created by the seed script are demonstration data, labelled "[DEMO]".
 
 ## 1. The idea in one minute

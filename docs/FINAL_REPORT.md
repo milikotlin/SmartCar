@@ -1,5 +1,7 @@
 # SmartCar-Ops: final readiness report
 
+> Partly superseded by [FINAL_TECHNICAL_REVIEW.md](FINAL_TECHNICAL_REVIEW.md) (security, Model 1 curve smoothing, wording); the test counts below are those of the earlier round.
+
 Scope of this round: coverage of Israeli vehicles, a complete visual check of the dashboard (desktop and phone), the real benefit of Model 1 over a simple CBS estimate, and the final flow tests.
 **No model was retrained or changed.** Everything below was measured; where something could not be verified, it says so.
 
@@ -58,7 +60,7 @@ Scope of this round: coverage of Israeli vehicles, a complete visual check of th
 
 Model 1 reproduces the official age-by-ownership estimate within a few percent (as designed: it is calibrated to those aggregates). Its annual kilometres are 16.1 thousand (private), 31.4 (leasing), 28.1 (company), 29.8 (rental), 23.8 (diesel), 24.4 (hybrid); the 1st to 99th percentile of the implied annual distance is 12.9 to 33.9 thousand km. Plausibility: **0.06% of vehicles get more than 400,000 km and 0.19% more than 40,000 km a year** (the maximum is 519,000 km), all in diesel/hybrid leasing or company cars; the implausible grid cells (for example a 12-year-old leasing hybrid) practically do not exist in the fleet (0% of leasing cars and 0.5% of rental cars are 8 years or older), so no change is needed, but the limitation (stacked effects are extrapolations) stays documented.
 
-**Is the range understandable?** It is wide because individual vehicles vary a lot (its width is 104% to 116% of the estimate for ages 4 to 19 and 157% for ages 0 to 3; for example 166,200 km with a range of 76,100 to 268,400 for an 11-year-old car), and the dashboard now explains it in plain words: "in the training data about 8 in 10 similar vehicles fall inside such a range, so the true value of this vehicle can easily lie anywhere in it".
+**Is the range understandable?** It is wide because individual vehicles vary a lot (its width is 104% to 117% of the estimate for ages 4 to 19 and 148% for ages 0 to 3, after the curve smoothing of the final technical review; for example 166,200 km with a range of 76,100 to 268,400 for an 11-year-old car), and the dashboard now explains it in plain words: "in the training data about 8 in 10 similar vehicles fall inside such a range, so the true value of this vehicle can easily lie anywhere in it".
 
 **What the learned model adds, measured where individual ground truth exists** (leave-one-market-out: train on two used-car markets, calibrate with the *aggregates* of the third, test on individual vehicles of the third; the lookups use exactly the same aggregates):
 

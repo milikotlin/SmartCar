@@ -23,6 +23,26 @@ class MileageEstimate:
     notes: tuple[str, ...]
 
 
+def smooth_cumulative(curve: np.ndarray, a_sup: int, window: int) -> np.ndarray:
+    """Smooth a cumulative-by-age curve through its yearly increments (centred moving average over `window` years, ages 1..a_sup).
+
+    The learned curve is a tree model, so its yearly increments are steps (one year with almost no km, the next with a jump). The total at a_sup and
+    everything above it are kept; only the way the kilometres are spread over the years changes. window <= 1 leaves the curve untouched.
+    """
+    c = np.asarray(curve, dtype=float)
+    if window <= 1 or a_sup < 2:
+        return c
+    inc = np.diff(c[: a_sup + 1])
+    half = window // 2
+    sm = np.array([inc[max(0, i - half): i + half + 1].mean() for i in range(len(inc))])
+    if abs(sm.sum()) > 1e-9:
+        sm = sm * (inc.sum() / sm.sum())
+    out = c.copy()
+    out[1: a_sup + 1] = c[0] + np.cumsum(sm)
+    out[a_sup + 1:] = out[a_sup] + (c[a_sup + 1:] - c[a_sup])
+    return out
+
+
 def _age_band(age: int, bands: list[list[int]], labels: list[str]) -> str:
     for (lo, hi), label in zip(bands, labels):
         if lo <= age <= hi:
@@ -55,6 +75,11 @@ class MileageModel:
             self.q10[fuel] = np.clip(boosters["q10"].predict(dm), 0, None)
             self.q90[fuel] = np.clip(boosters["q90"].predict(dm), 0, None)
         self.curve = {f: np.maximum.accumulate(c) for f, c in self.mean_raw.items()}          # cumulative, non-decreasing
+        self.smoothing_window = int(self.cal.get("smoothing_window", 1))                      # 1 = none (artifacts older than the final review)
+        if self.smoothing_window > 1:
+            self.curve = {f: smooth_cumulative(c, self.a_sup, self.smoothing_window) for f, c in self.curve.items()}
+            self.q10 = {f: smooth_cumulative(c, self.a_sup, self.smoothing_window) for f, c in self.q10.items()}
+            self.q90 = {f: smooth_cumulative(c, self.a_sup, self.smoothing_window) for f, c in self.q90.items()}
         f_band = self.cal["age_band_factors"]
         self.f_age = np.array([f_band[_age_band(a, self.cal["age_bands"], self.cal["age_band_labels"])] for a in range(self.max_age + 1)])
         self.f_own = self.cal["ownership_factors"]

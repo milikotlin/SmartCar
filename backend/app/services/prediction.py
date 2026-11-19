@@ -172,9 +172,8 @@ async def build_prediction(
         primary, source = measured, "measured"
     else:
         label = (
-            f"Estimated {est.km:,} km. Indicative range {est.km_low:,}-{est.km_high:,} km: in the training data about 8 in 10 similar vehicles fall inside such a range, "
-            "so the true value of this vehicle can easily lie anywhere in it. Population-level estimate calibrated with official CBS statistics by age and ownership; "
-            "not a measurement and not validated for individual Israeli vehicles."
+            "Population-level estimate by age, fuel type and ownership, calibrated with official CBS statistics. "
+            "The range is indicative (about 8 in 10 similar vehicles fall inside it); it is not a measurement and has not been validated for individual Israeli vehicles."
         )
         primary, source = est.km, "estimated"
     mileage = MileageInfo(

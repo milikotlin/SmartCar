@@ -10,6 +10,16 @@
   "detail": ""
  },
  {
+  "check": "desktop/covered/no records: Israeli wording, official data separated from the ML estimate",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/covered/no records: no Hebrew left on the page (colour translated)",
+  "passed": true,
+  "detail": ""
+ },
+ {
   "check": "desktop/covered/no records: mileage is labelled as an ESTIMATE with a range",
   "passed": true,
   "detail": ""
@@ -160,6 +170,21 @@
   "detail": ""
  },
  {
+  "check": "desktop/records form: refuses without a workshop key",
+  "passed": true,
+  "detail": "Enter the workshop key first: only authorised workshops can add records."
+ },
+ {
+  "check": "desktop/records form: a wrong key is rejected by the server",
+  "passed": true,
+  "detail": "Missing or invalid workshop key. Only authorised workshops can add records."
+ },
+ {
+  "check": "desktop/records form: nothing was stored",
+  "passed": true,
+  "detail": ""
+ },
+ {
   "check": "desktop/chat: answers and says it is rule-based when the model is unavailable",
   "passed": true,
   "detail": ""
@@ -256,6 +281,16 @@
  },
  {
   "check": "mobile/covered/no records: vehicle card",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/covered/no records: Israeli wording, official data separated from the ML estimate",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/covered/no records: no Hebrew left on the page (colour translated)",
   "passed": true,
   "detail": ""
  },
@@ -406,6 +441,21 @@
  },
  {
   "check": "mobile/covered/with records: no horizontal overflow",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/records form: refuses without a workshop key",
+  "passed": true,
+  "detail": "Enter the workshop key first: only authorised workshops can add records."
+ },
+ {
+  "check": "mobile/records form: a wrong key is rejected by the server",
+  "passed": true,
+  "detail": "Missing or invalid workshop key. Only authorised workshops can add records."
+ },
+ {
+  "check": "mobile/records form: nothing was stored",
   "passed": true,
   "detail": ""
  },

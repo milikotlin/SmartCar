@@ -1,0 +1,235 @@
+{
+ "a_sup": 13,
+ "max_age": 45,
+ "f_age": {
+  "0": 1.645,
+  "3": 1.645,
+  "4": 1.944,
+  "6": 1.944,
+  "7": 3.402,
+  "9": 3.402,
+  "10": 2.181,
+  "13": 2.181,
+  "14": 1.076,
+  "19": 1.076,
+  "20": 1.082,
+  "30": 1.082
+ },
+ "by_fuel": {
+  "petrol": {
+   "yearly_increment_km_ages_1_to_16": [
+    16800,
+    16300,
+    16500,
+    17100,
+    15800,
+    15100,
+    16100,
+    12500,
+    13900,
+    14100,
+    14000,
+    12400,
+    10600,
+    12400,
+    12400,
+    12400
+   ],
+   "years_with_increment_below_3000_km": [],
+   "years_with_jump_above_1.8x_previous": [],
+   "monotone_km": true,
+   "interval_width_over_estimate": {
+    "1": 1.76,
+    "3": 1.32,
+    "5": 1.14,
+    "8": 1.12,
+    "11": 1.17,
+    "14": 1.14,
+    "20": 0.9,
+    "30": 0.89
+   },
+   "low_le_est_le_high": true
+  },
+  "diesel": {
+   "yearly_increment_km_ages_1_to_16": [
+    20600,
+    22400,
+    26700,
+    27600,
+    20800,
+    15900,
+    18100,
+    19200,
+    21800,
+    20300,
+    25600,
+    19900,
+    16300,
+    12400,
+    12400,
+    12400
+   ],
+   "years_with_increment_below_3000_km": [],
+   "years_with_jump_above_1.8x_previous": [],
+   "monotone_km": true,
+   "interval_width_over_estimate": {
+    "1": 1.69,
+    "3": 1.25,
+    "5": 1.08,
+    "8": 1.0,
+    "11": 1.03,
+    "14": 0.95,
+    "20": 0.86,
+    "30": 0.86
+   },
+   "low_le_est_le_high": true
+  },
+  "hybrid": {
+   "yearly_increment_km_ages_1_to_16": [
+    21300,
+    20400,
+    24700,
+    22100,
+    17600,
+    14400,
+    27100,
+    29600,
+    40500,
+    48400,
+    48800,
+    36900,
+    10700,
+    12400,
+    12400,
+    12400
+   ],
+   "years_with_increment_below_3000_km": [],
+   "years_with_jump_above_1.8x_previous": [
+    [
+     7,
+     27100,
+     14400
+    ]
+   ],
+   "monotone_km": true,
+   "interval_width_over_estimate": {
+    "1": 1.64,
+    "3": 1.33,
+    "5": 1.15,
+    "8": 0.77,
+    "11": 0.72,
+    "14": 0.75,
+    "20": 0.69,
+    "30": 0.69
+   },
+   "low_le_est_le_high": true
+  },
+  "lpg_cng": {
+   "yearly_increment_km_ages_1_to_16": [
+    19500,
+    20400,
+    16800,
+    20100,
+    14400,
+    13000,
+    11500,
+    13600,
+    17800,
+    14800,
+    13700,
+    10500,
+    9500,
+    12400,
+    12400,
+    12400
+   ],
+   "years_with_increment_below_3000_km": [],
+   "years_with_jump_above_1.8x_previous": [],
+   "monotone_km": true,
+   "interval_width_over_estimate": {
+    "1": 2.31,
+    "3": 1.5,
+    "5": 1.19,
+    "8": 0.95,
+    "11": 0.88,
+    "14": 0.78,
+    "20": 0.69,
+    "30": 0.69
+   },
+   "low_le_est_le_high": true
+  },
+  "electric": {
+   "yearly_increment_km_ages_1_to_16": [
+    16800,
+    16300,
+    16500,
+    17100,
+    15800,
+    15100,
+    16100,
+    12500,
+    13900,
+    14100,
+    14000,
+    12400,
+    10600,
+    12400,
+    12400,
+    12400
+   ],
+   "years_with_increment_below_3000_km": [],
+   "years_with_jump_above_1.8x_previous": [],
+   "monotone_km": true,
+   "interval_width_over_estimate": {
+    "1": 1.76,
+    "3": 1.32,
+    "5": 1.14,
+    "8": 1.12,
+    "11": 1.17,
+    "14": 1.14,
+    "20": 0.9,
+    "30": 0.89
+   },
+   "low_le_est_le_high": true
+  }
+ },
+ "ownership_spread_petrol_age_8": {
+  "private": 124700,
+  "leasing": 216200,
+  "company": 193500,
+  "rental": 205200,
+  "dealer": 124700,
+  "null": 131600
+ },
+ "very_old_petrol_private": {
+  "13": [
+   186200,
+   14300
+  ],
+  "14": [
+   198000,
+   14100
+  ],
+  "20": [
+   266100,
+   13300
+  ],
+  "30": [
+   356600,
+   11900
+  ],
+  "40": [
+   403800,
+   10100
+  ],
+  "45": [
+   427300,
+   9500
+  ],
+  "60": [
+   427300,
+   9500
+  ]
+ },
+ "electric_vs_petrol_same": true
+}

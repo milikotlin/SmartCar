@@ -8,6 +8,7 @@ from app.api.v1.chat import router as chat_router
 from app.api.v1.predict import router as predict_router
 from app.api.v1.records import router as records_router
 from app.api.v1.vehicles import router as vehicles_router
+from app.config import settings
 from app.ml.registry import get_models
 from app.services.gov_api import RegistryUnavailableError
 
@@ -22,9 +23,9 @@ app = FastAPI(title="SmartCar-Ops API", version="1.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=[o.strip() for o in settings.cors_origins.split(",") if o.strip()],     # only the dashboard (was "*")
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "X-Write-Key"],
 )
 
 @app.exception_handler(RegistryUnavailableError)

@@ -40,7 +40,7 @@ async def client(registry_rows):
         await s.execute(delete(Vehicle).where(Vehicle.license_plate.in_(plates)))
         await s.commit()
     await _redis.delete(*[f"{k}:{p}" for k in ("vehicle", "recalls") for p in plates])
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as c:
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test", headers={"X-Write-Key": "test-workshop-key"}) as c:
         yield c
     async with async_session() as s:
         await s.execute(delete(Vehicle).where(Vehicle.license_plate.in_(plates)))
@@ -167,3 +167,23 @@ async def test_registry_outage_is_reported_as_503_not_a_crash(client, monkeypatc
         assert r.status_code == 503 and "temporarily unavailable" in r.json()["detail"]
     r = await client.post("/api/v1/chat", json={"license_plate": "55555555", "message": "hi"})
     assert r.status_code == 503
+
+
+async def test_model1_estimate_does_not_change_the_model2_risk(client, monkeypatch):
+    """Independence of the two models in the running pipeline: whatever Model 1 says, the inspection risk is identical."""
+    from dataclasses import replace
+
+    from app.ml.registry import get_models
+
+    base = (await client.get(f"/api/v1/predict/{HYBRID}")).json()
+    m1 = get_models().mileage
+    real = m1.estimate
+
+    def tripled(fuel, age, ownership):
+        e = real(fuel, age, ownership)
+        return replace(e, km=e.km * 3, km_low=e.km_low * 3, km_high=e.km_high * 3, annual_km=e.annual_km * 3)
+
+    monkeypatch.setattr(m1, "estimate", tripled)
+    changed = (await client.get(f"/api/v1/predict/{HYBRID}")).json()
+    assert changed["mileage"]["estimated_km"] > base["mileage"]["estimated_km"]          # Model 1 output really changed
+    assert changed["inspection_risk"] == base["inspection_risk"]

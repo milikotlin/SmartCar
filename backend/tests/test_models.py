@@ -212,3 +212,14 @@ def test_two_stage_inference_stays_under_500_ms(models, profiles):
         times.append(time.perf_counter() - t0)
     print(f"two-stage inference: median {statistics.median(times) * 1000:.1f} ms, max {max(times) * 1000:.1f} ms over {len(times)} runs")
     assert max(times) < 0.5
+
+
+def test_model2_has_no_input_from_model1():
+    """SRS 6.2 lists the Model 1 estimate as an input of Model 2. The experiments (notebooks 04, 07, 09) showed no gain, so by decision it is NOT used: this test pins the architecture."""
+    from dataclasses import fields
+
+    assert {f.name for f in fields(RiskInputs)} == {"age_year", "fuel", "make", "previous", "odometer_km"}          # odometer_km is a MEASURED value only
+    card = json.loads((ART / "model2" / "model2_card.json").read_text(encoding="utf-8"))
+    used = {c for cols in card["variants"].values() for c in cols}
+    assert used == {"age_year", "gap_next", "fuel", "make_c", "km", "cur_brakes", "cur_electrical", "cur_engine_emissions", "cur_any_defect"}
+    assert not any("estimate" in c or "model1" in c for c in used)

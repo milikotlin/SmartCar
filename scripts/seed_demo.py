@@ -8,8 +8,10 @@
 Usage:  python scripts/seed_demo.py [http://localhost:8000]
 """
 import json
+import os
 import random
 import sys
+import time
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -22,11 +24,32 @@ rng = random.Random(2026)
 today = date.today()
 
 
+def write_key() -> str:
+    """Workshop key from the RECORDS_WRITE_KEY environment variable or from the git-ignored .env (never printed)."""
+    key = os.environ.get("RECORDS_WRITE_KEY", "")
+    env = Path(__file__).resolve().parents[1] / ".env"
+    if not key and env.exists():
+        for line in env.read_text(encoding="utf-8").splitlines():
+            if line.startswith("RECORDS_WRITE_KEY="):
+                key = line.split("=", 1)[1].strip()
+    if not key:
+        sys.exit("RECORDS_WRITE_KEY is not set (environment or .env): the API refuses to write records without it.")
+    return key
+
+
+KEY = write_key()
+
+
 def post(client: httpx.Client, path: str, body: dict) -> dict | None:
-    r = client.post(API + path, json=body)
-    if r.status_code in (201, 409):
-        return r.json() if r.status_code == 201 else None
-    raise RuntimeError(f"{path}: {r.status_code} {r.text[:200]}")
+    for _ in range(3):
+        r = client.post(API + path, json=body, headers={"X-Write-Key": KEY})
+        if r.status_code == 429:          # rate limit of the API: wait and retry
+            time.sleep(int(r.headers.get("Retry-After", "60")))
+            continue
+        if r.status_code in (201, 409):
+            return r.json() if r.status_code == 201 else None
+        raise RuntimeError(f"{path}: {r.status_code} {r.text[:200]}")
+    raise RuntimeError(f"{path}: rate limited")
 
 
 def main() -> None:

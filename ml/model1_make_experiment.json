@@ -1,0 +1,23 @@
+[
+ {
+  "target": "UK",
+  "share_of_test_vehicles_whose_make_exists_in_training_markets": 0.864,
+  "age+fuel (production)": 25032,
+  "age+fuel+make": 29121,
+  "age+fuel+make|model": 27791
+ },
+ {
+  "target": "India",
+  "share_of_test_vehicles_whose_make_exists_in_training_markets": 0.602,
+  "age+fuel (production)": 31993,
+  "age+fuel+make": 31617,
+  "age+fuel+make|model": 31313
+ },
+ {
+  "target": "US",
+  "share_of_test_vehicles_whose_make_exists_in_training_markets": 0.756,
+  "age+fuel (production)": 77742,
+  "age+fuel+make": 75793,
+  "age+fuel+make|model": 74271
+ }
+]

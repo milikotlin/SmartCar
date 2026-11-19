@@ -36,38 +36,49 @@ export function VehicleSpecCard({ vehicle, mileage }: { vehicle: VehicleProfile;
         </p>
       </div>
 
-      <dl className="border-t border-line">
-        <SpecRow label="Manufacture year" value={<span className="font-mono text-[13.5px]">{vehicle.manufacture_year}</span>} />
-        <SpecRow label="Fuel type" value={vehicle.fuel_type} />
-        <SpecRow label="Ownership" value={vehicle.ownership} />
-        <SpecRow label="Color" value={vehicle.color ?? "Not reported"} />
-        <SpecRow
-          label={measured ? "Odometer (measured)" : "Estimated mileage"}
-          tag={measured ? "MEASURED" : "ML"}
-          value={<span className="font-mono text-[13.5px]">{km(mileage.primary_km)}</span>}
-        />
-        {!measured && (
-          <SpecRow
-            label="Indicative range (80%)"
-            value={
-              <span className="font-mono text-[13px] text-ink-soft">
-                {mileage.estimated_low_km.toLocaleString("en-US")} &ndash; {mileage.estimated_high_km.toLocaleString("en-US")} km
-              </span>
-            }
-          />
-        )}
-        <SpecRow label="Last MOT test" value={<span className="font-mono text-[13.5px]">{vehicle.last_test_date ?? "—"}</span>} />
-        <SpecRow label="License valid until" value={<span className="font-mono text-[13.5px]">{vehicle.license_valid_until ?? "—"}</span>} />
-      </dl>
+      <div>
+        <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-ink-faint">Official registry data &middot; Ministry of Transport</p>
+        <dl className="border-t border-line">
+          <SpecRow label="Manufacture year" value={<span className="font-mono text-[13.5px]">{vehicle.manufacture_year}</span>} />
+          <SpecRow label="Fuel type" value={vehicle.fuel_type} />
+          <SpecRow label="Ownership" value={vehicle.ownership} />
+          <SpecRow label="Color" value={vehicle.color ?? "Not reported"} />
+          <SpecRow label="Last annual test (date)" value={<span className="font-mono text-[13.5px]">{vehicle.last_test_date ?? "—"}</span>} />
+          <SpecRow label="License valid until" value={<span className="font-mono text-[13.5px]">{vehicle.license_valid_until ?? "—"}</span>} />
+        </dl>
+        <p className="mt-1 text-[11.5px] text-ink-faint">The registry publishes the date of the last annual test, not its result.</p>
+      </div>
 
-      <p className="text-[12px] leading-relaxed text-ink-soft">{mileage.label}</p>
-      {mileage.notes.length > 0 && (
-        <ul className="list-disc pl-5 text-[12px] text-ink-faint">
-          {mileage.notes.map((n) => (
-            <li key={n}>{n}</li>
-          ))}
-        </ul>
-      )}
+      <div>
+        <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-ink-faint">
+          {measured ? "Odometer · entered by a workshop" : "Mileage · machine-learning estimate (Model 1)"}
+        </p>
+        <dl className="border-t border-line">
+          <SpecRow
+            label={measured ? "Odometer (measured)" : "Estimated mileage"}
+            tag={measured ? "MEASURED" : "ML"}
+            value={<span className="font-mono text-[13.5px]">{km(mileage.primary_km)}</span>}
+          />
+          {!measured && (
+            <SpecRow
+              label="Indicative range (80%)"
+              value={
+                <span className="font-mono text-[13px] text-ink-soft">
+                  {mileage.estimated_low_km.toLocaleString("en-US")} &ndash; {mileage.estimated_high_km.toLocaleString("en-US")} km
+                </span>
+              }
+            />
+          )}
+        </dl>
+        <p className="mt-2 text-[12px] leading-relaxed text-ink-soft">{mileage.label}</p>
+        {mileage.notes.length > 0 && (
+          <ul className="mt-1.5 list-disc pl-5 text-[12px] text-ink-faint">
+            {mileage.notes.map((n) => (
+              <li key={n}>{n}</li>
+            ))}
+          </ul>
+        )}
+      </div>
     </article>
   );
 }

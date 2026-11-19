@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { getWriteKey, setWriteKey } from "@/lib/writeKey";
 import { addInspection, addMaintenance } from "@/lib/api";
 import type { HistoryInfo, InspectionRecord, MaintenanceRecord } from "@/lib/types";
 
@@ -21,10 +22,23 @@ export function MaintenanceHistory({ plate, maintenance, inspections, history, l
   const [tab, setTab] = useState<"maintenance" | "inspection">("maintenance");
   const [message, setMessage] = useState<{ kind: "ok" | "error"; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
+  const [key, setKey] = useState(() => (typeof window === "undefined" ? "" : getWriteKey()));
+
+  function changeKey(value: string) {
+    setKey(value);
+    setWriteKey(value);
+  }
+
+  function requireKey(): boolean {
+    if (key.trim()) return true;
+    setMessage({ kind: "error", text: "Enter the workshop key first: only authorised workshops can add records." });
+    return false;
+  }
 
   async function submitMaintenance(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
+    if (!requireKey()) return;
     setBusy(true);
     try {
       await addMaintenance(plate, {
@@ -33,7 +47,7 @@ export function MaintenanceHistory({ plate, maintenance, inspections, history, l
         description: String(f.get("description")),
         maintenance_category: String(f.get("category") || "") || null,
         total_cost: Number(f.get("cost") || 0),
-      });
+      }, key.trim());
       (e.target as HTMLFormElement).reset();
       setMessage({ kind: "ok", text: "Maintenance record saved." });
       onChanged();
@@ -47,6 +61,7 @@ export function MaintenanceHistory({ plate, maintenance, inspections, history, l
   async function submitInspection(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
+    if (!requireKey()) return;
     setBusy(true);
     try {
       await addInspection(plate, {
@@ -56,7 +71,7 @@ export function MaintenanceHistory({ plate, maintenance, inspections, history, l
         electrical_defect: f.get("electrical") === "on",
         engine_defect: f.get("engine") === "on",
         other_defect: f.get("other") === "on",
-      });
+      }, key.trim());
       (e.target as HTMLFormElement).reset();
       setMessage({ kind: "ok", text: "Inspection result saved; the risk panel was refreshed." });
       onChanged();
@@ -73,7 +88,7 @@ export function MaintenanceHistory({ plate, maintenance, inspections, history, l
         <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-wider text-ink-faint">Service log</p>
         <h2 className="text-xl font-semibold tracking-tight text-ink">Maintenance and inspection history</h2>
         <p className="mt-1 text-[13px] text-ink-soft">
-          Synced from PostgreSQL &middot; {history.maintenance_records} maintenance record(s), {history.inspections} inspection result(s)
+          Manual records, not official data &middot; {history.maintenance_records} maintenance, {history.inspections} inspection result(s)
           {history.history_used_by_model ? " · the last inspection result is used by the risk model" : ""}.
         </p>
         {history.note && <p className="mt-1 text-[12px] text-warn">{history.note}</p>}
@@ -102,7 +117,10 @@ export function MaintenanceHistory({ plate, maintenance, inspections, history, l
                 <tr key={r.record_id} className="border-b border-line last:border-b-0">
                   <td className="px-7 py-2.5 font-mono text-[13px]">{r.service_date}</td>
                   <td className="px-7 py-2.5 font-mono text-[13px]">{r.mileage_at_service.toLocaleString("en-US")} km</td>
-                  <td className="px-7 py-2.5 text-[13px]">{r.description}</td>
+                  <td className="px-7 py-2.5 text-[13px]">
+                    {r.description.startsWith("[DEMO]") && <span className="mr-1.5 rounded border border-current px-1 py-0.5 font-mono text-[10px] text-warn">DEMO</span>}
+                    {r.description.replace(/^\[DEMO\]\s*/, "")}
+                  </td>
                   <td className="px-7 py-2.5 text-[13px] text-ink-soft">{r.maintenance_category ?? "—"}</td>
                   <td className="px-7 py-2.5 font-mono text-[13px]">{Number(r.total_cost).toFixed(2)}</td>
                 </tr>
@@ -128,6 +146,17 @@ export function MaintenanceHistory({ plate, maintenance, inspections, history, l
       )}
 
       <div className="mt-5 border-t border-line px-7 pb-6 pt-5">
+        <label className="mb-4 block text-[12px] text-ink-soft">
+          Workshop key <span className="text-ink-faint">(needed to add records; reading is open)</span>
+          <input
+            type="password"
+            autoComplete="off"
+            value={key}
+            onChange={(e) => changeKey(e.target.value)}
+            className={`${inputClass} mt-1 block max-w-xs`}
+            aria-label="Workshop key"
+          />
+        </label>
         <div className="mb-3 flex gap-2" role="tablist">
           {(["maintenance", "inspection"] as const).map((t) => (
             <button

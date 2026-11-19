@@ -44,7 +44,7 @@ async def client(registry_rows):
         await s.execute(delete(Vehicle).where(Vehicle.license_plate.in_(plates)))
         await s.commit()
     await _redis.delete(*[f"{k}:{p}" for k in ("vehicle", "recalls") for p in plates])
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as c:
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test", headers={"X-Write-Key": "test-workshop-key"}) as c:
         yield c
     async with async_session() as s:
         await s.execute(delete(Vehicle).where(Vehicle.license_plate.in_(plates)))

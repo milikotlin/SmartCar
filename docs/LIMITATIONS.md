@@ -33,5 +33,6 @@ These limits are shown, in shorter form, in the interface and in the API (`discl
 
 ## Operational
 
-* The backend allows any origin (CORS `*`) and has no authentication, as in the original design (open analytical dashboard); it must not be exposed publicly as is.
+* **Security is deliberately simple** (no user accounts, as the SRS requires): reading is open; writing a record needs one shared workshop key, so the key proves "an authorised workshop", not who wrote the record, and anyone holding the key can write for any plate. Records are not verified against any official source. CORS accepts only the dashboard origin and the published ports are bound to the local machine; the system is not hardened for public internet exposure (no HTTPS, no per-user audit trail, no key rotation).
+* The read endpoints are open: maintenance notes of a plate can be read by anyone who knows the plate (the plate itself is public registry data).
 * Age is computed from the calendar year of the query; the calibration factors were fitted on a registry sample with ages as of 2026.
