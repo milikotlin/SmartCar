@@ -31,6 +31,9 @@ from app.schemas.prediction import (
 from app.schemas.vehicle import VehicleProfile
 from app.services import features, maintenance_rules, recalls
 
+# A user-reported mileage that implies more than this many km per year of vehicle age is shown but NOT given to the risk model (a typing mistake is far more likely).
+MAX_PLAUSIBLE_REPORTED_ANNUAL_KM = 60_000
+
 SYSTEM_TITLES = {
     "brakes": "Brakes",
     "electrical": "Electrical (mostly lighting)",
@@ -147,26 +150,32 @@ async def build_prediction(
     if db_error:
         notes.append(db_error)
 
-    # ---- measured odometer (never invented): request > matched inspection record > most recent service record
+    # ---- odometer values, kept apart: (a) an odometer stored on a record = "measured"; (b) a value typed with this request = "user_reported" (never stored, never verified)
+    age = features.vehicle_age(profile)
     matched, mismatch_note = match_history(profile, inspections, today)
     measured, measured_as_of = None, None
-    if odometer_km is not None:
-        measured, measured_as_of = odometer_km, today.isoformat()
-    else:
-        candidates = []
-        if matched and matched["odometer_km"]:
-            candidates.append((matched["inspection_date"], matched["odometer_km"]))
-        candidates += [(r["service_date"], r["mileage_at_service"]) for r in maintenance if r["mileage_at_service"]]
-        if candidates:
-            d, v = max(candidates, key=lambda c: c[0])
-            measured, measured_as_of = v, d.isoformat()
+    candidates = []
+    if matched and matched["odometer_km"]:
+        candidates.append((matched["inspection_date"], matched["odometer_km"]))
+    candidates += [(r["service_date"], r["mileage_at_service"]) for r in maintenance if r["mileage_at_service"]]
+    if candidates:
+        d, v = max(candidates, key=lambda c: c[0])
+        measured, measured_as_of = v, d.isoformat()
+    user_km = odometer_km
+    reported_implausible = user_km is not None and age >= 1 and user_km / age > MAX_PLAUSIBLE_REPORTED_ANNUAL_KM
 
     # ---- Stage 1: mileage estimate (always computed; shown as a range)
-    age = features.vehicle_age(profile)
     est = models.mileage.estimate(features.fuel_key(profile), age, features.ownership_key(profile))
-    if measured is not None:
+    if user_km is not None:
         label = (
-            f"Measured odometer {measured:,} km as of {measured_as_of}. "
+            f"User-reported mileage: {user_km:,} km, typed by the user for this view; it has not been verified or officially confirmed and is not stored. "
+            f"Model 1 estimate for comparison: {est.km:,} km (indicative 80% range {est.km_low:,}-{est.km_high:,})."
+            + (f" An odometer of {measured:,} km recorded on {measured_as_of} is on file." if measured is not None else "")
+        )
+        primary, source = user_km, "user_reported"
+    elif measured is not None:
+        label = (
+            f"Measured odometer {measured:,} km as of {measured_as_of} (from a service or inspection record). "
             f"Model 1 estimate for comparison: {est.km:,} km (indicative 80% range {est.km_low:,}-{est.km_high:,})."
         )
         primary, source = measured, "measured"
@@ -202,10 +211,29 @@ async def build_prediction(
         }
         inspection_date = matched["inspection_date"]
         odo_for_model = matched["odometer_km"]
-    if odometer_km is not None:
-        odo_for_model = odometer_km  # a measured value supplied with the request is taken as the odometer at the last inspection
+    # The odometer variants were trained with the odometer printed on the LAST inspection. A recorded inspection odometer is exactly that and always wins. A typed mileage is the CURRENT
+    # one (it includes the driving since that inspection): it is accepted as an approximation only if plausible (docs/MILEAGE_SELECTION.md); an estimate is never given to Model 2.
+    odometer_source = "recorded_inspection" if odo_for_model else None
+    user_note = None
+    if user_km is not None:
+        if odo_for_model:
+            user_note = "Not used by the risk model: it uses the odometer recorded at the last inspection instead, which is the value the model was trained on."
+        elif reported_implausible:
+            user_note = (f"Not used by the risk model: {user_km:,} km would mean more than {MAX_PLAUSIBLE_REPORTED_ANNUAL_KM:,} km per year for a {age}-year-old vehicle. "
+                         "Please check the number.")
+        else:
+            odo_for_model, odometer_source = user_km, "user_reported"
     rx = features.risk_inputs(profile, previous, odo_for_model, inspection_date)
     result = models.risk.predict(rx)
+    if user_km is not None and odometer_source == "user_reported":
+        if result.covered:
+            user_note = ("Used by the risk model as the odometer at the last inspection (an approximation: it includes the driving since then). "
+                         "Its accuracy depends on what was typed; it is not verified.")
+        else:
+            odometer_source, user_note = None, "Not used by the risk model: the model does not cover this vehicle."
+    mileage.user_reported_km = user_km
+    mileage.user_reported_used_by_model2 = odometer_source == "user_reported" and user_km is not None
+    mileage.user_reported_note = user_note
     cuts = models.risk.cuts
     systems = []
     for r in result.systems:
@@ -241,19 +269,25 @@ async def build_prediction(
         reasons=result.reasons,
         variant=result.variant,
         uses_history=result.uses_history,
-        uses_measured_odometer=result.uses_measured_odometer,
+        uses_measured_odometer=result.uses_measured_odometer and result.covered,
+        odometer_source=odometer_source if result.covered else None,
         scale=scale,
         systems=systems,
         disclaimer=RISK_DISCLAIMER,
     )
 
     # ---- maintenance rules (not learned)
-    rule_odo, rule_measured = (measured, True) if measured is not None else (est.km, False)
+    if user_km is not None:
+        rule_odo, rule_measured, rule_basis = user_km, True, "user-reported (not verified)"
+    elif measured is not None:
+        rule_odo, rule_measured, rule_basis = measured, True, "measured"
+    else:
+        rule_odo, rule_measured, rule_basis = est.km, False, "estimated (range shown above)"
     rules = maintenance_rules.evaluate(maintenance, today, features.fuel_key(profile), age, rule_odo, rule_measured)
     maint = MaintenanceInfo(
         disclaimer=maintenance_rules.DISCLAIMER,
         odometer_used_km=rule_odo,
-        odometer_basis="measured" if rule_measured else "estimated (range shown above)",
+        odometer_basis=rule_basis,
         rules=[RuleStatus(**r) for r in rules],
     )
 

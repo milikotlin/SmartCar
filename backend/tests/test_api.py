@@ -94,12 +94,14 @@ async def test_prediction_without_any_records(client):
     assert "Generic service intervals" in b["maintenance"]["disclaimer"]
 
 
-async def test_measured_odometer_replaces_the_estimate_and_selects_the_odometer_variant(client):
+async def test_user_reported_mileage_replaces_the_estimate_and_selects_the_odometer_variant(client):
     b = (await client.get(f"/api/v1/predict/{PLATE}", params={"odometer_km": 123_456})).json()
-    assert b["mileage"]["primary_source"] == "measured" and b["mileage"]["primary_km"] == 123_456 and b["mileage"]["estimated_km"] != 123_456
-    assert b["inspection_risk"]["variant"] == "cold_odo" and b["inspection_risk"]["uses_measured_odometer"]
-    assert b["maintenance"]["odometer_basis"] == "measured"
-    assert (await client.get(f"/api/v1/predict/{PLATE}", params={"odometer_km": -5})).status_code == 422
+    assert b["mileage"]["primary_source"] == "user_reported" and b["mileage"]["primary_km"] == 123_456 and b["mileage"]["estimated_km"] != 123_456
+    assert b["mileage"]["user_reported_km"] == 123_456 and b["mileage"]["measured_km"] is None          # a typed value is never presented as a measurement
+    assert b["inspection_risk"]["variant"] == "cold_odo" and b["inspection_risk"]["uses_measured_odometer"] and b["inspection_risk"]["odometer_source"] == "user_reported"
+    assert b["maintenance"]["odometer_basis"] == "user-reported (not verified)"
+    for bad in (-5, 0, 1_000_001):
+        assert (await client.get(f"/api/v1/predict/{PLATE}", params={"odometer_km": bad})).status_code == 422
 
 
 async def test_electric_vehicle_is_not_covered_by_model2_but_still_has_the_other_sections(client):

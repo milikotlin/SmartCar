@@ -195,6 +195,131 @@
   "detail": ""
  },
  {
+  "check": "desktop/mileage: the automatic estimate is selected first",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage: option 1 shows the field, the button and no number yet",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage: invalid input '' is refused with a clear message",
+  "passed": true,
+  "detail": "Enter your current mileage in kilometres."
+ },
+ {
+  "check": "desktop/mileage: invalid input '-5' is refused with a clear message",
+  "passed": true,
+  "detail": "Mileage cannot be negative."
+ },
+ {
+  "check": "desktop/mileage: invalid input 'abc' is refused with a clear message",
+  "passed": true,
+  "detail": "Use whole kilometres, digits only (for example 123456)."
+ },
+ {
+  "check": "desktop/mileage: invalid input '12.5' is refused with a clear message",
+  "passed": true,
+  "detail": "Use whole kilometres, digits only (for example 123456)."
+ },
+ {
+  "check": "desktop/mileage: invalid input '0' is refused with a clear message",
+  "passed": true,
+  "detail": "Mileage must be at least 1 km."
+ },
+ {
+  "check": "desktop/mileage: invalid input '5000000' is refused with a clear message",
+  "passed": true,
+  "detail": "That is higher than 1,000,000 km. Please check the number."
+ },
+ {
+  "check": "desktop/mileage: a valid value is shown as USER-REPORTED, not verified, not saved",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage: the model note says the risk model uses it as an approximation",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage: the risk panel names the user-reported source",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage: no horizontal overflow with a user-reported value",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage: an implausible value is shown but flagged as NOT used by the risk model",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage: back to the estimate leaves no user-reported value on screen",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage: while the new result loads the screen says so and the old risk panel is not left as current",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage: switching back during a slow request ends on the estimate (the late answer was discarded)",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage: the risk panel is back after the slow switch",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage selection: does not contain 'times the average'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage selection: does not contain 'x the average'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage selection: does not contain 'probability of failure'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage selection: does not contain 'chance of failure'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage selection: does not contain '% chance'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage selection: does not contain 'will fail'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage selection: does not contain 'failure risk'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/mileage selection: no horizontal overflow",
+  "passed": true,
+  "detail": ""
+ },
+ {
   "check": "desktop/hybrid aged 9: Model 1 flags LOW RELIABILITY with the reason",
   "passed": true,
   "detail": ""
@@ -521,6 +646,131 @@
  },
  {
   "check": "mobile/chat: fits the screen",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage: the automatic estimate is selected first",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage: option 1 shows the field, the button and no number yet",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage: invalid input '' is refused with a clear message",
+  "passed": true,
+  "detail": "Enter your current mileage in kilometres."
+ },
+ {
+  "check": "mobile/mileage: invalid input '-5' is refused with a clear message",
+  "passed": true,
+  "detail": "Mileage cannot be negative."
+ },
+ {
+  "check": "mobile/mileage: invalid input 'abc' is refused with a clear message",
+  "passed": true,
+  "detail": "Use whole kilometres, digits only (for example 123456)."
+ },
+ {
+  "check": "mobile/mileage: invalid input '12.5' is refused with a clear message",
+  "passed": true,
+  "detail": "Use whole kilometres, digits only (for example 123456)."
+ },
+ {
+  "check": "mobile/mileage: invalid input '0' is refused with a clear message",
+  "passed": true,
+  "detail": "Mileage must be at least 1 km."
+ },
+ {
+  "check": "mobile/mileage: invalid input '5000000' is refused with a clear message",
+  "passed": true,
+  "detail": "That is higher than 1,000,000 km. Please check the number."
+ },
+ {
+  "check": "mobile/mileage: a valid value is shown as USER-REPORTED, not verified, not saved",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage: the model note says the risk model uses it as an approximation",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage: the risk panel names the user-reported source",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage: no horizontal overflow with a user-reported value",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage: an implausible value is shown but flagged as NOT used by the risk model",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage: back to the estimate leaves no user-reported value on screen",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage: while the new result loads the screen says so and the old risk panel is not left as current",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage: switching back during a slow request ends on the estimate (the late answer was discarded)",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage: the risk panel is back after the slow switch",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage selection: does not contain 'times the average'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage selection: does not contain 'x the average'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage selection: does not contain 'probability of failure'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage selection: does not contain 'chance of failure'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage selection: does not contain '% chance'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage selection: does not contain 'will fail'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage selection: does not contain 'failure risk'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/mileage selection: no horizontal overflow",
   "passed": true,
   "detail": ""
  },

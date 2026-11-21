@@ -3,10 +3,17 @@ import { RiskLevelBar } from "./RiskLevelBar";
 
 const VARIANT_TEXT: Record<string, string> = {
   cold: "registry data only (age, make, fuel)",
-  cold_odo: "registry data and the measured odometer",
+  cold_odo: "registry data and the odometer",
   hist: "registry data and the result of the previous annual inspection",
-  hist_odo: "registry data, the result of the previous annual inspection and the measured odometer",
+  hist_odo: "registry data, the result of the previous annual inspection and the odometer",
 };
+
+function variantText(risk: InspectionRisk): string {
+  const base = risk.variant ? VARIANT_TEXT[risk.variant] : "the available data";
+  if (risk.odometer_source === "user_reported") return `${base} (the mileage reported by the user: not verified, treated as the odometer at the last inspection)`;
+  if (risk.odometer_source === "recorded_inspection") return `${base} (recorded at the last inspection)`;
+  return base;
+}
 
 export function RiskPanel({ risk }: { risk: InspectionRisk }) {
   return (
@@ -47,7 +54,7 @@ export function RiskPanel({ risk }: { risk: InspectionRisk }) {
             <div className="mt-3 space-y-3">
               <p>
                 <strong className="text-ink">Reference:</strong> {risk.scale.reference}. {risk.scale.interval}. The vehicle is placed among the reference vehicles by the model&apos;s own
-                estimate, using {risk.variant ? VARIANT_TEXT[risk.variant] : "the available data"}.
+                estimate, using {variantText(risk)}.
               </p>
               <p>
                 <strong className="text-ink">How much comes from age:</strong> most of the level reflects the age of the vehicle (age alone already ranks vehicles almost as well). The model adds a smaller

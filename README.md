@@ -15,7 +15,7 @@ It is **not a breakdown prediction** and **not a probability validated for Israe
 
 Documentation: `docs/SRS_v2.md` (the updated SRS, **with the change log against the original specification**), `docs/MODEL_CARDS.md`,
 `docs/FINAL_TECHNICAL_REVIEW.md` (security, model audits and corrections), `docs/FINAL_REPORT.md` (readiness report), `docs/RISK_SCALE.md` (the risk scale, before and after),
-`docs/MODEL2_VS_AGE_BASELINE.md` (what Model 2 adds beyond the age of the vehicle), `docs/TEST_REPORT.md`, `docs/E2E_REPORT.md`, `docs/UK_EXTRACTION.md`, `docs/DEMO.md`, `docs/LIMITATIONS.md`.
+`docs/MODEL2_VS_AGE_BASELINE.md` (what Model 2 adds beyond the age of the vehicle), `docs/MILEAGE_SELECTION.md` (user-reported mileage or the Model 1 estimate, and how Model 2 uses it), `docs/TEST_REPORT.md`, `docs/E2E_REPORT.md`, `docs/UK_EXTRACTION.md`, `docs/DEMO.md`, `docs/LIMITATIONS.md`.
 Original specification: `SmartCar-Ops_SRS.pdf` and `SmartCar-Ops_מסמך_אפיון.pdf`. Also: `docs/OPENAI_SETUP.md` (configuring and testing the OpenAI chat without exposing the key) and `docs/DEFENCE_LIMITATIONS.md` (the limitations of both models in plain language, for the academic defence).
 
 ## Running
@@ -44,9 +44,9 @@ curl "http://localhost:8000/api/v1/predict/4908732?odometer_km=123456"
 ## Tests
 
 ```bash
-docker compose run --rm backend python -m pytest -q          # unit, models, API (with real PostgreSQL and Redis): 115 tests
+docker compose run --rm backend python -m pytest -q          # unit, models, API (with real PostgreSQL and Redis): 124 tests
 python scripts/e2e_live.py                                    # ~90 real Israeli plates against the running stack -> docs/E2E_REPORT.md
-python scripts/visual_check.py                                # headless Chrome: desktop and phone, 133 checks + screenshots in docs/screenshots/
+python scripts/visual_check.py                                # headless Chrome: desktop and phone, 183 checks + screenshots in docs/screenshots/
 docker compose run --rm --no-deps frontend npx tsc --noEmit   # frontend types
 ```
 

@@ -30,6 +30,7 @@ def check(cond: bool, msg: str) -> None:
 
 def main() -> None:
     security_checked = False
+    mileage_checked = False
     rows, timings_cold, timings_warm, retries = [], [], [], []
     with httpx.Client(timeout=90) as c:
         check(c.get(f"{API}/health").json() == {"status": "ok"}, "health")
@@ -105,6 +106,18 @@ def main() -> None:
         check("access-control-allow-origin" not in cors.headers, "CORS allows a foreign origin")
         security_checked = True
 
+        # mileage selection: a typed mileage is USER-REPORTED, never stored, never called a measurement; the estimate path is unchanged
+        covered_plate = next(r["plate"] for r in rows if r.get("status") == 200 and r["covered"])
+        base_b = c.get(f"{API}/api/v1/predict/{covered_plate}").json()
+        typed_b = c.get(f"{API}/api/v1/predict/{covered_plate}", params={"odometer_km": 90_000})
+        tb = typed_b.json()
+        check(typed_b.status_code == 200 and tb["mileage"]["primary_source"] == "user_reported" and tb["mileage"]["user_reported_km"] == 90_000 and tb["mileage"]["measured_km"] == base_b["mileage"]["measured_km"],
+              f"{covered_plate}: typed mileage not labelled user_reported")
+        check(tb["mileage"]["estimated_km"] == base_b["mileage"]["estimated_km"], f"{covered_plate}: Model 1 estimate changed by a typed mileage")
+        check(base_b["mileage"]["primary_source"] in ("estimated", "measured") and base_b["inspection_risk"]["odometer_source"] in (None, "recorded_inspection"), f"{covered_plate}: estimate path changed")
+        check(all(c.get(f"{API}/api/v1/predict/{covered_plate}", params={"odometer_km": bad}).status_code == 422 for bad in ("-1", "0", "abc", "1000001")), "invalid typed mileage not refused")
+        mileage_checked = True
+
     ok = [r for r in rows if r.get("status") == 200]
     covered = [r for r in ok if r["covered"]]
     lines = ["# End-to-end test with real Israeli plates", "",
@@ -112,6 +125,7 @@ def main() -> None:
              f"* plates tested: **{len(rows)}** (registry lookups answered: {len(ok)}); automatic checks: **{checks}**; failures: **{len(failures)}**",
              f"* Model 2 produced an estimate for {len(covered)} plates and declined {len(ok) - len(covered)} (electric, gas, or age outside 3-20 years, each with its reason)",
              f"* security: record writes without / with a wrong workshop key are refused ({'checked' if security_checked else 'not checked'}), foreign CORS origin gets no permission",
+             f"* mileage selection: a typed mileage is user-reported (not a measurement, not stored), the Model 1 estimate is unchanged, invalid values are refused ({'checked' if mileage_checked else 'not checked'})",
              f"* plates with at least one open recall: {sum(1 for r in ok if r['recalls'])}",
              f"* latency of `/api/v1/predict` (full request incl. live registry call): median {statistics.median(timings_cold):.2f} s cold, {statistics.median(timings_warm) * 1000:.0f} ms with the 24 h cache",
              f"* registry outages absorbed by the API's own retry and answered as 503, then retried by the test: {len(retries)}",

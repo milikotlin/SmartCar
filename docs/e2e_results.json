@@ -936,11 +936,11 @@
   "levels": {
    "brakes": [
     "high",
-    90
+    95
    ],
    "electrical": [
     "high",
-    85
+    90
    ],
    "engine_emissions": [
     "high",
@@ -1113,11 +1113,11 @@
    ],
    "electrical": [
     "moderate",
-    40
+    60
    ],
    "engine_emissions": [
     "moderate",
-    45
+    55
    ]
   },
   "recalls": 0

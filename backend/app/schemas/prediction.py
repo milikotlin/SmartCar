@@ -5,13 +5,16 @@ from app.schemas.vehicle import VehicleProfile
 
 class MileageInfo(BaseModel):
     primary_km: int                       # the figure to show: measured when known, else the Model 1 estimate
-    primary_source: str                   # "measured" | "estimated"
+    primary_source: str                   # "user_reported" (typed by the user, not verified) | "measured" (an odometer stored on a service or inspection record) | "estimated" (Model 1)
     estimated_km: int
     estimated_low_km: int
     estimated_high_km: int
     estimated_annual_km: int
-    measured_km: int | None = None
+    measured_km: int | None = None        # odometer stored on a service / inspection record (never the typed value)
     measured_as_of: str | None = None
+    user_reported_km: int | None = None   # the value typed by the user for this request only: never stored, never verified
+    user_reported_used_by_model2: bool = False
+    user_reported_note: str | None = None # why it is or is not used by the risk model, and any plausibility warning
     notes: list[str] = []
     estimate_reliability: str = "ok"       # ok | low: low when the training data do not support this fuel type at this age
     estimate_reliability_reason: str | None = None
@@ -52,7 +55,8 @@ class InspectionRisk(BaseModel):
     reasons: list[str] = []
     variant: str | None = None
     uses_history: bool = False
-    uses_measured_odometer: bool = False
+    uses_measured_odometer: bool = False   # an odometer value (recorded or user-reported) is an input of the model
+    odometer_source: str | None = None     # "recorded_inspection" | "user_reported" | None
     scale: RiskScale | None = None
     systems: list[SystemRiskOut] = []
     disclaimer: str

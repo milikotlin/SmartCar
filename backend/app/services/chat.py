@@ -41,7 +41,11 @@ def _status(text: str) -> str:
 def facts(prediction: PredictionResponse, today: date) -> list[str]:
     v, m = prediction.vehicle, prediction.mileage
     out = [f"Vehicle: {v.make} {v.model}, manufacture year {v.manufacture_year}, fuel {v.fuel_type}, ownership {v.ownership}."]       # the plate is not sent to the language model: it adds nothing to the answer
-    if m.primary_source == "measured":
+    if m.primary_source == "user_reported":
+        out.append(
+            f"Mileage (USER-REPORTED, typed by the user, not verified): {m.primary_km:,} km. Model 1 estimate for comparison {m.estimated_km:,} km, indicative 80% range {m.estimated_low_km:,}-{m.estimated_high_km:,}."
+        )
+    elif m.primary_source == "measured":
         out.append(
             f"Mileage (measured): {m.primary_km:,} km as of {m.measured_as_of}. Model 1 estimate {m.estimated_km:,} km, indicative 80% range {m.estimated_low_km:,}-{m.estimated_high_km:,}."
         )

@@ -1,0 +1,425 @@
+{
+ "pairs": 150000,
+ "rows": [
+  {
+   "system": "brakes",
+   "variant": "cold",
+   "scenario": "no odometer at all",
+   "auc": 0.6790575726027419,
+   "level_changed_vs_true_odometer": null
+  },
+  {
+   "system": "brakes",
+   "variant": "cold_odo",
+   "scenario": "true odometer",
+   "auc": 0.6971011603184774,
+   "level_changed_vs_true_odometer": 0.0
+  },
+  {
+   "system": "brakes",
+   "variant": "cold_odo",
+   "scenario": "5% lower (a few months of driving since the test)",
+   "auc": 0.6965749398431508,
+   "level_changed_vs_true_odometer": 0.02998
+  },
+  {
+   "system": "brakes",
+   "variant": "cold_odo",
+   "scenario": "10% lower (about a year of driving since the test)",
+   "auc": 0.6964057600339191,
+   "level_changed_vs_true_odometer": 0.06149333333333333
+  },
+  {
+   "system": "brakes",
+   "variant": "cold_odo",
+   "scenario": "rounded to the nearest 10,000 km",
+   "auc": 0.6967520519564995,
+   "level_changed_vs_true_odometer": 0.02062
+  },
+  {
+   "system": "brakes",
+   "variant": "cold_odo",
+   "scenario": "random error +-10%",
+   "auc": 0.6965905045414698,
+   "level_changed_vs_true_odometer": 0.02886
+  },
+  {
+   "system": "brakes",
+   "variant": "cold_odo",
+   "scenario": "random error +-25%",
+   "auc": 0.6947249201349639,
+   "level_changed_vs_true_odometer": 0.07358666666666666
+  },
+  {
+   "system": "brakes",
+   "variant": "cold_odo",
+   "scenario": "random error +-50%",
+   "auc": 0.689397205592778,
+   "level_changed_vs_true_odometer": 0.15076666666666666
+  },
+  {
+   "system": "brakes",
+   "variant": "cold_odo",
+   "scenario": "always 30% too high",
+   "auc": 0.695780357401379,
+   "level_changed_vs_true_odometer": 0.14012666666666668
+  },
+  {
+   "system": "brakes",
+   "variant": "cold_odo",
+   "scenario": "always 50% too low",
+   "auc": 0.6939512750236518,
+   "level_changed_vs_true_odometer": 0.42506666666666665
+  },
+  {
+   "system": "brakes",
+   "variant": "hist",
+   "scenario": "no odometer at all",
+   "auc": 0.6949246594424108,
+   "level_changed_vs_true_odometer": null
+  },
+  {
+   "system": "brakes",
+   "variant": "hist_odo",
+   "scenario": "true odometer",
+   "auc": 0.7098930829225363,
+   "level_changed_vs_true_odometer": 0.0
+  },
+  {
+   "system": "brakes",
+   "variant": "hist_odo",
+   "scenario": "5% lower (a few months of driving since the test)",
+   "auc": 0.709087863768564,
+   "level_changed_vs_true_odometer": 0.030446666666666667
+  },
+  {
+   "system": "brakes",
+   "variant": "hist_odo",
+   "scenario": "10% lower (about a year of driving since the test)",
+   "auc": 0.7086359597176144,
+   "level_changed_vs_true_odometer": 0.05618
+  },
+  {
+   "system": "brakes",
+   "variant": "hist_odo",
+   "scenario": "rounded to the nearest 10,000 km",
+   "auc": 0.7093872684987365,
+   "level_changed_vs_true_odometer": 0.021873333333333335
+  },
+  {
+   "system": "brakes",
+   "variant": "hist_odo",
+   "scenario": "random error +-10%",
+   "auc": 0.7091787016804316,
+   "level_changed_vs_true_odometer": 0.0286
+  },
+  {
+   "system": "brakes",
+   "variant": "hist_odo",
+   "scenario": "random error +-25%",
+   "auc": 0.7076763238373652,
+   "level_changed_vs_true_odometer": 0.0665
+  },
+  {
+   "system": "brakes",
+   "variant": "hist_odo",
+   "scenario": "random error +-50%",
+   "auc": 0.7035622013761837,
+   "level_changed_vs_true_odometer": 0.13554666666666668
+  },
+  {
+   "system": "brakes",
+   "variant": "hist_odo",
+   "scenario": "always 30% too high",
+   "auc": 0.7079298764470516,
+   "level_changed_vs_true_odometer": 0.12744666666666668
+  },
+  {
+   "system": "brakes",
+   "variant": "hist_odo",
+   "scenario": "always 50% too low",
+   "auc": 0.7048946510269246,
+   "level_changed_vs_true_odometer": 0.3724266666666667
+  },
+  {
+   "system": "electrical",
+   "variant": "cold",
+   "scenario": "no odometer at all",
+   "auc": 0.7093310273224009,
+   "level_changed_vs_true_odometer": null
+  },
+  {
+   "system": "electrical",
+   "variant": "cold_odo",
+   "scenario": "true odometer",
+   "auc": 0.7279641794055173,
+   "level_changed_vs_true_odometer": 0.0
+  },
+  {
+   "system": "electrical",
+   "variant": "cold_odo",
+   "scenario": "5% lower (a few months of driving since the test)",
+   "auc": 0.7274809007414398,
+   "level_changed_vs_true_odometer": 0.029753333333333333
+  },
+  {
+   "system": "electrical",
+   "variant": "cold_odo",
+   "scenario": "10% lower (about a year of driving since the test)",
+   "auc": 0.7272269497143478,
+   "level_changed_vs_true_odometer": 0.05906666666666667
+  },
+  {
+   "system": "electrical",
+   "variant": "cold_odo",
+   "scenario": "rounded to the nearest 10,000 km",
+   "auc": 0.7275027795496691,
+   "level_changed_vs_true_odometer": 0.020793333333333334
+  },
+  {
+   "system": "electrical",
+   "variant": "cold_odo",
+   "scenario": "random error +-10%",
+   "auc": 0.7270923970059913,
+   "level_changed_vs_true_odometer": 0.028326666666666667
+  },
+  {
+   "system": "electrical",
+   "variant": "cold_odo",
+   "scenario": "random error +-25%",
+   "auc": 0.7251301037428488,
+   "level_changed_vs_true_odometer": 0.06968
+  },
+  {
+   "system": "electrical",
+   "variant": "cold_odo",
+   "scenario": "random error +-50%",
+   "auc": 0.7185721706820307,
+   "level_changed_vs_true_odometer": 0.14407333333333333
+  },
+  {
+   "system": "electrical",
+   "variant": "cold_odo",
+   "scenario": "always 30% too high",
+   "auc": 0.7258238395959398,
+   "level_changed_vs_true_odometer": 0.13808666666666666
+  },
+  {
+   "system": "electrical",
+   "variant": "cold_odo",
+   "scenario": "always 50% too low",
+   "auc": 0.724766342419459,
+   "level_changed_vs_true_odometer": 0.3926133333333333
+  },
+  {
+   "system": "electrical",
+   "variant": "hist",
+   "scenario": "no odometer at all",
+   "auc": 0.7250136056995712,
+   "level_changed_vs_true_odometer": null
+  },
+  {
+   "system": "electrical",
+   "variant": "hist_odo",
+   "scenario": "true odometer",
+   "auc": 0.7389732840620081,
+   "level_changed_vs_true_odometer": 0.0
+  },
+  {
+   "system": "electrical",
+   "variant": "hist_odo",
+   "scenario": "5% lower (a few months of driving since the test)",
+   "auc": 0.738516498612181,
+   "level_changed_vs_true_odometer": 0.026873333333333332
+  },
+  {
+   "system": "electrical",
+   "variant": "hist_odo",
+   "scenario": "10% lower (about a year of driving since the test)",
+   "auc": 0.7382357232539127,
+   "level_changed_vs_true_odometer": 0.053413333333333333
+  },
+  {
+   "system": "electrical",
+   "variant": "hist_odo",
+   "scenario": "rounded to the nearest 10,000 km",
+   "auc": 0.7385604329387091,
+   "level_changed_vs_true_odometer": 0.019013333333333333
+  },
+  {
+   "system": "electrical",
+   "variant": "hist_odo",
+   "scenario": "random error +-10%",
+   "auc": 0.7382379130433759,
+   "level_changed_vs_true_odometer": 0.02552
+  },
+  {
+   "system": "electrical",
+   "variant": "hist_odo",
+   "scenario": "random error +-25%",
+   "auc": 0.7367718506061385,
+   "level_changed_vs_true_odometer": 0.06349333333333333
+  },
+  {
+   "system": "electrical",
+   "variant": "hist_odo",
+   "scenario": "random error +-50%",
+   "auc": 0.7318316915817706,
+   "level_changed_vs_true_odometer": 0.13004666666666667
+  },
+  {
+   "system": "electrical",
+   "variant": "hist_odo",
+   "scenario": "always 30% too high",
+   "auc": 0.7371338105162006,
+   "level_changed_vs_true_odometer": 0.12426
+  },
+  {
+   "system": "electrical",
+   "variant": "hist_odo",
+   "scenario": "always 50% too low",
+   "auc": 0.7361053778570417,
+   "level_changed_vs_true_odometer": 0.34974
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "cold",
+   "scenario": "no odometer at all",
+   "auc": 0.7159812571487021,
+   "level_changed_vs_true_odometer": null
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "cold_odo",
+   "scenario": "true odometer",
+   "auc": 0.7467560412092284,
+   "level_changed_vs_true_odometer": 0.0
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "cold_odo",
+   "scenario": "5% lower (a few months of driving since the test)",
+   "auc": 0.7450583411707647,
+   "level_changed_vs_true_odometer": 0.04276
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "cold_odo",
+   "scenario": "10% lower (about a year of driving since the test)",
+   "auc": 0.7442617005289655,
+   "level_changed_vs_true_odometer": 0.07827333333333333
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "cold_odo",
+   "scenario": "rounded to the nearest 10,000 km",
+   "auc": 0.7458456227862658,
+   "level_changed_vs_true_odometer": 0.02652
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "cold_odo",
+   "scenario": "random error +-10%",
+   "auc": 0.7447134869877375,
+   "level_changed_vs_true_odometer": 0.0402
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "cold_odo",
+   "scenario": "random error +-25%",
+   "auc": 0.7411382287318431,
+   "level_changed_vs_true_odometer": 0.09247333333333334
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "cold_odo",
+   "scenario": "random error +-50%",
+   "auc": 0.7321952874911767,
+   "level_changed_vs_true_odometer": 0.18219333333333335
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "cold_odo",
+   "scenario": "always 30% too high",
+   "auc": 0.742380909487252,
+   "level_changed_vs_true_odometer": 0.18351333333333333
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "cold_odo",
+   "scenario": "always 50% too low",
+   "auc": 0.7312058309228991,
+   "level_changed_vs_true_odometer": 0.45414666666666664
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "hist",
+   "scenario": "no odometer at all",
+   "auc": 0.7468877405926426,
+   "level_changed_vs_true_odometer": null
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "hist_odo",
+   "scenario": "true odometer",
+   "auc": 0.7690174124926743,
+   "level_changed_vs_true_odometer": 0.0
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "hist_odo",
+   "scenario": "5% lower (a few months of driving since the test)",
+   "auc": 0.7681317530953202,
+   "level_changed_vs_true_odometer": 0.037913333333333334
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "hist_odo",
+   "scenario": "10% lower (about a year of driving since the test)",
+   "auc": 0.7677128804614097,
+   "level_changed_vs_true_odometer": 0.07386666666666666
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "hist_odo",
+   "scenario": "rounded to the nearest 10,000 km",
+   "auc": 0.7686134417092415,
+   "level_changed_vs_true_odometer": 0.02114
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "hist_odo",
+   "scenario": "random error +-10%",
+   "auc": 0.7676965914354218,
+   "level_changed_vs_true_odometer": 0.03584
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "hist_odo",
+   "scenario": "random error +-25%",
+   "auc": 0.7655344682689046,
+   "level_changed_vs_true_odometer": 0.08579333333333333
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "hist_odo",
+   "scenario": "random error +-50%",
+   "auc": 0.7591071051598401,
+   "level_changed_vs_true_odometer": 0.17438666666666666
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "hist_odo",
+   "scenario": "always 30% too high",
+   "auc": 0.7665170940264194,
+   "level_changed_vs_true_odometer": 0.17334666666666668
+  },
+  {
+   "system": "engine_emissions",
+   "variant": "hist_odo",
+   "scenario": "always 50% too low",
+   "auc": 0.7589942017106985,
+   "level_changed_vs_true_odometer": 0.4383533333333333
+  }
+ ]
+}

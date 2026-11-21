@@ -20,7 +20,7 @@ router = APIRouter(prefix="/api/v1/chat", tags=["chat"])
 class ChatRequest(BaseModel):
     license_plate: str = Field(pattern=r"^\d{7,8}$")
     message: str = Field(min_length=1, max_length=1000)
-    odometer_km: int | None = Field(default=None, ge=0, le=1_500_000)
+    odometer_km: int | None = Field(default=None, ge=1, le=1_000_000)       # typed by the user: reported, not verified
 
 
 class ChatResponse(BaseModel):

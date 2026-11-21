@@ -1,4 +1,7 @@
-import type { ReactNode } from "react";
+"use client";
+
+import { useState, type FormEvent, type ReactNode } from "react";
+import { parseMileage, type MileageMode } from "@/lib/mileage";
 import type { MileageInfo, VehicleProfile } from "@/lib/types";
 
 function SpecRow({ label, value, tag }: { label: string; value: ReactNode; tag?: string }) {
@@ -7,20 +10,51 @@ function SpecRow({ label, value, tag }: { label: string; value: ReactNode; tag?:
       <dt className="text-[13px] text-ink-soft">
         {label}
         {tag && (
-          <span className="ml-2 rounded border border-current px-1.5 py-0.5 align-[1px] font-mono text-[10px] tracking-wide text-accent">
+          <span className="ml-2 inline-block whitespace-nowrap rounded border border-current px-1.5 py-0.5 align-[1px] font-mono text-[10px] tracking-wide text-accent">
             {tag}
           </span>
         )}
       </dt>
-      <dd className="text-right font-medium text-ink">{value}</dd>
+      <dd className="shrink-0 whitespace-nowrap text-right font-medium text-ink">{value}</dd>
     </div>
   );
 }
 
 const km = (n: number) => `${n.toLocaleString("en-US")} km`;
+const mono = (children: ReactNode) => <span className="font-mono text-[13.5px]">{children}</span>;
 
-export function VehicleSpecCard({ vehicle, mileage }: { vehicle: VehicleProfile; mileage: MileageInfo }) {
-  const measured = mileage.primary_source === "measured";
+interface Props {
+  vehicle: VehicleProfile;
+  mileage: MileageInfo;
+  mode: MileageMode;
+  onModeChange: (mode: MileageMode) => void;
+  onApply: (km: number) => void;
+  refreshing: boolean;
+}
+
+export function VehicleSpecCard({ vehicle, mileage, mode, onModeChange, onApply, refreshing }: Props) {
+  const [draft, setDraft] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const reported = mileage.primary_source === "user_reported";
+
+  function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const parsed = parseMileage(draft);
+    if (!parsed.ok) {
+      setError(parsed.message);
+      return;
+    }
+    setError(null);
+    onApply(parsed.km);
+  }
+
+  function choose(next: MileageMode) {
+    if (next === mode) return;
+    setError(null);
+    if (next === "estimate") setDraft("");
+    onModeChange(next);
+  }
+
   return (
     <article className="card-shadow flex flex-col gap-6 rounded-[14px] border border-line bg-surface p-7">
       <div>
@@ -39,51 +73,122 @@ export function VehicleSpecCard({ vehicle, mileage }: { vehicle: VehicleProfile;
       <div>
         <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-ink-faint">Official registry data &middot; Ministry of Transport</p>
         <dl className="border-t border-line">
-          <SpecRow label="Manufacture year" value={<span className="font-mono text-[13.5px]">{vehicle.manufacture_year}</span>} />
+          <SpecRow label="Manufacture year" value={mono(vehicle.manufacture_year)} />
           <SpecRow label="Fuel type" value={vehicle.fuel_type} />
           <SpecRow label="Ownership" value={vehicle.ownership} />
           <SpecRow label="Color" value={vehicle.color ?? "Not reported"} />
-          <SpecRow label="Last annual test (date)" value={<span className="font-mono text-[13.5px]">{vehicle.last_test_date ?? "—"}</span>} />
-          <SpecRow label="License valid until" value={<span className="font-mono text-[13.5px]">{vehicle.license_valid_until ?? "—"}</span>} />
+          <SpecRow label="Last annual test (date)" value={mono(vehicle.last_test_date ?? "—")} />
+          <SpecRow label="License valid until" value={mono(vehicle.license_valid_until ?? "—")} />
         </dl>
         <p className="mt-1 text-[11.5px] text-ink-faint">The registry publishes the date of the last annual test, not its result.</p>
       </div>
 
-      <div>
-        <p className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-ink-faint">
-          {measured ? "Odometer · entered by a workshop" : "Mileage · machine-learning estimate (Model 1)"}
-        </p>
-        <dl className="border-t border-line">
-          <SpecRow
-            label={measured ? "Odometer (measured)" : "Estimated mileage"}
-            tag={measured ? "MEASURED" : "ML"}
-            value={<span className="font-mono text-[13.5px]">{km(mileage.primary_km)}</span>}
-          />
-          {!measured && (
-            <SpecRow
-              label="Indicative range (80%)"
-              value={
-                <span className="font-mono text-[13px] text-ink-soft">
-                  {mileage.estimated_low_km.toLocaleString("en-US")} &ndash; {mileage.estimated_high_km.toLocaleString("en-US")} km
-                </span>
-              }
-            />
-          )}
-        </dl>
-        {!measured && mileage.estimate_reliability === "low" && (
-          <p role="note" data-testid="low-reliability" className="mt-2 rounded-md border border-warn bg-paper px-3 py-2 text-[12px] leading-relaxed text-ink">
-            <strong className="font-semibold text-warn">Low reliability.</strong> {(mileage.estimate_reliability_reason ?? "").replace(/^./, (c) => c.toUpperCase())}. Treat this figure as a rough guide only.
+      <section aria-label="Mileage" data-testid="mileage-section" aria-busy={refreshing}>
+        <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-ink-faint">Mileage</p>
+
+        <div role="radiogroup" aria-label="How do you want to set the mileage?" className="grid gap-2">
+          <label
+            className={`flex cursor-pointer items-start gap-2.5 rounded-[10px] border px-3.5 py-2.5 text-[13px] ${mode === "reported" ? "border-accent bg-paper" : "border-line"}`}
+          >
+            <input type="radio" name="mileage-mode" value="reported" checked={mode === "reported"} onChange={() => choose("reported")} className="mt-0.5 accent-accent" />
+            <span className="font-medium text-ink">I know my car&apos;s mileage</span>
+          </label>
+          <label
+            className={`flex cursor-pointer items-start gap-2.5 rounded-[10px] border px-3.5 py-2.5 text-[13px] ${mode === "estimate" ? "border-accent bg-paper" : "border-line"}`}
+          >
+            <input type="radio" name="mileage-mode" value="estimate" checked={mode === "estimate"} onChange={() => choose("estimate")} className="mt-0.5 accent-accent" />
+            <span className="font-medium text-ink">I don&apos;t know my car&apos;s mileage</span>
+          </label>
+        </div>
+
+        {refreshing && (
+          <p role="status" data-testid="mileage-updating" className="mt-3 text-[12px] font-medium text-accent">
+            Updating the results&hellip;
           </p>
         )}
-        <p className="mt-2 text-[12px] leading-relaxed text-ink-soft">{mileage.label}</p>
-        {mileage.notes.length > 0 && (
-          <ul className="mt-1.5 list-disc pl-5 text-[12px] text-ink-faint">
-            {mileage.notes.map((n) => (
-              <li key={n}>{n}</li>
-            ))}
-          </ul>
-        )}
-      </div>
+
+        <div className={`mt-3 ${refreshing ? "opacity-50" : ""}`}>
+          {mode === "reported" ? (
+            <>
+              <form onSubmit={submit} noValidate className="flex flex-wrap items-end gap-2.5">
+                <label className="min-w-[180px] flex-1 text-[12px] text-ink-soft">
+                  Enter your current mileage (km)
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="off"
+                    value={draft}
+                    onChange={(e) => {
+                      setDraft(e.target.value);
+                      setError(null);
+                    }}
+                    aria-invalid={error ? true : undefined}
+                    aria-describedby={error ? "mileage-error" : undefined}
+                    placeholder="For example 123456"
+                    className="mt-1 w-full rounded-md border border-line-strong bg-paper px-2.5 py-2 text-[13px] text-ink outline-none focus:border-accent"
+                  />
+                </label>
+                <button type="submit" className="rounded-md border border-accent px-4 py-2 text-[13px] font-semibold text-accent">
+                  Use This Mileage
+                </button>
+              </form>
+              {error && (
+                <p id="mileage-error" role="alert" className="mt-2 text-[12.5px] text-critical">
+                  {error}
+                </p>
+              )}
+
+              {reported ? (
+                <div className="mt-3" data-testid="user-reported">
+                  <dl className="border-t border-line">
+                    <SpecRow label="User-Reported Mileage" tag="USER-REPORTED" value={mono(km(mileage.primary_km))} />
+                    {mileage.measured_km !== null && (
+                      <SpecRow label={`Recorded odometer (${mileage.measured_as_of ?? "on file"})`} tag="RECORD" value={mono(km(mileage.measured_km))} />
+                    )}
+                  </dl>
+                  <p className="mt-2 text-[12px] leading-relaxed text-ink-soft">
+                    Reported by you for this view. It has not been verified or officially confirmed, and it is not saved.
+                  </p>
+                  {mileage.user_reported_note && (
+                    <p data-testid="user-reported-note" className="mt-1.5 text-[12px] leading-relaxed text-ink-soft">
+                      <strong className="font-semibold text-ink">Risk model:</strong> {mileage.user_reported_note}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <p className="mt-3 text-[12px] leading-relaxed text-ink-soft" data-testid="no-mileage-yet">
+                  No mileage entered yet. Enter a value and press &ldquo;Use This Mileage&rdquo;, or choose the automatic estimate.
+                </p>
+              )}
+            </>
+          ) : (
+            <div data-testid="ai-estimate">
+              <dl className="border-t border-line">
+                {mileage.measured_km !== null && (
+                  <SpecRow label={`Recorded odometer (${mileage.measured_as_of ?? "on file"})`} tag="RECORD" value={mono(km(mileage.measured_km))} />
+                )}
+                <SpecRow label={mileage.measured_km !== null ? "AI-Estimated Mileage (for comparison)" : "AI-Estimated Mileage"} tag="ML" value={mono(km(mileage.estimated_km))} />
+                <SpecRow label="Indicative range (80%)" value={<span className="font-mono text-[13px] text-ink-soft">{mileage.estimated_low_km.toLocaleString("en-US")} &ndash; {mileage.estimated_high_km.toLocaleString("en-US")} km</span>} />
+              </dl>
+              {mileage.estimate_reliability === "low" && (
+                <p role="note" data-testid="low-reliability" className="mt-2 rounded-md border border-warn bg-paper px-3 py-2 text-[12px] leading-relaxed text-ink">
+                  <strong className="font-semibold text-warn">Low reliability.</strong> {(mileage.estimate_reliability_reason ?? "").replace(/^./, (c) => c.toUpperCase())}. Treat this figure as a rough guide only.
+                </p>
+              )}
+              <p className="mt-2 text-[12px] leading-relaxed text-ink-soft">
+                Model 1 (an XGBoost regression) estimates this from the vehicle&apos;s age, fuel type and ownership type, using statistical data. {mileage.label}
+              </p>
+            </div>
+          )}
+          {mileage.notes.length > 0 && mode === "estimate" && (
+            <ul className="mt-1.5 list-disc pl-5 text-[12px] text-ink-faint">
+              {mileage.notes.map((n) => (
+                <li key={n}>{n}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </section>
     </article>
   );
 }

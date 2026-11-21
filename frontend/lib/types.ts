@@ -15,13 +15,17 @@ export interface VehicleProfile {
 
 export interface MileageInfo {
   primary_km: number;
-  primary_source: "measured" | "estimated";
+  /** user_reported: typed by the user, not verified. measured: an odometer stored on a service/inspection record. estimated: Model 1. */
+  primary_source: "user_reported" | "measured" | "estimated";
   estimated_km: number;
   estimated_low_km: number;
   estimated_high_km: number;
   estimated_annual_km: number;
   measured_km: number | null;
   measured_as_of: string | null;
+  user_reported_km: number | null;
+  user_reported_used_by_model2: boolean;
+  user_reported_note: string | null;
   notes: string[];
   estimate_reliability: "ok" | "low";
   estimate_reliability_reason: string | null;
@@ -62,6 +66,7 @@ export interface InspectionRisk {
   variant: "cold" | "cold_odo" | "hist" | "hist_odo" | null;
   uses_history: boolean;
   uses_measured_odometer: boolean;
+  odometer_source: "recorded_inspection" | "user_reported" | null;
   scale: RiskScale | null;
   systems: SystemRisk[];
   disclaimer: string;

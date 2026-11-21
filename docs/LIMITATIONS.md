@@ -23,6 +23,10 @@ These limits are shown, in shorter form, in the interface and in the API (`discl
 * A **measured odometer** (entered by the user) improves the model by about 0.013 to 0.016 AUC. The mileage *estimated* by Model 1 is not a feature of Model 2 because it added no information in any experiment.
 * The indicators are computed for a **standard interval of 12 months** to the next inspection; the planned interval of the plate is not used (it varied only with the timing of the test and did not improve the ranking).
 
+## User-reported mileage
+
+A mileage typed by the user is shown as **User-Reported Mileage**: it is not verified, not officially confirmed, and not saved. If it is plausible (at most 60,000 km per year of the vehicle's age) it is given to Model 2 as the odometer at the last inspection, an approximation, because it is the current mileage. A wrong but plausible value changes the risk level (a random error of 50% changes the level of about 15% of the vehicles). Details and evidence: `docs/MILEAGE_SELECTION.md`.
+
 ## Mileage estimate (Model 1): when it is flagged "low reliability"
 
 The mileage block shows a **Low reliability** warning (field `estimate_reliability` of the API) when the training data cannot support the figure:
