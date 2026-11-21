@@ -1,0 +1,361 @@
+{
+ "kaggle_sources": {
+  "d4_telemetry": "kagglehub: tejalaveti2306/vehicle-maintenance-telemetry-data",
+  "d1_logistics": "local copy of datasetengineer/logistics-vehicle-maintenance-history-data (kagglehub needs credentials for this dataset)"
+ },
+ "brand_reliability_index": {
+  "method": "50 x (age-adjusted expected / observed) share of vehicles with a defect at the next UK MOT inspection (2022 -> 2023, 660,202 pairs); 50 = average for the age",
+  "default": 50.0,
+  "index": {
+   "abarth": 49.6,
+   "alfa romeo": 45.2,
+   "audi": 62.0,
+   "bmw": 64.5,
+   "chevrolet": 40.9,
+   "citroen": 40.0,
+   "dacia": 35.4,
+   "ds": 31.2,
+   "fiat": 46.4,
+   "ford": 46.1,
+   "honda": 60.2,
+   "hyundai": 49.6,
+   "isuzu": 41.1,
+   "jaguar": 64.6,
+   "jeep": 51.0,
+   "kia": 47.8,
+   "land rover": 62.0,
+   "lexus": 86.7,
+   "mazda": 53.2,
+   "mercedes-benz": 56.7,
+   "mg": 50.8,
+   "mini": 59.9,
+   "mitsubishi": 51.7,
+   "nissan": 44.8,
+   "opel": 43.3,
+   "peugeot": 43.1,
+   "porsche": 100.0,
+   "renault": 38.2,
+   "saab": 57.1,
+   "seat": 48.4,
+   "skoda": 56.0,
+   "smart (mcc)": 50.4,
+   "subaru": 57.7,
+   "suzuki": 53.1,
+   "toyota": 56.3,
+   "volkswagen": 52.3,
+   "volvo": 51.7
+  },
+  "vehicles": {
+   "abarth": 566,
+   "alfa romeo": 1505,
+   "audi": 34252,
+   "bmw": 36237,
+   "chevrolet": 1396,
+   "citroen": 21665,
+   "dacia": 3633,
+   "ds": 845,
+   "fiat": 16219,
+   "ford": 93106,
+   "honda": 19830,
+   "hyundai": 17991,
+   "isuzu": 874,
+   "jaguar": 6582,
+   "jeep": 1370,
+   "kia": 18178,
+   "land rover": 17157,
+   "lexus": 3021,
+   "mazda": 11022,
+   "mercedes-benz": 32275,
+   "mg": 1101,
+   "mini": 16407,
+   "mitsubishi": 6004,
+   "nissan": 33071,
+   "opel": 64219,
+   "peugeot": 29608,
+   "porsche": 2899,
+   "renault": 20716,
+   "saab": 1094,
+   "seat": 11060,
+   "skoda": 15879,
+   "smart (mcc)": 1657,
+   "subaru": 1152,
+   "suzuki": 9107,
+   "toyota": 30774,
+   "volkswagen": 61035,
+   "volvo": 11328
+  }
+ },
+ "dataset4_aggregation": {
+  "bins_km": [
+   0.0,
+   20000.0,
+   50000.0,
+   100000.0,
+   150000.0,
+   200000.0,
+   300000.0
+  ],
+  "overall": {
+   "engine_failure_imminent": 0.003553299492385787,
+   "brake_issue_imminent": 0.008121827411167513,
+   "battery_issue_imminent": 0.006091370558375634
+  },
+  "by_bin": {
+   "0": {
+    "engine_failure_imminent": 0.0008149769477949053,
+    "brake_issue_imminent": 0.006449960415405393,
+    "battery_issue_imminent": 0.005984259302379733,
+    "rows": 168
+   },
+   "1": {
+    "engine_failure_imminent": 0.0015354171768178478,
+    "brake_issue_imminent": 0.004440797093296448,
+    "battery_issue_imminent": 0.004308433543570771,
+    "rows": 717
+   },
+   "2": {
+    "engine_failure_imminent": 0.005525639512181833,
+    "brake_issue_imminent": 0.01109668280014166,
+    "battery_issue_imminent": 0.0074280577172797695,
+    "rows": 1068
+   },
+   "3": {
+    "engine_failure_imminent": 0.0026517160390938706,
+    "brake_issue_imminent": 0.006061065232214562,
+    "battery_issue_imminent": 0.004545798924160921,
+    "rows": 17
+   },
+   "4": {
+    "engine_failure_imminent": 0.003553299492385787,
+    "brake_issue_imminent": 0.008121827411167513,
+    "battery_issue_imminent": 0.0060913705583756335,
+    "rows": 0
+   },
+   "5": {
+    "engine_failure_imminent": 0.003553299492385787,
+    "brake_issue_imminent": 0.008121827411167513,
+    "battery_issue_imminent": 0.0060913705583756335,
+    "rows": 0
+   },
+   "6": {
+    "engine_failure_imminent": 0.003553299492385787,
+    "brake_issue_imminent": 0.008121827411167513,
+    "battery_issue_imminent": 0.0060913705583756335,
+    "rows": 0
+   }
+  },
+  "note": "Dataset 4 has no vehicle-age column, so the distribution is grouped by mileage only; groups are shrunk towards the overall rate (50 pseudo-rows)"
+ },
+ "dataset1": {
+  "rows": 342000,
+  "by_file": {
+   "d1_v2_250k": 250000,
+   "d1_92k": 92000
+  },
+  "target_share": 0.4258918128654971,
+  "excluded_file": "revised_logistics_dataset_V2.csv (contains the 92K rows of the first file + 158K noise-perturbed copies of them)",
+  "single_feature_auc": {
+   "vehicle_age": 0.4911417302380154,
+   "km": 0.4860194598353497,
+   "days_since_last_maintenance": 0.8695206053128212,
+   "failure_history": 0.7713518723950037,
+   "brand_reliability_index": 0.4283639517468196,
+   "d4_engine_fault_rate": 0.4674258772976108,
+   "d4_brake_fault_rate": 0.45298240759582376,
+   "d4_battery_fault_rate": 0.45298240759582376
+  }
+ },
+ "ice_monotone_constraints": {
+  "days_since_last_maintenance": 1,
+  "failure_history": 1
+ },
+ "ice": {
+  "rows": 342000,
+  "train": 273600,
+  "test": 68400,
+  "base_rate_train": 0.4258918128654971,
+  "scale_pos_weight": 1.3480141430091654,
+  "pipelines": {
+   "XGBoost + SMOTE": {
+    "cv_guarded_recall": 0.9179760367032053,
+    "best_params": {
+     "model__subsample": 0.8,
+     "model__n_estimators": 200,
+     "model__min_child_weight": 1,
+     "model__max_depth": 8,
+     "model__learning_rate": 0.1
+    },
+    "test": {
+     "roc_auc": 0.9775103854424977,
+     "pr_auc": 0.971379066296923,
+     "recall": 0.9185747142219629,
+     "precision": 0.876453440765124,
+     "f1": 0.8970198786497268,
+     "flagged_share": 0.446359649122807,
+     "base_rate": 0.4258918128654971
+    }
+   },
+   "XGBoost + scale_pos_weight": {
+    "cv_guarded_recall": 0.9296965416031462,
+    "best_params": {
+     "model__subsample": 0.8,
+     "model__n_estimators": 200,
+     "model__min_child_weight": 1,
+     "model__max_depth": 8,
+     "model__learning_rate": 0.1
+    },
+    "test": {
+     "roc_auc": 0.9779000981532123,
+     "pr_auc": 0.9718598898439988,
+     "recall": 0.9316878926229789,
+     "precision": 0.8715799614643546,
+     "f1": 0.9006321448125965,
+     "flagged_share": 0.45526315789473687,
+     "base_rate": 0.4258918128654971
+    }
+   },
+   "Logistic Regression (class_weight=balanced)": {
+    "test": {
+     "roc_auc": 0.9433467238723304,
+     "pr_auc": 0.9324624877756208,
+     "recall": 0.8473790807044043,
+     "precision": 0.8380296034763716,
+     "f1": 0.8426784098861522,
+     "flagged_share": 0.43064327485380116,
+     "base_rate": 0.4258918128654971
+    }
+   },
+   "Logistic Regression + SMOTE": {
+    "test": {
+     "roc_auc": 0.9433529383306433,
+     "pr_auc": 0.9324618282962929,
+     "recall": 0.8474134083965535,
+     "precision": 0.8379497623896809,
+     "f1": 0.8426550152753836,
+     "flagged_share": 0.4307017543859649,
+     "base_rate": 0.4258918128654971
+    }
+   }
+  },
+  "chosen": "XGBoost + scale_pos_weight",
+  "levels": {
+   "cut_probabilities": [
+    0.005263660103082657,
+    0.7968919277191162
+   ],
+   "rule": "Low / Moderate / High = tertiles of out-of-fold training probabilities",
+   "test_rate_by_level": [
+    0.0,
+    0.31412217075941623,
+    0.9702838949323428
+   ],
+   "test_share_by_level": [
+    0.3347953216374269,
+    0.3345906432748538,
+    0.3306140350877193
+   ]
+  }
+ },
+ "ev_dataset5": {
+  "single_feature_auc": {
+   "last_service_distance": 0.4790243902439025,
+   "service_frequency": 0.4696793986807793,
+   "time_since_last_fault": 0.5031937413713761,
+   "driving_distance": 0.49230250038349443
+  }
+ },
+ "ev": {
+  "rows": 1000,
+  "train": 800,
+  "test": 200,
+  "base_rate_train": 0.795,
+  "scale_pos_weight": 0.2578616352201258,
+  "pipelines": {
+   "XGBoost + SMOTE": {
+    "cv_guarded_recall": 0.0,
+    "best_params": {
+     "model__subsample": 1.0,
+     "model__n_estimators": 200,
+     "model__min_child_weight": 10,
+     "model__max_depth": 4,
+     "model__learning_rate": 0.1
+    },
+    "test": {
+     "roc_auc": 0.49102623101702714,
+     "pr_auc": 0.8089140811437534,
+     "recall": 0.8867924528301887,
+     "precision": 0.7966101694915254,
+     "f1": 0.8392857142857143,
+     "flagged_share": 0.885,
+     "base_rate": 0.795
+    }
+   },
+   "XGBoost + scale_pos_weight": {
+    "cv_guarded_recall": 0.0,
+    "best_params": {
+     "model__subsample": 1.0,
+     "model__n_estimators": 200,
+     "model__min_child_weight": 10,
+     "model__max_depth": 4,
+     "model__learning_rate": 0.1
+    },
+    "test": {
+     "roc_auc": 0.516260162601626,
+     "pr_auc": 0.8185155990097326,
+     "recall": 0.610062893081761,
+     "precision": 0.7886178861788617,
+     "f1": 0.6879432624113475,
+     "flagged_share": 0.615,
+     "base_rate": 0.795
+    }
+   },
+   "Logistic Regression (class_weight=balanced)": {
+    "test": {
+     "roc_auc": 0.5240067495014573,
+     "pr_auc": 0.7963067078571202,
+     "recall": 0.4716981132075472,
+     "precision": 0.8152173913043478,
+     "f1": 0.5976095617529881,
+     "flagged_share": 0.46,
+     "base_rate": 0.795
+    }
+   },
+   "Logistic Regression + SMOTE": {
+    "test": {
+     "roc_auc": 0.5269213069489186,
+     "pr_auc": 0.8066041520530287,
+     "recall": 0.4716981132075472,
+     "precision": 0.8152173913043478,
+     "f1": 0.5976095617529881,
+     "flagged_share": 0.46,
+     "base_rate": 0.795
+    }
+   }
+  },
+  "chosen": "XGBoost + SMOTE",
+  "levels": {
+   "cut_probabilities": [
+    0.6663945913314819,
+    0.8044828772544861
+   ],
+   "rule": "Low / Moderate / High = tertiles of out-of-fold training probabilities",
+   "test_rate_by_level": [
+    0.8285714285714286,
+    0.7662337662337663,
+    0.7924528301886793
+   ],
+   "test_share_by_level": [
+    0.35,
+    0.385,
+    0.265
+   ]
+  }
+ },
+ "external_check_uk_mot": {
+  "pairs": 150000,
+  "target": "a defect found at the next UK MOT inspection (real outcome)",
+  "spec_model2_auc": 0.5852393838525508,
+  "age_only_auc": 0.6463250166048432,
+  "inputs": "age, true odometer, previous inspection had a defect (as failure history), brand index, Dataset 4 rates; days since maintenance unknown"
+ }
+}

@@ -23,6 +23,20 @@ These limits are shown, in shorter form, in the interface and in the API (`discl
 * A **measured odometer** (entered by the user) improves the model by about 0.013 to 0.016 AUC. The mileage *estimated* by Model 1 is not a feature of Model 2 because it added no information in any experiment.
 * The indicators are computed for a **standard interval of 12 months** to the next inspection; the planned interval of the plate is not used (it varied only with the timing of the test and did not improve the ranking).
 
+## The models of Smart_Car_Models.pdf (the application's Model 1 and Model 2)
+
+Both models are implemented exactly as the PDF specifies (details and numbers: `docs/SPEC_MODELS.md`).
+
+* **Model 2 is trained on synthetic labels** (Kaggle Dataset 1, and Dataset 5 for electric / hybrid vehicles). On its own held-out data it reaches ROC-AUC 0.978, almost
+  entirely through "days since the last maintenance" and "past failures"; on 150,000 **real** UK inspection outcomes it reaches 0.585, below ordering vehicles by age
+  (0.646) and below the comparison model trained on real inspections (0.68 to 0.72). The electric / hybrid model is at chance (0.49) on its own test data.
+  It is therefore shown as three relative levels with a per-vehicle note on what the level is worth, never as a percentage, and the real-inspection model stays on the
+  dashboard as a comparison.
+* **Model 1** follows the PDF (XGBoost chosen by RMSE / MAE, held-out R² 0.61); the CBS calibration, the range and the reliability flags are additions. When the
+  calibrated estimate would mean more than 40,000 km a year, the official CBS average for that age and ownership is shown instead, flagged.
+* Dataset 1 needs Kaggle credentials for `kagglehub`; without them the earlier download of the same Kaggle page is used. Dataset 8 `Owner_Type` is the number of owners,
+  not the ownership type the PDF describes.
+
 ## User-reported mileage
 
 A mileage typed by the user is shown as **User-Reported Mileage**: it is not verified, not officially confirmed, and not saved. If it is plausible (at most 60,000 km per year of the vehicle's age) it is given to Model 2 as the odometer at the last inspection, an approximation, because it is the current mileage. A wrong but plausible value changes the risk level (a random error of 50% changes the level of about 15% of the vehicles). Details and evidence: `docs/MILEAGE_SELECTION.md`.

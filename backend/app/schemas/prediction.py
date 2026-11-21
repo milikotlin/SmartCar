@@ -1,9 +1,10 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from app.schemas.vehicle import VehicleProfile
 
 
 class MileageInfo(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
     primary_km: int                       # the figure to show: measured when known, else the Model 1 estimate
     primary_source: str                   # "user_reported" (typed by the user, not verified) | "measured" (an odometer stored on a service or inspection record) | "estimated" (Model 1)
     estimated_km: int
@@ -16,6 +17,8 @@ class MileageInfo(BaseModel):
     user_reported_used_by_model2: bool = False
     user_reported_note: str | None = None # why it is or is not used by the risk model, and any plausibility warning
     notes: list[str] = []
+    model_raw_km: int | None = None       # Model 1 (Smart_Car_Models.pdf) output before the CBS calibration
+    model_inputs: dict = {}                # the features Model 1 used (engine size and transmission from the official model table, or imputed)
     estimate_reliability: str = "ok"       # ok | low: low when the training data do not support this fuel type at this age
     estimate_reliability_reason: str | None = None
     label: str
@@ -117,10 +120,35 @@ class Provenance(BaseModel):
     notes: list[str]
 
 
+class ModelComparisonRow(BaseModel):
+    model: str
+    data: str
+    test: str
+    roc_auc: float | None = None
+
+
+class FailureRisk(BaseModel):
+    """Model 2 as Smart_Car_Models.pdf specifies: a probability score for a future mechanical failure / required maintenance, shown as three levels."""
+
+    kind: str = "estimated_failure_risk"
+    definition: str
+    branch: str                           # "ice" (Dataset 1, combustion) | "ev" (Dataset 5, electric / hybrid)
+    branch_label: str
+    level: str                            # low | moderate | high (tertiles of the training probabilities); no percentage is shown
+    level_rule: str
+    observed_rate_by_level: list[float | None]   # share with "maintenance required" per level in the held-out part of the (synthetic) training data, whole %
+    inputs: dict = {}
+    assumed: list[str] = []
+    quality_note: str | None = None       # what the level is worth for THIS vehicle (chance-level model, or its strongest inputs unknown)
+    disclaimer: str
+    comparison: list[ModelComparisonRow] = []
+
+
 class PredictionResponse(BaseModel):
     vehicle: VehicleProfile
     mileage: MileageInfo
-    inspection_risk: InspectionRisk
+    failure_risk: FailureRisk | None = None    # Model 2 (Smart_Car_Models.pdf); None only if it could not run
+    inspection_risk: InspectionRisk            # comparison model on real inspection outcomes (UK MOT / Dutch RDW)
     maintenance: MaintenanceInfo
     recalls: RecallInfo
     history: HistoryInfo

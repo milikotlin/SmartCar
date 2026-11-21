@@ -25,6 +25,21 @@
   "detail": ""
  },
  {
+  "check": "desktop/Model 2 (PDF): main risk panel with a level, the model used and no percentage",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/Model 2 (PDF): says what the level is worth when the service log is empty",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/comparison panel: labelled as the model on real inspection data",
+  "passed": true,
+  "detail": ""
+ },
+ {
   "check": "desktop/covered/no records: three risk bars with level words",
   "passed": true,
   "detail": ""
@@ -103,6 +118,11 @@
   "check": "desktop/covered: bar segments 36/33/31 and the marker is inside the bar",
   "passed": true,
   "detail": "[{'w': [36, 33, 31], 'm': 65}, {'w': [36, 33, 31], 'm': 70}, {'w': [36, 33, 31], 'm': 50}]"
+ },
+ {
+  "check": "desktop/Model 2 (PDF): comparison table with synthetic and real-data rows",
+  "passed": true,
+  "detail": ""
  },
  {
   "check": "desktop/covered: details show how levels were set and observed rates",
@@ -327,7 +347,7 @@
  {
   "check": "desktop/hybrid aged 9: no exaggerated yearly mileage is shown",
   "passed": true,
-  "detail": ""
+  "detail": "16300"
  },
  {
   "check": "desktop/hybrid aged 9: does not contain 'times the average'",
@@ -480,6 +500,21 @@
   "detail": ""
  },
  {
+  "check": "mobile/Model 2 (PDF): main risk panel with a level, the model used and no percentage",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/Model 2 (PDF): says what the level is worth when the service log is empty",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/comparison panel: labelled as the model on real inspection data",
+  "passed": true,
+  "detail": ""
+ },
+ {
   "check": "mobile/covered/no records: three risk bars with level words",
   "passed": true,
   "detail": ""
@@ -558,6 +593,11 @@
   "check": "mobile/covered: bar segments 36/33/31 and the marker is inside the bar",
   "passed": true,
   "detail": "[{'w': [36, 33, 31], 'm': 65}, {'w': [36, 33, 31], 'm': 70}, {'w': [36, 33, 31], 'm': 50}]"
+ },
+ {
+  "check": "mobile/Model 2 (PDF): comparison table with synthetic and real-data rows",
+  "passed": true,
+  "detail": ""
  },
  {
   "check": "mobile/covered: details show how levels were set and observed rates",
@@ -782,7 +822,7 @@
  {
   "check": "mobile/hybrid aged 9: no exaggerated yearly mileage is shown",
   "passed": true,
-  "detail": ""
+  "detail": "16300"
  },
  {
   "check": "mobile/hybrid aged 9: does not contain 'times the average'",

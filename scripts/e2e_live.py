@@ -59,6 +59,11 @@ def main() -> None:
             check(m["estimated_low_km"] <= m["estimated_km"] <= m["estimated_high_km"], f"{plate}: mileage range does not bracket the estimate")
             check(m["primary_source"] == "estimated" and "not a measurement" in m["label"], f"{plate}: estimate not labelled as an estimate")
             age = date.today().year - veh["manufacture_year"]
+            fr = b.get("failure_risk")
+            check(fr is not None and fr["level"] in ("low", "moderate", "high") and "probability" not in json.dumps(fr).replace("not a probability", ""), f"{plate}: Model 2 (PDF) missing or shows a probability")
+            if fr:
+                check(fr["branch"] == ("ev" if veh["fuel_type"] in ("Electric", "Hybrid", "Plug-in Hybrid") else "ice"), f"{plate}: wrong Model 2 branch for {veh['fuel_type']}")
+                check(fr["inputs"].get("km") in (None, m["primary_km"]) or fr["branch"] == "ev", f"{plate}: Model 2 did not receive the mileage shown")
             check(m["estimate_reliability"] in ("ok", "low") and (m["estimate_reliability"] == "ok") == (m["estimate_reliability_reason"] is None), f"{plate}: reliability fields inconsistent")
             if veh["fuel_type"] in ("Hybrid", "Electric") and (veh["fuel_type"] == "Electric" or age > 8):
                 check(m["estimate_reliability"] == "low", f"{plate}: {veh['fuel_type']} age {age} not flagged low reliability")

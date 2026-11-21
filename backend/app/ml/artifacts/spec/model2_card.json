@@ -1,0 +1,255 @@
+{
+ "name": "Model 2 - predictive maintenance classifier (Smart_Car_Models.pdf)",
+ "version": "2.0.0",
+ "trained_at": "2026-11-21",
+ "ice": {
+  "chosen": "XGBoost + scale_pos_weight",
+  "test": {
+   "roc_auc": 0.9779000981532123,
+   "pr_auc": 0.9718598898439988,
+   "recall": 0.9316878926229789,
+   "precision": 0.8715799614643546,
+   "f1": 0.9006321448125965,
+   "flagged_share": 0.45526315789473687,
+   "base_rate": 0.4258918128654971
+  },
+  "levels": {
+   "cut_probabilities": [
+    0.005263660103082657,
+    0.7968919277191162
+   ],
+   "rule": "Low / Moderate / High = tertiles of out-of-fold training probabilities",
+   "test_rate_by_level": [
+    0.0,
+    0.31412217075941623,
+    0.9702838949323428
+   ],
+   "test_share_by_level": [
+    0.3347953216374269,
+    0.3345906432748538,
+    0.3306140350877193
+   ]
+  }
+ },
+ "ev": {
+  "chosen": "XGBoost + SMOTE",
+  "test": {
+   "roc_auc": 0.49102623101702714,
+   "pr_auc": 0.8089140811437534,
+   "recall": 0.8867924528301887,
+   "precision": 0.7966101694915254,
+   "f1": 0.8392857142857143,
+   "flagged_share": 0.885,
+   "base_rate": 0.795
+  },
+  "levels": {
+   "cut_probabilities": [
+    0.6663945913314819,
+    0.8044828772544861
+   ],
+   "rule": "Low / Moderate / High = tertiles of out-of-fold training probabilities",
+   "test_rate_by_level": [
+    0.8285714285714286,
+    0.7662337662337663,
+    0.7924528301886793
+   ],
+   "test_share_by_level": [
+    0.35,
+    0.385,
+    0.265
+   ]
+  }
+ },
+ "features_ice": [
+  "vehicle_age",
+  "km",
+  "days_since_last_maintenance",
+  "failure_history",
+  "brand_reliability_index",
+  "d4_engine_fault_rate",
+  "d4_brake_fault_rate",
+  "d4_battery_fault_rate",
+  "maintenance_type"
+ ],
+ "ice_monotone_constraints": {
+  "days_since_last_maintenance": 1,
+  "failure_history": 1
+ },
+ "features_ev": [
+  "last_service_distance",
+  "service_frequency",
+  "time_since_last_fault",
+  "driving_distance"
+ ],
+ "brand_reliability_index": {
+  "method": "50 x (age-adjusted expected / observed) share of vehicles with a defect at the next UK MOT inspection (2022 -> 2023, 660,202 pairs); 50 = average for the age",
+  "default": 50.0,
+  "index": {
+   "abarth": 49.6,
+   "alfa romeo": 45.2,
+   "audi": 62.0,
+   "bmw": 64.5,
+   "chevrolet": 40.9,
+   "citroen": 40.0,
+   "dacia": 35.4,
+   "ds": 31.2,
+   "fiat": 46.4,
+   "ford": 46.1,
+   "honda": 60.2,
+   "hyundai": 49.6,
+   "isuzu": 41.1,
+   "jaguar": 64.6,
+   "jeep": 51.0,
+   "kia": 47.8,
+   "land rover": 62.0,
+   "lexus": 86.7,
+   "mazda": 53.2,
+   "mercedes-benz": 56.7,
+   "mg": 50.8,
+   "mini": 59.9,
+   "mitsubishi": 51.7,
+   "nissan": 44.8,
+   "opel": 43.3,
+   "peugeot": 43.1,
+   "porsche": 100.0,
+   "renault": 38.2,
+   "saab": 57.1,
+   "seat": 48.4,
+   "skoda": 56.0,
+   "smart (mcc)": 50.4,
+   "subaru": 57.7,
+   "suzuki": 53.1,
+   "toyota": 56.3,
+   "volkswagen": 52.3,
+   "volvo": 51.7
+  },
+  "vehicles": {
+   "abarth": 566,
+   "alfa romeo": 1505,
+   "audi": 34252,
+   "bmw": 36237,
+   "chevrolet": 1396,
+   "citroen": 21665,
+   "dacia": 3633,
+   "ds": 845,
+   "fiat": 16219,
+   "ford": 93106,
+   "honda": 19830,
+   "hyundai": 17991,
+   "isuzu": 874,
+   "jaguar": 6582,
+   "jeep": 1370,
+   "kia": 18178,
+   "land rover": 17157,
+   "lexus": 3021,
+   "mazda": 11022,
+   "mercedes-benz": 32275,
+   "mg": 1101,
+   "mini": 16407,
+   "mitsubishi": 6004,
+   "nissan": 33071,
+   "opel": 64219,
+   "peugeot": 29608,
+   "porsche": 2899,
+   "renault": 20716,
+   "saab": 1094,
+   "seat": 11060,
+   "skoda": 15879,
+   "smart (mcc)": 1657,
+   "subaru": 1152,
+   "suzuki": 9107,
+   "toyota": 30774,
+   "volkswagen": 61035,
+   "volvo": 11328
+  }
+ },
+ "dataset4_aggregation": {
+  "bins_km": [
+   0.0,
+   20000.0,
+   50000.0,
+   100000.0,
+   150000.0,
+   200000.0,
+   300000.0
+  ],
+  "overall": {
+   "engine_failure_imminent": 0.003553299492385787,
+   "brake_issue_imminent": 0.008121827411167513,
+   "battery_issue_imminent": 0.006091370558375634
+  },
+  "by_bin": {
+   "0": {
+    "engine_failure_imminent": 0.0008149769477949053,
+    "brake_issue_imminent": 0.006449960415405393,
+    "battery_issue_imminent": 0.005984259302379733,
+    "rows": 168
+   },
+   "1": {
+    "engine_failure_imminent": 0.0015354171768178478,
+    "brake_issue_imminent": 0.004440797093296448,
+    "battery_issue_imminent": 0.004308433543570771,
+    "rows": 717
+   },
+   "2": {
+    "engine_failure_imminent": 0.005525639512181833,
+    "brake_issue_imminent": 0.01109668280014166,
+    "battery_issue_imminent": 0.0074280577172797695,
+    "rows": 1068
+   },
+   "3": {
+    "engine_failure_imminent": 0.0026517160390938706,
+    "brake_issue_imminent": 0.006061065232214562,
+    "battery_issue_imminent": 0.004545798924160921,
+    "rows": 17
+   },
+   "4": {
+    "engine_failure_imminent": 0.003553299492385787,
+    "brake_issue_imminent": 0.008121827411167513,
+    "battery_issue_imminent": 0.0060913705583756335,
+    "rows": 0
+   },
+   "5": {
+    "engine_failure_imminent": 0.003553299492385787,
+    "brake_issue_imminent": 0.008121827411167513,
+    "battery_issue_imminent": 0.0060913705583756335,
+    "rows": 0
+   },
+   "6": {
+    "engine_failure_imminent": 0.003553299492385787,
+    "brake_issue_imminent": 0.008121827411167513,
+    "battery_issue_imminent": 0.0060913705583756335,
+    "rows": 0
+   }
+  },
+  "note": "Dataset 4 has no vehicle-age column, so the distribution is grouped by mileage only; groups are shrunk towards the overall rate (50 pseudo-rows)"
+ },
+ "medians_ice": {
+  "vehicle_age": 6.0,
+  "km": 132700.0,
+  "days_since_last_maintenance": 155.0,
+  "failure_history": 0.0,
+  "brand_reliability_index": 50.0,
+  "d4_engine_fault_rate": 0.003553299492385787,
+  "d4_brake_fault_rate": 0.008121827411167513,
+  "d4_battery_fault_rate": 0.0060913705583756335
+ },
+ "medians_ev": {
+  "last_service_distance": 10185.833938521559,
+  "service_frequency": 10000.0,
+  "time_since_last_fault": 6.0,
+  "driving_distance": 239.35047595518427
+ },
+ "external_check_uk_mot": {
+  "pairs": 150000,
+  "target": "a defect found at the next UK MOT inspection (real outcome)",
+  "spec_model2_auc": 0.5852393838525508,
+  "age_only_auc": 0.6463250166048432,
+  "inputs": "age, true odometer, previous inspection had a defect (as failure history), brand index, Dataset 4 rates; days since maintenance unknown"
+ },
+ "kaggle_sources": {
+  "d4_telemetry": "kagglehub: tejalaveti2306/vehicle-maintenance-telemetry-data",
+  "d1_logistics": "local copy of datasetengineer/logistics-vehicle-maintenance-history-data (kagglehub needs credentials for this dataset)",
+  "d5_nev": "kagglehub: ziya07/fault-prediction-and-optimization-in-nevs"
+ }
+}

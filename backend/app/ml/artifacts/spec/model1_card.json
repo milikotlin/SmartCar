@@ -1,0 +1,193 @@
+{
+ "name": "Model 1 - odometer regression (Smart_Car_Models.pdf)",
+ "version": "2.0.0",
+ "trained_at": "2026-11-21",
+ "kaggle_sources": {
+  "d7_uk": "kagglehub: adityadesai13/used-car-dataset-ford-and-mercedes",
+  "d8_in": "kagglehub: avikasliwal/used-cars-price-prediction",
+  "d3_cardekho": "kagglehub: manishkr1754/cardekho-used-car-data"
+ },
+ "rows": 113858,
+ "rows_by_dataset": {
+  "d7_uk": 93580,
+  "d3_cardekho": 13082,
+  "d8_in": 7196
+ },
+ "features": [
+  "age",
+  "engine_cc",
+  "automatic",
+  "fuel",
+  "owner_type",
+  "make_model"
+ ],
+ "encoding_experiment": {
+  "scores": {
+   "target": {
+    "cv_rmse": 22361.445482177536,
+    "cv_mae": 15079.833491381092,
+    "cv_rmse_sd": 141.36703643099912
+   },
+   "frequency": {
+    "cv_rmse": 22155.01656864629,
+    "cv_mae": 14959.525059635911,
+    "cv_rmse_sd": 162.6451391129434
+   }
+  },
+  "chosen": "frequency"
+ },
+ "algorithm_experiment": {
+  "scores": {
+   "Linear Regression + StandardScaler": {
+    "cv_rmse": 24729.13767831579,
+    "cv_mae": 17124.171155564232,
+    "cv_rmse_sd": 128.58545640716227,
+    "test_rmse": 24554.048494906143,
+    "test_mae": 17021.619570019484,
+    "test_r2": 0.5045376625617282
+   },
+   "Ridge + StandardScaler": {
+    "cv_rmse": 24728.905183425377,
+    "cv_mae": 17124.080781319386,
+    "cv_rmse_sd": 128.43028893315912,
+    "test_rmse": 24554.084011137296,
+    "test_mae": 17021.642392265603,
+    "test_r2": 0.5045362292365774
+   },
+   "Ridge + MinMaxScaler": {
+    "cv_rmse": 24728.93393185958,
+    "cv_mae": 17126.12561561579,
+    "cv_rmse_sd": 128.38357387530567,
+    "test_rmse": 24553.857880118085,
+    "test_mae": 17023.26256475807,
+    "test_r2": 0.5045453551491139
+   },
+   "Random Forest (no scaling)": {
+    "cv_rmse": 22317.430905862508,
+    "cv_mae": 14992.468633542134,
+    "cv_rmse_sd": 155.79341334411203,
+    "test_rmse": 21915.39035295215,
+    "test_mae": 14738.1657381086,
+    "test_r2": 0.6053038865417895
+   },
+   "XGBoost (no scaling)": {
+    "cv_rmse": 22155.01656864629,
+    "cv_mae": 14959.525059635911,
+    "cv_rmse_sd": 162.6451391129434,
+    "test_rmse": 21801.05614341462,
+    "test_mae": 14757.377483711516,
+    "test_r2": 0.6094114612890353
+   }
+  },
+  "chosen": "XGBoost (no scaling)",
+  "rule": "lowest cross-validated RMSE, MAE breaks ties"
+ },
+ "chosen": {
+  "encoding": "frequency",
+  "algorithm": "XGBoost (no scaling)",
+  "held_out": {
+   "cv_rmse": 22155.01656864629,
+   "cv_mae": 14959.525059635911,
+   "cv_rmse_sd": 162.6451391129434,
+   "test_rmse": 21801.05614341462,
+   "test_mae": 14757.377483711516,
+   "test_r2": 0.6094114612890353
+  }
+ },
+ "interval_80pct_heldout_coverage": 0.7999297382750746,
+ "support_max_age": {
+  "hybrid": 7,
+  "lpg_cng": 7
+ },
+ "a_sup": 13,
+ "calibration": {
+  "source": "CBS Publication 1923, Tables 4 and 8",
+  "registry_sample_rows": 17507,
+  "factors": {
+   "age": {
+    "0-3": 2.2134781401449057,
+    "4-6": 2.0287365921347504,
+    "7-9": 2.8127595153884966,
+    "10-13": 1.794652682577968,
+    "14-19": 1.089064219986,
+    "20-29": 1.0966736404931372,
+    "30+": 1.0966736404931372
+   },
+   "own": {
+    "private": 0.9342474200812968,
+    "leasing": 1.892189660671216,
+    "company": 1.5683981588317741,
+    "rental": 1.7659526929839737
+   }
+  },
+  "held_out_joint_cells": [
+   {
+    "ownership": "private",
+    "age_group": "new",
+    "n": 2675,
+    "model": 16.39490083401393,
+    "cbs": 16.0,
+    "abs_pct_error": 2.468130212587072
+   },
+   {
+    "ownership": "private",
+    "age_group": "old",
+    "n": 12943,
+    "model": 13.384365314765722,
+    "cbs": 13.4,
+    "abs_pct_error": 0.11667675547969436
+   },
+   {
+    "ownership": "leasing",
+    "age_group": "new",
+    "n": 941,
+    "model": 28.05032932827135,
+    "cbs": 28.4,
+    "abs_pct_error": 1.2312347596079243
+   },
+   {
+    "ownership": "leasing",
+    "age_group": "old",
+    "n": 62,
+    "model": 32.08935648543006,
+    "cbs": 26.2,
+    "abs_pct_error": 22.47845986805366
+   },
+   {
+    "ownership": "company",
+    "age_group": "new",
+    "n": 322,
+    "model": 24.92650694552711,
+    "cbs": 26.5,
+    "abs_pct_error": 5.937709639520339
+   },
+   {
+    "ownership": "company",
+    "age_group": "old",
+    "n": 363,
+    "model": 23.932960781102665,
+    "cbs": 22.3,
+    "abs_pct_error": 7.322694085662174
+   },
+   {
+    "ownership": "rental",
+    "age_group": "new",
+    "n": 178,
+    "model": 25.689556427731045,
+    "cbs": 26.5,
+    "abs_pct_error": 3.0582776312036097
+   },
+   {
+    "ownership": "rental",
+    "age_group": "old",
+    "n": 23,
+    "model": 29.27647634190761,
+    "cbs": 23.2,
+    "abs_pct_error": 26.191708370291433
+   }
+  ],
+  "joint_cell_mean_abs_pct_error": 8.600611415300738
+ },
+ "registry_sample_with_official_engine_data": 0.9997715199634432,
+ "note_owner_type": "Dataset 8 Owner_Type is the number of owners (First / Second / Third / Fourth & Above), not private / leasing as the PDF says"
+}

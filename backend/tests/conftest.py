@@ -36,3 +36,15 @@ def profiles(registry_rows):
     from app.services.translation import translate_vehicle_record
 
     return {r["mispar_rechev"]: translate_vehicle_record(r) for r in registry_rows}
+
+
+@pytest.fixture(autouse=True)
+def _offline_official_tables(monkeypatch):
+    """The official model table and ownership history (data.gov.il) are not called by the tests: unknown, as when the service is down.
+    test_vehicle_specs.py replaces this with recorded rows to test the lookup itself."""
+    from app.services import vehicle_specs
+
+    async def offline(resource, filters, limit=50):
+        return None
+
+    monkeypatch.setattr(vehicle_specs, "_search", offline)

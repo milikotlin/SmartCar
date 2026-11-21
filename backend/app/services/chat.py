@@ -54,11 +54,18 @@ def facts(prediction: PredictionResponse, today: date) -> list[str]:
             f"Mileage (ESTIMATED, not measured): {m.primary_km:,} km, indicative 80% range {m.estimated_low_km:,}-{m.estimated_high_km:,} km."
             + (f" LOW RELIABILITY: {m.estimate_reliability_reason}; do not rely on this figure." if m.estimate_reliability == "low" else "")
         )
+    fr = prediction.failure_risk
+    if fr is not None:
+        out.append(
+            f"ESTIMATED FAILURE / MAINTENANCE RISK (Model 2 as specified in the project, {fr.branch_label}; trained on synthetic Kaggle data; NOT a probability; "
+            f"NOT validated on real vehicles): {LEVEL_WORDS[fr.level]}"
+            + (f"; unknown inputs replaced by typical values: {', '.join(fr.assumed)}" if fr.assumed else "") + "."
+        )
     r = prediction.inspection_risk
     if r.covered:
         basis = "uses the previous inspection result" if r.uses_history else "registry data only"
         out.append(
-            "ESTIMATED INSPECTION-DEFECT RISK (a relative level compared with UK reference vehicles, learned from UK/Dutch inspections; NOT a probability of breakdown; NOT validated for Israel; " + basis + "):"
+            "COMPARISON MODEL - ESTIMATED INSPECTION-DEFECT RISK (a relative level compared with UK reference vehicles, learned from real UK/Dutch inspections; NOT a probability of breakdown; NOT validated for Israel; " + basis + "):"
         )
         for s in r.systems:
             out.append(f"  - {s.title}: {LEVEL_WORDS[s.level]} relative risk against reference vehicles of all ages; {SAME_AGE_WORDS[s.same_age_label]} ({s.same_age_years} years).")

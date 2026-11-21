@@ -5,6 +5,7 @@ import { DiagnosticChatFab } from "@/components/DiagnosticChatFab";
 import { Header } from "@/components/Header";
 import { MaintenanceHistory } from "@/components/MaintenanceHistory";
 import { MaintenancePanel } from "@/components/MaintenancePanel";
+import { FailureRiskPanel } from "@/components/FailureRiskPanel";
 import { RecallsPanel } from "@/components/RecallsPanel";
 import { RiskPanel } from "@/components/RiskPanel";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -111,7 +112,14 @@ export default function DashboardPage() {
                 refreshing={refreshing}
               />
               <div className={`flex flex-col gap-4 ${refreshing ? "pointer-events-none opacity-50" : ""}`} aria-busy={refreshing}>
-                {slowRefresh ? <Skeleton className="h-[420px]" /> : <RiskPanel risk={state.prediction.inspection_risk} />}
+                {slowRefresh ? (
+                  <Skeleton className="h-[420px]" />
+                ) : (
+                  <>
+                    {state.prediction.failure_risk && <FailureRiskPanel risk={state.prediction.failure_risk} />}
+                    <RiskPanel risk={state.prediction.inspection_risk} />
+                  </>
+                )}
               </div>
             </div>
 

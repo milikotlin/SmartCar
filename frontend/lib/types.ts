@@ -27,6 +27,8 @@ export interface MileageInfo {
   user_reported_used_by_model2: boolean;
   user_reported_note: string | null;
   notes: string[];
+  model_raw_km: number | null;
+  model_inputs: Record<string, string | number | null>;
   estimate_reliability: "ok" | "low";
   estimate_reliability_reason: string | null;
   label: string;
@@ -120,9 +122,33 @@ export interface HistoryInfo {
   note: string | null;
 }
 
+export interface ModelComparisonRow {
+  model: string;
+  data: string;
+  test: string;
+  roc_auc: number | null;
+}
+
+/** Model 2 as specified in Smart_Car_Models.pdf: a probability score shown only as three levels. */
+export interface FailureRisk {
+  kind: "estimated_failure_risk";
+  definition: string;
+  branch: "ice" | "ev";
+  branch_label: string;
+  level: RiskLevel;
+  level_rule: string;
+  observed_rate_by_level: (number | null)[];
+  inputs: Record<string, string | number>;
+  assumed: string[];
+  quality_note: string | null;
+  disclaimer: string;
+  comparison: ModelComparisonRow[];
+}
+
 export interface Prediction {
   vehicle: VehicleProfile;
   mileage: MileageInfo;
+  failure_risk: FailureRisk | null;
   inspection_risk: InspectionRisk;
   maintenance: MaintenanceInfo;
   recalls: RecallInfo;

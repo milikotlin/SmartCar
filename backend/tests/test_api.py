@@ -171,21 +171,51 @@ async def test_registry_outage_is_reported_as_503_not_a_crash(client, monkeypatc
     assert r.status_code == 503
 
 
-async def test_model1_estimate_does_not_change_the_model2_risk(client, monkeypatch):
-    """Independence of the two models in the running pipeline: whatever Model 1 says, the inspection risk is identical."""
+async def test_model1_feeds_model2_of_the_pdf_but_not_the_comparison_model(client, monkeypatch):
+    """Two-stage pipeline as specified: the Model 1 estimate is an input of Model 2 (PDF); the comparison model on real inspections does not use it."""
     from dataclasses import replace
 
     from app.ml.registry import get_models
 
-    base = (await client.get(f"/api/v1/predict/{HYBRID}")).json()
+    clean = 7472539                       # a real registry row with no record in this module: its mileage is the Model 1 estimate
+    base = (await client.get(f"/api/v1/predict/{clean}")).json()
+    assert base["mileage"]["primary_source"] == "estimated"
+    assert base["failure_risk"]["inputs"]["km"] == base["mileage"]["estimated_km"] and base["failure_risk"]["inputs"]["km_source"] == "estimated"
     m1 = get_models().mileage
     real = m1.estimate
 
-    def tripled(fuel, age, ownership):
-        e = real(fuel, age, ownership)
+    def tripled(features, ownership):
+        e = real(features, ownership)
         return replace(e, km=e.km * 3, km_low=e.km_low * 3, km_high=e.km_high * 3, annual_km=e.annual_km * 3)
 
     monkeypatch.setattr(m1, "estimate", tripled)
-    changed = (await client.get(f"/api/v1/predict/{HYBRID}")).json()
+    changed = (await client.get(f"/api/v1/predict/{clean}")).json()
     assert changed["mileage"]["estimated_km"] > base["mileage"]["estimated_km"]          # Model 1 output really changed
-    assert changed["inspection_risk"] == base["inspection_risk"]
+    assert changed["failure_risk"]["inputs"]["km"] == changed["mileage"]["estimated_km"]  # ... and Model 2 (PDF) received it
+    assert changed["inspection_risk"] == base["inspection_risk"]                          # the comparison model did not
+
+
+async def test_failure_risk_section_is_present_and_honest(client):
+    b = (await client.get(f"/api/v1/predict/{PLATE}")).json()
+    fr = b["failure_risk"]
+    assert fr["kind"] == "estimated_failure_risk" and fr["level"] in ("low", "moderate", "high") and fr["branch"] == "ice"
+    assert "synthetic" in fr["disclaimer"] and "not a probability" in fr["disclaimer"]
+    assert "probability" not in json_keys(fr)                                              # the probability itself is never sent
+    rows = {(r["model"], r["data"]) for r in fr["comparison"]}
+    assert ("Model 2 (PDF), combustion", "real UK MOT inspections") in rows and any(m.startswith("Comparison model") for m, _ in rows)
+    ev = (await client.get(f"/api/v1/predict/{EV}")).json()
+    assert ev["failure_risk"]["branch"] == "ev" and not ev["inspection_risk"]["covered"]   # Dataset 5 model for electric vehicles
+    typed = (await client.get(f"/api/v1/predict/{PLATE}", params={"odometer_km": 123_456})).json()
+    assert typed["failure_risk"]["inputs"]["km"] == 123_456 and typed["failure_risk"]["inputs"]["km_source"] == "user_reported"
+
+
+def json_keys(d) -> set:
+    out = set()
+    if isinstance(d, dict):
+        for k, v in d.items():
+            out.add(k)
+            out |= json_keys(v)
+    elif isinstance(d, list):
+        for v in d:
+            out |= json_keys(v)
+    return out

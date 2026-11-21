@@ -27,6 +27,7 @@ class MileageEstimate:
     notes: tuple[str, ...]
     reliability: str = "ok"                   # ok | low: "low" when the training data do not support this fuel type at this age
     reliability_reason: str | None = None
+    raw_km: int | None = None                 # Smart_Car_Models.pdf Model 1 only: its own output before the CBS calibration
 
 
 def smooth_cumulative(curve: np.ndarray, a_sup: int, window: int) -> np.ndarray:

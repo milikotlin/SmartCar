@@ -149,6 +149,12 @@ def main():
                    and "not its result" in t and "AI-Estimated Mileage" in t and "MILEAGE" in t.upper())
             record(tag("covered/no records: no Hebrew left on the page (colour translated)"), not __import__("re").search(r"[֐-׿]", t), t[:0])
             record(tag("covered/no records: mileage is labelled as an ESTIMATE with a range"), "AI-Estimated Mileage" in t and "Indicative range (80%)" in t and "not a measurement" in t and "I know my car's mileage" in t and "I don't know my car's mileage" in t)
+            record(tag("Model 2 (PDF): main risk panel with a level, the model used and no percentage"),
+                   "Risk of a mechanical failure needing maintenance" in t and "MACHINE LEARNING · MODEL 2" in t.upper() and "Model used: combustion vehicles" in t
+                   and any(f"{w} RISK" in t.upper() for w in ("LOW", "MODERATE", "HIGH")) and "%" not in page.js("document.querySelector('[data-testid=\"failure-risk\"] [role=\"img\"]').getAttribute('aria-label')"))
+            record(tag("Model 2 (PDF): says what the level is worth when the service log is empty"), "What this level is worth here." in t and "no maintenance record on file" in t)
+            record(tag("comparison panel: labelled as the model on real inspection data"), "COMPARISON MODEL · REAL INSPECTION DATA" in t.upper())
+            page.shot(f"{mode}_01c_failure_risk", "[data-testid='failure-risk']")
             record(tag("covered/no records: three risk bars with level words"), t.count("RELATIVE RISK") == 3 and "Higher than about" in t and "Compared with vehicles aged" in t)
             record(tag("covered/no records: explanation says relative, not a probability, not validated"), "relative level" in t and "not a probability" in t and "not been validated for Israeli" in t)
             record(tag("covered/no records: maintenance panel (rules, not ML)"), "Recommended maintenance" in t and "NO RECORD" in t and "Generic service intervals" in t)
@@ -163,8 +169,9 @@ def main():
             page.shot(f"{mode}_01_covered_risk", "article:has([data-testid^='risk-'])")
             geo = page.js("""[...document.querySelectorAll('[data-testid^="risk-"]')].map(c => { const bar = c.querySelector('[role="img"]'); const segs = [...bar.querySelectorAll('.flex.h-3 > div')]; const bw = bar.getBoundingClientRect().width; const mk = bar.querySelector('[aria-hidden="true"]').getBoundingClientRect(); return {w: segs.map(s => Math.round(s.getBoundingClientRect().width / bw * 100)), m: Math.round((mk.left + mk.width / 2 - bar.getBoundingClientRect().left) / bw * 100)}; })""")
             record(tag("covered: bar segments 36/33/31 and the marker is inside the bar"), all(g["w"] == [36, 33, 31] and 0 <= g["m"] <= 100 for g in geo), str(geo))
-            page.js("document.querySelector('details').open = true")
+            page.js("document.querySelectorAll('details').forEach(d => d.open = true)")
             t2 = page.text()
+            record(tag("Model 2 (PDF): comparison table with synthetic and real-data rows"), "How well each model ranks vehicles" in t2 and "real UK MOT inspections" in t2 and "Age only (baseline)" in t2)
             record(tag("covered: details show how levels were set and observed rates"), "How often a defect was found at the next inspection" in t2 and "about" in t2 and "not a forecast for this vehicle" in t2)
             page.shot(f"{mode}_02_risk_details", "article:has([data-testid^='risk-'])")
 
@@ -215,7 +222,7 @@ def main():
             section = lambda: page.js("document.querySelector('[data-testid=\"mileage-section\"]').innerText")
             open_details = lambda: page.js("document.querySelectorAll('details').forEach(d => d.open = true)")
             t = page.text()
-            record(tag("mileage: the automatic estimate is selected first"), page.js("document.querySelector('input[name=\"mileage-mode\"][value=\"estimate\"]').checked") is True and "AI-Estimated Mileage" in t and "Model 1 (an XGBoost regression)" in t)
+            record(tag("mileage: the automatic estimate is selected first"), page.js("document.querySelector('input[name=\"mileage-mode\"][value=\"estimate\"]').checked") is True and "AI-Estimated Mileage" in t and "Model 1 (an XGBoost regression" in t)
             page.shot(f"{mode}_05c_mileage_estimate", "[data-testid='mileage-section']")
             js_click('input[name="mileage-mode"][value="reported"]')
             wait(300)
@@ -273,7 +280,8 @@ def main():
             t = page.text()
             low = page.js("!!document.querySelector('[data-testid=\"low-reliability\"]')")
             record(tag("hybrid aged 9: Model 1 flags LOW RELIABILITY with the reason"), low and "Low reliability." in t and "too few hybrid vehicles" in t)
-            record(tag("hybrid aged 9: no exaggerated yearly mileage is shown"), "163,100 km" in t)
+            api = page.js("fetch('http://localhost:8000/api/v1/predict/4850581').then(r => r.json()).then(b => b.mileage)")
+            record(tag("hybrid aged 9: no exaggerated yearly mileage is shown"), f"{api['estimated_km']:,} km" in t and api["estimated_annual_km"] < 25_000, str(api["estimated_annual_km"]))
             common_checks(page, tag("hybrid aged 9"))
             page.shot(f"{mode}_04b_low_reliability", "article:has([data-testid='low-reliability'])")
 

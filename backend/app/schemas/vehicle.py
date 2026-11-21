@@ -15,3 +15,5 @@ class VehicleProfile(BaseModel):
     first_registration: str | None = None       # moed_aliya_lakvish, "YYYY-M"
     trim_level: str | None = None
     make_raw: str | None = None                 # Hebrew manufacturer string as published
+    tozeret_cd: int | None = None               # manufacturer code (joins the official model table: engine size, transmission)
+    degem_cd: int | None = None                 # model code

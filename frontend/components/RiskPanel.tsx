@@ -18,8 +18,9 @@ function variantText(risk: InspectionRisk): string {
 export function RiskPanel({ risk }: { risk: InspectionRisk }) {
   return (
     <article className="card-shadow rounded-[14px] border border-line bg-surface p-7">
-      <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-wider text-ink-faint">Machine learning &middot; Model 2</p>
+      <p className="mb-1.5 text-[12px] font-semibold uppercase tracking-wider text-ink-faint">Comparison model &middot; real inspection data</p>
       <h2 className="text-xl font-semibold tracking-tight text-ink">Risk of a defect at the next annual inspection</h2>
+      <p className="mt-1 text-[12.5px] text-ink-soft">Trained on real UK MOT inspections and validated on Dutch ones, shown next to Model 2 for comparison.</p>
 
       {risk.covered && risk.scale ? (
         <>

@@ -33,7 +33,7 @@ async def ensure_vehicle(session: AsyncSession, plate: str, mileage_hint: int | 
     if profile is None:
         raise HTTPException(status_code=404, detail="Vehicle not found in Ministry of Transport registry")
     if mileage_hint is None:
-        est = get_models().mileage.estimate(features.fuel_key(profile), features.vehicle_age(profile), features.ownership_key(profile))
+        est = get_models().mileage.estimate(features.model1_features(profile, None, None, None), features.ownership_key(profile))
         mileage_hint = est.km
     vehicle = Vehicle(license_plate=plate, make=profile.make[:50], model=profile.model[:50], manufacture_year=profile.manufacture_year, current_mileage=mileage_hint)
     session.add(vehicle)

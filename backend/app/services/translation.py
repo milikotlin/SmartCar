@@ -124,6 +124,13 @@ def parse_cc(value: Any) -> int | None:
     return int(m.group().replace(",", "")) if m else None
 
 
+def _int_or_none(v) -> int | None:
+    try:
+        return int(v) if v is not None and str(v).strip() != "" else None
+    except (TypeError, ValueError):
+        return None
+
+
 def translate_vehicle_record(record: dict[str, Any]) -> VehicleProfile:
     make_raw = record.get("tozeret_nm", "") or ""
     return VehicleProfile(
@@ -139,4 +146,6 @@ def translate_vehicle_record(record: dict[str, Any]) -> VehicleProfile:
         first_registration=record.get("moed_aliya_lakvish"),
         trim_level=record.get("ramat_gimur"),
         make_raw=make_raw,
+        tozeret_cd=_int_or_none(record.get("tozeret_cd")),
+        degem_cd=_int_or_none(record.get("degem_cd")),
     )

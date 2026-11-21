@@ -124,3 +124,20 @@ The SRS (6.2) says so. **In the code it is not**, and that is the intended and d
 **OpenAI.** `docs/OPENAI_SETUP.md` and `scripts/check_openai.py` (they never print the key). The plate is no longer sent to the language model (data minimisation). The live call was not exercised here (no key).
 
 Tests after the second pass: 115 pytest, 88 plates and 1,736 end-to-end checks, 133 browser assertions (`TEST_REPORT.md`).
+
+
+## 11. Models rebuilt exactly as Smart_Car_Models.pdf specifies (2026-11-21)
+
+At the student's request both models now follow the PDF exactly, with the data pulled from Kaggle (`kagglehub`). Full report generated from the results:
+[SPEC_MODELS.md](SPEC_MODELS.md); change log C30 and C31 in `SRS_v2.md`.
+
+* **Model 1:** XGBoost with Frequency encoding, chosen among Linear, Ridge (two scalers), Random Forest and XGBoost by cross-validated RMSE (22,155 km; held-out R² 0.609
+  against 0.551 for the previous age + fuel model). Engine size and transmission at run time from the official model table (WLTP), number of owners from the ownership
+  history. CBS calibration kept (held-out cell error 8.6%); above 40,000 km a year the official average for the age and ownership is shown instead, flagged.
+* **Model 2:** XGBoost on Dataset 1 (+ Dataset 4 features), Dataset 5 model for electric / hybrid vehicles, scale_pos_weight chosen over SMOTE, Logistic Regression
+  baseline, guarded Recall tuning, monotone constraints. ROC-AUC 0.978 on held-out Dataset 1 (synthetic) but **0.585 on real UK inspection outcomes, below age alone
+  (0.646)**; Dataset 5 model 0.49 (chance). Shown as three levels with a per-vehicle note on what the level is worth; the real-inspection model stays as a comparison panel.
+* Found while implementing: Dataset 1's third file is an augmented copy of the first (excluded); Dataset 8 `Owner_Type` is the number of owners; Dataset 4 has no age
+  column; Dataset 1 requires Kaggle credentials for `kagglehub` (fallback: the earlier download of the same page).
+* Security: the frontend container already no longer receives `.env`; nothing new is written by the new models.
+* Tests: 135 pytest, 88 real plates with 1,995 end-to-end checks and 0 failures, 191/191 browser assertions.

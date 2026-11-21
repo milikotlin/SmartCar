@@ -3,6 +3,7 @@ from datetime import date, datetime
 
 from app.config import settings
 from app.ml.risk import RiskInputs
+from app.ml.spec_features import make_model_key, owner_type
 from app.schemas.vehicle import VehicleProfile
 
 FUEL_KEY = {"Petrol": "petrol", "Diesel": "diesel", "Hybrid": "hybrid", "Plug-in Hybrid": "hybrid", "Electric": "electric", "LPG/CNG": "lpg_cng", "LPG": "lpg_cng"}
@@ -30,6 +31,12 @@ def model_make(profile: VehicleProfile) -> str:
     """Spelling used in the training data: title case (BMW -> Bmw), Vauxhall/Opel unified."""
     make = (profile.make or "").strip().title()
     return MAKE_ALIAS.get(make, make)
+
+
+def model1_features(profile: VehicleProfile, engine_cc: float | None, automatic: float | None, owners: int | None) -> dict:
+    """Inputs of Model 1 (Smart_Car_Models.pdf): age, engine size, transmission, fuel, owner type, make/model."""
+    return {"age": vehicle_age(profile), "engine_cc": engine_cc, "automatic": automatic, "fuel": fuel_key(profile), "owner_type": owner_type(owners),
+            "make_model": make_model_key(profile.make, profile.model)}
 
 
 def _parse_date(value: str | None) -> date | None:

@@ -176,7 +176,8 @@ export function VehicleSpecCard({ vehicle, mileage, mode, onModeChange, onApply,
                 </p>
               )}
               <p className="mt-2 text-[12px] leading-relaxed text-ink-soft">
-                Model 1 (an XGBoost regression) estimates this from the vehicle&apos;s age, fuel type and ownership type, using statistical data. {mileage.label}
+                Model 1 (an XGBoost regression, chosen among Linear, Ridge, Random Forest and XGBoost) estimates this from the vehicle&apos;s age, fuel type, make and model,
+                engine size, transmission and number of owners, then calibrates it with official statistics. {mileage.label}
               </p>
             </div>
           )}

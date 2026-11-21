@@ -20,6 +20,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from config import INTERIM_DIR, MILES_TO_KM, RAW_DIR  # noqa: E402
+from kaggle_sources import dataset_dir, find  # noqa: E402  (datasets are pulled from Kaggle with kagglehub)
 
 COLUMNS = ["source", "make", "model", "age", "fuel", "transmission", "engine_cc", "owner_count", "km"]
 
@@ -76,9 +77,9 @@ def _finish(df: pd.DataFrame, source: str) -> pd.DataFrame:
 
 def load_d7_uk() -> pd.DataFrame:
     frames = []
-    d = RAW_DIR / "d7_uk_cars"
+    d = dataset_dir("d7_uk")
     for stem in ["audi", "bmw", "ford", "hyundi", "merc", "skoda", "toyota", "vauxhall", "vw"]:
-        raw = pd.read_csv(d / f"{stem}.csv")
+        raw = pd.read_csv(find("d7_uk", f"{stem}.csv"))
         raw.columns = [c.strip() for c in raw.columns]
         raw["make"] = stem
         frames.append(raw)
@@ -98,8 +99,7 @@ def load_d7_uk() -> pd.DataFrame:
 
 
 def load_d8_in() -> pd.DataFrame:
-    d = RAW_DIR / "d8_used_cars_in"
-    df = pd.concat([pd.read_csv(d / "train-data.csv", index_col=0), pd.read_csv(d / "test-data.csv", index_col=0)], ignore_index=True)
+    df = pd.concat([pd.read_csv(find("d8_in", "train-data.csv"), index_col=0), pd.read_csv(find("d8_in", "test-data.csv"), index_col=0)], ignore_index=True)
     first = df["Name"].str.split().str[0]
     make = first.where(first.str.lower() != "land", "Land Rover")
     owner = df["Owner_Type"].map({"First": 1, "Second": 2, "Third": 3, "Fourth & Above": 4})
@@ -120,7 +120,7 @@ def load_d8_in() -> pd.DataFrame:
 
 
 def load_d3_cardekho() -> pd.DataFrame:
-    df = pd.read_csv(RAW_DIR / "d3_cardekho" / "cardekho_dataset.csv", index_col=0)
+    df = pd.read_csv(find("d3_cardekho", "cardekho_dataset.csv"), index_col=0)
     out = pd.DataFrame(
         {
             "make": df["brand"],

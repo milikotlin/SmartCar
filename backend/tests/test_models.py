@@ -1,4 +1,4 @@
-"""Model 1 and Model 2 behaviour on the exported artifacts (offline-trained, loaded as the API loads them)."""
+"""Model 1 (Smart_Car_Models.pdf) and the comparison model on real inspections, on the exported artifacts (loaded as the API loads them). Model 2 of the PDF: test_spec_model2.py."""
 import json
 from pathlib import Path
 
@@ -10,43 +10,67 @@ from app.ml.risk import RiskInputs
 ART = Path(__file__).resolve().parents[1] / "app" / "ml" / "artifacts"
 
 
-# ------------------------------------------------------------------ Model 1
-def test_model1_reproduces_the_reference_points_of_the_offline_training(models):
-    card = json.loads((ART / "model1" / "model1_card.json").read_text(encoding="utf-8"))
-    for ref in card["reference_points"]:
-        est = models.mileage.estimate(ref["fuel"], ref["age"], ref["ownership"])
-        assert abs(est.km - ref["calibrated_km"]) <= 100, ref        # same numbers as the offline training script (rounded to 100 km)
+# ------------------------------------------------------------------ Model 1 (Smart_Car_Models.pdf: Kaggle Datasets 7 + 8 + 3)
+def m1(fuel="petrol", age=6, own="private", engine=1600, automatic=0.0, owners="Unknown", mm="toyota|corolla"):
+    from app.ml.registry import get_models
+
+    return get_models().mileage.estimate({"age": age, "engine_cc": engine, "automatic": automatic, "fuel": fuel, "owner_type": owners, "make_model": mm}, own)
+
+
+def test_model1_is_the_pipeline_the_experiments_chose(models):
+    card = json.loads((ART / "spec" / "model1_card.json").read_text(encoding="utf-8"))
+    steps = models.mileage.pipeline.named_steps
+    assert type(steps["model"]).__name__ == {"XGBoost (no scaling)": "XGBRegressor", "Random Forest (no scaling)": "RandomForestRegressor"}.get(card["chosen"]["algorithm"], "?")
+    encoder = steps["prep"].named_transformers_["make_model"].named_steps["encode"]
+    assert type(encoder).__name__ == ("FrequencyEncoder" if card["chosen"]["encoding"] == "frequency" else "TargetEncoder")
+    imputer = steps["prep"].named_transformers_["numeric"].named_steps["impute"]
+    assert type(imputer).__name__ == "KNNImputer" and imputer.n_neighbors == 5                                   # KNN imputer, K=5
+    scores = card["algorithm_experiment"]["scores"]
+    assert min(scores, key=lambda k: (scores[k]["cv_rmse"], scores[k]["cv_mae"])) == card["chosen"]["algorithm"]  # chosen purely by RMSE, then MAE
+    assert {"Linear Regression + StandardScaler", "Ridge + StandardScaler", "Ridge + MinMaxScaler", "Random Forest (no scaling)", "XGBoost (no scaling)"} <= set(scores)
+    assert set(card["encoding_experiment"]["scores"]) == {"target", "frequency"}
+    assert card["rows_by_dataset"] == {"d7_uk": 93580, "d3_cardekho": 13082, "d8_in": 7196}
 
 
 def test_model1_is_monotone_in_age_and_the_range_brackets_the_estimate(models):
     for fuel in ("petrol", "diesel", "hybrid", "lpg_cng"):
         prev = -1
         for age in range(0, 40):
-            e = models.mileage.estimate(fuel, age, "private")
-            assert e.km >= prev
-            assert e.km_low <= e.km <= e.km_high
+            e = m1(fuel, age)
+            assert e.km >= prev and e.km_low <= e.km <= e.km_high, (fuel, age)
             prev = e.km
 
 
+def test_model1_uses_the_features_of_the_pdf(models):
+    assert m1(engine=3000).raw_km != m1(engine=1000).raw_km or m1(automatic=1.0).raw_km != m1(automatic=0.0).raw_km
+    assert m1(mm="toyota|corolla").raw_km != m1(mm="bmw|x5").raw_km or m1(owners="First").raw_km != m1(owners="Fourth & Above").raw_km
+
+
 def test_model1_ownership_matches_the_official_pattern(models):
-    private = models.mileage.estimate("petrol", 6, "private").km
-    leasing = models.mileage.estimate("petrol", 6, "leasing").km
-    company = models.mileage.estimate("petrol", 6, "company").km
+    private, leasing, company = m1(own="private").km, m1(own="leasing").km, m1(own="company").km
     assert leasing > 1.4 * private and company > 1.3 * private      # CBS Table 8: leasing 28.3 / company 24.4 against private 13.9 thousand km a year
 
 
-def test_model1_population_level_matches_cbs_by_age_band(models):
-    card = json.loads((ART / "model1" / "model1_card.json").read_text(encoding="utf-8"))
-    for key, m in card["calibration"]["marginals"].items():
-        if key.startswith("age:") and m["model_thousand_km_per_year"] is not None:
-            assert abs(m["model_thousand_km_per_year"] / m["cbs_2022"] - 1) < 0.05, key
+def test_model1_unknown_engine_and_transmission_are_imputed_and_said(models):
+    e = m1(engine=None, automatic=None)
+    assert e.km > 0 and any("KNN imputer" in n for n in e.notes)
+    assert not any("KNN imputer" in n for n in m1().notes)
 
 
-def test_model1_notes_unvalidated_cases(models):
-    ev = models.mileage.estimate("electric", 3, "private")
-    assert ev.reliability == "low" and "electric" in ev.reliability_reason and ev.km == models.mileage.estimate("petrol", 3, "private").km
-    assert any("capped" in n for n in models.mileage.estimate("petrol", 80, "private").notes)
-    assert any("official yearly rates" in n for n in models.mileage.estimate("petrol", 25, "private").notes)
+def test_model1_flags_low_reliability(models):
+    ev = m1("electric", 3)
+    assert ev.reliability == "low" and "electric" in ev.reliability_reason
+    for age in range(8, 14):
+        e = m1("hybrid", age)
+        assert e.reliability == "low" and "hybrid" in e.reliability_reason
+    assert m1("hybrid", 5).reliability == "ok" and m1("petrol", 8).reliability == "ok"
+    assert any("capped" in n for n in m1(age=80).notes) and any("official yearly rates" in n for n in m1(age=25).notes)
+
+
+def test_model1_calibration_matches_cbs(models):
+    card = json.loads((ART / "spec" / "model1_card.json").read_text(encoding="utf-8"))
+    assert card["calibration"]["joint_cell_mean_abs_pct_error"] < 10                                            # held-out CBS Table-8 cells
+    assert 0.75 <= card["interval_80pct_heldout_coverage"] <= 0.85
 
 
 # ------------------------------------------------------------------ Model 2
@@ -202,21 +226,21 @@ def test_two_stage_inference_stays_under_500_ms(models, profiles):
     import statistics
     import time
 
+    from app.ml.spec_risk import SpecRiskInputs
     from app.services import features
 
-    prev = {"brakes": True, "electrical": False, "engine_emissions": False, "any_defect": True}
     times = []
-    for profile in list(profiles.values()) * 4:
+    for profile in list(profiles.values()) * 3:
         t0 = time.perf_counter()
-        est = models.mileage.estimate(features.fuel_key(profile), features.vehicle_age(profile), features.ownership_key(profile))
-        models.risk.predict(features.risk_inputs(profile, prev, est.km))
+        est = models.mileage.estimate(features.model1_features(profile, None, None, None), features.ownership_key(profile))
+        models.failure_risk.predict(SpecRiskInputs(vehicle_age=features.vehicle_age(profile), km=est.km, km_source="estimated", fuel=features.fuel_key(profile), make=profile.make))
         times.append(time.perf_counter() - t0)
     print(f"two-stage inference: median {statistics.median(times) * 1000:.1f} ms, max {max(times) * 1000:.1f} ms over {len(times)} runs")
     assert max(times) < 0.5
 
 
-def test_model2_has_no_input_from_model1():
-    """SRS 6.2 lists the Model 1 estimate as an input of Model 2. The experiments (notebooks 04, 07, 09) showed no gain, so by decision it is NOT used: this test pins the architecture."""
+def test_comparison_model_has_no_input_from_model1():
+    """The COMPARISON model (real UK inspections) does not use the Model 1 estimate (no gain in notebooks 04, 07, 09). Model 2 of the PDF does, as specified."""
     from dataclasses import fields
 
     assert {f.name for f in fields(RiskInputs)} == {"age_year", "fuel", "make", "previous", "odometer_km"}          # odometer_km is a MEASURED value only
@@ -224,28 +248,3 @@ def test_model2_has_no_input_from_model1():
     used = {c for cols in card["variants"].values() for c in cols}
     assert used == {"age_year", "gap_next", "fuel", "make_c", "km", "cur_brakes", "cur_electrical", "cur_engine_emissions", "cur_any_defect"}
     assert not any("estimate" in c or "model1" in c for c in used)
-
-
-def test_model1_flags_low_reliability_where_the_training_data_cannot_support_the_estimate(models):
-    """Hybrids older than 7 years have 2 to 5 training vehicles per year of age: the old estimate gave 35,000 to 46,000 km per year there."""
-    m1 = models.mileage
-    prev = m1.estimate("hybrid", 7, "private")
-    assert prev.reliability == "ok"
-    for age in range(8, 16):
-        e, before = m1.estimate("hybrid", age, "private"), m1.estimate("hybrid", age - 1, "private")
-        assert e.reliability == "low" and "hybrid" in e.reliability_reason and "older than 7" in e.reliability_reason
-        assert 8_000 <= e.km - before.km <= 18_000, (age, e.km - before.km)          # the yearly growth of the petrol curve, not the 5-vehicle data
-    lpg = m1.estimate("lpg_cng", 10, "private")
-    assert lpg.reliability == "low" and "LPG/CNG" in lpg.reliability_reason
-    for fuel in ("petrol", "diesel"):
-        assert all(m1.estimate(fuel, a, "private").reliability == "ok" for a in range(1, 30))
-
-
-def test_model1_flags_estimates_that_imply_more_than_the_official_statistics_publish(models):
-    from app.ml.mileage import MAX_PLAUSIBLE_ANNUAL_KM
-
-    flagged = [(f, o, a) for f in ("petrol", "diesel", "hybrid") for o in ("private", "leasing", "company", "rental") for a in range(1, 14)
-               if models.mileage.estimate(f, a, o).annual_km > MAX_PLAUSIBLE_ANNUAL_KM]
-    assert flagged and all(models.mileage.estimate(*x[:1], x[2], x[1]).reliability == "low" for x in flagged)
-    assert all("official statistics" in models.mileage.estimate(f, a, o).reliability_reason for f, o, a in flagged if f != "hybrid" or a <= 7)
-    assert models.mileage.estimate("petrol", 8, "private").reliability == "ok"

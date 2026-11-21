@@ -16,6 +16,11 @@ Client (`frontend/lib/mileage.ts`) and server (`GET /api/v1/predict/{plate}?odom
 
 ## How Model 2 uses the value
 
+**Model 2 of Smart_Car_Models.pdf** (the main risk panel) takes the mileage as an input, as specified: the user-reported value when given, otherwise a recorded
+odometer, otherwise the Model 1 estimate (`failure_risk.inputs.km` and `km_source` in the API). The rules below concern the **comparison model** trained on real
+inspections, which keeps its own design:
+
+
 Model 2 has four variants. The two **odometer variants** (`cold_odo`, `hist_odo`) were trained with the odometer printed on the UK MOT test, that is, **the odometer at the last annual inspection**. The rules in `services/prediction.py`:
 
 1. **The Model 1 estimate is never an input of Model 2** (unchanged architecture; the experiments of notebooks 04, 07 and 09 showed no gain). With the automatic option Model 2 runs on the registry data (and the stored inspection history, if any).
