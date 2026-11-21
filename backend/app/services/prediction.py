@@ -218,7 +218,7 @@ async def build_prediction(
         primary, source = measured, "measured"
     else:
         label = (
-            "Population-level estimate by age, fuel type and ownership, calibrated with official CBS statistics. "
+            "An estimate for similar vehicles, calibrated with official CBS statistics. "
             "The range is indicative (about 8 in 10 similar vehicles fall inside it); it is not a measurement and has not been validated for individual Israeli vehicles."
         )
         primary, source = est.km, "estimated"
@@ -260,9 +260,11 @@ async def build_prediction(
     user_note = None
     if user_km is not None:
         if odo_for_model:
-            user_note = "Not used by the risk model: it uses the odometer recorded at the last inspection instead, which is the value the model was trained on."
+            user_note = ("Used by Model 2 as the mileage. Not used by the comparison model: it uses the odometer recorded at the last inspection instead, "
+                         "which is the value it was trained on.")
         elif reported_implausible:
-            user_note = (f"Not used by the risk model: {user_km:,} km would mean more than {MAX_PLAUSIBLE_REPORTED_ANNUAL_KM:,} km per year for a {age}-year-old vehicle. "
+            user_note = (f"Not used by the risk models: {user_km:,} km would mean more than {MAX_PLAUSIBLE_REPORTED_ANNUAL_KM:,} km per year for a {age}-year-old vehicle "
+                         "(Model 2 uses the Model 1 estimate instead). "
                          "Please check the number.")
         else:
             odo_for_model, odometer_source = user_km, "user_reported"
@@ -270,10 +272,11 @@ async def build_prediction(
     result = models.risk.predict(rx)
     if user_km is not None and odometer_source == "user_reported":
         if result.covered:
-            user_note = ("Used by the risk model as the odometer at the last inspection (an approximation: it includes the driving since then). "
+            user_note = ("Used by Model 2 as the mileage, and by the comparison model as the odometer at the last inspection (an approximation: it includes the driving "
+                         "since then). "
                          "Its accuracy depends on what was typed; it is not verified.")
         else:
-            odometer_source, user_note = None, "Not used by the risk model: the model does not cover this vehicle."
+            odometer_source, user_note = None, "Used by Model 2 as the mileage. Not used by the comparison model: it does not cover this vehicle."
     mileage.user_reported_km = user_km
     mileage.user_reported_used_by_model2 = odometer_source == "user_reported" and user_km is not None
     mileage.user_reported_note = user_note
@@ -328,7 +331,9 @@ async def build_prediction(
             key = maintenance_rules.classify_record(latest_service.get("maintenance_category"), latest_service.get("description"))
             mtype = CATEGORY_TO_MAINTENANCE_TYPE.get(key or "other")
         sx = SpecRiskInputs(
-            vehicle_age=age, km=float(primary), km_source=source, fuel=features.fuel_key(profile), make=profile.make,
+            # an implausible typed value is not given to any model: Model 2 then takes the Model 1 estimate
+            vehicle_age=age, km=float(est.km if reported_implausible else primary), km_source="estimated" if reported_implausible else source,
+            fuel=features.fuel_key(profile), make=profile.make,
             days_since_last_maintenance=float((today - latest_service["service_date"]).days) if latest_service else None,
             failure_history=sum(1 for i in inspections if i["brakes"] or i["electrical"] or i["engine_emissions"] or i["other"]),
             maintenance_type=mtype,

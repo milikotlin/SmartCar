@@ -21,6 +21,41 @@ function SpecRow({ label, value, tag }: { label: string; value: ReactNode; tag?:
 }
 
 const km = (n: number) => `${n.toLocaleString("en-US")} km`;
+
+function Model1Inputs({ mileage }: { mileage: MileageInfo }) {
+  const i = mileage.model_inputs ?? {};
+  if (!Object.keys(i).length) return null;
+  const official = String(i.engine_and_transmission_source ?? "");
+  const filled = "not in the official table: filled from similar cars (KNN, K=5)";
+  const engine = i.engine_cc ? `${Number(i.engine_cc).toLocaleString("en-US")} cc` : filled;
+  const gearbox = i.automatic === null || i.automatic === undefined ? filled : Number(i.automatic) >= 0.5 ? "Automatic" : "Manual";
+  const owners = i.owner_type && i.owner_type !== "Unknown" ? String(i.owner_type) : "Unknown (not in the ownership history)";
+  const [make, model] = String(i.make_model ?? "|").split("|");
+  return (
+    <details className="mt-2 text-[12px] text-ink-soft" data-testid="model1-inputs">
+      <summary className="cursor-pointer font-medium text-ink">What Model 1 used</summary>
+      <dl className="mt-2 grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-x-3 gap-y-1">
+        <dt>Age, fuel</dt>
+        <dd className="text-right text-ink">{String(i.age)} years, {String(i.fuel).replace("lpg_cng", "LPG/CNG")} <span className="text-ink-faint">(registry)</span></dd>
+        <dt>Make and model</dt>
+        <dd className="text-right capitalize text-ink">{make} {model} <span className="normal-case text-ink-faint">(registry)</span></dd>
+        <dt>Engine size</dt>
+        <dd className="text-right text-ink">{engine}</dd>
+        <dt>Transmission</dt>
+        <dd className="text-right text-ink">{gearbox}</dd>
+        <dt>Number of owners</dt>
+        <dd className="text-right text-ink">{owners}</dd>
+        {mileage.model_raw_km !== null && (
+          <>
+            <dt>Model output before calibration</dt>
+            <dd className="text-right font-mono text-ink">{km(mileage.model_raw_km)}</dd>
+          </>
+        )}
+      </dl>
+      <p className="mt-1.5 text-ink-faint">Engine size and transmission: {official || "official model table"}. Owners: official ownership history of the Ministry of Transport.</p>
+    </details>
+  );
+}
 const mono = (children: ReactNode) => <span className="font-mono text-[13.5px]">{children}</span>;
 
 interface Props {
@@ -151,7 +186,7 @@ export function VehicleSpecCard({ vehicle, mileage, mode, onModeChange, onApply,
                   </p>
                   {mileage.user_reported_note && (
                     <p data-testid="user-reported-note" className="mt-1.5 text-[12px] leading-relaxed text-ink-soft">
-                      <strong className="font-semibold text-ink">Risk model:</strong> {mileage.user_reported_note}
+                      <strong className="font-semibold text-ink">Risk models:</strong> {mileage.user_reported_note}
                     </p>
                   )}
                 </div>
@@ -176,9 +211,9 @@ export function VehicleSpecCard({ vehicle, mileage, mode, onModeChange, onApply,
                 </p>
               )}
               <p className="mt-2 text-[12px] leading-relaxed text-ink-soft">
-                Model 1 (an XGBoost regression, chosen among Linear, Ridge, Random Forest and XGBoost) estimates this from the vehicle&apos;s age, fuel type, make and model,
-                engine size, transmission and number of owners, then calibrates it with official statistics. {mileage.label}
+                Model 1 (an XGBoost regression, chosen among Linear, Ridge, Random Forest and XGBoost) estimates this from the vehicle&apos;s characteristics. {mileage.label}
               </p>
+              <Model1Inputs mileage={mileage} />
             </div>
           )}
           {mileage.notes.length > 0 && mode === "estimate" && (

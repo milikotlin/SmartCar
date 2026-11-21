@@ -7,7 +7,7 @@ Run: 2026-11-21 against `http://localhost:8000` (live data.gov.il registry and r
 * security: record writes without / with a wrong workshop key are refused (checked), foreign CORS origin gets no permission
 * mileage selection: a typed mileage is user-reported (not a measurement, not stored), the Model 1 estimate is unchanged, invalid values are refused (checked)
 * plates with at least one open recall: 1
-* latency of `/api/v1/predict` (full request incl. live registry call): median 2.06 s cold, 54 ms with the 24 h cache
+* latency of `/api/v1/predict` (full request incl. live registry call): median 1.82 s cold, 34 ms with the 24 h cache
 * registry outages absorbed by the API's own retry and answered as 503, then retried by the test: 0
 * chat endpoint answered from: `deterministic_fallback`
 

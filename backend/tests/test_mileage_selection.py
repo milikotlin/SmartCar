@@ -111,6 +111,7 @@ async def test_implausible_user_mileage_is_shown_but_not_given_to_model2(client)
     assert m["primary_source"] == "user_reported" and m["primary_km"] == 900_000                       # still shown, as reported
     assert not m["user_reported_used_by_model2"] and "Not used by the risk model" in m["user_reported_note"] and "per year" in m["user_reported_note"]
     assert r["variant"] == "cold" and not r["uses_measured_odometer"] and r["odometer_source"] is None
+    assert b["failure_risk"]["inputs"]["km"] == m["estimated_km"] and b["failure_risk"]["inputs"]["km_source"] == "estimated"    # nor by Model 2 (PDF)
     young = await predict(client, YOUNG, odometer_km=250_000)                                          # 83,000 km per year for a 3-year-old car
     assert not young["mileage"]["user_reported_used_by_model2"] and young["inspection_risk"]["variant"] == "cold"
     ok_young = await predict(client, YOUNG, odometer_km=45_000)

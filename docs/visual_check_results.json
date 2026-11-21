@@ -30,6 +30,11 @@
   "detail": ""
  },
  {
+  "check": "desktop/Model 1: shows the inputs it used and where they came from",
+  "passed": true,
+  "detail": "What Model 1 used\nAge, fuel\n11 years, petrol (registry)\nMake and model\nToyota Auris (registry)\nEngine size\n1,798 cc\nTransmission\nAutomatic\nNumber of owners\nUnknown (not in the ownership history)\nModel"
+ },
+ {
   "check": "desktop/Model 2 (PDF): says what the level is worth when the service log is empty",
   "passed": true,
   "detail": ""
@@ -503,6 +508,11 @@
   "check": "mobile/Model 2 (PDF): main risk panel with a level, the model used and no percentage",
   "passed": true,
   "detail": ""
+ },
+ {
+  "check": "mobile/Model 1: shows the inputs it used and where they came from",
+  "passed": true,
+  "detail": "What Model 1 used\nAge, fuel\n11 years, petrol (registry)\nMake and model\nToyota Auris (registry)\nEngine size\n1,798 cc\nTransmission\nAutomatic\nNumber of owners\nUnknown (not in the ownership history)\nModel"
  },
  {
   "check": "mobile/Model 2 (PDF): says what the level is worth when the service log is empty",

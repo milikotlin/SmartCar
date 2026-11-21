@@ -107,13 +107,13 @@ export function RiskPanel({ risk }: { risk: InspectionRisk }) {
         </>
       ) : (
         <div className="mt-5 rounded-[10px] border border-dashed border-line-strong bg-paper px-5 py-6 text-[13.5px] text-ink-soft">
-          <p className="font-medium text-ink">No estimate for this vehicle</p>
+          <p className="font-medium text-ink">The comparison model has no estimate for this vehicle</p>
           <ul className="mt-1.5 list-disc pl-5">
             {risk.reasons.map((r) => (
               <li key={r}>{r}</li>
             ))}
           </ul>
-          <p className="mt-2">The model learns from petrol, diesel and hybrid cars that have already had annual inspections, between 3 and 20 years of age. For other vehicles no risk estimate is shown rather than guessing one. The estimated mileage, the recommended maintenance and the official recalls below still apply.</p>
+          <p className="mt-2">It learns from petrol, diesel and hybrid cars that have already had annual inspections, between 3 and 20 years of age; for other vehicles it shows nothing rather than guessing. Model 2 above, the estimated mileage, the recommended maintenance and the official recalls still apply.</p>
         </div>
       )}
 

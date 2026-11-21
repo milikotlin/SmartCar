@@ -89,7 +89,7 @@ export function MaintenanceHistory({ plate, maintenance, inspections, history, l
         <h2 className="text-xl font-semibold tracking-tight text-ink">Maintenance and inspection history</h2>
         <p className="mt-1 text-[13px] text-ink-soft">
           Manual records, not official data &middot; {history.maintenance_records} maintenance, {history.inspections} inspection result(s)
-          {history.history_used_by_model ? " · the last inspection result is used by the risk model" : ""}.
+          {history.history_used_by_model ? " · the last inspection result is used by the comparison model" : ""}.
         </p>
         {history.note && <p className="mt-1 text-[12px] text-warn">{history.note}</p>}
       </div>
@@ -181,6 +181,9 @@ export function MaintenanceHistory({ plate, maintenance, inspections, history, l
               <select name="category" className={inputClass}>{CATEGORIES.map((c) => <option key={c} value={c}>{c || "(none)"}</option>)}</select>
             </label>
             <label className="text-[12px] text-ink-soft">Cost<input name="cost" type="number" min={0} step="0.01" defaultValue={0} className={inputClass} /></label>
+            <p className="col-span-2 text-[12px] text-ink-soft max-[640px]:col-span-1">
+              Service records feed Model 2: the days since the last maintenance and its type are among its inputs. Without them it uses typical values.
+            </p>
             <button disabled={busy} type="submit" className="rounded-md bg-accent px-4 py-2 text-[13px] font-semibold text-accent-ink disabled:opacity-60">Save record</button>
           </form>
         ) : (
@@ -194,7 +197,8 @@ export function MaintenanceHistory({ plate, maintenance, inspections, history, l
               ))}
             </fieldset>
             <p className="col-span-2 text-[12px] text-ink-soft max-[640px]:col-span-1">
-              Only the result of the <strong>last annual inspection</strong> improves the risk estimate. A service or repair record is not equivalent and is not used as one.
+              Model 2 counts every inspection result with a defect as a past failure. The comparison model (real inspections) uses only the result of the <strong>last annual
+              inspection</strong>; a service record is not used as one.
             </p>
             <button disabled={busy} type="submit" className="rounded-md bg-accent px-4 py-2 text-[13px] font-semibold text-accent-ink disabled:opacity-60">Save inspection result</button>
           </form>

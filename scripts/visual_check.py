@@ -152,6 +152,11 @@ def main():
             record(tag("Model 2 (PDF): main risk panel with a level, the model used and no percentage"),
                    "Risk of a mechanical failure needing maintenance" in t and "MACHINE LEARNING · MODEL 2" in t.upper() and "Model used: combustion vehicles" in t
                    and any(f"{w} RISK" in t.upper() for w in ("LOW", "MODERATE", "HIGH")) and "%" not in page.js("document.querySelector('[data-testid=\"failure-risk\"] [role=\"img\"]').getAttribute('aria-label')"))
+            page.js("document.querySelector('[data-testid=\"model1-inputs\"]').open = true")
+            mi = page.js("document.querySelector('[data-testid=\"model1-inputs\"]').innerText")
+            record(tag("Model 1: shows the inputs it used and where they came from"), "What Model 1 used" in mi and "Engine size" in mi and "1,798 cc" in mi
+                   and "Automatic" in mi and "Number of owners" in mi and "before calibration" in mi, mi[:200])
+            page.shot(f"{mode}_01d_model1_inputs", "[data-testid='mileage-section']")
             record(tag("Model 2 (PDF): says what the level is worth when the service log is empty"), "What this level is worth here." in t and "no maintenance record on file" in t)
             record(tag("comparison panel: labelled as the model on real inspection data"), "COMPARISON MODEL · REAL INSPECTION DATA" in t.upper())
             page.shot(f"{mode}_01c_failure_risk", "[data-testid='failure-risk']")
@@ -180,7 +185,7 @@ def main():
             t = page.text()
             record(tag("covered/with records: measured odometer shown as MEASURED and the estimate kept for comparison"), "Recorded odometer" in t and "194,227 km" in t and "AI-Estimated Mileage (for comparison)" in t)
             record(tag("covered/with records: maintenance rows and inspection result listed"), "DEMO" in t and "Oil and filter change" in t and "ANNUAL INSPECTION RESULTS ON FILE" in t and "Manual records, not official data" in t)
-            record(tag("covered/with records: the model says the last inspection result is used"), "the last inspection result is used by the risk model" in t)
+            record(tag("covered/with records: the model says the last inspection result is used"), "the last inspection result is used by the comparison model" in t)
             record(tag("covered/with records: brake rule flags a missing service"), "NO RECORD, OVERDUE" in t)
             common_checks(page, tag("covered/with records"))
             page.shot(f"{mode}_03_records_full")
@@ -240,7 +245,7 @@ def main():
             wait(2500)
             t = section()
             record(tag("mileage: a valid value is shown as USER-REPORTED, not verified, not saved"), "User-Reported Mileage" in t and "USER-REPORTED" in t and "123,456 km" in t and "not been verified" in t and "not saved" in t)
-            record(tag("mileage: the model note says the risk model uses it as an approximation"), "Risk model:" in t and "Used by the risk model" in t and "approximation" in t)
+            record(tag("mileage: the model note says the risk model uses it as an approximation"), "Risk models:" in t and "Used by Model 2 as the mileage" in t and "approximation" in t)
             open_details()
             full = page.text()
             record(tag("mileage: the risk panel names the user-reported source"), "mileage reported by the user" in full and "Updating the results" not in full)
@@ -288,7 +293,7 @@ def main():
             # ---- 4. NOT covered: electric vehicle (Tesla)
             page.search("88328404")
             t = page.text()
-            record(tag("not covered/electric: says why and keeps the other panels"), "No estimate for this vehicle" in t and "fuel type" in t and "Recommended maintenance" in t and "Open recalls" in t and "AI-Estimated Mileage" in t)
+            record(tag("not covered/electric: says why and keeps the other panels"), "has no estimate for this vehicle" in t and "fuel type" in t and "Recommended maintenance" in t and "Open recalls" in t and "AI-Estimated Mileage" in t)
             record(tag("not covered/electric: no risk bars or levels invented"), "RELATIVE RISK" not in t and "Higher than about" not in t)
             record(tag("not covered/electric: mileage flagged low reliability (no electric training data)"), "Low reliability." in t and "electric vehicles" in t)
             record(tag("not covered/electric: no explanation of bars that do not exist"), "How to read this" not in t and "positions in a ranking" not in t)
@@ -299,7 +304,7 @@ def main():
             # ---- 5. NOT covered: new petrol car (age 0, first annual test not yet taken)
             page.search("62886204")
             t = page.text()
-            record(tag("not covered/new car: explained and no bars"), "No estimate for this vehicle" in t and "RELATIVE RISK" not in t and "first annual inspection" in t.lower())
+            record(tag("not covered/new car: explained and no bars"), "has no estimate for this vehicle" in t and "RELATIVE RISK" not in t and "first annual inspection" in t.lower())
             page.shot(f"{mode}_06_not_covered_new")
 
             # ---- 6. official recall (Toyota 2007)

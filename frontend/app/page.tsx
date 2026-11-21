@@ -154,8 +154,8 @@ function EmptyState() {
     <div className="flex flex-col items-center gap-2 rounded-[14px] border border-dashed border-line py-24 text-center">
       <p className="text-base font-medium text-ink">Look up a vehicle to get started</p>
       <p className="max-w-sm text-sm text-ink-soft">
-        Enter a 7 or 8-digit Israeli license plate above to pull a live profile from the Ministry of Transport registry, with an estimated mileage, the estimated
-        inspection-defect risk, recommended maintenance and official recalls.
+        Enter a 7 or 8-digit Israeli license plate above to pull a live profile from the Ministry of Transport registry, with the estimated mileage (Model 1), the risk
+        of a mechanical failure needing maintenance (Model 2), a comparison model trained on real inspections, recommended maintenance and official recalls.
       </p>
     </div>
   );
