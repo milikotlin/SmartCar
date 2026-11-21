@@ -14,6 +14,8 @@ All plates are **real Israeli registrations** (live data from data.gov.il). The 
 
 ## B. The script
 
+Every plate below is one click away: the **Demo** pills under the search bar (Toyota 4908732, Nissan 8878631, High risk 6224652, Anomaly 19319001, EV 88328404). The ROC-AUC table and the feature vectors are in the **ML Metrics & Feature Vector** drawer; say the caveats aloud (they are no longer printed on the dashboard).
+
 | Time | Plate | What to do | What to say |
 |---|---|---|---|
 | 0:00 | (empty page) | Show the page | "SmartCar-Ops takes a plate and shows **three different things**, never mixed: an estimated inspection-defect risk (machine learning), recommended maintenance (rules) and official recalls (facts). The card also separates official registry data from the machine-learning estimate." |

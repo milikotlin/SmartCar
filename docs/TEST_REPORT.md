@@ -24,7 +24,7 @@ The government HTTP services are replaced in `test_api.py` by recorded real regi
 
 ## 2b. Visual and functional check in a real browser (final round)
 
-`scripts/visual_check.py` drives headless **Chrome 157** through the DevTools protocol against the running stack at desktop (1280 x 900) and phone (390 x 844, mobile emulation) size, light and dark: 10 scenarios (empty, covered without records, covered with records and history, the refusal of the records form without the workshop key, chat, electric not covered, new car not covered, open recall, anomaly vehicle, unknown plate, invalid plate), **193 assertions**, horizontal-overflow and bar-geometry measurements, and 23 screenshots in `docs/screenshots/` that were looked at, not only asserted. Details, what was fixed after looking and what could not be verified: [FINAL_REPORT.md](FINAL_REPORT.md) section 2.
+`scripts/visual_check.py` drives headless **Chrome 157** through the DevTools protocol against the running stack at desktop (1280 x 900) and phone (390 x 844, mobile emulation) size, light and dark: 10 scenarios (empty, covered without records, covered with records and history, the refusal of the records form without the workshop key, chat, electric not covered, new car not covered, open recall, anomaly vehicle, unknown plate, invalid plate), **172 assertions**, horizontal-overflow and bar-geometry measurements, and 23 screenshots in `docs/screenshots/` that were looked at, not only asserted. Details, what was fixed after looking and what could not be verified: [FINAL_REPORT.md](FINAL_REPORT.md) section 2.
 
 ## 3. End-to-end with real Israeli plates (`scripts/e2e_live.py`)
 

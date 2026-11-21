@@ -1,83 +1,103 @@
 [
  {
-  "check": "desktop/empty state explains what to do",
+  "check": "1080p: Model 1 KPI, Model 2 banner and subsystem gauges above the fold",
+  "passed": true,
+  "detail": "{'m1': True, 'm2': True, 'uk': True}"
+ },
+ {
+  "check": "1080p: demo pill loaded the vehicle",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/no records: vehicle card",
+  "check": "1080p: no horizontal overflow",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/no records: Israeli wording, official data separated from the ML estimate",
+  "check": "desktop/empty state: pipeline steps and demo pills",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/no records: no Hebrew left on the page (colour translated)",
+  "check": "desktop/vehicle header: key-value grid",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/no records: mileage is labelled as an ESTIMATE with a range",
+  "check": "desktop/Model 1: KPI with XGBoost badge and 80% interval",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/Model 2 (PDF): main risk panel with a level, the model used and no percentage",
+  "check": "desktop/Model 1: inputs & breakdown (official engine CC, transmission, pre-calibration)",
+  "passed": true,
+  "detail": "Model 1 Inputs & Breakdown\n\u25be\nAge\n11 y\nFuel\npetrol\nMake / model\nToyota Auris\nEngine CC\n1,798 cc\nTransmission\nAutomatic\nOwners\nUnknown\nPre-calibration output\n77,6"
+ },
+ {
+  "check": "desktop/Model 2: risk banner with level, ICE branch and driver tags",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/Model 1: shows the inputs it used and where they came from",
-  "passed": true,
-  "detail": "What Model 1 used\nAge, fuel\n11 years, petrol (registry)\nMake and model\nToyota Auris (registry)\nEngine size\n1,798 cc\nTransmission\nAutomatic\nNumber of owners\nUnknown (not in the ownership history)\nModel"
- },
- {
-  "check": "desktop/Model 2 (PDF): says what the level is worth when the service log is empty",
+  "check": "desktop/Model 2: no percentage shown",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/comparison panel: labelled as the model on real inspection data",
+  "check": "desktop/comparison: three subsystem gauges with level and percentile",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/no records: three risk bars with level words",
+  "check": "desktop/comparison: bar segments 36/33/31 and the marker is inside the bar",
+  "passed": true,
+  "detail": "[{'w': [36, 33, 31], 'm': 65}, {'w': [36, 33, 31], 'm': 70}, {'w': [36, 33, 31], 'm': 50}]"
+ },
+ {
+  "check": "desktop/maintenance: interval and status only",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/no records: explanation says relative, not a probability, not validated",
+  "check": "desktop/recalls: crisp status",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/no records: maintenance panel (rules, not ML)",
+  "check": "desktop/service log: large actions and Save & Recalculate",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/no records: recalls panel",
+  "check": "desktop/covered: no caveat prose 'not validated'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/no records: no maintenance rows",
+  "check": "desktop/covered: no caveat prose 'synthetic'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/no records: sentences start with a capital letter",
+  "check": "desktop/covered: no caveat prose 'typical values'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered: the three bars sit at the same height inside their cards",
+  "check": "desktop/covered: no caveat prose 'how to read this'",
   "passed": true,
-  "detail": "[107, 107, 107]"
+  "detail": ""
+ },
+ {
+  "check": "desktop/covered: no caveat prose 'what this level is worth'",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/covered: no caveat prose 'not a probability'",
+  "passed": true,
+  "detail": ""
  },
  {
   "check": "desktop/covered/no records: does not contain 'times the average'",
@@ -120,37 +140,27 @@
   "detail": ""
  },
  {
-  "check": "desktop/covered: bar segments 36/33/31 and the marker is inside the bar",
+  "check": "desktop/ML drawer: ROC-AUC benchmarks, feature vector and defect rates",
   "passed": true,
-  "detail": "[{'w': [36, 33, 31], 'm': 65}, {'w': [36, 33, 31], 'm': 70}, {'w': [36, 33, 31], 'm': 50}]"
+  "detail": "ML Metrics & Feature Vector\n\u25be\nBENCHMARKS \u00b7 ROC-AUC\nMODEL\tTEST DATA\tAUC\nModel 2 (PDF), combustion\tKaggle Dataset 1 (synthetic labels)\t0.978\nModel 2 (PDF), electric / hybrid\tKaggle Dataset 5 (synthetic "
  },
  {
-  "check": "desktop/Model 2 (PDF): comparison table with synthetic and real-data rows",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/covered: details show how levels were set and observed rates",
+  "check": "desktop/records: service-record KPI and AI estimate kept",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/with records: measured odometer shown as MEASURED and the estimate kept for comparison",
+  "check": "desktop/records: DEMO rows, inspection tag and UK-model tag",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/with records: maintenance rows and inspection result listed",
+  "check": "desktop/records: brake rule flags a missing service",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/covered/with records: the model says the last inspection result is used",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/covered/with records: brake rule flags a missing service",
+  "check": "desktop/records: comparison uses history",
   "passed": true,
   "detail": ""
  },
@@ -197,7 +207,7 @@
  {
   "check": "desktop/records form: refuses without a workshop key",
   "passed": true,
-  "detail": "Enter the workshop key first: only authorised workshops can add records."
+  "detail": "Enter the workshop key first"
  },
  {
   "check": "desktop/records form: a wrong key is rejected by the server",
@@ -220,87 +230,72 @@
   "detail": ""
  },
  {
-  "check": "desktop/mileage: the automatic estimate is selected first",
+  "check": "desktop/mileage: AI estimate selected first, large segmented toggle",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/mileage: option 1 shows the field, the button and no number yet",
+  "check": "desktop/mileage: known-mileage field and button, no number yet",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/mileage: invalid input '' is refused with a clear message",
+  "check": "desktop/mileage: invalid input '' refused",
   "passed": true,
   "detail": "Enter your current mileage in kilometres."
  },
  {
-  "check": "desktop/mileage: invalid input '-5' is refused with a clear message",
+  "check": "desktop/mileage: invalid input '-5' refused",
   "passed": true,
   "detail": "Mileage cannot be negative."
  },
  {
-  "check": "desktop/mileage: invalid input 'abc' is refused with a clear message",
+  "check": "desktop/mileage: invalid input 'abc' refused",
   "passed": true,
   "detail": "Use whole kilometres, digits only (for example 123456)."
  },
  {
-  "check": "desktop/mileage: invalid input '12.5' is refused with a clear message",
+  "check": "desktop/mileage: invalid input '12.5' refused",
   "passed": true,
   "detail": "Use whole kilometres, digits only (for example 123456)."
  },
  {
-  "check": "desktop/mileage: invalid input '0' is refused with a clear message",
+  "check": "desktop/mileage: invalid input '0' refused",
   "passed": true,
   "detail": "Mileage must be at least 1 km."
  },
  {
-  "check": "desktop/mileage: invalid input '5000000' is refused with a clear message",
+  "check": "desktop/mileage: invalid input '5000000' refused",
   "passed": true,
   "detail": "That is higher than 1,000,000 km. Please check the number."
  },
  {
-  "check": "desktop/mileage: a valid value is shown as USER-REPORTED, not verified, not saved",
+  "check": "desktop/mileage: valid value shown as user-reported, used by both models",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/mileage: the model note says the risk model uses it as an approximation",
+  "check": "desktop/mileage: implausible value used by neither model",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/mileage: the risk panel names the user-reported source",
+  "check": "desktop/mileage: back to the estimate leaves no typed value on screen",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/mileage: no horizontal overflow with a user-reported value",
+  "check": "desktop/mileage: while loading the screen says so and the old risk is not left as current",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/mileage: an implausible value is shown but flagged as NOT used by the risk model",
+  "check": "desktop/mileage: switching back during a slow request ends on the estimate",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/mileage: back to the estimate leaves no user-reported value on screen",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/mileage: while the new result loads the screen says so and the old risk panel is not left as current",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/mileage: switching back during a slow request ends on the estimate (the late answer was discarded)",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/mileage: the risk panel is back after the slow switch",
+  "check": "desktop/mileage: gauges back after the slow switch",
   "passed": true,
   "detail": ""
  },
@@ -345,127 +340,87 @@
   "detail": ""
  },
  {
-  "check": "desktop/hybrid aged 9: Model 1 flags LOW RELIABILITY with the reason",
+  "check": "desktop/hybrid aged 9: low-reliability badge with a short reason",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/hybrid aged 9: no exaggerated yearly mileage is shown",
+  "check": "desktop/hybrid aged 9: no exaggerated yearly mileage",
   "passed": true,
   "detail": "16300"
  },
  {
-  "check": "desktop/hybrid aged 9: does not contain 'times the average'",
+  "check": "desktop/hybrid aged 9: Model 2 uses the EV / hybrid branch",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/hybrid aged 9: does not contain 'x the average'",
+  "check": "desktop/electric: comparison 'Not covered' with a chip, other panels kept",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/hybrid aged 9: does not contain 'probability of failure'",
+  "check": "desktop/electric: no gauges invented",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/hybrid aged 9: does not contain 'chance of failure'",
+  "check": "desktop/electric: Model 1 low reliability (no EV data)",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/hybrid aged 9: does not contain '% chance'",
+  "check": "desktop/electric: does not contain 'times the average'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/hybrid aged 9: does not contain 'will fail'",
+  "check": "desktop/electric: does not contain 'x the average'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/hybrid aged 9: does not contain 'failure risk'",
+  "check": "desktop/electric: does not contain 'probability of failure'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/hybrid aged 9: no horizontal overflow",
+  "check": "desktop/electric: does not contain 'chance of failure'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/not covered/electric: says why and keeps the other panels",
+  "check": "desktop/electric: does not contain '% chance'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/not covered/electric: no risk bars or levels invented",
+  "check": "desktop/electric: does not contain 'will fail'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/not covered/electric: mileage flagged low reliability (no electric training data)",
+  "check": "desktop/electric: does not contain 'failure risk'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/not covered/electric: no explanation of bars that do not exist",
+  "check": "desktop/electric: no horizontal overflow",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/not covered/electric: does not contain 'times the average'",
+  "check": "desktop/new car: comparison not covered, 'Under 3 years'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/not covered/electric: does not contain 'x the average'",
+  "check": "desktop/recall: open recall listed",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "desktop/not covered/electric: does not contain 'probability of failure'",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/not covered/electric: does not contain 'chance of failure'",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/not covered/electric: does not contain '% chance'",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/not covered/electric: does not contain 'will fail'",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/not covered/electric: does not contain 'failure risk'",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/not covered/electric: no horizontal overflow",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/not covered/new car: explained and no bars",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/recall: open recall listed as an official fact",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "desktop/anomaly vehicle: brake rule flagged from the measured odometer",
+  "check": "desktop/anomaly: brake rule flagged from the service record",
   "passed": true,
   "detail": ""
  },
@@ -480,84 +435,89 @@
   "detail": ""
  },
  {
-  "check": "mobile/empty state explains what to do",
+  "check": "mobile/empty state: pipeline steps and demo pills",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/no records: vehicle card",
+  "check": "mobile/vehicle header: key-value grid",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/no records: Israeli wording, official data separated from the ML estimate",
+  "check": "mobile/Model 1: KPI with XGBoost badge and 80% interval",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/no records: no Hebrew left on the page (colour translated)",
+  "check": "mobile/Model 1: inputs & breakdown (official engine CC, transmission, pre-calibration)",
+  "passed": true,
+  "detail": "Model 1 Inputs & Breakdown\n\u25be\nAge\n11 y\nFuel\npetrol\nMake / model\nToyota Auris\nEngine CC\n1,798 cc\nTransmission\nAutomatic\nOwners\nUnknown\nPre-calibration output\n77,6"
+ },
+ {
+  "check": "mobile/Model 2: risk banner with level, ICE branch and driver tags",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/no records: mileage is labelled as an ESTIMATE with a range",
+  "check": "mobile/Model 2: no percentage shown",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/Model 2 (PDF): main risk panel with a level, the model used and no percentage",
+  "check": "mobile/comparison: three subsystem gauges with level and percentile",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/Model 1: shows the inputs it used and where they came from",
+  "check": "mobile/comparison: bar segments 36/33/31 and the marker is inside the bar",
   "passed": true,
-  "detail": "What Model 1 used\nAge, fuel\n11 years, petrol (registry)\nMake and model\nToyota Auris (registry)\nEngine size\n1,798 cc\nTransmission\nAutomatic\nNumber of owners\nUnknown (not in the ownership history)\nModel"
+  "detail": "[{'w': [36, 33, 31], 'm': 65}, {'w': [36, 33, 31], 'm': 70}, {'w': [36, 33, 31], 'm': 50}]"
  },
  {
-  "check": "mobile/Model 2 (PDF): says what the level is worth when the service log is empty",
+  "check": "mobile/maintenance: interval and status only",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/comparison panel: labelled as the model on real inspection data",
+  "check": "mobile/recalls: crisp status",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/no records: three risk bars with level words",
+  "check": "mobile/service log: large actions and Save & Recalculate",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/no records: explanation says relative, not a probability, not validated",
+  "check": "mobile/covered: no caveat prose 'not validated'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/no records: maintenance panel (rules, not ML)",
+  "check": "mobile/covered: no caveat prose 'synthetic'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/no records: recalls panel",
+  "check": "mobile/covered: no caveat prose 'typical values'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/no records: no maintenance rows",
+  "check": "mobile/covered: no caveat prose 'how to read this'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/no records: sentences start with a capital letter",
+  "check": "mobile/covered: no caveat prose 'what this level is worth'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered: the three bars sit at the same height inside their cards",
+  "check": "mobile/covered: no caveat prose 'not a probability'",
   "passed": true,
-  "detail": "[107, 107, 107]"
+  "detail": ""
  },
  {
   "check": "mobile/covered/no records: does not contain 'times the average'",
@@ -600,37 +560,27 @@
   "detail": ""
  },
  {
-  "check": "mobile/covered: bar segments 36/33/31 and the marker is inside the bar",
+  "check": "mobile/ML drawer: ROC-AUC benchmarks, feature vector and defect rates",
   "passed": true,
-  "detail": "[{'w': [36, 33, 31], 'm': 65}, {'w': [36, 33, 31], 'm': 70}, {'w': [36, 33, 31], 'm': 50}]"
+  "detail": "ML Metrics & Feature Vector\n\u25be\nBENCHMARKS \u00b7 ROC-AUC\nMODEL\tTEST DATA\tAUC\nModel 2 (PDF), combustion\tKaggle Dataset 1 (synthetic labels)\t0.978\nModel 2 (PDF), electric / hybrid\tKaggle Dataset 5 (synthetic "
  },
  {
-  "check": "mobile/Model 2 (PDF): comparison table with synthetic and real-data rows",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/covered: details show how levels were set and observed rates",
+  "check": "mobile/records: service-record KPI and AI estimate kept",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/with records: measured odometer shown as MEASURED and the estimate kept for comparison",
+  "check": "mobile/records: DEMO rows, inspection tag and UK-model tag",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/with records: maintenance rows and inspection result listed",
+  "check": "mobile/records: brake rule flags a missing service",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/covered/with records: the model says the last inspection result is used",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/covered/with records: brake rule flags a missing service",
+  "check": "mobile/records: comparison uses history",
   "passed": true,
   "detail": ""
  },
@@ -677,7 +627,7 @@
  {
   "check": "mobile/records form: refuses without a workshop key",
   "passed": true,
-  "detail": "Enter the workshop key first: only authorised workshops can add records."
+  "detail": "Enter the workshop key first"
  },
  {
   "check": "mobile/records form: a wrong key is rejected by the server",
@@ -700,87 +650,72 @@
   "detail": ""
  },
  {
-  "check": "mobile/mileage: the automatic estimate is selected first",
+  "check": "mobile/mileage: AI estimate selected first, large segmented toggle",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/mileage: option 1 shows the field, the button and no number yet",
+  "check": "mobile/mileage: known-mileage field and button, no number yet",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/mileage: invalid input '' is refused with a clear message",
+  "check": "mobile/mileage: invalid input '' refused",
   "passed": true,
   "detail": "Enter your current mileage in kilometres."
  },
  {
-  "check": "mobile/mileage: invalid input '-5' is refused with a clear message",
+  "check": "mobile/mileage: invalid input '-5' refused",
   "passed": true,
   "detail": "Mileage cannot be negative."
  },
  {
-  "check": "mobile/mileage: invalid input 'abc' is refused with a clear message",
+  "check": "mobile/mileage: invalid input 'abc' refused",
   "passed": true,
   "detail": "Use whole kilometres, digits only (for example 123456)."
  },
  {
-  "check": "mobile/mileage: invalid input '12.5' is refused with a clear message",
+  "check": "mobile/mileage: invalid input '12.5' refused",
   "passed": true,
   "detail": "Use whole kilometres, digits only (for example 123456)."
  },
  {
-  "check": "mobile/mileage: invalid input '0' is refused with a clear message",
+  "check": "mobile/mileage: invalid input '0' refused",
   "passed": true,
   "detail": "Mileage must be at least 1 km."
  },
  {
-  "check": "mobile/mileage: invalid input '5000000' is refused with a clear message",
+  "check": "mobile/mileage: invalid input '5000000' refused",
   "passed": true,
   "detail": "That is higher than 1,000,000 km. Please check the number."
  },
  {
-  "check": "mobile/mileage: a valid value is shown as USER-REPORTED, not verified, not saved",
+  "check": "mobile/mileage: valid value shown as user-reported, used by both models",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/mileage: the model note says the risk model uses it as an approximation",
+  "check": "mobile/mileage: implausible value used by neither model",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/mileage: the risk panel names the user-reported source",
+  "check": "mobile/mileage: back to the estimate leaves no typed value on screen",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/mileage: no horizontal overflow with a user-reported value",
+  "check": "mobile/mileage: while loading the screen says so and the old risk is not left as current",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/mileage: an implausible value is shown but flagged as NOT used by the risk model",
+  "check": "mobile/mileage: switching back during a slow request ends on the estimate",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/mileage: back to the estimate leaves no user-reported value on screen",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/mileage: while the new result loads the screen says so and the old risk panel is not left as current",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/mileage: switching back during a slow request ends on the estimate (the late answer was discarded)",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/mileage: the risk panel is back after the slow switch",
+  "check": "mobile/mileage: gauges back after the slow switch",
   "passed": true,
   "detail": ""
  },
@@ -825,127 +760,87 @@
   "detail": ""
  },
  {
-  "check": "mobile/hybrid aged 9: Model 1 flags LOW RELIABILITY with the reason",
+  "check": "mobile/hybrid aged 9: low-reliability badge with a short reason",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/hybrid aged 9: no exaggerated yearly mileage is shown",
+  "check": "mobile/hybrid aged 9: no exaggerated yearly mileage",
   "passed": true,
   "detail": "16300"
  },
  {
-  "check": "mobile/hybrid aged 9: does not contain 'times the average'",
+  "check": "mobile/hybrid aged 9: Model 2 uses the EV / hybrid branch",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/hybrid aged 9: does not contain 'x the average'",
+  "check": "mobile/electric: comparison 'Not covered' with a chip, other panels kept",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/hybrid aged 9: does not contain 'probability of failure'",
+  "check": "mobile/electric: no gauges invented",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/hybrid aged 9: does not contain 'chance of failure'",
+  "check": "mobile/electric: Model 1 low reliability (no EV data)",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/hybrid aged 9: does not contain '% chance'",
+  "check": "mobile/electric: does not contain 'times the average'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/hybrid aged 9: does not contain 'will fail'",
+  "check": "mobile/electric: does not contain 'x the average'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/hybrid aged 9: does not contain 'failure risk'",
+  "check": "mobile/electric: does not contain 'probability of failure'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/hybrid aged 9: no horizontal overflow",
+  "check": "mobile/electric: does not contain 'chance of failure'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/not covered/electric: says why and keeps the other panels",
+  "check": "mobile/electric: does not contain '% chance'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/not covered/electric: no risk bars or levels invented",
+  "check": "mobile/electric: does not contain 'will fail'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/not covered/electric: mileage flagged low reliability (no electric training data)",
+  "check": "mobile/electric: does not contain 'failure risk'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/not covered/electric: no explanation of bars that do not exist",
+  "check": "mobile/electric: no horizontal overflow",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/not covered/electric: does not contain 'times the average'",
+  "check": "mobile/new car: comparison not covered, 'Under 3 years'",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/not covered/electric: does not contain 'x the average'",
+  "check": "mobile/recall: open recall listed",
   "passed": true,
   "detail": ""
  },
  {
-  "check": "mobile/not covered/electric: does not contain 'probability of failure'",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/not covered/electric: does not contain 'chance of failure'",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/not covered/electric: does not contain '% chance'",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/not covered/electric: does not contain 'will fail'",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/not covered/electric: does not contain 'failure risk'",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/not covered/electric: no horizontal overflow",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/not covered/new car: explained and no bars",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/recall: open recall listed as an official fact",
-  "passed": true,
-  "detail": ""
- },
- {
-  "check": "mobile/anomaly vehicle: brake rule flagged from the measured odometer",
+  "check": "mobile/anomaly: brake rule flagged from the service record",
   "passed": true,
   "detail": ""
  },

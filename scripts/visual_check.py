@@ -127,9 +127,43 @@ def common_checks(page, label):
     record(f"{label}: no horizontal overflow", not page.overflow())
 
 
+FLUFF = ["not validated", "synthetic", "typical values", "how to read this", "what this level is worth", "not a probability"]
+
+
+def no_fluff(page, label):
+    """The defence UI shows labels and badges, not caveat paragraphs (they live in docs/ and the ML drawer's numbers)."""
+    t = page.js("[...document.querySelectorAll('main article, main section:not([data-testid=\"ml-metrics\"] *)')].filter(e => !e.closest('[data-testid=\"ml-metrics\"]')).map(e => e.innerText).join(' ')").lower()
+    for f in FLUFF:
+        record(f"{label}: no caveat prose '{f}'", f not in t)
+
+
+def click(page, selector):
+    page.js("document.querySelector(%s).click()" % json.dumps(selector))
+
+
+def wait(page, ms):
+    page.js("new Promise(r => setTimeout(r, %d))" % ms)
+
+
 def main():
     page = Page()
     try:
+        # ---- presentation screen (1920 x 1080): the two-stage pipeline is visible without scrolling
+        page.device(1920, 1080, False)
+        page.scheme(True)
+        page.open()
+        wait(page, 4000)                                   # let React hydrate before the first click
+        click(page, "button[data-demo-plate='8878631']")
+        wait(page, 9000)
+        fold = page.js("""(() => { const vis = s => { const e = document.querySelector(s); return e ? e.getBoundingClientRect().bottom <= innerHeight : false; };
+            return {m1: vis('[data-testid="ai-estimate"] p'), m2: vis('[data-testid="failure-risk"]'), uk: vis('[data-testid^="risk-"]')}; })()""")
+        record("1080p: Model 1 KPI, Model 2 banner and subsystem gauges above the fold", all(fold.values()), str(fold))
+        record("1080p: demo pill loaded the vehicle", "Nissan MICRA" in page.text())
+        record("1080p: no horizontal overflow", not page.overflow())
+        page.shot("presentation_1080p_dark", viewport=True)
+        page.scheme(False)
+        page.shot("presentation_1080p_light", viewport=True)
+
         for mode, (w, h, mobile) in (("desktop", (1280, 900, False)), ("mobile", (390, 844, True))):
             page.device(w, h, mobile)
             page.scheme(False)
@@ -138,194 +172,167 @@ def main():
             # ---- 0. empty state
             page.open()
             t = page.text()
-            record(tag("empty state explains what to do"), "Look up a vehicle" in t)
+            record(tag("empty state: pipeline steps and demo pills"), "Look up a vehicle" in t and "Model 1" in t and "Model 2" in t and page.js("document.querySelectorAll('[data-demo-plate]').length") >= 4)
             page.shot(f"{mode}_00_empty")
 
             # ---- 1. covered vehicle, no records (Toyota Auris 2015)
             page.search("4908732")
             t = page.text()
-            record(tag("covered/no records: vehicle card"), "Toyota" in t and "2015" in t and "Petrol" in t)
-            record(tag("covered/no records: Israeli wording, official data separated from the ML estimate"), "Last annual test (date)" in t and "Last MOT" not in t and "OFFICIAL REGISTRY DATA" in t.upper()
-                   and "not its result" in t and "AI-Estimated Mileage" in t and "MILEAGE" in t.upper())
-            record(tag("covered/no records: no Hebrew left on the page (colour translated)"), not __import__("re").search(r"[֐-׿]", t), t[:0])
-            record(tag("covered/no records: mileage is labelled as an ESTIMATE with a range"), "AI-Estimated Mileage" in t and "Indicative range (80%)" in t and "not a measurement" in t and "I know my car's mileage" in t and "I don't know my car's mileage" in t)
-            record(tag("Model 2 (PDF): main risk panel with a level, the model used and no percentage"),
-                   "Risk of a mechanical failure needing maintenance" in t and "MACHINE LEARNING · MODEL 2" in t.upper() and "Model used: combustion vehicles" in t
-                   and any(f"{w} RISK" in t.upper() for w in ("LOW", "MODERATE", "HIGH")) and "%" not in page.js("document.querySelector('[data-testid=\"failure-risk\"] [role=\"img\"]').getAttribute('aria-label')"))
+            record(tag("vehicle header: key-value grid"), all(k in t.upper() for k in ("YEAR", "FUEL", "OWNERSHIP", "COLOR", "LAST TEST", "LICENSE VALID")) and "Toyota" in t and "White (ivory)" in t)
+            record(tag("Model 1: KPI with XGBoost badge and 80% interval"), "XGBoost Regressor" in t and "80% Confidence Interval" in t and page.js("!!document.querySelector('[data-testid=\"ai-estimate\"]')"))
             page.js("document.querySelector('[data-testid=\"model1-inputs\"]').open = true")
             mi = page.js("document.querySelector('[data-testid=\"model1-inputs\"]').innerText")
-            record(tag("Model 1: shows the inputs it used and where they came from"), "What Model 1 used" in mi and "Engine size" in mi and "1,798 cc" in mi
-                   and "Automatic" in mi and "Number of owners" in mi and "before calibration" in mi, mi[:200])
+            record(tag("Model 1: inputs & breakdown (official engine CC, transmission, pre-calibration)"), "Engine CC" in mi and "1,798 cc" in mi and "Automatic" in mi and "Pre-calibration output" in mi, mi[:160])
             page.shot(f"{mode}_01d_model1_inputs", "[data-testid='mileage-section']")
-            record(tag("Model 2 (PDF): says what the level is worth when the service log is empty"), "What this level is worth here." in t and "no maintenance record on file" in t)
-            record(tag("comparison panel: labelled as the model on real inspection data"), "COMPARISON MODEL · REAL INSPECTION DATA" in t.upper())
+            fr = page.js("document.querySelector('[data-testid=\"failure-risk\"]').innerText")
+            record(tag("Model 2: risk banner with level, ICE branch and driver tags"), any(f"{l} RISK" in fr.upper() for l in ("LOW", "MODERATE", "HIGH")) and "ICE Engine Pipeline" in fr
+                   and "Days since service" in fr and "Brand index" in fr and "Age" in fr)
+            record(tag("Model 2: no percentage shown"), "%" not in fr)
             page.shot(f"{mode}_01c_failure_risk", "[data-testid='failure-risk']")
-            record(tag("covered/no records: three risk bars with level words"), t.count("RELATIVE RISK") == 3 and "Higher than about" in t and "Compared with vehicles aged" in t)
-            record(tag("covered/no records: explanation says relative, not a probability, not validated"), "relative level" in t and "not a probability" in t and "not been validated for Israeli" in t)
-            record(tag("covered/no records: maintenance panel (rules, not ML)"), "Recommended maintenance" in t and "NO RECORD" in t and "Generic service intervals" in t)
-            record(tag("covered/no records: recalls panel"), "Open recalls" in t and ("No open recall" in t or "Open recall" in t))
-            record(tag("covered/no records: no maintenance rows"), "No maintenance records for this vehicle yet" in t)
-            record(tag("covered/no records: sentences start with a capital letter"), ". vehicle is" not in t and "Vehicle is 11 years old" in t)
-            heights = page.js("[...document.querySelectorAll('[data-testid^=\"risk-\"]')].map(c => Math.round(c.querySelector('[role=\"img\"]').getBoundingClientRect().top - c.getBoundingClientRect().top))")
-            record(tag("covered: the three bars sit at the same height inside their cards"), len(set(heights)) == 1 or mobile, str(heights))
-            page.shot(f"{mode}_01b_maintenance", "section:has(h2)")
+            record(tag("comparison: three subsystem gauges with level and percentile"), page.js("document.querySelectorAll('[data-testid^=\"risk-\"]').length") == 3 and t.count("percentile") >= 3 and "Subsystem Risk" in t)
+            geo = page.js("""[...document.querySelectorAll('[data-testid^="risk-"]')].map(c => { const bar = c.querySelector('[role="img"]'); const segs = [...bar.querySelectorAll('.flex.h-3 > div')]; const bw = bar.getBoundingClientRect().width; const mk = bar.querySelector('[aria-hidden="true"]').getBoundingClientRect(); return {w: segs.map(s => Math.round(s.getBoundingClientRect().width / bw * 100)), m: Math.round((mk.left + mk.width / 2 - bar.getBoundingClientRect().left) / bw * 100)}; })""")
+            record(tag("comparison: bar segments 36/33/31 and the marker is inside the bar"), all(g["w"] == [36, 33, 31] and 0 <= g["m"] <= 100 for g in geo), str(geo))
+            record(tag("maintenance: interval and status only"), "Recommended Maintenance" in t and "Every 12m / 15,000 km" in t and "NO RECORD" in t.upper() and "Generic service intervals" not in t)
+            record(tag("recalls: crisp status"), "Open Recalls" in t and ("No open recalls" in t or "OPEN RECALL" in t.upper()))
+            record(tag("service log: large actions and Save & Recalculate"), "Add Maintenance Record" in t and "Add Inspection Result" in t and "Save & Recalculate Risk" in t and "No service records" in t)
+            no_fluff(page, tag("covered"))
             common_checks(page, tag("covered/no records"))
             page.shot(f"{mode}_01_covered_full")
-            page.shot(f"{mode}_01_covered_risk", "article:has([data-testid^='risk-'])")
-            geo = page.js("""[...document.querySelectorAll('[data-testid^="risk-"]')].map(c => { const bar = c.querySelector('[role="img"]'); const segs = [...bar.querySelectorAll('.flex.h-3 > div')]; const bw = bar.getBoundingClientRect().width; const mk = bar.querySelector('[aria-hidden="true"]').getBoundingClientRect(); return {w: segs.map(s => Math.round(s.getBoundingClientRect().width / bw * 100)), m: Math.round((mk.left + mk.width / 2 - bar.getBoundingClientRect().left) / bw * 100)}; })""")
-            record(tag("covered: bar segments 36/33/31 and the marker is inside the bar"), all(g["w"] == [36, 33, 31] and 0 <= g["m"] <= 100 for g in geo), str(geo))
-            page.js("document.querySelectorAll('details').forEach(d => d.open = true)")
-            t2 = page.text()
-            record(tag("Model 2 (PDF): comparison table with synthetic and real-data rows"), "How well each model ranks vehicles" in t2 and "real UK MOT inspections" in t2 and "Age only (baseline)" in t2)
-            record(tag("covered: details show how levels were set and observed rates"), "How often a defect was found at the next inspection" in t2 and "about" in t2 and "not a forecast for this vehicle" in t2)
-            page.shot(f"{mode}_02_risk_details", "article:has([data-testid^='risk-'])")
+            page.js("document.querySelector('[data-testid=\"ml-metrics\"]').open = true")
+            dm = page.js("document.querySelector('[data-testid=\"ml-metrics\"]').innerText")
+            record(tag("ML drawer: ROC-AUC benchmarks, feature vector and defect rates"), "benchmarks" in dm.lower() and "0.978" in dm and "real UK MOT inspections" in dm and "Age only (baseline)" in dm
+                   and "feature vector" in dm.lower() and "brand_reliability_index" in dm and "Median-imputed" in dm and "defect rate by level" in dm.lower(), dm[:200])
+            page.shot(f"{mode}_02_ml_drawer", "[data-testid='ml-metrics']")
 
             # ---- 2. covered, with maintenance records and the last inspection result (seeded demo vehicle)
             page.search("6224652")
             t = page.text()
-            record(tag("covered/with records: measured odometer shown as MEASURED and the estimate kept for comparison"), "Recorded odometer" in t and "194,227 km" in t and "AI-Estimated Mileage (for comparison)" in t)
-            record(tag("covered/with records: maintenance rows and inspection result listed"), "DEMO" in t and "Oil and filter change" in t and "ANNUAL INSPECTION RESULTS ON FILE" in t and "Manual records, not official data" in t)
-            record(tag("covered/with records: the model says the last inspection result is used"), "the last inspection result is used by the comparison model" in t)
-            record(tag("covered/with records: brake rule flags a missing service"), "NO RECORD, OVERDUE" in t)
+            record(tag("records: service-record KPI and AI estimate kept"), "Service record" in t and "194,227 km" in t and "AI estimate" in t)
+            record(tag("records: DEMO rows, inspection tag and UK-model tag"), "DEMO" in t and "Oil and filter change" in t and "Inspection " in t and "Last inspection → UK model" in t)
+            record(tag("records: brake rule flags a missing service"), "NO RECORD · OVERDUE" in t.upper())
+            record(tag("records: comparison uses history"), "+ Inspection + odometer" in t or "+ Last inspection" in t)
             common_checks(page, tag("covered/with records"))
             page.shot(f"{mode}_03_records_full")
 
-            # ---- 2b. writing records needs the workshop key (the form must refuse without it and with a wrong one)
+            # ---- 2b. writing records needs the workshop key
             fill = """(async (key) => { const set = (el, v) => { Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(el, v); el.dispatchEvent(new Event('input', {bubbles: true})); };
               const form = [...document.querySelectorAll('form')].find(f => f.querySelector('input[name=description]'));
               set(document.querySelector('input[aria-label="Workshop key"]'), key);
               set(form.querySelector('input[name=date]'), '2026-01-15'); set(form.querySelector('input[name=km]'), '61000'); set(form.querySelector('input[name=description]'), 'visual check, must not be stored');
-              form.requestSubmit(); await new Promise(r => setTimeout(r, 1500)); return document.querySelector('[role=status]') ? document.querySelector('[role=status]').innerText : ''; })"""
+              form.requestSubmit(); await new Promise(r => setTimeout(r, 1500)); return document.querySelector('[data-testid="service-log"] [role=status]') ? document.querySelector('[data-testid="service-log"] [role=status]').innerText : ''; })"""
             msg = page.js(fill + "('')")
             record(tag("records form: refuses without a workshop key"), "Enter the workshop key first" in msg, msg)
             msg = page.js(fill + "('definitely-wrong-key')")
             record(tag("records form: a wrong key is rejected by the server"), "invalid workshop key" in msg.lower(), msg)
             record(tag("records form: nothing was stored"), "must not be stored" not in page.text())
             page.js("(() => { const i = document.querySelector('input[aria-label=\"Workshop key\"]'); Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(i, ''); i.dispatchEvent(new Event('input', {bubbles: true})); })()")
-            page.shot(f"{mode}_03b_key_refused", "section:has(form)")
+            page.shot(f"{mode}_03b_service_log", "[data-testid='service-log']")
 
             # ---- 3. chat on that vehicle (no OpenAI key configured in the stack)
             page.js("document.querySelector('button[aria-label^=\"Open the AI\"]').click()")
-            page.js("new Promise(r => setTimeout(r, 600))")
+            wait(page, 600)
             page.js("""(async () => { const i = document.querySelector('input[aria-label="Describe a symptom"]');
               Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(i, 'Hearing a squeaking noise when braking');
               i.dispatchEvent(new Event('input', {bubbles: true})); i.closest('form').requestSubmit(); })()""")
-            page.js("new Promise(r => setTimeout(r, 5000))")
+            wait(page, 5000)
             dlg = page.js("document.querySelector('[role=dialog]') ? document.querySelector('[role=dialog]').innerText : ''")
-            record(tag("chat: answers and says it is rule-based when the model is unavailable"), "Rule-based answer" in dlg and "not a diagnosis" in dlg and "qualified mechanic" in dlg)
+            record(tag("chat: answers and says it is rule-based when the model is unavailable"), "Rule-based answer" in dlg and "not a diagnosis" in dlg)
             record(tag("chat: fits the screen"), not page.overflow())
             page.shot(f"{mode}_04_chat", viewport=True)
             page.js("document.querySelector('button[aria-label^=\"Close the AI\"]').click()")
 
-            # ---- 2c. mileage selection: "I know my car's mileage" (user-reported) against "I don't know" (Model 1), on a vehicle without records (4908732)
+            # ---- 2c. mileage selection: segmented toggle
             page.search("4908732")
-            js_click = lambda sel: page.js("document.querySelector(%s).click()" % json.dumps(sel))
-            wait = lambda ms: page.js("new Promise(r => setTimeout(r, %d))" % ms)
-            fill = lambda value: page.js("""(() => { const i = document.querySelector('[data-testid="mileage-section"] input[type="text"]');
+            fill_km = lambda value: page.js("""(() => { const i = document.querySelector('#known-mileage');
               Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(i, %s); i.dispatchEvent(new Event('input', {bubbles: true})); })()""" % json.dumps(value))
             submit = lambda: page.js("document.querySelector('[data-testid=\"mileage-section\"] form').requestSubmit()")
             section = lambda: page.js("document.querySelector('[data-testid=\"mileage-section\"]').innerText")
-            open_details = lambda: page.js("document.querySelectorAll('details').forEach(d => d.open = true)")
-            t = page.text()
-            record(tag("mileage: the automatic estimate is selected first"), page.js("document.querySelector('input[name=\"mileage-mode\"][value=\"estimate\"]').checked") is True and "AI-Estimated Mileage" in t and "Model 1 (an XGBoost regression" in t)
-            page.shot(f"{mode}_05c_mileage_estimate", "[data-testid='mileage-section']")
-            js_click('input[name="mileage-mode"][value="reported"]')
-            wait(300)
+            record(tag("mileage: AI estimate selected first, large segmented toggle"), page.js("document.querySelector('button[data-mode=\"estimate\"]').getAttribute('aria-checked')") == "true"
+                   and page.js("document.querySelector('button[data-mode=\"estimate\"]').getBoundingClientRect().height") >= 48)
+            click(page, "button[data-mode='reported']")
+            wait(page, 300)
             t = section()
-            record(tag("mileage: option 1 shows the field, the button and no number yet"), "Enter your current mileage (km)" in t and "Use This Mileage" in t and "No mileage entered yet" in t and "AI-Estimated Mileage" not in t)
+            record(tag("mileage: known-mileage field and button, no number yet"), "Use Mileage" in t and "No mileage entered" in t and page.js("!!document.querySelector('#known-mileage')"))
             for value, expected in (("", "Enter your current mileage in kilometres."), ("-5", "cannot be negative"), ("abc", "digits only"), ("12.5", "digits only"), ("0", "at least 1 km"), ("5000000", "higher than 1,000,000 km")):
-                fill(value)
+                fill_km(value)
                 submit()
-                wait(200)
-                err = page.js("(document.querySelector('[data-testid=\"mileage-section\"] [role=\"alert\"]') || {}).innerText || ''")
-                record(tag(f"mileage: invalid input {value!r} is refused with a clear message"), expected in err and "User-Reported Mileage" not in section(), err)
-            page.shot(f"{mode}_05d_mileage_invalid", "[data-testid='mileage-section']")
-            fill("123456")
+                wait(page, 200)
+                err = page.js("(document.querySelector('#mileage-error') || {}).innerText || ''")
+                record(tag(f"mileage: invalid input {value!r} refused"), expected in err and "User-reported" not in section(), err)
+            fill_km("123456")
             submit()
-            wait(2500)
+            wait(page, 2500)
             t = section()
-            record(tag("mileage: a valid value is shown as USER-REPORTED, not verified, not saved"), "User-Reported Mileage" in t and "USER-REPORTED" in t and "123,456 km" in t and "not been verified" in t and "not saved" in t)
-            record(tag("mileage: the model note says the risk model uses it as an approximation"), "Risk models:" in t and "Used by Model 2 as the mileage" in t and "approximation" in t)
-            open_details()
-            full = page.text()
-            record(tag("mileage: the risk panel names the user-reported source"), "mileage reported by the user" in full and "Updating the results" not in full)
-            record(tag("mileage: no horizontal overflow with a user-reported value"), not page.overflow())
+            record(tag("mileage: valid value shown as user-reported, used by both models"), "123,456 km" in t and "User-reported" in t and "Not verified · not saved" in t and "Model 2 input ✓" in t and "UK model input ✓" in t)
             page.shot(f"{mode}_05e_mileage_user_reported", "[data-testid='mileage-section']")
-            fill("900000")
+            fill_km("900000")
             submit()
-            wait(2500)
+            wait(page, 2500)
             t = section()
-            record(tag("mileage: an implausible value is shown but flagged as NOT used by the risk model"), "900,000 km" in t and "Not used by the risk model" in t and "per year" in t)
-            js_click('input[name="mileage-mode"][value="estimate"]')
-            wait(2500)
-            t = section()
+            record(tag("mileage: implausible value used by neither model"), "900,000 km" in t and "Model 2 input ✗" in t and "UK model input ✗" in t)
+            click(page, "button[data-mode='estimate']")
+            wait(page, 2500)
             full = page.text()
-            record(tag("mileage: back to the estimate leaves no user-reported value on screen"), "AI-Estimated Mileage" in t and "User-Reported" not in full and "900,000" not in full and "mileage reported by the user" not in full)
-            # switching during a slow request: only the last choice may reach the screen
+            record(tag("mileage: back to the estimate leaves no typed value on screen"), "XGBoost Regressor" in full and "User-reported" not in full and "900,000" not in full)
             page.send("Network.enable")
             page.send("Network.emulateNetworkConditions", offline=False, latency=1500, downloadThroughput=-1, uploadThroughput=-1)
-            js_click('input[name="mileage-mode"][value="reported"]')
-            fill("111111")
+            click(page, "button[data-mode='reported']")
+            fill_km("111111")
             submit()
-            wait(400)
+            wait(page, 400)
             during = page.js("!!document.querySelector('[data-testid=\"mileage-updating\"]')")
             skeleton = page.js("document.querySelectorAll('[data-testid^=\"risk-\"]').length === 0")
-            record(tag("mileage: while the new result loads the screen says so and the old risk panel is not left as current"), during is True and skeleton is True)
-            js_click('input[name="mileage-mode"][value="estimate"]')
-            wait(6000)
+            record(tag("mileage: while loading the screen says so and the old risk is not left as current"), during is True and skeleton is True)
+            click(page, "button[data-mode='estimate']")
+            wait(page, 6000)
             page.send("Network.emulateNetworkConditions", offline=False, latency=0, downloadThroughput=-1, uploadThroughput=-1)
-            wait(500)
+            wait(page, 500)
             full = page.text()
-            record(tag("mileage: switching back during a slow request ends on the estimate (the late answer was discarded)"), "AI-Estimated Mileage" in full and "User-Reported" not in full and "111,111" not in full and "Updating the results" not in full)
-            record(tag("mileage: the risk panel is back after the slow switch"), page.js("document.querySelectorAll('[data-testid^=\"risk-\"]').length") == 3)
+            record(tag("mileage: switching back during a slow request ends on the estimate"), "XGBoost Regressor" in full and "User-reported" not in full and "111,111" not in full and "Updating…" not in full)
+            record(tag("mileage: gauges back after the slow switch"), page.js("document.querySelectorAll('[data-testid^=\"risk-\"]').length") == 3)
             common_checks(page, tag("mileage selection"))
 
-            # ---- 3b. Model 1 with too little training data: hybrid aged 9 (Mercedes GLC 350 e)
+            # ---- 3b. Model 1 with too little training data: hybrid aged 9
             page.search("4850581")
             t = page.text()
-            low = page.js("!!document.querySelector('[data-testid=\"low-reliability\"]')")
-            record(tag("hybrid aged 9: Model 1 flags LOW RELIABILITY with the reason"), low and "Low reliability." in t and "too few hybrid vehicles" in t)
+            record(tag("hybrid aged 9: low-reliability badge with a short reason"), page.js("!!document.querySelector('[data-testid=\"low-reliability\"]')") and "LOW RELIABILITY" in t.upper() and "Sparse training data" in t)
             api = page.js("fetch('http://localhost:8000/api/v1/predict/4850581').then(r => r.json()).then(b => b.mileage)")
-            record(tag("hybrid aged 9: no exaggerated yearly mileage is shown"), f"{api['estimated_km']:,} km" in t and api["estimated_annual_km"] < 25_000, str(api["estimated_annual_km"]))
-            common_checks(page, tag("hybrid aged 9"))
-            page.shot(f"{mode}_04b_low_reliability", "article:has([data-testid='low-reliability'])")
+            record(tag("hybrid aged 9: no exaggerated yearly mileage"), f"{api['estimated_km']:,} km" in t and api["estimated_annual_km"] < 25_000, str(api["estimated_annual_km"]))
+            record(tag("hybrid aged 9: Model 2 uses the EV / hybrid branch"), "EV / Hybrid Branch" in t)
+            page.shot(f"{mode}_04b_low_reliability", "[data-testid='mileage-section']")
 
-            # ---- 4. NOT covered: electric vehicle (Tesla)
+            # ---- 4. electric vehicle (Tesla): comparison model not covered
             page.search("88328404")
             t = page.text()
-            record(tag("not covered/electric: says why and keeps the other panels"), "has no estimate for this vehicle" in t and "fuel type" in t and "Recommended maintenance" in t and "Open recalls" in t and "AI-Estimated Mileage" in t)
-            record(tag("not covered/electric: no risk bars or levels invented"), "RELATIVE RISK" not in t and "Higher than about" not in t)
-            record(tag("not covered/electric: mileage flagged low reliability (no electric training data)"), "Low reliability." in t and "electric vehicles" in t)
-            record(tag("not covered/electric: no explanation of bars that do not exist"), "How to read this" not in t and "positions in a ranking" not in t)
-            common_checks(page, tag("not covered/electric"))
+            record(tag("electric: comparison 'Not covered' with a chip, other panels kept"), "NOT COVERED" in t.upper() and "Fuel not covered" in t and "Recommended Maintenance" in t and "Open Recalls" in t and "XGBoost Regressor" in t)
+            record(tag("electric: no gauges invented"), page.js("document.querySelectorAll('[data-testid^=\"risk-\"]').length") == 0)
+            record(tag("electric: Model 1 low reliability (no EV data)"), "No EV training data" in t)
+            common_checks(page, tag("electric"))
             page.shot(f"{mode}_05_not_covered_electric")
-            page.shot(f"{mode}_05b_not_covered_risk_panel", "article:has(h2)")
 
-            # ---- 5. NOT covered: new petrol car (age 0, first annual test not yet taken)
+            # ---- 5. new petrol car
             page.search("62886204")
             t = page.text()
-            record(tag("not covered/new car: explained and no bars"), "has no estimate for this vehicle" in t and "RELATIVE RISK" not in t and "first annual inspection" in t.lower())
-            page.shot(f"{mode}_06_not_covered_new")
+            record(tag("new car: comparison not covered, 'Under 3 years'"), "NOT COVERED" in t.upper() and "Under 3 years" in t)
 
             # ---- 6. official recall (Toyota 2007)
             page.search("1169762")
             t = page.text()
-            record(tag("recall: open recall listed as an official fact"), "OPEN RECALL" in t and "not a prediction" in t)
-            page.js("[...document.querySelectorAll('section')].find(x => x.querySelector('h2') && x.querySelector('h2').innerText === 'Open recalls').setAttribute('data-shot', '1')")
-            page.shot(f"{mode}_07_recall", "[data-shot='1']")
+            record(tag("recall: open recall listed"), "OPEN RECALL" in t.upper())
+            page.shot(f"{mode}_07_recall", "[data-testid='recalls']")
 
             # ---- 7. anomaly vehicle (60,000 km, no brake service)
             page.search("19319001")
             t = page.text()
-            record(tag("anomaly vehicle: brake rule flagged from the measured odometer"), "NO RECORD, OVERDUE" in t and "Recorded odometer" in t and "60,000 km" in t)
+            record(tag("anomaly: brake rule flagged from the service record"), "NO RECORD · OVERDUE" in t.upper() and "60,000 km" in t and "Service record" in t)
 
             # ---- 8. errors
-            page.search("10000001", wait=5)
+            page.search("10000001", wait=12)
             record(tag("unknown plate: clear message"), "not found" in page.text().lower())
             page.js("""(async () => { const i = document.querySelector('input[aria-label^="License plate"]');
               Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(i, '123'); i.dispatchEvent(new Event('input', {bubbles: true}));
               document.querySelector('form[role="search"]').requestSubmit(); })()""")
-            page.js("new Promise(r => setTimeout(r, 500))")
+            wait(page, 500)
             record(tag("invalid plate: validation message"), "Enter 7 or 8 digits" in page.text())
 
         # ---- dark scheme once (desktop)
