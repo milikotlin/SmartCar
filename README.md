@@ -16,8 +16,7 @@ It is **not a breakdown prediction** and **not a probability validated for Israe
 Documentation: `docs/SRS_v2.md` (the updated SRS, **with the change log against the original specification**), `docs/MODEL_CARDS.md`,
 `docs/FINAL_TECHNICAL_REVIEW.md` (security, model audits and corrections), `docs/FINAL_REPORT.md` (readiness report), `docs/RISK_SCALE.md` (the risk scale, before and after),
 `docs/MODEL2_VS_AGE_BASELINE.md` (what Model 2 adds beyond the age of the vehicle), `docs/TEST_REPORT.md`, `docs/E2E_REPORT.md`, `docs/UK_EXTRACTION.md`, `docs/DEMO.md`, `docs/LIMITATIONS.md`.
-Original specification: `SmartCar-Ops_SRS.pdf` and `SmartCar-Ops_מסמך_אפיון.pdf`. Two guides are written in Portuguese: `docs/OPENAI_SETUP.md` (configuring and testing the OpenAI chat without exposing the key)
-and `docs/DEFESA_LIMITACOES_PT.md` (the limitations of both models in plain language, for the academic defence).
+Original specification: `SmartCar-Ops_SRS.pdf` and `SmartCar-Ops_מסמך_אפיון.pdf`. Also: `docs/OPENAI_SETUP.md` (configuring and testing the OpenAI chat without exposing the key) and `docs/DEFENCE_LIMITATIONS.md` (the limitations of both models in plain language, for the academic defence).
 
 ## Running
 
