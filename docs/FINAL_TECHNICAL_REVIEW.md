@@ -152,4 +152,5 @@ At the student's request both models now follow the PDF exactly, with the data p
   Precision 0.334 -> 0.432, ROC-AUC 0.567 -> 0.674 (electric / hybrid 0.500 -> 0.644).
 * **For the user.** Levels with a real meaning (16% / 29% / 45% of vehicles with a defect), one scale for every fuel, an 80% range that holds 80%, "unknown" no longer read as "no failure", a newer car never riskier than an older one.
 * **Also fixed.** The automatic tests now use their own Redis database: they used to leave recorded rows in the application's cache for 24 hours.
-* Tests: 143 pytest, 88 real plates with 2,004 end-to-end checks and 0 failures, 172/172 browser assertions.
+* Tests: 143 pytest, 88 real plates with 2,004 end-to-end checks and 0 failures, 172/172 browser assertions with the registry answering normally. In the last run (after a renamed demo button and documents only) 170/172: data.gov.il took 14 to 40 seconds per
+  request and the "unknown plate" check, on both screen sizes, waits 12; the API answered 404 or a clean 503.
