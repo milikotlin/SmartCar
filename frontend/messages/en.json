@@ -1,0 +1,412 @@
+{
+  "meta": {
+    "title": "SmartCar-Ops",
+    "description": "Predictive maintenance dashboard for SmartCar-Ops"
+  },
+  "header": {
+    "tagline": "Two-stage ML · Predictive maintenance",
+    "garages": "Nearby Garages"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "he": "עברית"
+  },
+  "units": {
+    "km": "{value} km",
+    "years": "{value} y",
+    "yearsTight": "{value}y",
+    "cc": "{value} cc"
+  },
+  "levels": {
+    "low": "Low",
+    "moderate": "Moderate",
+    "high": "High"
+  },
+  "levelsRisk": {
+    "low": "Low risk",
+    "moderate": "Moderate risk",
+    "high": "High risk"
+  },
+  "fuel": {
+    "petrol": "petrol",
+    "diesel": "diesel",
+    "hybrid": "hybrid",
+    "electric": "electric",
+    "lpg_cng": "LPG/CNG",
+    "unknown": "unknown"
+  },
+  "search": {
+    "form": "Vehicle lookup",
+    "placeholder": "License plate",
+    "inputLabel": "License plate, 7 or 8 digits",
+    "submit": "Look up",
+    "busy": "Looking up…",
+    "invalid": "Enter 7 or 8 digits",
+    "demo": "Demo",
+    "demoLabel": "Demo vehicles",
+    "demoNames": {
+      "toyota": "Toyota",
+      "nissan": "Nissan",
+      "history": "Full history",
+      "anomaly": "Anomaly",
+      "ev": "EV"
+    }
+  },
+  "errors": {
+    "notFound": "Vehicle not found in the Ministry of Transport registry.",
+    "invalid": "The data entered is not valid (check the plate and the numbers).",
+    "writeKey": "Missing or invalid workshop key. Only authorised workshops can add records.",
+    "writeDisabled": "Adding records is disabled on this server (no workshop key configured).",
+    "tooMany": "Too many requests. Please wait a minute and try again.",
+    "registryDown": "The Ministry of Transport registry is temporarily unavailable. Please try again in a moment.",
+    "conflict": "That record already exists.",
+    "unexpected": "Unexpected error while contacting the backend.",
+    "unreachable": "Something went wrong while reaching the backend. Is it running?"
+  },
+  "empty": {
+    "title": "Look up a vehicle",
+    "steps": {
+      "registry": { "title": "Registry", "text": "Live data.gov.il profile" },
+      "model1": { "title": "Model 1", "text": "XGBoost mileage imputation" },
+      "model2": { "title": "Model 2", "text": "Failure-risk classifier" },
+      "rules": { "title": "Rules & recalls", "text": "Maintenance + official data" }
+    }
+  },
+  "footer": {
+    "versions": "Model 1 v{model1} · Model 2 v{model2} · UK MOT comparison v1"
+  },
+  "vehicle": {
+    "source": "Ministry of Transport",
+    "year": "Year",
+    "fuel": "Fuel",
+    "ownership": "Ownership",
+    "color": "Color",
+    "lastTest": "Last test",
+    "licenseValid": "License valid"
+  },
+  "mileage": {
+    "section": "Mileage",
+    "eyebrow": "Model 1 · Mileage",
+    "updating": "Updating…",
+    "source": "Mileage source",
+    "estimateTab": "AI Estimated Mileage",
+    "knownTab": "Enter Known Mileage",
+    "serviceRecord": "Service record",
+    "recorded": "Recorded {date} · AI estimate <b>{km}</b>",
+    "regressor": "XGBoost Regressor",
+    "interval": "80% Confidence Interval",
+    "lowReliability": "Low reliability",
+    "inputLabel": "Enter your current mileage (km)",
+    "placeholder": "Current km, e.g. 123456",
+    "use": "Use Mileage",
+    "userReported": "User-reported",
+    "notVerified": "Not verified · not saved",
+    "model2Input": "Model 2 input {mark}",
+    "ukInput": "UK model input {mark}",
+    "serviceRecordOn": "Service record <b>{km}</b> · {date}",
+    "none": "No mileage entered",
+    "reliability": {
+      "officialAverage": "Official average shown",
+      "noEv": "No Israeli EV statistics",
+      "sparse": "Sparse training data",
+      "outside": "Outside the data"
+    },
+    "errors": {
+      "empty": "Enter your current mileage in kilometres.",
+      "negative": "Mileage cannot be negative.",
+      "digits": "Use whole kilometres, digits only (for example 123456).",
+      "tooHigh": "That is higher than {max} km. Please check the number.",
+      "tooLow": "Mileage must be at least 1 km."
+    }
+  },
+  "model1": {
+    "title": "Model 1 Inputs & Breakdown",
+    "imputed": "Imputed (KNN, K=5)",
+    "age": "Age",
+    "fuel": "Fuel",
+    "makeModel": "Make / model",
+    "engine": "Engine CC",
+    "transmission": "Transmission",
+    "owners": "Owners",
+    "preCalibration": "Pre-calibration output",
+    "calibration": "Calibration",
+    "calibrationValue": "CBS 1923 · age × ownership",
+    "automatic": "Automatic",
+    "manual": "Manual",
+    "ownerType": {
+      "First": "First",
+      "Second": "Second",
+      "Third": "Third",
+      "Fourth": "Fourth & Above",
+      "Unknown": "Unknown"
+    }
+  },
+  "failure": {
+    "eyebrow": "Model 2 · Predictive maintenance",
+    "title": "Predictive Maintenance Risk",
+    "ice": "ICE Engine Pipeline",
+    "ev": "EV / Hybrid Branch",
+    "classifier": "XGBoost Classifier",
+    "notAvailable": "N/A",
+    "kmSource": {
+      "user_reported": "Reported",
+      "measured": "Record",
+      "estimated": "Model 1"
+    },
+    "drivers": {
+      "age": "Age",
+      "mileage": "Mileage",
+      "days": "Days since service",
+      "serviceKm": "Km since service",
+      "failures": "Past failures",
+      "brand": "Brand index"
+    }
+  },
+  "subsystem": {
+    "eyebrow": "Comparison · UK MOT real inspections",
+    "title": "Subsystem Risk",
+    "variant": {
+      "cold": "Registry only",
+      "cold_odo": "+ Odometer",
+      "hist": "+ Last inspection",
+      "hist_odo": "+ Inspection + odometer"
+    },
+    "odometerReported": "Odometer: reported",
+    "models": "XGBoost × 3",
+    "notCovered": "Not covered",
+    "noEstimate": "No estimate for this vehicle",
+    "reason": {
+      "fuel": "Fuel not covered",
+      "young": "Under 3 years",
+      "old": "Over 20 years",
+      "other": "Outside coverage"
+    },
+    "percentile": "percentile",
+    "barLabel": "{name}: {level}, percentile {percentile} of the reference vehicles",
+    "ageGroup": "Age {years}: <b>{label}</b>",
+    "sameAge": {
+      "lower": "below peers",
+      "typical": "typical",
+      "higher": "above peers"
+    }
+  },
+  "metrics": {
+    "title": "ML Metrics & Feature Vector",
+    "benchmarks": "Benchmarks · ROC-AUC on real inspections",
+    "model": "Model",
+    "testData": "Test data",
+    "auc": "AUC",
+    "defectRate": "Model 2 · real defect rate by level",
+    "vector": "Model 2 · feature vector ({branch})",
+    "branchIce": "ICE",
+    "branchEv": "EV / hybrid",
+    "notKnown": "Not known:",
+    "ukRate": "UK MOT model · defect rate by level",
+    "system": "System",
+    "cuts": "Level cuts P{low} / P{high} · 12-month interval",
+    "features": {
+      "vehicle_age": "vehicle_age",
+      "km": "km",
+      "km_source": "km_source",
+      "days_since_last_maintenance": "days_since_last_maintenance",
+      "failure_history": "failure_history",
+      "brand_reliability_index": "brand_reliability_index",
+      "d4_engine_fault_rate": "d4_engine_fault_rate",
+      "d4_brake_fault_rate": "d4_brake_fault_rate",
+      "d4_battery_fault_rate": "d4_battery_fault_rate",
+      "km_model_scale": "km (Model 1 scale)",
+      "last_service_distance": "last_service_distance"
+    },
+    "kmSource": {
+      "user_reported": "user_reported",
+      "measured": "measured",
+      "estimated": "estimated"
+    }
+  },
+  "maintenance": {
+    "eyebrow": "Rule-based fallback",
+    "title": "Recommended Maintenance",
+    "every": "Every {interval}",
+    "intervalBoth": "{months}m / {km} km",
+    "intervalMonths": "{months}m",
+    "last": " · last {date}",
+    "basis": {
+      "odo_reported": "User-reported",
+      "odo_measured": "Measured",
+      "odo_estimated": "Estimated"
+    },
+    "status": {
+      "ok": "Up to date",
+      "due_soon": "Due soon",
+      "overdue": "Overdue",
+      "no_record": "No record",
+      "no_record_overdue": "No record · overdue"
+    }
+  },
+  "recalls": {
+    "eyebrow": "Official data",
+    "title": "Open Recalls",
+    "source": "Ministry of Transport",
+    "unavailable": "Unavailable",
+    "offline": "Recall service offline",
+    "none": "None",
+    "noOpen": "No open recalls",
+    "open": "Open recall"
+  },
+  "log": {
+    "eyebrow": "Live demo trigger",
+    "title": "Service Log",
+    "manual": "Manual records",
+    "counts": "{services} service · {inspections} inspection",
+    "usedByModel": "Last inspection → UK model",
+    "date": "Date",
+    "km": "Km",
+    "description": "Description",
+    "cost": "Cost",
+    "empty": "No service records",
+    "demo": "DEMO",
+    "inspection": "Inspection {date}",
+    "noDefect": "no defect",
+    "addMaintenance": "＋ Add Maintenance Record",
+    "addInspection": "＋ Add Inspection Result",
+    "key": "Workshop key",
+    "odometer": "Odometer (km)",
+    "category": "Category",
+    "descriptionExample": "e.g. Replaced front brake pads",
+    "inspectionDate": "Inspection date",
+    "optional": "optional",
+    "defectsFound": "Defects found",
+    "defects": {
+      "brakes": "Brakes",
+      "electrical": "Electrical",
+      "engine": "Engine",
+      "other": "Other"
+    },
+    "defectsShort": {
+      "brakes": "brakes",
+      "electrical": "electrical",
+      "engine": "engine",
+      "other": "other"
+    },
+    "categories": {
+      "none": "(none)",
+      "oil": "oil",
+      "brakes": "brakes",
+      "brake_fluid": "brake_fluid",
+      "tires": "tires",
+      "coolant": "coolant",
+      "battery": "battery",
+      "filters": "filters",
+      "other": "other"
+    },
+    "save": "Save & Recalculate Risk",
+    "saving": "Saving…",
+    "saved": "Saved · risk recalculated",
+    "keyFirst": "Enter the workshop key first",
+    "couldNotSave": "Could not save."
+  },
+  "chat": {
+    "title": "AI Diagnostics",
+    "dialog": "AI diagnostic assistant",
+    "scope": "Answers use only the data of plate {plate}. Not a substitute for a mechanic.",
+    "noVehicle": "Look up a vehicle first.",
+    "hint": "Describe a symptom, e.g. \"Hearing a squeaking noise when braking\".",
+    "generated": "Generated by {model} · data used",
+    "ruleBased": "Rule-based answer (language model not used) · data used",
+    "note": "Note: {note}",
+    "thinking": "Thinking…",
+    "placeholder": "Describe the symptom…",
+    "inputLabel": "Describe a symptom",
+    "send": "Send",
+    "open": "Open the AI diagnostic assistant",
+    "close": "Close the AI diagnostic assistant",
+    "unreachable": "The assistant could not be reached. Please try again."
+  },
+  "garages": {
+    "eyebrow": "Official register · Ministry of Transport",
+    "title": "Nearby Garages",
+    "licensed": "Licensed garages",
+    "cityLabel": "City",
+    "cityPlaceholder": "City, in English or Hebrew",
+    "citySuggestions": "Matching cities",
+    "cityUnknown": "No city with that name",
+    "cityGarages": "{count, plural, one {# garage} other {# garages}}",
+    "search": "Search",
+    "popular": "Choose a city",
+    "gps": "Use my location",
+    "gpsBusy": "Locating…",
+    "radius": "Radius",
+    "radiusValue": "{km} km",
+    "service": "Service",
+    "allServices": "All services",
+    "services": {
+      "mechanics": "Mechanics",
+      "ev_hybrid": "EV / hybrid",
+      "electrical": "Electrical",
+      "brakes": "Brake specialist",
+      "tires": "Tyres",
+      "suspension": "Suspension",
+      "air_conditioning": "Air conditioning",
+      "bodywork": "Body and paint",
+      "gearbox": "Automatic gearbox",
+      "exhaust_cooling": "Exhaust and radiators",
+      "pre_purchase": "Pre-purchase check"
+    },
+    "evHint": "This vehicle: EV / hybrid garages",
+    "idle": "Choose a city or use your location to see licensed garages.",
+    "loading": "Loading garages…",
+    "noResults": "No licensed garage found here",
+    "noResultsHint": "Try a larger radius or another service.",
+    "retry": "Try again",
+    "summaryCity": "{inCity, plural, one {# garage} other {# garages}} in {city} · {around} in the surroundings",
+    "summaryGps": "{total, plural, one {# garage} other {# garages}} within {km} km of you",
+    "approximate": "Approximate results for the {city} area: distances are straight lines from the city centre, not from you.",
+    "gpsNote": "Sorted by the straight-line distance from your location. The location is used for this search only and is not stored.",
+    "withoutPosition": "{count, plural, one {# garage has} other {# garages have}} no exact address in the register: listed without a distance and not on the map.",
+    "stale": "The register could not be refreshed: copy of {date}.",
+    "distance": "{km} km",
+    "distanceApprox": "≈ {km} km",
+    "inCity": "In the city",
+    "nearby": "Nearby",
+    "position": {
+      "house": "Exact address on the map",
+      "street": "Approximate position on the street",
+      "none": "Not on the map"
+    },
+    "hours": "Hours",
+    "hoursSource": "OpenStreetMap",
+    "call": "Call",
+    "googleMaps": "Google Maps",
+    "waze": "Waze",
+    "routeGoogle": "Route to {name} in Google Maps",
+    "routeWaze": "Route to {name} in Waze",
+    "reviews": "Reviews and hours on Google",
+    "rating": "Rating and hours",
+    "ratingTitle": "Information from Google Maps",
+    "ratingCount": "{count, plural, one {# review} other {# reviews}}",
+    "ratingNone": "Google has no entry that is clearly this garage.",
+    "ratingError": "The rating could not be loaded.",
+    "ratingLimit": "Daily limit of rating look-ups reached.",
+    "ratingLoading": "Loading from Google…",
+    "noRating": "No rating",
+    "openGoogle": "Open in Google Maps",
+    "back": "Back to the map",
+    "more": "Show more ({left})",
+    "map": "Map of the garages",
+    "mapNone": "None of these garages has a position to draw.",
+    "you": "Your location",
+    "garagesHere": "{count, plural, one {# garage} other {# garages}} at this address",
+    "source": "Source: {source} · updated {date} · names and addresses as published",
+    "sourceName": "Ministry of Transport (data.gov.il)",
+    "errors": {
+      "denied": "Location access was not allowed. Choose a city instead.",
+      "unavailable": "Your location could not be determined. Choose a city instead.",
+      "timeout": "Finding your location took too long. Try again or choose a city.",
+      "unsupported": "This browser cannot share a location. Choose a city instead.",
+      "outside": "Your location is outside Israel. Choose a city instead.",
+      "registerDown": "The official garage register is temporarily unavailable. Please try again in a moment.",
+      "failed": "The garages could not be loaded."
+    }
+  }
+}

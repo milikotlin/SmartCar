@@ -146,6 +146,7 @@ def translate_vehicle_record(record: dict[str, Any]) -> VehicleProfile:
         first_registration=record.get("moed_aliya_lakvish"),
         trim_level=record.get("ramat_gimur"),
         make_raw=make_raw,
+        color_raw=re.sub(r"\s+", " ", str(record.get("tzeva_rechev") or "")).strip() or None,
         tozeret_cd=_int_or_none(record.get("tozeret_cd")),
         degem_cd=_int_or_none(record.get("degem_cd")),
     )

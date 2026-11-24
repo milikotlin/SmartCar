@@ -1,7 +1,9 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { DiagnosticChatFab } from "@/components/DiagnosticChatFab";
+import { GaragesPanel } from "@/components/garages/GaragesPanel";
 import { Header } from "@/components/Header";
 import { MaintenanceHistory } from "@/components/MaintenanceHistory";
 import { MaintenancePanel } from "@/components/MaintenancePanel";
@@ -11,17 +13,20 @@ import { RecallsPanel } from "@/components/RecallsPanel";
 import { RiskPanel } from "@/components/RiskPanel";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { VehicleSpecCard } from "@/components/VehicleSpecCard";
-import { ApiError, fetchInspections, fetchMaintenance, fetchPrediction, InvalidPlateError, VehicleNotFoundError } from "@/lib/api";
+import { errorCode, fetchInspections, fetchMaintenance, fetchPrediction, type ErrorCode } from "@/lib/api";
+import type { Locale } from "@/i18n/config";
 import type { MileageMode } from "@/lib/mileage";
 import type { InspectionRecord, MaintenanceRecord, Prediction } from "@/lib/types";
 
 type DashboardState =
   | { status: "idle" }
   | { status: "loading" }
-  | { status: "error"; message: string }
-  | { status: "success"; prediction: Prediction; maintenance: MaintenanceRecord[]; inspections: InspectionRecord[] };
+  | { status: "error"; code: ErrorCode }
+  | { status: "success"; lang: Locale; prediction: Prediction; maintenance: MaintenanceRecord[]; inspections: InspectionRecord[] };
 
 export default function DashboardPage() {
+  const t = useTranslations();
+  const locale = useLocale();
   const [state, setState] = useState<DashboardState>({ status: "idle" });
   const [plate, setPlate] = useState<string | null>(null);
   // Mileage choice: "estimate" (Model 1, the default) or "reported" (a value typed by the user). The typed value lives only in this page state: it is sent with each request and never stored.
@@ -41,16 +46,12 @@ export default function DashboardPage() {
       slowTimer = setTimeout(() => id === requestId.current && setSlowRefresh(true), 250);
     } else setState({ status: "loading" });
     try {
-      const [prediction, maintenance, inspections] = await Promise.all([fetchPrediction(p, odo), fetchMaintenance(p), fetchInspections(p)]);
+      const [prediction, maintenance, inspections] = await Promise.all([fetchPrediction(p, locale, odo), fetchMaintenance(p), fetchInspections(p)]);
       if (id !== requestId.current) return;
-      setState({ status: "success", prediction, maintenance, inspections });
+      setState({ status: "success", lang: locale, prediction, maintenance, inspections });
     } catch (error) {
       if (id !== requestId.current) return;
-      const message =
-        error instanceof VehicleNotFoundError || error instanceof InvalidPlateError || error instanceof ApiError
-          ? error.message
-          : "Something went wrong while reaching the backend. Is it running?";
-      setState({ status: "error", message });
+      setState({ status: "error", code: errorCode(error) });
     } finally {
       clearTimeout(slowTimer);
       if (id === requestId.current) {
@@ -58,7 +59,12 @@ export default function DashboardPage() {
         setSlowRefresh(false);
       }
     }
-  }, []);
+  }, [locale]);
+
+  // another language: the same vehicle is read again in it (same inputs, same predictions, other texts); the typed mileage and the chosen option stay
+  useEffect(() => {
+    if (plate && state.status === "success" && state.lang !== locale) void load(plate, requestedKm.current, true);
+  }, [locale, plate, state, load]);
 
   async function handleSearch(p: string) {
     setPlate(p);
@@ -90,7 +96,7 @@ export default function DashboardPage() {
 
         {state.status === "error" && (
           <p role="alert" className="rounded-xl border-2 border-critical bg-critical-bg px-5 py-4 text-[15px] font-semibold text-critical">
-            {state.message}
+            {t(`errors.${state.code}`)}
           </p>
         )}
 
@@ -148,10 +154,12 @@ export default function DashboardPage() {
             </div>
 
             <p className="text-center font-mono text-[11.5px] text-ink-faint">
-              Model 1 v{state.prediction.provenance.model1_version} · Model 2 v{state.prediction.provenance.model2_version} · UK MOT comparison v1
+              {t("footer.versions", { model1: state.prediction.provenance.model1_version, model2: state.prediction.provenance.model2_version })}
             </p>
           </>
         )}
+
+        <GaragesPanel electrified={state.status === "success" && ["electric", "hybrid"].includes(String(state.prediction.mileage.model_inputs.fuel))} />
       </main>
 
       <DiagnosticChatFab plate={state.status === "success" ? plate : null} odometerKm={reportedKm} />
@@ -160,21 +168,17 @@ export default function DashboardPage() {
 }
 
 function EmptyState() {
-  const steps = [
-    ["1", "Registry", "Live data.gov.il profile"],
-    ["2", "Model 1", "XGBoost mileage imputation"],
-    ["3", "Model 2", "Failure-risk classifier"],
-    ["4", "Rules & recalls", "Maintenance + official data"],
-  ];
+  const t = useTranslations("empty");
+  const steps = ["registry", "model1", "model2", "rules"] as const;
   return (
     <div className="flex flex-col items-center gap-6 rounded-2xl border-2 border-dashed border-line-strong px-6 py-16 text-center">
-      <p className="text-[24px] font-bold tracking-tight text-ink">Look up a vehicle</p>
+      <p className="text-[24px] font-bold tracking-tight text-ink">{t("title")}</p>
       <div className="grid w-full max-w-[880px] grid-cols-4 gap-3 max-[760px]:grid-cols-2">
-        {steps.map(([n, title, sub]) => (
-          <div key={n} className="rounded-xl border border-line bg-surface p-4 text-left">
-            <span className="font-mono text-[13px] font-bold text-accent">{n}</span>
-            <p className="mt-1 text-[15px] font-bold text-ink">{title}</p>
-            <p className="text-[12.5px] text-ink-soft">{sub}</p>
+        {steps.map((step, i) => (
+          <div key={step} className="rounded-xl border border-line bg-surface p-4 text-start">
+            <span className="font-mono text-[13px] font-bold text-accent">{i + 1}</span>
+            <p className="mt-1 text-[15px] font-bold text-ink">{t(`steps.${step}.title`)}</p>
+            <p className="text-[12.5px] text-ink-soft">{t(`steps.${step}.text`)}</p>
           </div>
         ))}
       </div>

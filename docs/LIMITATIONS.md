@@ -62,6 +62,12 @@ Most of the level reflects the age of the vehicle: age alone reproduces 85% to 9
 * The chat uses OpenAI gpt-4o-mini only when an API key is configured. The automatic tests use a mocked HTTP transport; the live OpenAI call was **not** exercised in this environment (no key available). Without a key the chat answers from a deterministic, rule-based template built from the same facts.
 * The demonstration data (maintenance records and inspection results created by `scripts/seed_demo.py`) are generated and labelled "[DEMO]"; the 21 plates and their profiles are real.
 
+## Languages and garages
+
+* Garage positions come from OpenStreetMap: 56% of the registered garages have one (exact for 13%, on the street for 43%); the others are listed without a distance. A city search measures from the city centre; distances are straight lines, not driving distances.
+* Ratings and opening hours are not in the official register. Without a Google key they are only linked; the Google call was tested with simulated answers, not against the real service.
+* Names and addresses of garages exist in Hebrew only. Records typed by people are not translated. The Hebrew texts were not reviewed by a professional translator.
+
 ## Operational
 
 * **Security is deliberately simple** (no user accounts, as the SRS requires): reading is open; writing a record needs one shared workshop key, so the key proves "an authorised workshop", not who wrote the record, and anyone holding the key can write for any plate. Records are not verified against any official source. CORS accepts only the dashboard origin and the published ports are bound to the local machine; the system is not hardened for public internet exposure (no HTTPS, no per-user audit trail, no key rotation).

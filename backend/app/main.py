@@ -5,6 +5,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.chat import router as chat_router
+from app.api.v1.garages import router as garages_router
 from app.api.v1.predict import router as predict_router
 from app.api.v1.records import router as records_router
 from app.api.v1.vehicles import router as vehicles_router
@@ -37,6 +38,7 @@ app.include_router(vehicles_router)
 app.include_router(predict_router)
 app.include_router(records_router)
 app.include_router(chat_router)
+app.include_router(garages_router)
 
 
 @app.get("/health")

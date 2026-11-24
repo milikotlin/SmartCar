@@ -426,11 +426,211 @@
  },
  {
   "check": "desktop/unknown plate: clear message",
-  "passed": false,
+  "passed": true,
   "detail": ""
  },
  {
   "check": "desktop/invalid plate: validation message",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/language: English is the default",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/language: visible selector with both languages",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/Hebrew: lang and right-to-left direction",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/Hebrew: the vehicle stays on the screen, registry values in Hebrew",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/Hebrew: same figures and same risk level",
+  "passed": true,
+  "detail": "01,1,1,11,188,700,194,227,2026,286,400,80,93,800|0,13,194,227,2,55.8,85|13,13,13,3,80,80,85 / 01,1,1,11,188,700,194,227,2026,286,400,80,93,800|0,13,194,227,2,55.8,85|13,13,13,3,80,80,85"
+ },
+ {
+  "check": "desktop/Hebrew: no interface text left in English",
+  "passed": true,
+  "detail": "[]"
+ },
+ {
+  "check": "desktop/Hebrew: no horizontal overflow",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/Hebrew: the layout is mirrored",
+  "passed": true,
+  "detail": "{'card': 828, 'risk': 32, 'fab': 28, 'wide': True}"
+ },
+ {
+  "check": "desktop/Hebrew: the plate stays left-to-right",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/Hebrew: gauge markers are mirrored too",
+  "passed": true,
+  "detail": "[True, True, True]"
+ },
+ {
+  "check": "desktop/Hebrew: the chat answers in Hebrew",
+  "passed": true,
+  "detail": "\u05d0\u05d1\u05d7\u05d5\u05df AI\n\n\u05d4\u05ea\u05e9\u05d5\u05d1\u05d5\u05ea \u05de\u05d1\u05d5\u05e1\u05e1\u05d5\u05ea \u05e8\u05e7 \u05e2\u05dc \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e9\u05dc \u05e8\u05db\u05d1 6224652. \u05d0\u05d9\u05e0\u05df \u05ea\u05d7\u05dc\u05d9\u05e3 \u05dc\u05de\u05db\u05d5\u05e0\u05d0\u05d9.\n\n\u05e0\u05e9\u05de\u05e2\u05ea \u05d7\u05e8\u05d9\u05e7\u05d4 \u05d1\u05d1\u05dc\u05de\u05d9\u05dd\n\n\u05de\u05d5\u05d3\u05dc \u05d4\u05e9\u05e4\u05d4 \u05d0\u05d9\u05e0\u05d5 \u05d6\u05de\u05d9\u05df: \u05d6\u05d4\u05d5 \u05e1\u05d9\u05db\u05d5\u05dd \u05dc\u05e4\u05d9 \u05db\u05dc\u05dc\u05d9\u05dd \u05e9\u05dc \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05d4\u05e7\u05d9\u05d9\u05de\u05d9\u05dd, \u05dc\u05d0 \u05d0\u05d1\u05d7\u05d5\u05df.\n\u05d4\u05ea\u05d9\u05d0\u05d5\u05e8 \u05e9\u05dc\u05da \u05de\u05ea\u05d9\u05d9\u05d7\u05e1 \u05dc\u05de\u05e2\u05e8\u05db\u05ea: \u05d1\u05dc\u05de\u05d9\u05dd."
+ },
+ {
+  "check": "desktop/Hebrew: validation message",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/language: the choice is remembered on the next visit",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/language: the page already arrives in Hebrew (no English flash)",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/language: back to English, left-to-right",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: section and header link on the first screen",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: suggestions for an English name",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: real results of the official register",
+  "passed": true,
+  "detail": "186 garages in Petah Tikva \u00b7 487 in the surroundings"
+ },
+ {
+  "check": "desktop/garages: name, address, city, distance and phone",
+  "passed": true,
+  "detail": "1\n\u05d9\u05d5\u05e1\u05e3 \u05d9\u05d4\u05d5\u05e9\u05e2 - \u05de\u05d5\u05e1\u05da \u05e9.\u05e8.\n\u05d7\u05dc\u05d5\u05e6\u05ea \u05d4\u05e4\u05e8\u05d3\u05e1\u05e0\u05d5\u05ea 25 \u00b7 Petah Tikva\n0.1 km\nIn the city\n\nMechanics\n\nExact address on the map\n\nGoogle Maps\nWaze\nCall\n054-6674009\nReviews and hours on Google"
+ },
+ {
+  "check": "desktop/garages: says that a city search is approximate",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: Google Maps, Waze and phone links",
+  "passed": true,
+  "detail": "[['https://www.google.com/maps/dir/?api=1&destination=32.09603,34.88529', '_blank', 'noopener noreferrer'], ['https://waze.com/ul?ll=32.09603%2C34.88529&navigate=yes', '_blank', 'noopener noreferrer'], ['tel:0546674009', '', ''], ['https://www.google.com/maps/search/?api=1&query=%D7%99%D7%95%D7%A1%D7%A3%20%D7%99%D7%94%D7%95%D7%A9%D7%A2%20-%20%D7%9E%D7%95%D7%A1%D7%9A%20%D7%A9.%D7%A8.%20%D7%97%D7%9C%D7%95%D7%A6%D7%AA%20%D7%94%D7%A4%D7%A8%D7%93%D7%A1%D7%A0%D7%95%D7%AA%2025%20%D7%A4%D7%AA%D7%97%20%D7%AA%D7%A7%D7%95%D7%95%D7%94', '_blank', 'noopener noreferrer']]"
+ },
+ {
+  "check": "desktop/garages: map with tiles, pins and attribution",
+  "passed": true,
+  "detail": "9"
+ },
+ {
+  "check": "desktop/garages: a pin selects its garage",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: no rating is invented",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: no horizontal overflow",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: 'show more' adds results",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: service filter",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: an unknown city says so",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: 'no results' state",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: error state",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: 'try again' works",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: loading state",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: location refused -> clear message, results kept",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: a position outside Israel is refused",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: location allowed -> sorted by the real distance",
+  "passed": true,
+  "detail": "[0.5, 0.5, 0.5, 0.6, 1, 1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.2, 1.2, 1.2, 1.2]"
+ },
+ {
+  "check": "desktop/garages: own position is drawn on the map",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: the position travels in the body only and is not stored",
+  "passed": true,
+  "detail": "[['http://localhost:8000/api/v1/garages/near', 'POST']]"
+ },
+ {
+  "check": "desktop/garages: Hebrew, right-to-left, results kept",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: Hebrew city search",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "desktop/garages: the city name follows the language",
   "passed": true,
   "detail": ""
  },
@@ -846,11 +1046,211 @@
  },
  {
   "check": "mobile/unknown plate: clear message",
-  "passed": false,
+  "passed": true,
   "detail": ""
  },
  {
   "check": "mobile/invalid plate: validation message",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/language: English is the default",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/language: visible selector with both languages",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/Hebrew: lang and right-to-left direction",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/Hebrew: the vehicle stays on the screen, registry values in Hebrew",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/Hebrew: same figures and same risk level",
+  "passed": true,
+  "detail": "01,1,1,11,188,700,194,227,2026,286,400,80,93,800|0,13,194,227,2,55.8,85|13,13,13,3,80,80,85 / 01,1,1,11,188,700,194,227,2026,286,400,80,93,800|0,13,194,227,2,55.8,85|13,13,13,3,80,80,85"
+ },
+ {
+  "check": "mobile/Hebrew: no interface text left in English",
+  "passed": true,
+  "detail": "[]"
+ },
+ {
+  "check": "mobile/Hebrew: no horizontal overflow",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/Hebrew: the layout is mirrored",
+  "passed": true,
+  "detail": "{'card': 16, 'risk': 16, 'fab': 28, 'wide': False}"
+ },
+ {
+  "check": "mobile/Hebrew: the plate stays left-to-right",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/Hebrew: gauge markers are mirrored too",
+  "passed": true,
+  "detail": "[True, True, True]"
+ },
+ {
+  "check": "mobile/Hebrew: the chat answers in Hebrew",
+  "passed": true,
+  "detail": "\u05d0\u05d1\u05d7\u05d5\u05df AI\n\n\u05d4\u05ea\u05e9\u05d5\u05d1\u05d5\u05ea \u05de\u05d1\u05d5\u05e1\u05e1\u05d5\u05ea \u05e8\u05e7 \u05e2\u05dc \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e9\u05dc \u05e8\u05db\u05d1 6224652. \u05d0\u05d9\u05e0\u05df \u05ea\u05d7\u05dc\u05d9\u05e3 \u05dc\u05de\u05db\u05d5\u05e0\u05d0\u05d9.\n\n\u05e0\u05e9\u05de\u05e2\u05ea \u05d7\u05e8\u05d9\u05e7\u05d4 \u05d1\u05d1\u05dc\u05de\u05d9\u05dd\n\n\u05de\u05d5\u05d3\u05dc \u05d4\u05e9\u05e4\u05d4 \u05d0\u05d9\u05e0\u05d5 \u05d6\u05de\u05d9\u05df: \u05d6\u05d4\u05d5 \u05e1\u05d9\u05db\u05d5\u05dd \u05dc\u05e4\u05d9 \u05db\u05dc\u05dc\u05d9\u05dd \u05e9\u05dc \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05d4\u05e7\u05d9\u05d9\u05de\u05d9\u05dd, \u05dc\u05d0 \u05d0\u05d1\u05d7\u05d5\u05df.\n\u05d4\u05ea\u05d9\u05d0\u05d5\u05e8 \u05e9\u05dc\u05da \u05de\u05ea\u05d9\u05d9\u05d7\u05e1 \u05dc\u05de\u05e2\u05e8\u05db\u05ea: \u05d1\u05dc\u05de\u05d9\u05dd."
+ },
+ {
+  "check": "mobile/Hebrew: validation message",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/language: the choice is remembered on the next visit",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/language: the page already arrives in Hebrew (no English flash)",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/language: back to English, left-to-right",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: section and header link on the first screen",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: suggestions for an English name",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: real results of the official register",
+  "passed": true,
+  "detail": "186 garages in Petah Tikva \u00b7 487 in the surroundings"
+ },
+ {
+  "check": "mobile/garages: name, address, city, distance and phone",
+  "passed": true,
+  "detail": "1\n\u05d9\u05d5\u05e1\u05e3 \u05d9\u05d4\u05d5\u05e9\u05e2 - \u05de\u05d5\u05e1\u05da \u05e9.\u05e8.\n\u05d7\u05dc\u05d5\u05e6\u05ea \u05d4\u05e4\u05e8\u05d3\u05e1\u05e0\u05d5\u05ea 25 \u00b7 Petah Tikva\n0.1 km\nIn the city\n\nMechanics\n\nExact address on the map\n\nGoogle Maps\nWaze\nCall\n054-6674009\nReviews and hours on Google"
+ },
+ {
+  "check": "mobile/garages: says that a city search is approximate",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: Google Maps, Waze and phone links",
+  "passed": true,
+  "detail": "[['https://www.google.com/maps/dir/?api=1&destination=32.09603,34.88529', '_blank', 'noopener noreferrer'], ['https://waze.com/ul?ll=32.09603%2C34.88529&navigate=yes', '_blank', 'noopener noreferrer'], ['tel:0546674009', '', ''], ['https://www.google.com/maps/search/?api=1&query=%D7%99%D7%95%D7%A1%D7%A3%20%D7%99%D7%94%D7%95%D7%A9%D7%A2%20-%20%D7%9E%D7%95%D7%A1%D7%9A%20%D7%A9.%D7%A8.%20%D7%97%D7%9C%D7%95%D7%A6%D7%AA%20%D7%94%D7%A4%D7%A8%D7%93%D7%A1%D7%A0%D7%95%D7%AA%2025%20%D7%A4%D7%AA%D7%97%20%D7%AA%D7%A7%D7%95%D7%95%D7%94', '_blank', 'noopener noreferrer']]"
+ },
+ {
+  "check": "mobile/garages: map with tiles, pins and attribution",
+  "passed": true,
+  "detail": "4"
+ },
+ {
+  "check": "mobile/garages: a pin selects its garage",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: no rating is invented",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: no horizontal overflow",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: 'show more' adds results",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: service filter",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: an unknown city says so",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: 'no results' state",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: error state",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: 'try again' works",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: loading state",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: location refused -> clear message, results kept",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: a position outside Israel is refused",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: location allowed -> sorted by the real distance",
+  "passed": true,
+  "detail": "[0.5, 0.5, 0.5, 0.6, 1, 1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.2, 1.2, 1.2, 1.2]"
+ },
+ {
+  "check": "mobile/garages: own position is drawn on the map",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: the position travels in the body only and is not stored",
+  "passed": true,
+  "detail": "[['http://localhost:8000/api/v1/garages/near', 'POST']]"
+ },
+ {
+  "check": "mobile/garages: Hebrew, right-to-left, results kept",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: Hebrew city search",
+  "passed": true,
+  "detail": ""
+ },
+ {
+  "check": "mobile/garages: the city name follows the language",
   "passed": true,
   "detail": ""
  },

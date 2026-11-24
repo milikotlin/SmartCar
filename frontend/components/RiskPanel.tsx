@@ -1,35 +1,25 @@
+import { useTranslations } from "next-intl";
 import type { InspectionRisk } from "@/lib/types";
 import { RiskLevelBar } from "./RiskLevelBar";
 import { CardHeader, StatusPill, Tag } from "./ui/StatusPill";
 
-const VARIANT_TAG: Record<string, string> = {
-  cold: "Registry only",
-  cold_odo: "+ Odometer",
-  hist: "+ Last inspection",
-  hist_odo: "+ Inspection + odometer",
-};
-
-/** Backend coverage reasons -> 2-3 word chips. */
-function reasonChip(reason: string): string {
-  const r = reason.toLowerCase();
-  if (r.includes("fuel type")) return "Fuel not covered";
-  if (r.includes("under")) return "Under 3 years";
-  if (r.includes("more than")) return "Over 20 years";
-  return "Outside coverage";
-}
+/** Backend coverage codes -> 2-3 word chips. */
+const REASON_CHIP = { not_covered_fuel: "fuel", not_covered_young: "young", not_covered_old: "old" } as const;
+const reasonChip = (code: string | null) => (code && code in REASON_CHIP ? REASON_CHIP[code as keyof typeof REASON_CHIP] : ("other" as const));
 
 export function RiskPanel({ risk }: { risk: InspectionRisk }) {
+  const t = useTranslations("subsystem");
   return (
     <article className="card-shadow rounded-2xl border border-line bg-surface p-6" data-testid="comparison-risk">
       <CardHeader
-        eyebrow="Comparison · UK MOT real inspections"
-        title="Subsystem Risk"
+        eyebrow={t("eyebrow")}
+        title={t("title")}
         right={
           risk.covered ? (
             <>
-              <Tag tone="accent">{risk.variant ? VARIANT_TAG[risk.variant] : "Registry only"}</Tag>
-              {risk.odometer_source === "user_reported" && <Tag>Odometer: reported</Tag>}
-              <Tag>XGBoost × 3</Tag>
+              <Tag tone="accent">{t(`variant.${risk.variant ?? "cold"}`)}</Tag>
+              {risk.odometer_source === "user_reported" && <Tag>{t("odometerReported")}</Tag>}
+              <Tag>{t("models")}</Tag>
             </>
           ) : undefined
         }
@@ -40,6 +30,7 @@ export function RiskPanel({ risk }: { risk: InspectionRisk }) {
           {risk.systems.map((s) => (
             <RiskLevelBar
               key={s.system}
+              system={s.system}
               title={s.title}
               level={s.level}
               higherThan={s.higher_than_of_100}
@@ -52,12 +43,12 @@ export function RiskPanel({ risk }: { risk: InspectionRisk }) {
       ) : (
         <div className="mt-5 flex flex-wrap items-center gap-2 rounded-xl border border-dashed border-line-strong bg-paper px-4 py-4" data-testid="comparison-not-covered">
           <StatusPill status="neutral" size="md">
-            Not covered
+            {t("notCovered")}
           </StatusPill>
-          <span className="text-[14px] font-semibold text-ink">No estimate for this vehicle</span>
-          {risk.reasons.map((r) => (
+          <span className="text-[14px] font-semibold text-ink">{t("noEstimate")}</span>
+          {risk.reasons.map((r, i) => (
             <Tag key={r} title={r}>
-              {reasonChip(r)}
+              {t(`reason.${reasonChip(risk.reason_codes[i] ?? null)}`)}
             </Tag>
           ))}
         </div>

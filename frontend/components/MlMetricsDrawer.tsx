@@ -1,45 +1,36 @@
+import { useTranslations, type Messages } from "next-intl";
+import { useFmt } from "@/lib/format";
 import type { FailureRisk, InspectionRisk } from "@/lib/types";
 
-const LEVELS = ["Low", "Moderate", "High"];
-const INPUT_LABEL: Record<string, string> = {
-  vehicle_age: "vehicle_age",
-  km: "km",
-  km_source: "km_source",
-  days_since_last_maintenance: "days_since_last_maintenance",
-  failure_history: "failure_history",
-  brand_reliability_index: "brand_reliability_index",
-  d4_engine_fault_rate: "d4_engine_fault_rate",
-  d4_brake_fault_rate: "d4_brake_fault_rate",
-  d4_battery_fault_rate: "d4_battery_fault_rate",
-  km_model_scale: "km (Model 1 scale)",
-  last_service_distance: "last_service_distance",
-};
+const LEVELS = ["low", "moderate", "high"] as const;
+type Feature = keyof Messages["metrics"]["features"];
 
-function fmt(v: unknown): string {
-  if (typeof v === "number") return Math.abs(v) < 1 && v !== 0 ? v.toFixed(4) : v.toLocaleString("en-US", { maximumFractionDigits: 1 });
-  return String(v);
-}
-
-const th = "py-2 pr-3 text-left text-[11px] font-bold uppercase tracking-wider text-ink-faint";
-const td = "py-1.5 pr-3 text-[13px]";
+const th = "py-2 pe-3 text-start text-[11px] font-bold uppercase tracking-wider text-ink-faint";
+const td = "py-1.5 pe-3 text-[13px]";
 
 export function MlMetricsDrawer({ failure, inspection }: { failure: FailureRisk | null; inspection: InspectionRisk }) {
+  const t = useTranslations("metrics");
+  const tLevel = useTranslations("levels");
+  const { num } = useFmt();
+  const value = (v: unknown) =>
+    typeof v === "number" ? (Math.abs(v) < 1 && v !== 0 ? v.toFixed(4) : num(v, 1)) : t.has(`kmSource.${String(v)}` as "kmSource.measured") ? t(`kmSource.${String(v)}` as "kmSource.measured") : String(v);
+  const feature = (k: string) => (t.has(`features.${k}` as `features.${Feature}`) ? t(`features.${k}` as `features.${Feature}`) : k);
   return (
     <details className="group card-shadow rounded-2xl border border-line bg-surface" data-testid="ml-metrics">
       <summary className="flex min-h-14 cursor-pointer items-center justify-between px-6 text-[15px] font-bold text-ink">
-        <span>ML Metrics &amp; Feature Vector</span>
+        <span>{t("title")}</span>
         <span className="text-ink-faint transition-transform group-open:rotate-180">▾</span>
       </summary>
       <div className="grid gap-6 border-t border-line px-6 py-5 min-[1100px]:grid-cols-2">
         {failure && (
           <section>
-            <h3 className="text-[13px] font-bold uppercase tracking-wider text-ink">Benchmarks · ROC-AUC on real inspections</h3>
+            <h3 className="text-[13px] font-bold uppercase tracking-wider text-ink">{t("benchmarks")}</h3>
             <table className="mt-2 w-full border-collapse">
               <thead>
                 <tr>
-                  <th className={th}>Model</th>
-                  <th className={th}>Test data</th>
-                  <th className={`${th} text-right`}>AUC</th>
+                  <th className={th}>{t("model")}</th>
+                  <th className={th}>{t("testData")}</th>
+                  <th className={`${th} text-end`}>{t("auc")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,16 +38,16 @@ export function MlMetricsDrawer({ failure, inspection }: { failure: FailureRisk 
                   <tr key={`${r.model}-${r.data}`} className="border-t border-line">
                     <td className={`${td} font-semibold text-ink`}>{r.model}</td>
                     <td className={`${td} text-ink-soft`}>{r.data}</td>
-                    <td className={`${td} text-right font-mono font-bold text-ink`}>{r.roc_auc?.toFixed(3) ?? "—"}</td>
+                    <td className={`${td} text-end font-mono font-bold text-ink`}>{r.roc_auc?.toFixed(3) ?? "—"}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <h3 className="mt-5 text-[13px] font-bold uppercase tracking-wider text-ink">Model 2 · real defect rate by level</h3>
+            <h3 className="mt-5 text-[13px] font-bold uppercase tracking-wider text-ink">{t("defectRate")}</h3>
             <div className="mt-2 grid grid-cols-3 gap-2">
               {LEVELS.map((l, i) => (
                 <div key={l} className="rounded-lg bg-chip px-3 py-2 text-center">
-                  <p className="text-[11px] font-bold uppercase text-ink-faint">{l}</p>
+                  <p className="text-[11px] font-bold uppercase text-ink-faint">{tLevel(l)}</p>
                   <p className="font-mono text-[17px] font-bold text-ink">{failure.observed_rate_by_level[i] ?? "—"}%</p>
                 </div>
               ))}
@@ -66,32 +57,32 @@ export function MlMetricsDrawer({ failure, inspection }: { failure: FailureRisk 
         <section>
           {failure && (
             <>
-              <h3 className="text-[13px] font-bold uppercase tracking-wider text-ink">Model 2 · feature vector ({failure.branch === "ice" ? "ICE" : "EV / hybrid"})</h3>
+              <h3 className="text-[13px] font-bold uppercase tracking-wider text-ink">{t("vector", { branch: failure.branch === "ice" ? t("branchIce") : t("branchEv") })}</h3>
               <dl className="mt-2 grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-1 font-mono text-[12.5px]">
                 {Object.entries(failure.inputs).map(([k, v]) => (
                   <div key={k} className="contents">
-                    <dt className="truncate text-ink-soft">{INPUT_LABEL[k] ?? k}</dt>
-                    <dd className="text-right font-bold text-ink">{fmt(v)}</dd>
+                    <dt className="truncate text-ink-soft">{feature(k)}</dt>
+                    <dd className="text-end font-bold text-ink">{value(v)}</dd>
                   </div>
                 ))}
               </dl>
               {failure.assumed.length > 0 && (
                 <p className="mt-2 text-[12.5px] text-ink-soft" data-testid="failure-risk-assumed">
-                  <span className="font-bold text-ink">Not known:</span> {failure.assumed.join(", ")}
+                  <span className="font-bold text-ink">{t("notKnown")}</span> {failure.assumed.join(", ")}
                 </p>
               )}
             </>
           )}
           {inspection.covered && inspection.scale && (
             <>
-              <h3 className="mt-5 text-[13px] font-bold uppercase tracking-wider text-ink">UK MOT model · defect rate by level</h3>
+              <h3 className="mt-5 text-[13px] font-bold uppercase tracking-wider text-ink">{t("ukRate")}</h3>
               <table className="mt-2 w-full border-collapse">
                 <thead>
                   <tr>
-                    <th className={th}>System</th>
+                    <th className={th}>{t("system")}</th>
                     {LEVELS.map((l) => (
-                      <th key={l} className={`${th} text-right`}>
-                        {l}
+                      <th key={l} className={`${th} text-end`}>
+                        {tLevel(l)}
                       </th>
                     ))}
                   </tr>
@@ -100,15 +91,15 @@ export function MlMetricsDrawer({ failure, inspection }: { failure: FailureRisk 
                   {inspection.systems.map((s) => (
                     <tr key={s.system} className="border-t border-line">
                       <td className={`${td} font-semibold text-ink`}>{s.title.split(" (")[0]}</td>
-                      <td className={`${td} text-right font-mono text-ink`}>{s.observed_in_reference.low}%</td>
-                      <td className={`${td} text-right font-mono text-ink`}>{s.observed_in_reference.moderate}%</td>
-                      <td className={`${td} text-right font-mono text-ink`}>{s.observed_in_reference.high}%</td>
+                      <td className={`${td} text-end font-mono text-ink`}>{s.observed_in_reference.low}%</td>
+                      <td className={`${td} text-end font-mono text-ink`}>{s.observed_in_reference.moderate}%</td>
+                      <td className={`${td} text-end font-mono text-ink`}>{s.observed_in_reference.high}%</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
               <p className="mt-2 text-[12px] text-ink-faint">
-                Level cuts P{inspection.scale.cut_percentiles.brakes[0]} / P{inspection.scale.cut_percentiles.brakes[1]} · 12-month interval
+                {t("cuts", { low: inspection.scale.cut_percentiles.brakes[0], high: inspection.scale.cut_percentiles.brakes[1] })}
               </p>
             </>
           )}

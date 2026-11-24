@@ -1773,10 +1773,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Audi",
-  "est_km": 124200,
+  "est_km": 127300,
   "range": [
-   51600,
-   239900
+   52900,
+   246100
   ],
   "covered": true,
   "variant": "cold",
@@ -1804,15 +1804,15 @@
   "ownership": "ליסינג",
   "status": 200,
   "make_en": "Geely",
-  "est_km": 13600,
+  "est_km": 13300,
   "range": [
-   4600,
-   23400
+   4400,
+   22900
   ],
   "covered": false,
   "variant": null,
   "levels": {},
-  "recalls": null
+  "recalls": 0
  },
  {
   "plate": "87209104",
@@ -1822,15 +1822,15 @@
   "ownership": "חברה",
   "status": 200,
   "make_en": "Omoda",
-  "est_km": 10700,
+  "est_km": 11100,
   "range": [
-   3600,
-   18500
+   3700,
+   19000
   ],
   "covered": false,
   "variant": null,
   "levels": {},
-  "recalls": null
+  "recalls": 0
  },
  {
   "plate": "20423504",
@@ -1840,10 +1840,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Volvo",
-  "est_km": 16600,
+  "est_km": 17200,
   "range": [
-   5600,
-   28600
+   5700,
+   29500
   ],
   "covered": false,
   "variant": null,
@@ -1858,10 +1858,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Geely",
-  "est_km": 6900,
+  "est_km": 7100,
   "range": [
-   2300,
-   11900
+   2400,
+   12200
   ],
   "covered": false,
   "variant": null,
@@ -1876,10 +1876,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Chery",
-  "est_km": 6900,
+  "est_km": 7100,
   "range": [
-   2300,
-   11900
+   2400,
+   12200
   ],
   "covered": false,
   "variant": null,
@@ -1894,10 +1894,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Chery",
-  "est_km": 6900,
+  "est_km": 7100,
   "range": [
-   2300,
-   11900
+   2400,
+   12200
   ],
   "covered": false,
   "variant": null,
@@ -1912,10 +1912,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Volvo",
-  "est_km": 109300,
+  "est_km": 108000,
   "range": [
-   42100,
-   209100
+   41600,
+   206600
   ],
   "covered": true,
   "variant": "cold",
@@ -1933,7 +1933,7 @@
     15
    ]
   },
-  "recalls": null
+  "recalls": 0
  },
  {
   "plate": "74874302",
@@ -1943,15 +1943,15 @@
   "ownership": "חברה",
   "status": 200,
   "make_en": "Geely",
-  "est_km": 157100,
+  "est_km": 159800,
   "range": [
-   54700,
-   258200
+   55700,
+   262600
   ],
   "covered": false,
   "variant": null,
   "levels": {},
-  "recalls": null
+  "recalls": 0
  },
  {
   "plate": "77483203",
@@ -2095,7 +2095,7 @@
   "covered": false,
   "variant": null,
   "levels": {},
-  "recalls": null
+  "recalls": 0
  },
  {
   "plate": "83776603",

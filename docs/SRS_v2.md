@@ -37,6 +37,8 @@ It never presents a risk as a probability of breakdown and never as a probabilit
 | FR-6 (new) | Recommended maintenance from rules | `services/maintenance_rules.py` |
 | FR-7 (new) | Official open recalls per plate | `services/recalls.py` (resource `36bf1404-0be4-49d2-82dc-2f1ead4a8b93`) |
 | FR-8 (new) | Aggregated prediction | `GET /api/v1/predict/{plate}` (SRS section 6, step 1) |
+| FR-9 (new) | Interface, results and chat in English (default) and Hebrew, right-to-left for Hebrew, choice remembered | `frontend/messages/`, `next-intl`, `backend/app/i18n/`; [LANGUAGES_AND_GARAGES.md](LANGUAGES_AND_GARAGES.md) (change C34) |
+| FR-10 (new) | Licensed garages near a city or near the user (GPS with permission), with map, distance and routes | `GET /api/v1/garages`, `POST /api/v1/garages/near`; `services/garages.py` (resource `bb68386a-a331-4bbc-b668-bba2766d517d`), cached 24 h (change C35) |
 
 ## 3. Algorithmic and data constraints
 
@@ -82,11 +84,15 @@ Maintenance records are **not** treated as inspection results: the model was onl
 | Method and path | Purpose |
 |---|---|
 | `GET /health` | Liveness |
-| `GET /api/v1/vehicles/{plate}` | Registry profile (translated) |
-| `GET /api/v1/predict/{plate}?odometer_km=` | Mileage, inspection risk, maintenance rules, recalls, history, provenance |
+| `GET /api/v1/vehicles/{plate}?lang=` | Registry profile (translated) |
+| `GET /api/v1/predict/{plate}?odometer_km=&lang=` | Mileage, inspection risk, maintenance rules, recalls, history, provenance |
 | `GET/POST /api/v1/vehicles/{plate}/maintenance` | Service records |
 | `GET/POST /api/v1/vehicles/{plate}/inspections` | Annual inspection results |
-| `POST /api/v1/chat` | Diagnostic chat (`license_plate`, `message`, optional `odometer_km`) |
+| `POST /api/v1/chat` | Diagnostic chat (`license_plate`, `message`, optional `odometer_km`, `lang`) |
+| `GET /api/v1/garages/cities?q=` | Cities by Hebrew or English name |
+| `GET /api/v1/garages?city=&radius_km=&service=` | Licensed garages of a city and its surroundings |
+| `POST /api/v1/garages/near` | Licensed garages around a position (in the body, not stored) |
+| `GET /api/v1/garages/{id}/google` | Optional rating and hours (404 without a Google key) |
 
 Interactive documentation at `/docs`.
 
@@ -141,3 +147,5 @@ Unit and integration tests (pytest, inside the compose stack), model checks on t
 | C31 | Smart_Car_Models.pdf: Model 2 on Dataset 1 (+ Dataset 4 aggregation; Dataset 5 model for electric/hybrid), Vehicle_Age, Days_Since_Last_Maintenance, Brand_Reliability_Index, mileage from Model 1, SMOTE vs scale_pos_weight, Logistic Regression baseline, Recall tuning | **Implemented exactly** (`ml/src/spec_model2.py`) and made the main risk panel, shown as three levels (no percentage). The model on real UK/Dutch inspections (C1, C2, C5) stays as a **comparison panel** with a ROC-AUC table. This reverses C1/C7 and, for this model only, C24 (Model 1 now feeds Model 2, as specified) | Requested by the student. Forced deviations: the augmented third Dataset 1 file is excluded (near-duplicates), leaky columns dropped, Dataset 4 grouped by mileage only (no age column), brand index computed from real UK inspection outcomes (no Kaggle dataset measures it), Recall tuning guarded against "flag everything". The labels are synthetic: the external check on real inspections is in `docs/SPEC_MODELS.md` |
 | C32 | Model 1 and Model 2 performance (Smart_Car_Models.pdf): data augmentation, SMOTE, no over-fitting or leakage, better predictions for the user | **Version 3.0.0** (`ml/src/model1_train.py`, `ml/src/model2_train.py`). Original Kaggle datasets unchanged; 250,000 (Model 1) and 260,000 (Model 2) synthetic vehicles from sequential CART synthesis (`ml/src/synthesis.py`), used **only in training**; every choice on real validation vehicles, results on real test vehicles (UK MOT, Dutch RDW). Model 1 on real odometers: RMSE 67,855 -> 47,969 km, MAE 47,762 -> 34,711 km, R² 0.119 -> 0.560. Model 2 on real vehicles: Recall 0.447 -> 0.577, Precision 0.334 -> 0.432, ROC-AUC 0.567 -> 0.674 | Requested by the student (2026-11-24). Official vehicles as the source of the synthetic rows go beyond the datasets named in the PDF (documented addition); encodings, algorithms, experiments and metrics of the PDF are kept |
 | C33 | C31: ROC-AUC 0.978 of Model 2 on Dataset 1 | **Withdrawn: data leakage** (`Maintenance_Type` and "days since maintenance > 180" encode the label). `Maintenance_Type` is no longer an input; unknown inputs stay unknown (masked training) instead of being read as zero; the score is calibrated on real vehicles and one Low / Moderate / High scale serves both branches; Dataset 4 rates are non-decreasing with mileage, so a new car is never riskier than an older one | Found while analysing the data for C32; reported because it corrects an earlier claim |
+| C34 | (not specified) English interface | English and **Hebrew with right-to-left layout**, selector in the header, choice kept in a cookie; chat in the selected language with the same facts | Requested. Texts are translated after the prediction: 88 real plates give the same numbers, levels and flags in both languages ([LANGUAGES_AND_GARAGES.md](LANGUAGES_AND_GARAGES.md)) |
+| C35 | (not specified) | **Nearby Garages**: official register of licensed garages (no key), OpenStreetMap geometry and map, routes in Google Maps / Waze, optional Google ratings behind a backend key | Requested. Positions are shown as exact, approximate or unknown; nothing is invented ([LANGUAGES_AND_GARAGES.md](LANGUAGES_AND_GARAGES.md)) |

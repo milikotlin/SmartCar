@@ -1,28 +1,22 @@
+import { useTranslations } from "next-intl";
+import { useFmt } from "@/lib/format";
 import type { MaintenanceInfo, RuleStatus } from "@/lib/types";
 import { CardHeader, StatusPill, Tag, type RiskStatus } from "./ui/StatusPill";
 
-const STATUS: Record<RuleStatus["status"], { pill: RiskStatus; text: string }> = {
-  ok: { pill: "ok", text: "Up to date" },
-  due_soon: { pill: "warn", text: "Due soon" },
-  overdue: { pill: "critical", text: "Overdue" },
-  no_record: { pill: "neutral", text: "No record" },
-  no_record_overdue: { pill: "critical", text: "No record · overdue" },
-};
-
-/** "12 months or 15,000 km" -> "12m / 15,000 km" */
-function shortInterval(interval: string): string {
-  return interval.replace(/ months?/, "m").replace(" or ", " / ");
-}
+const STATUS_PILL: Record<RuleStatus["status"], RiskStatus> = { ok: "ok", due_soon: "warn", overdue: "critical", no_record: "neutral", no_record_overdue: "critical" };
 
 export function MaintenancePanel({ info }: { info: MaintenanceInfo }) {
-  const b = info.odometer_basis.split(" (")[0];
-  const basis = b.charAt(0).toUpperCase() + b.slice(1);
+  const t = useTranslations("maintenance");
+  const { num, km } = useFmt();
+  const basis = t(`basis.${(info.odometer_basis_code ?? "odo_estimated") as "odo_reported" | "odo_measured" | "odo_estimated"}`);
+  const interval = (r: RuleStatus) =>
+    r.interval_months && r.interval_km ? t("intervalBoth", { months: r.interval_months, km: num(r.interval_km) }) : r.interval_months ? t("intervalMonths", { months: r.interval_months }) : r.interval;
   return (
     <section className="card-shadow rounded-2xl border border-line bg-surface p-6">
       <CardHeader
-        eyebrow="Rule-based fallback"
-        title="Recommended Maintenance"
-        right={<Tag>{`${basis}${info.odometer_used_km ? ` · ${info.odometer_used_km.toLocaleString("en-US")} km` : ""}`}</Tag>}
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        right={<Tag>{`${basis}${info.odometer_used_km ? ` · ${km(info.odometer_used_km)}` : ""}`}</Tag>}
       />
       <ul className="mt-4 divide-y divide-line">
         {info.rules.map((r) => (
@@ -30,11 +24,11 @@ export function MaintenancePanel({ info }: { info: MaintenanceInfo }) {
             <div className="min-w-0">
               <p className="truncate text-[14.5px] font-semibold text-ink">{r.label}</p>
               <p className="font-mono text-[12.5px] text-ink-soft">
-                Every {shortInterval(r.interval)}
-                {r.last_service_date ? ` · last ${r.last_service_date}` : ""}
+                {t("every", { interval: interval(r) })}
+                {r.last_service_date ? t("last", { date: r.last_service_date }) : ""}
               </p>
             </div>
-            <StatusPill status={STATUS[r.status].pill}>{STATUS[r.status].text}</StatusPill>
+            <StatusPill status={STATUS_PILL[r.status]}>{t(`status.${r.status}`)}</StatusPill>
           </li>
         ))}
       </ul>

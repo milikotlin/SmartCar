@@ -3,7 +3,7 @@
 For each scenario it opens the dashboard, searches a plate, makes DOM assertions (what must and must not be on the page), checks horizontal overflow and
 saves PNG screenshots to docs/screenshots/. It needs the stack running (docker compose up) and `websocket-client`.
 
-Usage:  python scripts/visual_check.py
+Usage:  python scripts/visual_check.py [--only-new]     (--only-new: languages and garages only)
 """
 import base64
 import json
@@ -16,6 +16,8 @@ import urllib.request
 from pathlib import Path
 
 import websocket
+
+from visual_i18n_garages import garage_checks, language_checks
 
 ROOT = Path(__file__).resolve().parents[1]
 SHOTS = ROOT / "docs" / "screenshots"
@@ -148,6 +150,14 @@ def wait(page, ms):
 def main():
     page = Page()
     try:
+        if "--only-new" in sys.argv:
+            for mode, (w, h, mobile) in (("desktop", (1280, 900, False)), ("mobile", (390, 844, True))):
+                page.device(w, h, mobile)
+                page.scheme(False)
+                for check in (language_checks, garage_checks):
+                    check(page, lambda s: f"{mode}/{s}", mode, record)
+            finish(save=False)
+
         # ---- presentation screen (1920 x 1080): the two-stage pipeline is visible without scrolling
         page.device(1920, 1080, False)
         page.scheme(True)
@@ -335,6 +345,10 @@ def main():
             wait(page, 500)
             record(tag("invalid plate: validation message"), "Enter 7 or 8 digits" in page.text())
 
+            # ---- 9. two languages and nearby garages
+            language_checks(page, tag, mode, record)
+            garage_checks(page, tag, mode, record)
+
         # ---- dark scheme once (desktop)
         page.device(1280, 900, False)
         page.scheme(True)
@@ -344,9 +358,14 @@ def main():
         record("dark scheme: renders without horizontal overflow", not page.overflow())
     finally:
         page.close()
+    finish()
+
+
+def finish(save=True):
     passed = sum(1 for _, ok, _ in results if ok)
     print(f"\n{passed}/{len(results)} visual checks passed")
-    (ROOT / "docs" / "visual_check_results.json").write_text(json.dumps([{"check": n, "passed": ok, "detail": d} for n, ok, d in results], indent=1), encoding="utf-8")
+    if save:
+        (ROOT / "docs" / "visual_check_results.json").write_text(json.dumps([{"check": n, "passed": ok, "detail": d} for n, ok, d in results], indent=1), encoding="utf-8")
     sys.exit(0 if passed == len(results) else 1)
 
 

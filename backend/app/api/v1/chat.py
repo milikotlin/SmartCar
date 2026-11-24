@@ -8,6 +8,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
 from app.database import get_db
+from app.i18n import DEFAULT_LANG, Lang
+from app.i18n.localize import localize_prediction
 from app.ml.registry import get_models
 from app.security import rate_limit
 from app.services import chat
@@ -21,6 +23,7 @@ class ChatRequest(BaseModel):
     license_plate: str = Field(pattern=r"^\d{7,8}$")
     message: str = Field(min_length=1, max_length=1000)
     odometer_km: int | None = Field(default=None, ge=1, le=1_000_000)       # typed by the user: reported, not verified
+    lang: Lang = DEFAULT_LANG                                               # language of the reply; the diagnosis data are the same
 
 
 class ChatResponse(BaseModel):
@@ -39,11 +42,11 @@ async def diagnostic_chat(body: ChatRequest, session: AsyncSession = Depends(get
         recalls_task.cancel()
         raise HTTPException(status_code=404, detail="Vehicle not found in Ministry of Transport registry")
     prediction = await build_prediction(profile, get_models(), session, odometer_km=body.odometer_km, recalls_info=await recalls_task)
-    result = await chat.answer(prediction, body.message)
+    result = await chat.answer(prediction, body.message, lang=body.lang)
     return ChatResponse(
         answer=result["answer"],
         source=result["source"],
         model=result.get("model"),
         note=result.get("note"),
-        context=chat.facts(prediction, date.today()),
+        context=chat.facts(localize_prediction(prediction, body.lang), date.today(), body.lang),
     )

@@ -1,23 +1,25 @@
+import { useTranslations } from "next-intl";
 import type { RecallInfo } from "@/lib/types";
 import { CardHeader, StatusPill, Tag } from "./ui/StatusPill";
 
 export function RecallsPanel({ info }: { info: RecallInfo }) {
+  const t = useTranslations("recalls");
   return (
     <section className="card-shadow rounded-2xl border border-line bg-surface p-6" data-testid="recalls">
-      <CardHeader eyebrow="Official data" title="Open Recalls" right={<Tag>Ministry of Transport</Tag>} />
+      <CardHeader eyebrow={t("eyebrow")} title={t("title")} right={<Tag>{t("source")}</Tag>} />
       {!info.available ? (
         <p className="mt-4 flex items-center gap-3 text-[14px] font-semibold text-ink">
           <StatusPill status="neutral" size="md">
-            Unavailable
+            {t("unavailable")}
           </StatusPill>
-          Recall service offline
+          {t("offline")}
         </p>
       ) : info.count === 0 ? (
         <p className="mt-4 flex items-center gap-3 text-[15px] font-semibold text-ink">
           <StatusPill status="ok" size="md">
-            None
+            {t("none")}
           </StatusPill>
-          No open recalls
+          {t("noOpen")}
         </p>
       ) : (
         <ul className="mt-4 divide-y divide-line">
@@ -26,7 +28,7 @@ export function RecallsPanel({ info }: { info: RecallInfo }) {
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-[15px] font-bold text-ink">{r.category}</p>
                 <StatusPill status="critical" size="md">
-                  Open recall
+                  {t("open")}
                 </StatusPill>
               </div>
               <p className="mt-0.5 font-mono text-[12.5px] text-ink-soft">

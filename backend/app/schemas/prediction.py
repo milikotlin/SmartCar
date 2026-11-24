@@ -21,6 +21,7 @@ class MileageInfo(BaseModel):
     model_inputs: dict = {}                # the features Model 1 used (engine size and transmission from the official model table, or imputed)
     estimate_reliability: str = "ok"       # ok | low: low when the training data do not support this fuel type at this age
     estimate_reliability_reason: str | None = None
+    estimate_reliability_code: str | None = None   # language-independent code of the reason (app/i18n/domain.py)
     label: str
 
 
@@ -56,6 +57,7 @@ class InspectionRisk(BaseModel):
     definition: str
     covered: bool
     reasons: list[str] = []
+    reason_codes: list[str | None] = []    # language-independent code of each reason
     variant: str | None = None
     uses_history: bool = False
     uses_measured_odometer: bool = False   # an odometer value (recorded or user-reported) is an input of the model
@@ -69,6 +71,8 @@ class RuleStatus(BaseModel):
     key: str
     label: str
     interval: str
+    interval_months: int | None = None
+    interval_km: int | None = None
     advice: str
     status: str                           # ok | due_soon | overdue | no_record | no_record_overdue
     attention: bool
@@ -85,6 +89,7 @@ class MaintenanceInfo(BaseModel):
     disclaimer: str
     odometer_used_km: int | None = None
     odometer_basis: str
+    odometer_basis_code: str | None = None
     rules: list[RuleStatus]
 
 

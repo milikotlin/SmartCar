@@ -1,0 +1,412 @@
+{
+  "meta": {
+    "title": "SmartCar-Ops",
+    "description": "לוח בקרה לתחזוקה חזויה של הרכב"
+  },
+  "header": {
+    "tagline": "למידת מכונה בשני שלבים · תחזוקה חזויה",
+    "garages": "מוסכים קרובים"
+  },
+  "language": {
+    "label": "שפה",
+    "en": "English",
+    "he": "עברית"
+  },
+  "units": {
+    "km": "{value} ק״מ",
+    "years": "{value} שנים",
+    "yearsTight": "{value} שנים",
+    "cc": "{value} סמ״ק"
+  },
+  "levels": {
+    "low": "נמוך",
+    "moderate": "בינוני",
+    "high": "גבוה"
+  },
+  "levelsRisk": {
+    "low": "סיכון נמוך",
+    "moderate": "סיכון בינוני",
+    "high": "סיכון גבוה"
+  },
+  "fuel": {
+    "petrol": "בנזין",
+    "diesel": "דיזל",
+    "hybrid": "היברידי",
+    "electric": "חשמל",
+    "lpg_cng": "גז (גפ״מ)",
+    "unknown": "לא ידוע"
+  },
+  "search": {
+    "form": "חיפוש רכב",
+    "placeholder": "מספר רישוי",
+    "inputLabel": "מספר רישוי, 7 או 8 ספרות",
+    "submit": "חיפוש",
+    "busy": "מחפש…",
+    "invalid": "יש להזין 7 או 8 ספרות",
+    "demo": "הדגמה",
+    "demoLabel": "כלי רכב להדגמה",
+    "demoNames": {
+      "toyota": "טויוטה",
+      "nissan": "ניסאן",
+      "history": "היסטוריה מלאה",
+      "anomaly": "חריגה",
+      "ev": "חשמלי"
+    }
+  },
+  "errors": {
+    "notFound": "הרכב לא נמצא במאגר משרד התחבורה.",
+    "invalid": "הנתונים שהוזנו אינם תקינים (יש לבדוק את מספר הרישוי ואת המספרים).",
+    "writeKey": "מפתח המוסך חסר או שגוי. רק מוסכים מורשים יכולים להוסיף רשומות.",
+    "writeDisabled": "הוספת רשומות מושבתת בשרת זה (לא הוגדר מפתח מוסך).",
+    "tooMany": "יותר מדי בקשות. יש להמתין דקה ולנסות שוב.",
+    "registryDown": "מאגר משרד התחבורה אינו זמין זמנית. נסו שוב בעוד רגע.",
+    "conflict": "רשומה זו כבר קיימת.",
+    "unexpected": "אירעה שגיאה לא צפויה בפנייה לשרת.",
+    "unreachable": "לא ניתן להתחבר לשרת. האם הוא פועל?"
+  },
+  "empty": {
+    "title": "חיפוש רכב",
+    "steps": {
+      "registry": { "title": "מאגר הרכב", "text": "פרטי הרכב מ-data.gov.il" },
+      "model1": { "title": "מודל 1", "text": "אומדן קילומטראז׳ (XGBoost)" },
+      "model2": { "title": "מודל 2", "text": "סיווג סיכון לתקלה" },
+      "rules": { "title": "כללים וריקולים", "text": "טיפולים ונתונים רשמיים" }
+    }
+  },
+  "footer": {
+    "versions": "מודל 1 גרסה {model1} · מודל 2 גרסה {model2} · השוואת MOT בריטניה גרסה 1"
+  },
+  "vehicle": {
+    "source": "משרד התחבורה",
+    "year": "שנה",
+    "fuel": "דלק",
+    "ownership": "בעלות",
+    "color": "צבע",
+    "lastTest": "טסט אחרון",
+    "licenseValid": "תוקף רישיון"
+  },
+  "mileage": {
+    "section": "קילומטראז׳",
+    "eyebrow": "מודל 1 · קילומטראז׳",
+    "updating": "מתעדכן…",
+    "source": "מקור הקילומטראז׳",
+    "estimateTab": "אומדן קילומטראז׳ (AI)",
+    "knownTab": "הזנת קילומטראז׳ ידוע",
+    "serviceRecord": "רשומת טיפול",
+    "recorded": "נרשם בתאריך {date} · אומדן AI <b>{km}</b>",
+    "regressor": "רגרסיית XGBoost",
+    "interval": "רווח סמך 80%",
+    "lowReliability": "אמינות נמוכה",
+    "inputLabel": "הזינו את הקילומטראז׳ הנוכחי (ק״מ)",
+    "placeholder": "ק״מ נוכחי, למשל 123456",
+    "use": "השתמש",
+    "userReported": "דיווח המשתמש",
+    "notVerified": "לא מאומת · לא נשמר",
+    "model2Input": "קלט למודל 2 {mark}",
+    "ukInput": "קלט למודל הבריטי {mark}",
+    "serviceRecordOn": "רשומת טיפול <b>{km}</b> · {date}",
+    "none": "לא הוזן קילומטראז׳",
+    "reliability": {
+      "officialAverage": "מוצג הממוצע הרשמי",
+      "noEv": "אין סטטיסטיקה ישראלית לרכב חשמלי",
+      "sparse": "מעט נתוני אימון",
+      "outside": "מחוץ לטווח הנתונים"
+    },
+    "errors": {
+      "empty": "יש להזין את הקילומטראז׳ הנוכחי.",
+      "negative": "הקילומטראז׳ אינו יכול להיות שלילי.",
+      "digits": "יש להזין קילומטרים שלמים, ספרות בלבד (למשל 123456).",
+      "tooHigh": "הערך גבוה מ-{max} ק״מ. נא לבדוק את המספר.",
+      "tooLow": "הקילומטראז׳ חייב להיות לפחות 1 ק״מ."
+    }
+  },
+  "model1": {
+    "title": "קלט ופירוט של מודל 1",
+    "imputed": "הושלם (KNN, K=5)",
+    "age": "גיל",
+    "fuel": "דלק",
+    "makeModel": "יצרן / דגם",
+    "engine": "נפח מנוע",
+    "transmission": "תיבת הילוכים",
+    "owners": "בעלים",
+    "preCalibration": "תוצאה לפני כיול",
+    "calibration": "כיול",
+    "calibrationValue": "למ״ס 1923 · גיל × בעלות",
+    "automatic": "אוטומטית",
+    "manual": "ידנית",
+    "ownerType": {
+      "First": "יד ראשונה",
+      "Second": "יד שנייה",
+      "Third": "יד שלישית",
+      "Fourth": "יד רביעית ומעלה",
+      "Unknown": "לא ידוע"
+    }
+  },
+  "failure": {
+    "eyebrow": "מודל 2 · תחזוקה חזויה",
+    "title": "סיכון תחזוקה חזוי",
+    "ice": "ענף מנוע בעירה",
+    "ev": "ענף חשמלי / היברידי",
+    "classifier": "מסווג XGBoost",
+    "notAvailable": "לא ידוע",
+    "kmSource": {
+      "user_reported": "דיווח",
+      "measured": "רשומה",
+      "estimated": "מודל 1"
+    },
+    "drivers": {
+      "age": "גיל",
+      "mileage": "קילומטראז׳",
+      "days": "ימים מאז טיפול",
+      "serviceKm": "ק״מ מאז טיפול",
+      "failures": "תקלות קודמות",
+      "brand": "מדד יצרן"
+    }
+  },
+  "subsystem": {
+    "eyebrow": "השוואה · בדיקות MOT אמיתיות בבריטניה",
+    "title": "סיכון לפי מערכת",
+    "variant": {
+      "cold": "נתוני המאגר בלבד",
+      "cold_odo": "+ מד אוץ",
+      "hist": "+ טסט אחרון",
+      "hist_odo": "+ טסט אחרון + מד אוץ"
+    },
+    "odometerReported": "מד אוץ: דיווח",
+    "models": "XGBoost × 3",
+    "notCovered": "לא מכוסה",
+    "noEstimate": "אין אומדן לרכב זה",
+    "reason": {
+      "fuel": "סוג הדלק אינו מכוסה",
+      "young": "פחות מ-3 שנים",
+      "old": "יותר מ-20 שנים",
+      "other": "מחוץ לכיסוי"
+    },
+    "percentile": "אחוזון",
+    "barLabel": "{name}: {level}, אחוזון {percentile} מכלי הרכב בנתוני הייחוס",
+    "ageGroup": "גיל {years}: <b>{label}</b>",
+    "sameAge": {
+      "lower": "נמוך מבני גילו",
+      "typical": "אופייני",
+      "higher": "גבוה מבני גילו"
+    }
+  },
+  "metrics": {
+    "title": "מדדי ML ווקטור המאפיינים",
+    "benchmarks": "השוואת ביצועים · ROC-AUC על בדיקות אמיתיות",
+    "model": "מודל",
+    "testData": "נתוני מבחן",
+    "auc": "AUC",
+    "defectRate": "מודל 2 · שיעור ליקויים אמיתי לפי רמה",
+    "vector": "מודל 2 · וקטור המאפיינים ({branch})",
+    "branchIce": "מנוע בעירה",
+    "branchEv": "חשמלי / היברידי",
+    "notKnown": "לא ידוע:",
+    "ukRate": "מודל MOT בריטניה · שיעור ליקויים לפי רמה",
+    "system": "מערכת",
+    "cuts": "גבולות הרמות P{low} / P{high} · מרווח של 12 חודשים",
+    "features": {
+      "vehicle_age": "גיל הרכב",
+      "km": "ק״מ",
+      "km_source": "מקור הק״מ",
+      "days_since_last_maintenance": "ימים מאז הטיפול האחרון",
+      "failure_history": "היסטוריית תקלות",
+      "brand_reliability_index": "מדד אמינות היצרן",
+      "d4_engine_fault_rate": "שיעור תקלות מנוע (מאגר 4)",
+      "d4_brake_fault_rate": "שיעור תקלות בלמים (מאגר 4)",
+      "d4_battery_fault_rate": "שיעור תקלות מצבר (מאגר 4)",
+      "km_model_scale": "ק״מ (בסולם מודל 1)",
+      "last_service_distance": "ק״מ מאז הטיפול האחרון"
+    },
+    "kmSource": {
+      "user_reported": "דיווח המשתמש",
+      "measured": "מדוד",
+      "estimated": "אומדן"
+    }
+  },
+  "maintenance": {
+    "eyebrow": "מבוסס כללים",
+    "title": "טיפולים מומלצים",
+    "every": "כל {interval}",
+    "intervalBoth": "{months} חודשים / {km} ק״מ",
+    "intervalMonths": "{months} חודשים",
+    "last": " · אחרון {date}",
+    "basis": {
+      "odo_reported": "דיווח המשתמש",
+      "odo_measured": "מדוד",
+      "odo_estimated": "אומדן"
+    },
+    "status": {
+      "ok": "תקין",
+      "due_soon": "מתקרב המועד",
+      "overdue": "באיחור",
+      "no_record": "אין רשומה",
+      "no_record_overdue": "אין רשומה · באיחור"
+    }
+  },
+  "recalls": {
+    "eyebrow": "נתונים רשמיים",
+    "title": "ריקולים פתוחים",
+    "source": "משרד התחבורה",
+    "unavailable": "לא זמין",
+    "offline": "שירות הריקול אינו זמין",
+    "none": "אין",
+    "noOpen": "אין ריקולים פתוחים",
+    "open": "ריקול פתוח"
+  },
+  "log": {
+    "eyebrow": "הפעלה בהדגמה חיה",
+    "title": "יומן טיפולים",
+    "manual": "רשומות ידניות",
+    "counts": "{services} טיפולים · {inspections} בדיקות",
+    "usedByModel": "הטסט האחרון ← המודל הבריטי",
+    "date": "תאריך",
+    "km": "ק״מ",
+    "description": "תיאור",
+    "cost": "עלות",
+    "empty": "אין רשומות טיפולים",
+    "demo": "הדגמה",
+    "inspection": "בדיקה {date}",
+    "noDefect": "ללא ליקוי",
+    "addMaintenance": "＋ הוספת טיפול",
+    "addInspection": "＋ הוספת תוצאת בדיקה",
+    "key": "מפתח מוסך",
+    "odometer": "מד אוץ (ק״מ)",
+    "category": "קטגוריה",
+    "descriptionExample": "למשל: הוחלפו רפידות בלם קדמיות",
+    "inspectionDate": "תאריך הבדיקה",
+    "optional": "לא חובה",
+    "defectsFound": "ליקויים שנמצאו",
+    "defects": {
+      "brakes": "בלמים",
+      "electrical": "חשמל",
+      "engine": "מנוע",
+      "other": "אחר"
+    },
+    "defectsShort": {
+      "brakes": "בלמים",
+      "electrical": "חשמל",
+      "engine": "מנוע",
+      "other": "אחר"
+    },
+    "categories": {
+      "none": "(ללא)",
+      "oil": "שמן",
+      "brakes": "בלמים",
+      "brake_fluid": "נוזל בלמים",
+      "tires": "צמיגים",
+      "coolant": "נוזל קירור",
+      "battery": "מצבר",
+      "filters": "מסננים",
+      "other": "אחר"
+    },
+    "save": "שמירה וחישוב הסיכון מחדש",
+    "saving": "שומר…",
+    "saved": "נשמר · הסיכון חושב מחדש",
+    "keyFirst": "יש להזין תחילה את מפתח המוסך",
+    "couldNotSave": "לא ניתן לשמור."
+  },
+  "chat": {
+    "title": "אבחון AI",
+    "dialog": "עוזר אבחון AI",
+    "scope": "התשובות מבוססות רק על הנתונים של רכב {plate}. אינן תחליף למכונאי.",
+    "noVehicle": "יש לחפש רכב תחילה.",
+    "hint": "תארו תסמין, למשל: ״נשמעת חריקה בזמן בלימה״.",
+    "generated": "נוצר על ידי {model} · הנתונים ששימשו",
+    "ruleBased": "תשובה לפי כללים (ללא מודל שפה) · הנתונים ששימשו",
+    "note": "הערה: {note}",
+    "thinking": "חושב…",
+    "placeholder": "תארו את התסמין…",
+    "inputLabel": "תיאור תסמין",
+    "send": "שליחה",
+    "open": "פתיחת עוזר האבחון AI",
+    "close": "סגירת עוזר האבחון AI",
+    "unreachable": "לא ניתן להתחבר לעוזר. נסו שוב."
+  },
+  "garages": {
+    "eyebrow": "המאגר הרשמי · משרד התחבורה",
+    "title": "מוסכים קרובים",
+    "licensed": "מוסכים מורשים",
+    "cityLabel": "עיר",
+    "cityPlaceholder": "שם העיר, בעברית או באנגלית",
+    "citySuggestions": "ערים מתאימות",
+    "cityUnknown": "לא נמצאה עיר בשם זה",
+    "cityGarages": "{count, plural, one {מוסך אחד} two {# מוסכים} other {# מוסכים}}",
+    "search": "חיפוש",
+    "popular": "בחירת עיר",
+    "gps": "המיקום שלי",
+    "gpsBusy": "מאתר מיקום…",
+    "radius": "רדיוס",
+    "radiusValue": "{km} ק״מ",
+    "service": "שירות",
+    "allServices": "כל השירותים",
+    "services": {
+      "mechanics": "מכונאות",
+      "ev_hybrid": "חשמלי / היברידי",
+      "electrical": "חשמל רכב",
+      "brakes": "מומחה בלמים",
+      "tires": "צמיגים",
+      "suspension": "מתלים",
+      "air_conditioning": "מיזוג אוויר",
+      "bodywork": "פחחות וצבע",
+      "gearbox": "תיבה אוטומטית",
+      "exhaust_cooling": "פליטה ורדיאטורים",
+      "pre_purchase": "בדיקה לפני קנייה"
+    },
+    "evHint": "לרכב זה: מוסכי חשמלי / היברידי",
+    "idle": "בחרו עיר או השתמשו במיקום שלכם כדי לראות מוסכים מורשים.",
+    "loading": "טוען מוסכים…",
+    "noResults": "לא נמצא כאן מוסך מורשה",
+    "noResultsHint": "נסו רדיוס גדול יותר או שירות אחר.",
+    "retry": "ניסיון נוסף",
+    "summaryCity": "{inCity, plural, one {מוסך אחד} two {# מוסכים} other {# מוסכים}} ב{city} · {around} בסביבה",
+    "summaryGps": "{total, plural, one {מוסך אחד} two {# מוסכים} other {# מוסכים}} במרחק של עד {km} ק״מ ממך",
+    "approximate": "תוצאות מקורבות לאזור {city}: המרחקים הם בקו אווירי ממרכז העיר, לא מהמיקום שלך.",
+    "gpsNote": "ממוין לפי המרחק בקו אווירי מהמיקום שלך. המיקום משמש לחיפוש זה בלבד ואינו נשמר.",
+    "withoutPosition": "{count, plural, one {למוסך אחד} two {ל-# מוסכים} other {ל-# מוסכים}} אין כתובת מדויקת במאגר: מוצגים ללא מרחק ואינם מופיעים במפה.",
+    "stale": "לא ניתן לרענן את המאגר: עותק מתאריך {date}.",
+    "distance": "{km} ק״מ",
+    "distanceApprox": "≈ {km} ק״מ",
+    "inCity": "בעיר",
+    "nearby": "בסביבה",
+    "position": {
+      "house": "כתובת מדויקת במפה",
+      "street": "מיקום משוער ברחוב",
+      "none": "לא מופיע במפה"
+    },
+    "hours": "שעות פתיחה",
+    "hoursSource": "OpenStreetMap",
+    "call": "חיוג",
+    "googleMaps": "Google Maps",
+    "waze": "Waze",
+    "routeGoogle": "מסלול אל {name} ב-Google Maps",
+    "routeWaze": "מסלול אל {name} ב-Waze",
+    "reviews": "ביקורות ושעות ב-Google",
+    "rating": "דירוג ושעות",
+    "ratingTitle": "מידע מ-Google Maps",
+    "ratingCount": "{count, plural, one {ביקורת אחת} two {# ביקורות} other {# ביקורות}}",
+    "ratingNone": "ב-Google אין רשומה שהיא בוודאות המוסך הזה.",
+    "ratingError": "לא ניתן לטעון את הדירוג.",
+    "ratingLimit": "הגעתם למגבלה היומית של בקשות דירוג.",
+    "ratingLoading": "טוען מ-Google…",
+    "noRating": "אין דירוג",
+    "openGoogle": "פתיחה ב-Google Maps",
+    "back": "חזרה למפה",
+    "more": "הצגת עוד ({left})",
+    "map": "מפת המוסכים",
+    "mapNone": "לאף אחד מהמוסכים האלה אין מיקום להצגה במפה.",
+    "you": "המיקום שלך",
+    "garagesHere": "{count, plural, one {מוסך אחד} two {# מוסכים} other {# מוסכים}} בכתובת זו",
+    "source": "מקור: {source} · עודכן {date} · שמות וכתובות כפי שפורסמו",
+    "sourceName": "משרד התחבורה (data.gov.il)",
+    "errors": {
+      "denied": "הגישה למיקום לא אושרה. אפשר לבחור עיר במקום.",
+      "unavailable": "לא ניתן לקבוע את המיקום. אפשר לבחור עיר במקום.",
+      "timeout": "איתור המיקום ארך יותר מדי זמן. נסו שוב או בחרו עיר.",
+      "unsupported": "הדפדפן אינו יכול לשתף מיקום. אפשר לבחור עיר במקום.",
+      "outside": "המיקום שלך מחוץ לישראל. אפשר לבחור עיר במקום.",
+      "registerDown": "מאגר המוסכים הרשמי אינו זמין זמנית. נסו שוב בעוד רגע.",
+      "failed": "לא ניתן לטעון את המוסכים."
+    }
+  }
+}

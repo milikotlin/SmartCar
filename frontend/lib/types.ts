@@ -11,6 +11,7 @@ export interface VehicleProfile {
   first_registration: string | null;
   trim_level: string | null;
   make_raw: string | null;
+  color_raw?: string | null;
 }
 
 export interface MileageInfo {
@@ -31,6 +32,8 @@ export interface MileageInfo {
   model_inputs: Record<string, string | number | null>;
   estimate_reliability: "ok" | "low";
   estimate_reliability_reason: string | null;
+  /** language-independent code of the reason (backend app/i18n/domain.py) */
+  estimate_reliability_code: string | null;
   label: string;
 }
 
@@ -65,6 +68,7 @@ export interface InspectionRisk {
   definition: string;
   covered: boolean;
   reasons: string[];
+  reason_codes: (string | null)[];
   variant: "cold" | "cold_odo" | "hist" | "hist_odo" | null;
   uses_history: boolean;
   uses_measured_odometer: boolean;
@@ -78,6 +82,8 @@ export interface RuleStatus {
   key: string;
   label: string;
   interval: string;
+  interval_months: number | null;
+  interval_km: number | null;
   advice: string;
   status: "ok" | "due_soon" | "overdue" | "no_record" | "no_record_overdue";
   attention: boolean;
@@ -93,6 +99,7 @@ export interface MaintenanceInfo {
   disclaimer: string;
   odometer_used_km: number | null;
   odometer_basis: string;
+  odometer_basis_code: string | null;
   rules: RuleStatus[];
 }
 
@@ -174,6 +181,67 @@ export interface InspectionRecord {
   engine_defect: boolean;
   other_defect: boolean;
   notes: string | null;
+}
+
+export const GARAGE_SERVICES = ["mechanics", "ev_hybrid", "electrical", "brakes", "tires", "suspension", "air_conditioning", "bodywork", "gearbox", "exhaust_cooling", "pre_purchase"] as const;
+export type GarageService = (typeof GARAGE_SERVICES)[number];
+
+export interface City {
+  code: number;
+  name_he: string;
+  name_en: string;
+  garages: number;
+}
+
+/** A licensed garage of the official register. Names and addresses are published in Hebrew only. */
+export interface Garage {
+  id: number;
+  name: string;
+  address: string;
+  locality: string;
+  city_he: string;
+  city_en: string;
+  phone: string;
+  services: GarageService[];
+  lat: number | null;
+  lon: number | null;
+  position: "house" | "street" | "none";
+  /** straight line; null when the position is not known */
+  distance_km: number | null;
+  in_city: boolean | null;
+  opening_hours: string | null;
+  google_maps_url: string;
+  waze_url: string;
+  google_search_url: string;
+}
+
+export interface GarageResults {
+  mode: "city" | "gps";
+  city: City | null;
+  centre: { lat: number; lon: number } | null;
+  approximate: boolean;
+  radius_km: number;
+  total: number;
+  total_in_city: number | null;
+  without_position: number;
+  offset: number;
+  items: Garage[];
+  ratings_available: boolean;
+  source: string;
+  as_of: string;
+  stale: boolean;
+}
+
+export interface GoogleDetails {
+  matched: boolean;
+  name: string | null;
+  address: string | null;
+  rating: number | null;
+  rating_count: number | null;
+  phone: string | null;
+  opening_hours: string[];
+  url: string | null;
+  attribution: string | null;
 }
 
 export interface ChatAnswer {
