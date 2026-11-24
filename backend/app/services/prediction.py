@@ -31,7 +31,6 @@ from app.schemas.prediction import (
     SystemRiskOut,
 )
 from app.schemas.vehicle import VehicleProfile
-from app.ml.spec_features import CATEGORY_TO_MAINTENANCE_TYPE
 from app.ml.spec_risk import SpecRiskInputs
 from app.services import features, maintenance_rules, recalls, vehicle_specs
 
@@ -52,28 +51,33 @@ RISK_DISCLAIMER = (
     "no Israeli inspection results are available, so the levels show relative risk against the reference data only."
 )
 FAILURE_DEFINITION = (
-    "Model 2 as specified in Smart_Car_Models.pdf: an estimate of how likely the vehicle is to need maintenance for a mechanical failure, from its age, "
-    "mileage, maintenance history and brand, learned from Kaggle Dataset 1 (Dataset 5 for electric and hybrid vehicles)."
+    "Model 2 (Smart_Car_Models.pdf): how likely the vehicle is to need a repair (a defect found at its next annual inspection), from its age, mileage (Model 1), "
+    "maintenance and failure history, brand and the Dataset 4 failure distribution. Electric and hybrid vehicles have their own branch (Dataset 5)."
 )
 FAILURE_DISCLAIMER = (
-    "The labels of the training datasets are synthetic (generated, not observed on real vehicles) and the model has not been validated on Israeli vehicles. "
-    "The level is a position among the training vehicles, not a probability; checked on real UK inspection outcomes it ranks vehicles only modestly."
+    "The level is a position among real UK vehicles, not a probability. Training rows are Kaggle data and synthetic vehicles; the performance figures come only from real "
+    "inspections (UK, Netherlands). There are no Israeli inspection results to check it on."
 )
 LEVEL_TEXT = {"low": "Low", "moderate": "Moderate", "high": "High"}
 SAME_AGE_TEXT = {"lower": "lower than most", "typical": "about typical for", "higher": "higher than most"}
 
 
 def comparison_rows(models: Models) -> list[ModelComparisonRow]:
-    """ROC-AUC of each model on its own test data, for the comparison table of the dashboard (numbers read from the model cards)."""
-    card = models.failure_risk.card
-    ext = card.get("external_check_uk_mot", {})
-    rows = [
-        ModelComparisonRow(model="Model 2 (PDF), combustion", data="Kaggle Dataset 1 (synthetic labels)", test="held-out 20% of Dataset 1", roc_auc=round(card["ice"]["test"]["roc_auc"], 3)),
-        ModelComparisonRow(model="Model 2 (PDF), electric / hybrid", data="Kaggle Dataset 5 (synthetic labels)", test="held-out 20% of Dataset 5", roc_auc=round(card["ev"]["test"]["roc_auc"], 3)),
-    ]
-    if ext:
-        rows += [ModelComparisonRow(model="Model 2 (PDF), combustion", data="real UK MOT inspections", test="defect at the next inspection", roc_auc=round(ext["spec_model2_auc"], 3)),
-                 ModelComparisonRow(model="Age only (baseline)", data="real UK MOT inspections", test="defect at the next inspection", roc_auc=round(ext["age_only_auc"], 3))]
+    """ROC-AUC on REAL inspection outcomes: the model, its previous version and the age-only baseline (numbers read from the model cards)."""
+    card, plate = models.failure_risk.card, "no records (plate only)"
+    rows = []
+    for part, label in (("ice", "combustion"), ("ev", "electric / hybrid")):
+        c = card[part]
+        test = f"{c['test']['vehicles']:,} real UK vehicles, defect at the next inspection"
+        rows += [
+            ModelComparisonRow(model=f"Model 2, {label}", data="real UK inspections (all situations)", test=test, roc_auc=round(c["test"]["roc_auc"], 3)),
+            ModelComparisonRow(model=f"Model 2, {label}", data="real UK inspections (plate only)", test=test, roc_auc=round(c["by_scenario"][plate]["roc_auc"], 3)),
+            ModelComparisonRow(model=f"Previous Model 2, {label}", data="real UK inspections (all situations)", test=test, roc_auc=round(c["previous_on_same_test"]["roc_auc"], 3)),
+            ModelComparisonRow(model=f"Age only (baseline), {label}", data="real UK inspections", test=test, roc_auc=round(c["age_only_auc"], 3)),
+        ]
+        if c.get("netherlands"):
+            rows.append(ModelComparisonRow(model=f"Model 2, {label}", data="real Dutch inspections (plate only)", test="second country, never used in training",
+                                           roc_auc=round(c["netherlands"][plate]["roc_auc"], 3)))
     perf = {(r["variant"], r["system"]): r for r in models.risk.reference.get("interval_standardisation_check", [])}
     for system, title in SYSTEM_TITLES.items():
         r = perf.get(("cold", system))
@@ -326,37 +330,34 @@ async def build_prediction(
     latest_service = maintenance[0] if maintenance else None
     failure_risk = None
     try:
-        mtype = None
-        if latest_service:
-            key = maintenance_rules.classify_record(latest_service.get("maintenance_category"), latest_service.get("description"))
-            mtype = CATEGORY_TO_MAINTENANCE_TYPE.get(key or "other")
+        # an implausible typed value is not given to any model: Model 2 then takes the Model 1 estimate
+        sx_source = "estimated" if reported_implausible else source
+        sx_km = float(est.km if reported_implausible else primary)
+        defects = [bool(i["brakes"] or i["electrical"] or i["engine_emissions"] or i["other"]) for i in inspections]      # newest first
         sx = SpecRiskInputs(
-            # an implausible typed value is not given to any model: Model 2 then takes the Model 1 estimate
-            vehicle_age=age, km=float(est.km if reported_implausible else primary), km_source="estimated" if reported_implausible else source,
-            fuel=features.fuel_key(profile), make=profile.make,
+            vehicle_age=age, km=sx_km, km_source=sx_source, fuel=features.fuel_key(profile), make=profile.make,
+            km_model_scale=models.mileage.model2_km(m1_features) if sx_source == "estimated" else models.mileage.model2_km(m1_features, sx_km, est.km),
             days_since_last_maintenance=float((today - latest_service["service_date"]).days) if latest_service else None,
-            failure_history=sum(1 for i in inspections if i["brakes"] or i["electrical"] or i["engine_emissions"] or i["other"]),
-            maintenance_type=mtype,
+            # as in training: the result of the LAST inspection (unknown stays unknown, it is not "no failure"); repeated defects add up
+            failure_history=None if not defects else (sum(defects) if defects[0] else 0),
             last_service_distance=float(primary - latest_service["mileage_at_service"]) if latest_service and latest_service["mileage_at_service"] and primary >= latest_service["mileage_at_service"] else None,
         )
         fr = models.failure_risk.predict(sx)
         part = models.failure_risk.card[fr.branch]
-        auc = part["test"]["roc_auc"]
-        quality = None
-        if auc < 0.55:
-            quality = (f"This model does not separate vehicles even on its own test data (ROC-AUC {auc:.2f}; 0.5 = chance): "
-                       "treat the level as carrying no information.")
-        elif sx.days_since_last_maintenance is None or sx.failure_history == 0:
-            missing = [t for t, cond in (("no maintenance record on file", sx.days_since_last_maintenance is None),
-                                         ("no recorded inspection defect", sx.failure_history == 0)) if cond]
-            quality = ("In its training data the level depends mainly on the days since the last maintenance and on past failures; age, mileage and brand "
-                       f"add almost nothing. For this vehicle: {', '.join(missing)}, so the level mostly reflects typical values.")
+        sc = part["by_scenario"][fr.scenario]
+        quality = (f"On real UK vehicles in the same situation ({fr.scenario}) the model reaches ROC-AUC {sc['roc_auc']:.2f} (0.5 = chance); "
+                   f"flagging the riskiest {round(part['flag_share'] * 100)}% finds {round(sc['recall'] * 100)}% of the vehicles with a defect.")
+        if not fr.in_data_range:
+            lo, hi = models.failure_risk.age_range
+            quality += f" This vehicle is outside the ages of the real data ({lo}-{hi} years), so the level is an extrapolation."
+        if features.fuel_key(profile) == "electric":
+            quality += " This branch learned mostly from hybrids: few real electric vehicles have inspection results."
         failure_risk = FailureRisk(
             definition=FAILURE_DEFINITION,
             branch=fr.branch,
-            branch_label="combustion vehicles (Kaggle Dataset 1, enriched with the Dataset 4 failure distribution)" if fr.branch == "ice" else "electric and hybrid vehicles (Kaggle Dataset 5)",
+            branch_label="combustion vehicles (Kaggle Datasets 1 and 4 + synthetic vehicles from real inspections)" if fr.branch == "ice" else "electric and hybrid vehicles (Kaggle Datasets 5 and 1 + synthetic vehicles from real inspections)",
             level=fr.level,
-            level_rule="Low / Moderate / High: the lowest, middle and highest third of the training vehicles by the model's score",
+            level_rule="Low / Moderate / High: the lowest, middle and highest third of real UK vehicles by the model's score",
             observed_rate_by_level=[whole_percent(r) if r is not None else None for r in fr.observed_rate_by_level],
             inputs=fr.inputs,
             assumed=fr.assumed,
@@ -394,8 +395,8 @@ async def build_prediction(
         model1_version=models.mileage.card.get("version", "spec"),
         model2_version=models.failure_risk.card.get("version", "spec"),
         notes=[
-            "Model 1 (Smart_Car_Models.pdf): XGBoost chosen by RMSE/MAE among Linear, Ridge, Random Forest and XGBoost on Kaggle Datasets 7, 8 and 3, calibrated to CBS Publication 1923.",
-            "Model 2 (Smart_Car_Models.pdf): XGBoost on Kaggle Dataset 1 (+ Dataset 4 features; Dataset 5 for electric / hybrid); synthetic labels, not validated on real vehicles.",
+            "Model 1 (Smart_Car_Models.pdf): XGBoost chosen by RMSE/MAE among Linear, Ridge, Random Forest and XGBoost on Kaggle Datasets 7, 8 and 3 plus synthetic vehicles (from real UK odometers), tested on real odometers, calibrated to CBS Publication 1923.",
+            "Model 2 (Smart_Car_Models.pdf): Kaggle Datasets 1, 4 and 5 plus synthetic vehicles (from real UK inspections), tested on real UK and Dutch inspections; not validated on Israeli vehicles.",
             "Comparison model: XGBoost trained on UK MOT inspections, validated on Dutch RDW inspections; not validated on Israeli vehicles.",
             "Maintenance advice comes from generic rules; recalls come from the Ministry of Transport open data.",
         ]

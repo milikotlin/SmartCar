@@ -8,7 +8,7 @@ const PLATE_PATTERN = /^\d{7,8}$/;
 const DEMO_PLATES = [
   { plate: "4908732", label: "Toyota" },
   { plate: "8878631", label: "Nissan" },
-  { plate: "6224652", label: "High risk" },
+  { plate: "6224652", label: "Full history" },
   { plate: "19319001", label: "Anomaly" },
   { plate: "88328404", label: "EV" },
 ];

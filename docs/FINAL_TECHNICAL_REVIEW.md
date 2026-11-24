@@ -126,7 +126,7 @@ The SRS (6.2) says so. **In the code it is not**, and that is the intended and d
 Tests after the second pass: 115 pytest, 88 plates and 1,736 end-to-end checks, 133 browser assertions (`TEST_REPORT.md`).
 
 
-## 11. Models rebuilt exactly as Smart_Car_Models.pdf specifies (2026-11-21)
+## 11. Models rebuilt exactly as Smart_Car_Models.pdf specifies (2026-11-21; its Model 2 figures are superseded and the 0.978 withdrawn, see section 12)
 
 At the student's request both models now follow the PDF exactly, with the data pulled from Kaggle (`kagglehub`). Full report generated from the results:
 [SPEC_MODELS.md](SPEC_MODELS.md); change log C30 and C31 in `SRS_v2.md`.
@@ -141,3 +141,15 @@ At the student's request both models now follow the PDF exactly, with the data p
   column; Dataset 1 requires Kaggle credentials for `kagglehub` (fallback: the earlier download of the same page).
 * Security: the frontend container already no longer receives `.env`; nothing new is written by the new models.
 * Tests: 135 pytest, 88 real plates with 1,995 end-to-end checks and 0 failures, 191/191 browser assertions.
+
+
+## 12. Version 3.0.0 of both models: augmentation, no leakage, real-data evaluation (2026-11-24)
+
+* **Analysis first.** Leakage was found in the previous Model 2 (its 0.978 is withdrawn, change C33 in `SRS_v2.md`); the previous Model 1, trained only on cars for sale, was 35,922 km too low on real odometers.
+* **Method.** Official vehicles split by vehicle: 60% only to generate synthetic rows, 20% for every choice, 20% for the final test; the Netherlands as a second country. Ablations, over-fitting checks, calibration and fidelity of
+  the synthetic data are in [SPEC_MODELS.md](SPEC_MODELS.md).
+* **Results.** Model 1: RMSE 67,855 -> 47,969 km, MAE 47,762 -> 34,711 km, R² 0.119 -> 0.560 on the same real odometers; Kaggle listings unchanged. Model 2: Recall 0.447 -> 0.577,
+  Precision 0.334 -> 0.432, ROC-AUC 0.567 -> 0.674 (electric / hybrid 0.500 -> 0.644).
+* **For the user.** Levels with a real meaning (16% / 29% / 45% of vehicles with a defect), one scale for every fuel, an 80% range that holds 80%, "unknown" no longer read as "no failure", a newer car never riskier than an older one.
+* **Also fixed.** The automatic tests now use their own Redis database: they used to leave recorded rows in the application's cache for 24 hours.
+* Tests: 143 pytest, 88 real plates with 2,004 end-to-end checks and 0 failures, 172/172 browser assertions.

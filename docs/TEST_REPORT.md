@@ -4,7 +4,7 @@ Environment: Docker Compose stack (backend Python 3.13 with the exact library ve
 
 ## 1. Automatic tests (pytest inside the backend container, real PostgreSQL and Redis)
 
-Command: `docker compose exec -T backend python -m pytest -q`  ->  **135 passed** (61 at the first delivery, 66 after the risk-scale change, 84 after the final flow matrix, 111 after the final technical review: security, independence of the two models, colour and manufacturer translation; see FINAL_TECHNICAL_REVIEW.md).
+Command: `docker compose exec -T backend python -m pytest -q`  ->  **143 passed** (135 before the version 3.0.0 models; 61 at the first delivery, 66 after the risk-scale change, 84 after the final flow matrix, 111 after the final technical review: security, independence of the two models, colour and manufacturer translation; see FINAL_TECHNICAL_REVIEW.md).
 
 | File | Tests | What is checked |
 |---|---|---|

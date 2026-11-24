@@ -32,7 +32,7 @@
  {
   "check": "desktop/Model 1: inputs & breakdown (official engine CC, transmission, pre-calibration)",
   "passed": true,
-  "detail": "Model 1 Inputs & Breakdown\n\u25be\nAge\n11 y\nFuel\npetrol\nMake / model\nToyota Auris\nEngine CC\n1,798 cc\nTransmission\nAutomatic\nOwners\nUnknown\nPre-calibration output\n77,6"
+  "detail": "Model 1 Inputs & Breakdown\n\u25be\nAge\n11 y\nFuel\npetrol\nMake / model\nToyota Auris\nEngine CC\n1,798 cc\nTransmission\nAutomatic\nOwners\nUnknown\nPre-calibration output\n112,"
  },
  {
   "check": "desktop/Model 2: risk banner with level, ICE branch and driver tags",
@@ -142,7 +142,7 @@
  {
   "check": "desktop/ML drawer: ROC-AUC benchmarks, feature vector and defect rates",
   "passed": true,
-  "detail": "ML Metrics & Feature Vector\n\u25be\nBENCHMARKS \u00b7 ROC-AUC\nMODEL\tTEST DATA\tAUC\nModel 2 (PDF), combustion\tKaggle Dataset 1 (synthetic labels)\t0.978\nModel 2 (PDF), electric / hybrid\tKaggle Dataset 5 (synthetic "
+  "detail": "ML Metrics & Feature Vector\n\u25be\nBENCHMARKS \u00b7 ROC-AUC ON REAL INSPECTIONS\nMODEL\tTEST DATA\tAUC\nModel 2, combustion\treal UK inspections (all situations)\t0.674\nModel 2, combustion\treal UK inspections (plate"
  },
  {
   "check": "desktop/records: service-record KPI and AI estimate kept",
@@ -347,7 +347,7 @@
  {
   "check": "desktop/hybrid aged 9: no exaggerated yearly mileage",
   "passed": true,
-  "detail": "16300"
+  "detail": "18000"
  },
  {
   "check": "desktop/hybrid aged 9: Model 2 uses the EV / hybrid branch",
@@ -426,7 +426,7 @@
  },
  {
   "check": "desktop/unknown plate: clear message",
-  "passed": true,
+  "passed": false,
   "detail": ""
  },
  {
@@ -452,7 +452,7 @@
  {
   "check": "mobile/Model 1: inputs & breakdown (official engine CC, transmission, pre-calibration)",
   "passed": true,
-  "detail": "Model 1 Inputs & Breakdown\n\u25be\nAge\n11 y\nFuel\npetrol\nMake / model\nToyota Auris\nEngine CC\n1,798 cc\nTransmission\nAutomatic\nOwners\nUnknown\nPre-calibration output\n77,6"
+  "detail": "Model 1 Inputs & Breakdown\n\u25be\nAge\n11 y\nFuel\npetrol\nMake / model\nToyota Auris\nEngine CC\n1,798 cc\nTransmission\nAutomatic\nOwners\nUnknown\nPre-calibration output\n112,"
  },
  {
   "check": "mobile/Model 2: risk banner with level, ICE branch and driver tags",
@@ -562,7 +562,7 @@
  {
   "check": "mobile/ML drawer: ROC-AUC benchmarks, feature vector and defect rates",
   "passed": true,
-  "detail": "ML Metrics & Feature Vector\n\u25be\nBENCHMARKS \u00b7 ROC-AUC\nMODEL\tTEST DATA\tAUC\nModel 2 (PDF), combustion\tKaggle Dataset 1 (synthetic labels)\t0.978\nModel 2 (PDF), electric / hybrid\tKaggle Dataset 5 (synthetic "
+  "detail": "ML Metrics & Feature Vector\n\u25be\nBENCHMARKS \u00b7 ROC-AUC ON REAL INSPECTIONS\nMODEL\tTEST DATA\tAUC\nModel 2, combustion\treal UK inspections (all situations)\t0.674\nModel 2, combustion\treal UK inspections (plate"
  },
  {
   "check": "mobile/records: service-record KPI and AI estimate kept",
@@ -767,7 +767,7 @@
  {
   "check": "mobile/hybrid aged 9: no exaggerated yearly mileage",
   "passed": true,
-  "detail": "16300"
+  "detail": "18000"
  },
  {
   "check": "mobile/hybrid aged 9: Model 2 uses the EV / hybrid branch",
@@ -846,7 +846,7 @@
  },
  {
   "check": "mobile/unknown plate: clear message",
-  "passed": true,
+  "passed": false,
   "detail": ""
  },
  {

@@ -19,7 +19,7 @@ function Field({ label, value }: { label: string; value: ReactNode }) {
 function reliabilityTag(reason: string | null): string {
   const r = (reason ?? "").toLowerCase();
   if (r.includes("official average")) return "Official average shown";
-  if (r.includes("electric")) return "No EV training data";
+  if (r.includes("electric")) return "No Israeli EV statistics";
   if (r.includes("too few")) return "Sparse training data";
   return "Outside the data";
 }

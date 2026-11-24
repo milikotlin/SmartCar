@@ -13,6 +13,8 @@ node_modules/
 .next/
 
 *.joblib
+# the models the application loads (about 2.5 MB): without them a fresh clone cannot start
+!backend/app/ml/artifacts/spec/*.joblib
 .ipynb_checkpoints/
 
 .DS_Store

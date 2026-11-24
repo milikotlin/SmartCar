@@ -6,8 +6,8 @@ diagnostic chat (OpenAI gpt-4o-mini with context injection).
 
 | Kind | What it is | Source |
 |---|---|---|
-| **Estimated mileage** | AI-Estimated Mileage with an 80% range, or the mileage the user reports | **Model 1** (PDF): XGBoost chosen by RMSE/MAE among Linear, Ridge, Random Forest and XGBoost on Kaggle Datasets 7, 8 and 3; calibrated to official CBS statistics |
-| **Risk of a mechanical failure needing maintenance** | A **Low / Moderate / High** level (no percentage) | **Model 2** (PDF): XGBoost on Kaggle Dataset 1 (+ Dataset 4 features), Dataset 5 for electric/hybrid vehicles. Labels are synthetic: shown as relative levels |
+| **Estimated mileage** | AI-Estimated Mileage with an 80% range, or the mileage the user reports | **Model 1** (PDF): XGBoost chosen by RMSE/MAE among Linear, Ridge, Random Forest and XGBoost on Kaggle Datasets 7, 8 and 3 plus synthetic vehicles; tested on real odometers; calibrated to official CBS statistics |
+| **Risk of a mechanical failure needing maintenance** | A **Low / Moderate / High** level (no percentage) | **Model 2** (PDF): XGBoost on Kaggle Dataset 1 (+ Dataset 4 features; Dataset 5 branch for electric/hybrid vehicles) plus synthetic vehicles; tested on real UK and Dutch inspections (ROC-AUC 0.674, previous version 0.567). Shown as relative levels |
 | **Comparison: risk of a defect at the next annual inspection** | Low / Moderate / High per system (brakes, electrical, engine-related) | XGBoost trained on **real** UK inspections (MOT) and validated on the Netherlands (RDW), kept as a comparison panel |
 | **Recommended maintenance** | Generic service intervals applied to the vehicle's own records | Rules (not ML) |
 | **Official recall** | A fact published by the authority | Ministry of Transport open data |
@@ -47,7 +47,7 @@ curl "http://localhost:8000/api/v1/predict/4908732?odometer_km=123456"
 ## Tests
 
 ```bash
-docker compose run --rm backend python -m pytest -q          # unit, models, API (with real PostgreSQL and Redis): 124 tests
+docker compose run --rm backend python -m pytest -q          # unit, models, API (with real PostgreSQL and Redis): 143 tests
 python scripts/e2e_live.py                                    # ~90 real Israeli plates against the running stack -> docs/E2E_REPORT.md
 python scripts/visual_check.py                                # headless Chrome: desktop and phone, 183 checks + screenshots in docs/screenshots/
 docker compose run --rm --no-deps frontend npx tsc --noEmit   # frontend types
@@ -77,8 +77,8 @@ docs/                        SRS_v2, model cards, test reports, UK extraction, l
 ```bash
 ml/.venv/Scripts/python.exe -I -X utf8 ml/src/kaggle_sources.py        # pull the Kaggle datasets (kagglehub)
 ml/.venv/Scripts/python.exe -I -X utf8 ml/src/fetch_wltp.py            # official model table (engine size, transmission) for the calibration sample
-ml/.venv/Scripts/python.exe -u -I -X utf8 ml/src/spec_model1.py        # Model 1 exactly as the PDF: experiments, choice by RMSE/MAE, CBS calibration
-ml/.venv/Scripts/python.exe -u -I -X utf8 ml/src/spec_model2.py        # Model 2 exactly as the PDF: Dataset 1 + 4, Dataset 5 branch, SMOTE vs weights, LR baseline
+ml/.venv/Scripts/python.exe -u -I -X utf8 ml/src/model1_train.py       # Model 1: PDF experiments + augmentation, tested on real odometers, CBS calibration (--calibrate-only)
+ml/.venv/Scripts/python.exe -u -I -X utf8 ml/src/model2_train.py       # Model 2: Dataset 1 + 4, Dataset 5 branch, augmentation, SMOTE vs weights, LR baseline, tested on real inspections (--levels-only)
 ml/.venv/Scripts/python.exe -I -X utf8 ml/src/render_spec_report.py    # docs/SPEC_MODELS.md
 ```
 

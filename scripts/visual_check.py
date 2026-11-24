@@ -200,8 +200,8 @@ def main():
             page.shot(f"{mode}_01_covered_full")
             page.js("document.querySelector('[data-testid=\"ml-metrics\"]').open = true")
             dm = page.js("document.querySelector('[data-testid=\"ml-metrics\"]').innerText")
-            record(tag("ML drawer: ROC-AUC benchmarks, feature vector and defect rates"), "benchmarks" in dm.lower() and "0.978" in dm and "real UK MOT inspections" in dm and "Age only (baseline)" in dm
-                   and "feature vector" in dm.lower() and "brand_reliability_index" in dm and "Median-imputed" in dm and "defect rate by level" in dm.lower(), dm[:200])
+            record(tag("ML drawer: ROC-AUC benchmarks, feature vector and defect rates"), "benchmarks" in dm.lower() and "Previous Model 2" in dm and "real UK inspections" in dm and "Age only (baseline)" in dm
+                   and "feature vector" in dm.lower() and "brand_reliability_index" in dm and "Not known:" in dm and "defect rate by level" in dm.lower(), dm[:200])
             page.shot(f"{mode}_02_ml_drawer", "[data-testid='ml-metrics']")
 
             # ---- 2. covered, with maintenance records and the last inspection result (seeded demo vehicle)
@@ -295,7 +295,7 @@ def main():
             # ---- 3b. Model 1 with too little training data: hybrid aged 9
             page.search("4850581")
             t = page.text()
-            record(tag("hybrid aged 9: low-reliability badge with a short reason"), page.js("!!document.querySelector('[data-testid=\"low-reliability\"]')") and "LOW RELIABILITY" in t.upper() and "Sparse training data" in t)
+            record(tag("hybrid aged 9: low-reliability badge with a short reason"), page.js("!!document.querySelector('[data-testid=\"low-reliability\"]')") and "LOW RELIABILITY" in t.upper() and "Official average shown" in t)
             api = page.js("fetch('http://localhost:8000/api/v1/predict/4850581').then(r => r.json()).then(b => b.mileage)")
             record(tag("hybrid aged 9: no exaggerated yearly mileage"), f"{api['estimated_km']:,} km" in t and api["estimated_annual_km"] < 25_000, str(api["estimated_annual_km"]))
             record(tag("hybrid aged 9: Model 2 uses the EV / hybrid branch"), "EV / Hybrid Branch" in t)
@@ -306,7 +306,7 @@ def main():
             t = page.text()
             record(tag("electric: comparison 'Not covered' with a chip, other panels kept"), "NOT COVERED" in t.upper() and "Fuel not covered" in t and "Recommended Maintenance" in t and "Open Recalls" in t and "XGBoost Regressor" in t)
             record(tag("electric: no gauges invented"), page.js("document.querySelectorAll('[data-testid^=\"risk-\"]').length") == 0)
-            record(tag("electric: Model 1 low reliability (no EV data)"), "No EV training data" in t)
+            record(tag("electric: Model 1 low reliability (no EV data)"), "No Israeli EV statistics" in t)
             common_checks(page, tag("electric"))
             page.shot(f"{mode}_05_not_covered_electric")
 

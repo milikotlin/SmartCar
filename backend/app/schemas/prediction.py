@@ -134,12 +134,12 @@ class FailureRisk(BaseModel):
     definition: str
     branch: str                           # "ice" (Dataset 1, combustion) | "ev" (Dataset 5, electric / hybrid)
     branch_label: str
-    level: str                            # low | moderate | high (tertiles of the training probabilities); no percentage is shown
+    level: str                            # low | moderate | high (thirds of real UK vehicles); no percentage is shown
     level_rule: str
-    observed_rate_by_level: list[float | None]   # share with "maintenance required" per level in the held-out part of the (synthetic) training data, whole %
+    observed_rate_by_level: list[float | None]   # share of real UK test vehicles of each level with a defect at the next inspection, whole %
     inputs: dict = {}
     assumed: list[str] = []
-    quality_note: str | None = None       # what the level is worth for THIS vehicle (chance-level model, or its strongest inputs unknown)
+    quality_note: str | None = None       # what the level is worth for THIS vehicle (test result in the same situation, age outside the data, ...)
     disclaimer: str
     comparison: list[ModelComparisonRow] = []
 

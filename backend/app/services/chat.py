@@ -57,9 +57,9 @@ def facts(prediction: PredictionResponse, today: date) -> list[str]:
     fr = prediction.failure_risk
     if fr is not None:
         out.append(
-            f"ESTIMATED FAILURE / MAINTENANCE RISK (Model 2 as specified in the project, {fr.branch_label}; trained on synthetic Kaggle data; NOT a probability; "
-            f"NOT validated on real vehicles): {LEVEL_WORDS[fr.level]}"
-            + (f"; unknown inputs replaced by typical values: {', '.join(fr.assumed)}" if fr.assumed else "") + "."
+            f"ESTIMATED FAILURE / MAINTENANCE RISK (Model 2 as specified in the project, {fr.branch_label}; trained on Kaggle and synthetic data, tested on real UK and Dutch inspections; NOT a probability; "
+            f"NOT validated for Israel): {LEVEL_WORDS[fr.level]}"
+            + (f"; not known for this vehicle: {', '.join(fr.assumed)}" if fr.assumed else "") + "."
         )
     r = prediction.inspection_risk
     if r.covered:

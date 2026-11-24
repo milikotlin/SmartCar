@@ -188,10 +188,13 @@ async def test_model1_feeds_model2_of_the_pdf_but_not_the_comparison_model(clien
         e = real(features, ownership)
         return replace(e, km=e.km * 3, km_low=e.km_low * 3, km_high=e.km_high * 3, annual_km=e.annual_km * 3)
 
+    learned = m1.learned
     monkeypatch.setattr(m1, "estimate", tripled)
+    monkeypatch.setattr(m1, "learned", lambda f: learned(f) * 3)
     changed = (await client.get(f"/api/v1/predict/{clean}")).json()
     assert changed["mileage"]["estimated_km"] > base["mileage"]["estimated_km"]          # Model 1 output really changed
     assert changed["failure_risk"]["inputs"]["km"] == changed["mileage"]["estimated_km"]  # ... and Model 2 (PDF) received it
+    assert changed["failure_risk"]["inputs"]["km_model_scale"] == pytest.approx(3 * base["failure_risk"]["inputs"]["km_model_scale"])
     assert changed["inspection_risk"] == base["inspection_risk"]                          # the comparison model did not
 
 
@@ -199,10 +202,10 @@ async def test_failure_risk_section_is_present_and_honest(client):
     b = (await client.get(f"/api/v1/predict/{PLATE}")).json()
     fr = b["failure_risk"]
     assert fr["kind"] == "estimated_failure_risk" and fr["level"] in ("low", "moderate", "high") and fr["branch"] == "ice"
-    assert "synthetic" in fr["disclaimer"] and "not a probability" in fr["disclaimer"]
+    assert "synthetic" in fr["disclaimer"] and "not a probability" in fr["disclaimer"] and "Israeli" in fr["disclaimer"] and "ROC-AUC" in fr["quality_note"]
     assert "probability" not in json_keys(fr)                                              # the probability itself is never sent
     rows = {(r["model"], r["data"]) for r in fr["comparison"]}
-    assert ("Model 2 (PDF), combustion", "real UK MOT inspections") in rows and any(m.startswith("Comparison model") for m, _ in rows)
+    assert ("Model 2, combustion", "real UK inspections (plate only)") in rows and ("Previous Model 2, combustion", "real UK inspections (all situations)") in rows and any(m.startswith("Comparison model") for m, _ in rows)
     ev = (await client.get(f"/api/v1/predict/{EV}")).json()
     assert ev["failure_risk"]["branch"] == "ev" and not ev["inspection_risk"]["covered"]   # Dataset 5 model for electric vehicles
     typed = (await client.get(f"/api/v1/predict/{PLATE}", params={"odometer_km": 123_456})).json()

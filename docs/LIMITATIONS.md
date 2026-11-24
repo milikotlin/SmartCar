@@ -8,7 +8,7 @@ These limits are shown, in shorter form, in the interface and in the API (`discl
 2. **Its risk figures are not validated for Israel.** Model 2 was trained on UK MOT inspections and validated on Dutch RDW inspections. Israeli inspection results are not open data. The API and the dashboard therefore show only a **relative level (Low / Moderate / High) against UK reference vehicles of all ages**, plus a complementary comparison with vehicles of the same age; **no probability is shown**. Absolute rates differ between countries (for example electrical defects: 11% UK, 18% NL), while the order of risk replicates. The levels are positions in a ranking: the cut points (lowest 36% / next 33% / top 31% of the reference vehicles) come from UK data and the share of Israeli vehicles in each level is not guaranteed to be the same (in a registry sample of covered vehicles it is 30/28/42% for brakes, 34/28/39% for electrical and 42/26/32% for engine-related).
 3. **Its discrimination is modest** (ROC-AUC about 0.67 to 0.80 depending on system and variant; precision 1.7 to 4.5 times the rate of flagging every vehicle, but low in absolute terms). It is a ranking, not a diagnosis.
 4. **"Electrical" is mostly lighting and "engine-related" means emissions, fuel system and mounts**, because that is what the inspections record. It is not battery health or engine health.
-5. **The mileage estimate is a population-level estimate**, calibrated with official CBS statistics by age band and ownership. It does not narrow the uncertainty of an individual vehicle: the range shown (about 80%) comes from the spread of used cars in the training markets and has not been validated on Israeli vehicles. Electric vehicles are treated like petrol vehicles (the CBS has no electric-vehicle data). Stacked effects (for example a diesel company car) are extrapolations.
+5. **The mileage estimate is a population-level estimate**, calibrated with official CBS statistics by age band and ownership. It does not narrow the uncertainty of an individual vehicle: the range shown (about 80%) comes from the spread of used cars in the training markets and has not been validated on Israeli vehicles. Electric vehicles use the curve of UK electric odometers and are always flagged (the CBS has no electric-vehicle data). Stacked effects (for example a diesel company car) are extrapolations.
 6. **Maintenance recommendations are generic intervals**, not specific to a make and model; the owner's manual prevails. They are not learned from data.
 7. **A recall is a fact published by the authority**, not a prediction; the system shows what the open-recall dataset contains for the plate at the time of the query.
 
@@ -23,19 +23,19 @@ These limits are shown, in shorter form, in the interface and in the API (`discl
 * A **measured odometer** (entered by the user) improves the model by about 0.013 to 0.016 AUC. The mileage *estimated* by Model 1 is not a feature of Model 2 because it added no information in any experiment.
 * The indicators are computed for a **standard interval of 12 months** to the next inspection; the planned interval of the plate is not used (it varied only with the timing of the test and did not improve the ranking).
 
-## The models of Smart_Car_Models.pdf (the application's Model 1 and Model 2)
+## The models of Smart_Car_Models.pdf (the application's Model 1 and Model 2, version 3.0.0)
 
-Both models are implemented exactly as the PDF specifies (details and numbers: `docs/SPEC_MODELS.md`).
+Details and every number: `docs/SPEC_MODELS.md`.
 
-* **Model 2 is trained on synthetic labels** (Kaggle Dataset 1, and Dataset 5 for electric / hybrid vehicles). On its own held-out data it reaches ROC-AUC 0.978, almost
-  entirely through "days since the last maintenance" and "past failures"; on 150,000 **real** UK inspection outcomes it reaches 0.585, below ordering vehicles by age
-  (0.646) and below the comparison model trained on real inspections (0.68 to 0.72). The electric / hybrid model is at chance (0.49) on its own test data.
-  It is therefore shown as three relative levels with a per-vehicle note on what the level is worth, never as a percentage, and the real-inspection model stays on the
-  dashboard as a comparison.
-* **Model 1** follows the PDF (XGBoost chosen by RMSE / MAE, held-out R² 0.61); the CBS calibration, the range and the reliability flags are additions. When the
-  calibrated estimate would mean more than 40,000 km a year, the official CBS average for that age and ownership is shown instead, flagged.
-* Dataset 1 needs Kaggle credentials for `kagglehub`; without them the earlier download of the same Kaggle page is used. Dataset 8 `Owner_Type` is the number of owners,
-  not the ownership type the PDF describes.
+* **Withdrawn figure:** the ROC-AUC 0.978 reported for Model 2 in version 2.0.0 was data leakage (`Maintenance_Type` and "days > 180" encode the label of the 250K Dataset 1 file).
+* **Model 2** predicts a defect at the next inspection. On 129,934 real UK vehicles never used: ROC-AUC 0.674 (mean of four situations; plate only 0.661, age alone 0.646); in the Netherlands 0.652
+  (age alone 0.642). It is a modest ranking, shown as three levels; it is not validated in Israel and not a breakdown probability.
+* **Electric / hybrid branch:** ROC-AUC 0.644 on 3,153 real vehicles, mostly hybrids; with only the plate it is not significantly better than age alone. Dataset 5 carries no signal after the strict dropping.
+* **Services** ("days since the last maintenance") are learned from rule-generated Kaggle labels, so they weigh little: no real data link services to failures.
+* **Model 1** on real odometers: RMSE 47,969 km, MAE 34,711 km, R² 0.560. The error for one Israeli car cannot be measured (Israel publishes no odometers).
+* **Synthetic vehicles** (generated from official UK data) are used only in training; they carry the same limits as their source (UK vehicles, 3 to 25 years).
+* The UK test vehicles were evaluated again after two corrections that were not chosen on them (a duplicated Dutch column; the rule that a newer car is never riskier than an older one). All choices were made on validation vehicles.
+* Dataset 1 needs Kaggle credentials for `kagglehub`; without them the earlier download of the same Kaggle page is used. Dataset 8 `Owner_Type` is the number of owners, not the ownership type the PDF describes.
 
 ## User-reported mileage
 
@@ -45,11 +45,10 @@ A mileage typed by the user is shown as **User-Reported Mileage**: it is not ver
 
 The mileage block shows a **Low reliability** warning (field `estimate_reliability` of the API) when the training data cannot support the figure:
 
-* **Electric vehicles** (no training data, no CBS figure): the petrol curve is used. Always flagged.
-* **Hybrid and LPG/CNG vehicles older than 7 years**: the training data hold 2 to 5 vehicles per year of age (hybrids aged 8 to 12: 5, 4, 5, 4 and 2 vehicles, all UK listings). A previous version produced 35,000 to 46,000 km per year there: the tiny sample, multiplied by the CBS age-band factor (2.2 to 3.4) that was fitted on a petrol-dominated fleet. Now the curve of such a fuel keeps its own level up to age 7 and continues with the yearly growth of petrol vehicles (about 12,000 to 15,000 km per year); the figure is flagged.
-* **Any estimate that implies more than 40,000 km per year**: the highest group average published by the CBS is 28,400 km (leasing cars). Such values appear only for combinations the CBS does not publish jointly (for example a diesel or hybrid car under leasing). The figure is shown, flagged.
-
-On the 19,200 passenger vehicles of the registry sample 7.6% are flagged (6.8% electric, 0.4% hybrid or LPG/CNG over 7 years, 0.35% above 40,000 km per year); the other 92.4% are not affected (`ml/model1_reliability_share.json`).
+* **Electric vehicles**: the curve comes from UK electric odometers but the CBS publishes no Israeli figure. Always flagged.
+* **Hybrids older than 8 years**: 25% to 60% of the real UK hybrids of that age are Toyota Prius, largely former private-hire cars (205,000 km at 9 years against 124,000 for the others). That part of the curve is not used; the official average curve continues and the figure is flagged.
+* **Any fuel and age with fewer than 100 real vehicles** (LPG/CNG).
+* **Any estimate that implies more than 40,000 km per year**: the official average for the age and ownership is shown instead, flagged.
 
 ## Model 2 compared with age alone
 

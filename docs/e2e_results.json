@@ -7,10 +7,10 @@
   "ownership": "ליסינג",
   "status": 200,
   "make_en": "Kia",
-  "est_km": 45300,
+  "est_km": 10900,
   "range": [
-   13600,
-   80500
+   4000,
+   18100
   ],
   "covered": false,
   "variant": null,
@@ -25,10 +25,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Kia",
-  "est_km": 197900,
+  "est_km": 197300,
   "range": [
-   103000,
-   303600
+   102400,
+   294500
   ],
   "covered": true,
   "variant": "cold",
@@ -56,10 +56,10 @@
   "ownership": "השכרה",
   "status": 200,
   "make_en": "Mazda",
-  "est_km": 44600,
+  "est_km": 48700,
   "range": [
-   13400,
-   79300
+   18000,
+   80500
   ],
   "covered": false,
   "variant": null,
@@ -74,10 +74,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Toyota",
-  "est_km": 69600,
+  "est_km": 43000,
   "range": [
-   20900,
-   123700
+   15900,
+   71200
   ],
   "covered": true,
   "variant": "cold",
@@ -105,10 +105,10 @@
   "ownership": "השכרה",
   "status": 200,
   "make_en": "Renault",
-  "est_km": 24100,
+  "est_km": 25200,
   "range": [
-   7200,
-   42800
+   9300,
+   41700
   ],
   "covered": false,
   "variant": null,
@@ -123,10 +123,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Chevrolet",
-  "est_km": 93100,
+  "est_km": 70100,
   "range": [
-   45800,
-   145900
+   30700,
+   113300
   ],
   "covered": true,
   "variant": "cold",
@@ -154,10 +154,10 @@
   "ownership": "סוחר",
   "status": 200,
   "make_en": "Hyundai",
-  "est_km": 151900,
+  "est_km": 113700,
   "range": [
-   84900,
-   228900
+   52300,
+   176900
   ],
   "covered": true,
   "variant": "cold",
@@ -185,10 +185,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Mazda",
-  "est_km": 275800,
+  "est_km": 277600,
   "range": [
-   105800,
-   461900
+   127700,
+   437500
   ],
   "covered": false,
   "variant": null,
@@ -203,10 +203,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Hyundai",
-  "est_km": 46600,
+  "est_km": 27500,
   "range": [
-   14000,
-   82800
+   10100,
+   45400
   ],
   "covered": false,
   "variant": null,
@@ -221,10 +221,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Honda",
-  "est_km": 224800,
+  "est_km": 261400,
   "range": [
-   117000,
-   344900
+   135700,
+   390300
   ],
   "covered": true,
   "variant": "cold",
@@ -252,10 +252,10 @@
   "ownership": "חברה",
   "status": 200,
   "make_en": "Mitsubishi",
-  "est_km": 87000,
+  "est_km": 88300,
   "range": [
-   42800,
-   136300
+   38600,
+   142800
   ],
   "covered": true,
   "variant": "cold",
@@ -283,10 +283,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Toyota",
-  "est_km": 149200,
+  "est_km": 101800,
   "range": [
-   83400,
-   224800
+   46900,
+   158500
   ],
   "covered": true,
   "variant": "cold",
@@ -314,10 +314,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Mazda",
-  "est_km": 256800,
+  "est_km": 255700,
   "range": [
-   133600,
-   394000
+   132700,
+   381700
   ],
   "covered": true,
   "variant": "cold",
@@ -345,10 +345,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Kia",
-  "est_km": 156600,
+  "est_km": 127600,
   "range": [
-   87600,
-   236000
+   58700,
+   198500
   ],
   "covered": true,
   "variant": "cold",
@@ -376,10 +376,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Nissan",
-  "est_km": 115200,
+  "est_km": 84400,
   "range": [
-   56600,
-   180600
+   36900,
+   136500
   ],
   "covered": true,
   "variant": "cold",
@@ -407,10 +407,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Seat",
-  "est_km": 54600,
+  "est_km": 56800,
   "range": [
-   26800,
-   85500
+   24900,
+   91900
   ],
   "covered": true,
   "variant": "cold",
@@ -438,25 +438,25 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Mazda",
-  "est_km": 175800,
+  "est_km": 143800,
   "range": [
-   99800,
-   251500
+   71400,
+   218200
   ],
   "covered": true,
   "variant": "cold",
   "levels": {
    "brakes": [
     "moderate",
-    45
+    50
    ],
    "electrical": [
     "moderate",
-    40
+    50
    ],
    "engine_emissions": [
-    "low",
-    30
+    "moderate",
+    40
    ]
   },
   "recalls": 0
@@ -469,10 +469,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Jaecoo",
-  "est_km": 1000,
+  "est_km": 5400,
   "range": [
-   300,
-   1800
+   2000,
+   8900
   ],
   "covered": false,
   "variant": null,
@@ -487,10 +487,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Hyundai",
-  "est_km": 186200,
+  "est_km": 184000,
   "range": [
-   105700,
-   266400
+   91400,
+   279200
   ],
   "covered": true,
   "variant": "cold",
@@ -518,10 +518,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Chevrolet",
-  "est_km": 58900,
+  "est_km": 42000,
   "range": [
-   17700,
-   104800
+   15500,
+   69400
   ],
   "covered": true,
   "variant": "cold",
@@ -549,10 +549,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Kia",
-  "est_km": 116800,
+  "est_km": 112900,
   "range": [
-   65300,
-   176000
+   52000,
+   175700
   ],
   "covered": true,
   "variant": "cold",
@@ -580,10 +580,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Hyundai",
-  "est_km": 210000,
+  "est_km": 211500,
   "range": [
-   109300,
-   322200
+   109800,
+   315700
   ],
   "covered": true,
   "variant": "cold",
@@ -611,10 +611,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Skoda",
-  "est_km": 184800,
+  "est_km": 197400,
   "range": [
-   96100,
-   283500
+   102500,
+   294700
   ],
   "covered": true,
   "variant": "cold",
@@ -642,10 +642,10 @@
   "ownership": "סוחר",
   "status": 200,
   "make_en": "Hyundai",
-  "est_km": 140900,
+  "est_km": 143600,
   "range": [
-   80000,
-   201600
+   71400,
+   217900
   ],
   "covered": true,
   "variant": "cold",
@@ -673,10 +673,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Honda",
-  "est_km": 62100,
+  "est_km": 41000,
   "range": [
-   18600,
-   110400
+   15100,
+   67800
   ],
   "covered": false,
   "variant": null,
@@ -691,10 +691,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Toyota",
-  "est_km": 226400,
+  "est_km": 234800,
   "range": [
-   117800,
-   347400
+   121900,
+   350500
   ],
   "covered": true,
   "variant": "cold",
@@ -722,10 +722,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Mazda",
-  "est_km": 275800,
+  "est_km": 277600,
   "range": [
-   105800,
-   461900
+   127700,
+   437500
   ],
   "covered": false,
   "variant": null,
@@ -740,10 +740,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Toyota",
-  "est_km": 270300,
+  "est_km": 237900,
   "range": [
-   140600,
-   414600
+   123500,
+   355200
   ],
   "covered": true,
   "variant": "cold",
@@ -771,10 +771,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Peugeot",
-  "est_km": 287900,
+  "est_km": 248100,
   "range": [
-   149800,
-   441700
+   128800,
+   370400
   ],
   "covered": true,
   "variant": "cold",
@@ -802,10 +802,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Citroen",
-  "est_km": 186600,
+  "est_km": 185700,
   "range": [
-   105900,
-   266900
+   92300,
+   281800
   ],
   "covered": true,
   "variant": "cold",
@@ -833,10 +833,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Renault",
-  "est_km": 209500,
+  "est_km": 170700,
   "range": [
-   118900,
-   299700
+   84800,
+   259000
   ],
   "covered": true,
   "variant": "cold",
@@ -864,10 +864,10 @@
   "ownership": "השכרה",
   "status": 200,
   "make_en": "Mazda",
-  "est_km": 112400,
+  "est_km": 102800,
   "range": [
-   55200,
-   176100
+   45000,
+   166200
   ],
   "covered": true,
   "variant": "cold",
@@ -895,10 +895,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Mitsubishi",
-  "est_km": 61100,
+  "est_km": 56000,
   "range": [
-   30000,
-   95700
+   24500,
+   90600
   ],
   "covered": true,
   "variant": "cold",
@@ -926,10 +926,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Skoda",
-  "est_km": 245800,
+  "est_km": 235600,
   "range": [
-   127900,
-   377200
+   122300,
+   351600
   ],
   "covered": true,
   "variant": "cold",
@@ -957,10 +957,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Hyundai",
-  "est_km": 227300,
+  "est_km": 213300,
   "range": [
-   118300,
-   348800
+   110700,
+   318500
   ],
   "covered": true,
   "variant": "cold",
@@ -988,25 +988,25 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Toyota",
-  "est_km": 137500,
+  "est_km": 101200,
   "range": [
-   76900,
-   207100
+   46600,
+   157500
   ],
   "covered": true,
   "variant": "cold",
   "levels": {
    "brakes": [
     "low",
-    25
+    35
    ],
    "electrical": [
-    "low",
-    30
+    "moderate",
+    35
    ],
    "engine_emissions": [
     "low",
-    10
+    20
    ]
   },
   "recalls": 0
@@ -1019,10 +1019,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Renault",
-  "est_km": 134600,
+  "est_km": 100700,
   "range": [
-   75200,
-   202800
+   46300,
+   156600
   ],
   "covered": true,
   "variant": "cold",
@@ -1050,10 +1050,10 @@
   "ownership": "השכרה",
   "status": 200,
   "make_en": "Kia",
-  "est_km": 33700,
+  "est_km": 25700,
   "range": [
-   10100,
-   59800
+   9500,
+   42500
   ],
   "covered": false,
   "variant": null,
@@ -1068,10 +1068,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Toyota",
-  "est_km": 249800,
+  "est_km": 258600,
   "range": [
-   130000,
-   383300
+   134300,
+   386100
   ],
   "covered": true,
   "variant": "cold",
@@ -1099,10 +1099,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Nissan",
-  "est_km": 110700,
+  "est_km": 125800,
   "range": [
-   61900,
-   166900
+   57900,
+   195700
   ],
   "covered": true,
   "variant": "cold",
@@ -1130,10 +1130,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Hyundai",
-  "est_km": 113100,
+  "est_km": 71700,
   "range": [
-   55600,
-   177300
+   31400,
+   115900
   ],
   "covered": true,
   "variant": "cold",
@@ -1161,10 +1161,10 @@
   "ownership": "השכרה",
   "status": 200,
   "make_en": "Hyundai",
-  "est_km": 33700,
+  "est_km": 25900,
   "range": [
-   10100,
-   59800
+   9600,
+   42900
   ],
   "covered": false,
   "variant": null,
@@ -1179,10 +1179,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Suzuki",
-  "est_km": 163000,
+  "est_km": 185200,
   "range": [
-   92500,
-   233100
+   92000,
+   281100
   ],
   "covered": true,
   "variant": "cold",
@@ -1210,10 +1210,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Skoda",
-  "est_km": 206500,
+  "est_km": 185500,
   "range": [
-   117200,
-   295400
+   92200,
+   281500
   ],
   "covered": true,
   "variant": "cold",
@@ -1241,10 +1241,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Hyundai",
-  "est_km": 126700,
+  "est_km": 124800,
   "range": [
-   70900,
-   191000
+   57500,
+   194300
   ],
   "covered": true,
   "variant": "cold",
@@ -1272,10 +1272,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Renault",
-  "est_km": 189500,
+  "est_km": 160400,
   "range": [
-   105900,
-   285500
+   85000,
+   250900
   ],
   "covered": true,
   "variant": "cold",
@@ -1303,10 +1303,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Dacia",
-  "est_km": 53800,
+  "est_km": 71800,
   "range": [
-   16100,
-   95600
+   26500,
+   123400
   ],
   "covered": true,
   "variant": "cold",
@@ -1334,10 +1334,10 @@
   "ownership": "חברה",
   "status": 200,
   "make_en": "Renault",
-  "est_km": 239800,
+  "est_km": 324000,
   "range": [
-   134100,
-   361400
+   171800,
+   506900
   ],
   "covered": true,
   "variant": "cold",
@@ -1365,10 +1365,10 @@
   "ownership": "חברה",
   "status": 200,
   "make_en": "Kia",
-  "est_km": 308100,
+  "est_km": 317500,
   "range": [
-   172200,
-   464200
+   168400,
+   496800
   ],
   "covered": true,
   "variant": "cold",
@@ -1396,10 +1396,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Nissan",
-  "est_km": 180500,
+  "est_km": 137300,
   "range": [
-   88700,
-   282900
+   64500,
+   224400
   ],
   "covered": true,
   "variant": "cold",
@@ -1427,10 +1427,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Citroen",
-  "est_km": 64500,
+  "est_km": 47900,
   "range": [
-   19300,
-   114600
+   17700,
+   82200
   ],
   "covered": false,
   "variant": null,
@@ -1445,10 +1445,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Toyota",
-  "est_km": 68400,
+  "est_km": 97600,
   "range": [
-   33600,
-   107200
+   45900,
+   159500
   ],
   "covered": true,
   "variant": "cold",
@@ -1476,10 +1476,10 @@
   "ownership": "ליסינג",
   "status": 200,
   "make_en": "Toyota",
-  "est_km": 36500,
+  "est_km": 34700,
   "range": [
-   10900,
-   64900
+   12800,
+   59700
   ],
   "covered": false,
   "variant": null,
@@ -1494,10 +1494,10 @@
   "ownership": "חברה",
   "status": 200,
   "make_en": "Nissan",
-  "est_km": 222700,
+  "est_km": 217300,
   "range": [
-   109400,
-   348900
+   102100,
+   355100
   ],
   "covered": true,
   "variant": "cold",
@@ -1525,10 +1525,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Dacia",
-  "est_km": 83000,
+  "est_km": 116800,
   "range": [
-   40800,
-   130100
+   54900,
+   190900
   ],
   "covered": true,
   "variant": "cold",
@@ -1556,10 +1556,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Renault",
-  "est_km": 217000,
+  "est_km": 206300,
   "range": [
-   121300,
-   327000
+   109400,
+   322800
   ],
   "covered": true,
   "variant": "cold",
@@ -1587,10 +1587,10 @@
   "ownership": "חברה",
   "status": 200,
   "make_en": "Kia",
-  "est_km": 313300,
+  "est_km": 351000,
   "range": [
-   177900,
-   448300
+   200300,
+   520700
   ],
   "covered": true,
   "variant": "cold",
@@ -1618,10 +1618,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Nissan",
-  "est_km": 176500,
+  "est_km": 182800,
   "range": [
-   98700,
-   265900
+   96900,
+   286000
   ],
   "covered": true,
   "variant": "cold",
@@ -1649,10 +1649,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Renault",
-  "est_km": 204600,
+  "est_km": 164300,
   "range": [
-   114400,
-   308300
+   87100,
+   257100
   ],
   "covered": true,
   "variant": "cold",
@@ -1680,10 +1680,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Nissan",
-  "est_km": 174100,
+  "est_km": 115700,
   "range": [
-   85600,
-   272800
+   54400,
+   189100
   ],
   "covered": true,
   "variant": "cold",
@@ -1711,10 +1711,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Kia",
-  "est_km": 120800,
+  "est_km": 70100,
   "range": [
-   59400,
-   189400
+   27000,
+   134100
   ],
   "covered": true,
   "variant": "cold",
@@ -1742,10 +1742,10 @@
   "ownership": "ליסינג",
   "status": 200,
   "make_en": "Kia",
-  "est_km": 109500,
+  "est_km": 97900,
   "range": [
-   32800,
-   194600
+   32700,
+   168300
   ],
   "covered": true,
   "variant": "cold",
@@ -1773,10 +1773,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Audi",
-  "est_km": 167700,
+  "est_km": 124200,
   "range": [
-   93700,
-   252700
+   51600,
+   239900
   ],
   "covered": true,
   "variant": "cold",
@@ -1804,15 +1804,15 @@
   "ownership": "ליסינג",
   "status": 200,
   "make_en": "Geely",
-  "est_km": 62500,
+  "est_km": 13600,
   "range": [
-   18800,
-   111100
+   4600,
+   23400
   ],
   "covered": false,
   "variant": null,
   "levels": {},
-  "recalls": 0
+  "recalls": null
  },
  {
   "plate": "87209104",
@@ -1822,15 +1822,15 @@
   "ownership": "חברה",
   "status": 200,
   "make_en": "Omoda",
-  "est_km": 51800,
+  "est_km": 10700,
   "range": [
-   15500,
-   92100
+   3600,
+   18500
   ],
   "covered": false,
   "variant": null,
   "levels": {},
-  "recalls": 0
+  "recalls": null
  },
  {
   "plate": "20423504",
@@ -1840,10 +1840,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Volvo",
-  "est_km": 17900,
+  "est_km": 16600,
   "range": [
-   5400,
-   31900
+   5600,
+   28600
   ],
   "covered": false,
   "variant": null,
@@ -1858,10 +1858,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Geely",
-  "est_km": 30900,
+  "est_km": 6900,
   "range": [
-   9300,
-   54900
+   2300,
+   11900
   ],
   "covered": false,
   "variant": null,
@@ -1876,10 +1876,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Chery",
-  "est_km": 30900,
+  "est_km": 6900,
   "range": [
-   9300,
-   54900
+   2300,
+   11900
   ],
   "covered": false,
   "variant": null,
@@ -1894,10 +1894,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Chery",
-  "est_km": 30900,
+  "est_km": 6900,
   "range": [
-   9300,
-   54900
+   2300,
+   11900
   ],
   "covered": false,
   "variant": null,
@@ -1912,10 +1912,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Volvo",
-  "est_km": 158200,
+  "est_km": 109300,
   "range": [
-   77800,
-   247900
+   42100,
+   209100
   ],
   "covered": true,
   "variant": "cold",
@@ -1933,7 +1933,7 @@
     15
    ]
   },
-  "recalls": 0
+  "recalls": null
  },
  {
   "plate": "74874302",
@@ -1943,15 +1943,15 @@
   "ownership": "חברה",
   "status": 200,
   "make_en": "Geely",
-  "est_km": 134100,
+  "est_km": 157100,
   "range": [
-   65900,
-   210200
+   54700,
+   258200
   ],
   "covered": false,
   "variant": null,
   "levels": {},
-  "recalls": 0
+  "recalls": null
  },
  {
   "plate": "77483203",
@@ -1961,10 +1961,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Tesla",
-  "est_km": 20300,
+  "est_km": 43000,
   "range": [
-   6100,
-   36100
+   15300,
+   72200
   ],
   "covered": false,
   "variant": null,
@@ -1979,10 +1979,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Geely",
-  "est_km": 20300,
+  "est_km": 40700,
   "range": [
-   6100,
-   36100
+   14500,
+   68200
   ],
   "covered": false,
   "variant": null,
@@ -1997,10 +1997,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "BMW",
-  "est_km": 0,
+  "est_km": 7900,
   "range": [
-   0,
-   0
+   2800,
+   13200
   ],
   "covered": false,
   "variant": null,
@@ -2015,10 +2015,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Hyundai",
-  "est_km": 75100,
+  "est_km": 62800,
   "range": [
-   22500,
-   133600
+   22400,
+   105400
   ],
   "covered": false,
   "variant": null,
@@ -2033,10 +2033,10 @@
   "ownership": "ליסינג",
   "status": 200,
   "make_en": "Jaecoo",
-  "est_km": 0,
+  "est_km": 14700,
   "range": [
-   0,
-   0
+   5200,
+   24600
   ],
   "covered": false,
   "variant": null,
@@ -2051,10 +2051,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Subaru",
-  "est_km": 141900,
+  "est_km": 233600,
   "range": [
-   80600,
-   203000
+   149200,
+   536600
   ],
   "covered": false,
   "variant": null,
@@ -2069,10 +2069,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Honda",
-  "est_km": 191300,
+  "est_km": 275100,
   "range": [
-   108600,
-   273800
+   175700,
+   631900
   ],
   "covered": false,
   "variant": null,
@@ -2087,15 +2087,15 @@
   "ownership": "סוחר",
   "status": 200,
   "make_en": "Lynk & Co",
-  "est_km": 0,
+  "est_km": 7900,
   "range": [
-   0,
-   0
+   2800,
+   13200
   ],
   "covered": false,
   "variant": null,
   "levels": {},
-  "recalls": 0
+  "recalls": null
  },
  {
   "plate": "83776603",
@@ -2105,10 +2105,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Hyundai",
-  "est_km": 17900,
+  "est_km": 13600,
   "range": [
-   5400,
-   31900
+   5000,
+   22500
   ],
   "covered": false,
   "variant": null,
@@ -2123,10 +2123,10 @@
   "ownership": "ליסינג",
   "status": 200,
   "make_en": "Jaecoo",
-  "est_km": 2100,
+  "est_km": 10000,
   "range": [
-   600,
-   3700
+   3700,
+   16600
   ],
   "covered": false,
   "variant": null,
@@ -2141,10 +2141,10 @@
   "ownership": "ליסינג",
   "status": 200,
   "make_en": "Jaecoo",
-  "est_km": 2100,
+  "est_km": 10000,
   "range": [
-   600,
-   3700
+   3700,
+   16600
   ],
   "covered": false,
   "variant": null,
@@ -2159,10 +2159,10 @@
   "ownership": "חברה",
   "status": 200,
   "make_en": "Chery",
-  "est_km": 51800,
+  "est_km": 11100,
   "range": [
-   15500,
-   92100
+   3700,
+   19000
   ],
   "covered": false,
   "variant": null,
@@ -2177,10 +2177,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Peugeot",
-  "est_km": 335400,
+  "est_km": 317900,
   "range": [
-   128700,
-   561600
+   146300,
+   501100
   ],
   "covered": false,
   "variant": null,
@@ -2195,10 +2195,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Toyota",
-  "est_km": 278400,
+  "est_km": 290800,
   "range": [
-   106800,
-   466100
+   133800,
+   458300
   ],
   "covered": false,
   "variant": null,
@@ -2213,10 +2213,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Mazda",
-  "est_km": 359300,
+  "est_km": 298500,
   "range": [
-   137900,
-   601600
+   137400,
+   470500
   ],
   "covered": false,
   "variant": null,
@@ -2231,10 +2231,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Mazda",
-  "est_km": 323500,
+  "est_km": 327100,
   "range": [
-   124100,
-   541600
+   150500,
+   515600
   ],
   "covered": false,
   "variant": null,
@@ -2249,10 +2249,10 @@
   "ownership": "פרטי",
   "status": 200,
   "make_en": "Toyota",
-  "est_km": 278400,
+  "est_km": 290800,
   "range": [
-   106800,
-   466100
+   133800,
+   458300
   ],
   "covered": false,
   "variant": null,

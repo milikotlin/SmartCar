@@ -1,51 +1,56 @@
 # The limitations of both models in plain language (for the defence)
 
-Golden rule: **state the limitations before anyone asks**. Both models are now built exactly as Smart_Car_Models.pdf specifies (Kaggle datasets pulled with
-`kagglehub`); the numbers come from `docs/SPEC_MODELS.md`. The model trained on real UK inspections stays on the dashboard as a comparison.
+Golden rule: **state the limitations before anyone asks**. Both models follow Smart_Car_Models.pdf (Kaggle datasets pulled with `kagglehub`); version 3.0.0 adds data
+augmentation and is judged only on real data. The numbers come from `docs/SPEC_MODELS.md`.
 
 ## Model 1: estimated mileage
 
-**What it is.** It is not the car's odometer. It is an **expected value for similar cars** learned from used-car listings (Kaggle Datasets 7, 8 and 3), using age,
-fuel type, make and model, engine size, transmission and number of owners, then adjusted to the Israeli level with the official CBS statistics. One sentence: *"Give me
-the car's characteristics and I tell you how far cars like it usually have driven; I do not tell you how far this particular car has driven."*
+**What it is.** It is not the car's odometer. It is an **expected value for similar cars**, using age, fuel, make and model, engine size, transmission and number of owners, adjusted to
+the Israeli level with the official CBS statistics. One sentence: *"Give me the car's characteristics and I tell you how far cars like it usually have driven; I do not tell you how far this
+particular car has driven."*
 
-**How it was built (as the PDF asks).** One-Hot Encoding for fuel, transmission and owner type; Target vs Frequency Encoding for make/model compared by
-cross-validation (Frequency won: RMSE 22,155 vs 22,361 km); KNN imputer with K=5; Linear and Ridge regression against Random Forest and XGBoost, chosen purely by RMSE and
-MAE: **XGBoost** (held-out RMSE 21,801 km, R² 0.61; Linear/Ridge 24,554 km, R² 0.51). At run time engine size and transmission come from the official model table, the number
-of owners from the official ownership history.
+**How it was built (as the PDF asks).** Datasets 7, 8 and 3; One-Hot Encoding; Target vs Frequency Encoding (Frequency won); KNN imputer with K=5; Linear and Ridge regression against Random
+Forest and XGBoost, chosen by RMSE and MAE: **XGBoost**. Training adds 250,000 **synthetic** vehicles generated from real odometers (training only).
+
+**What improved.** On the same 6,000 **real odometers**: RMSE 67,855 -> **47,969 km**, MAE 47,762 -> **34,711 km**, R² 0.119 -> **0.560**.
+On the Kaggle listings it is unchanged (RMSE 21,801 -> 21,878; R² 0.609 -> 0.607). The "80%" range now really holds 80% of real
+odometers (before 53%), and the error against the official Israeli averages fell from 8.6% to 3.9%.
+
+Fair baseline: a plain table of age and fuel reaches RMSE 50,165 km and R² 0.518 on real odometers; the model 47,410 km and 0.569. Most of the information is age and fuel. These are UK cars:
+in Israel the improvement that can be checked is the smaller error against the official averages.
 
 **Limitations, in simple words**
-1. **It does not hold for an individual car.** The 80% range is wide (it covers 80% of held-out cars), because identical cars drive very different distances.
-2. **The data are foreign listings.** UK and Indian cars, listed for sale. The CBS calibration fixes the average level of groups (error 8.6% on the official cells not used
-   in the fit), not the error of one car.
-3. **Where the data cannot support a figure, the system says so** ("Low reliability"): electric cars, hybrid and gas cars older than 7 years, and combinations whose
-   estimate would mean more than 40,000 km a year. In that last case the **official CBS average for that age and ownership is shown instead** of the model's number
-   (example: a 2025 diesel leasing car got 93,000 km a year from the model; 36,500 is shown).
-4. **A dataset label did not mean what the PDF says.** Dataset 8 `Owner_Type` is the number of owners (First, Second...), not private/leasing. It is used as such.
+1. **It does not hold for an individual car.** An R² of 0.56 on real cars means a lot of the difference between two identical cars stays unexplained; the range shows it.
+2. **Israel publishes no odometers.** The Israeli level is official (CBS); the error for one Israeli car cannot be measured.
+3. **Make and model move the Israeli estimate only a little** (lambda = 0.1): their effect was tested on two foreign markets and did not transfer, so it is shrunk on purpose.
+4. **Where the data cannot support a figure, the system says so** ("Low reliability"): electric cars (no CBS figure), hybrids older than 8 years (the real UK ones are mostly former taxis),
+   groups with fewer than 100 real vehicles, and more than 40,000 km a year, where the **official average** for the age and ownership is shown instead.
+5. **A dataset label did not mean what the PDF says.** Dataset 8 `Owner_Type` is the number of owners (First, Second...), not private/leasing. It is used as such.
 
 ## Model 2: risk of a mechanical failure needing maintenance
 
-**What it is.** A score learned from Kaggle Dataset 1 (logistics vehicles, synthetic labels), enriched with the failure distribution of Dataset 4; electric and
-hybrid cars use a separate model on Dataset 5. It is shown as **three levels** (Low, Moderate, High), never as a percentage.
+**What it is.** A score for "a defect is found at the next annual inspection" (the only real outcome available), from age, mileage (Model 1), maintenance and failure history, brand and the
+Dataset 4 failure distribution. Combustion and electric / hybrid vehicles have separate branches (Dataset 1 / Dataset 5). Shown as **three levels**, never as a percentage.
 
-**How it was built (as the PDF asks).** Sensor columns removed; Vehicle_Age, Days_Since_Last_Maintenance and a Brand_Reliability_Index; the mileage from Model 1;
-SMOTE against scale_pos_weight (scale_pos_weight won); XGBoost against Logistic Regression (XGBoost 0.978 vs 0.943 ROC-AUC on held-out Dataset 1); tuning to maximise Recall.
+**How it was built (as the PDF asks).** Sensors dropped; SMOTE against scale_pos_weight (scale_pos_weight won: SMOTE was slightly worse on real cars); XGBoost against Logistic Regression; tuning that maximises Recall.
+Training rows: Kaggle plus synthetic vehicles generated from real inspections. Every choice and every figure comes from **real vehicles never used in training**.
 
-**Limitations, in simple words (the most important part of the defence)**
-1. **The labels are synthetic.** On its own data the model looks excellent (ROC-AUC 0.978), but it learned the dataset's rules: almost all of its power comes from
-   "days since the last maintenance" (0.87 alone) and "past failures" (0.77 alone). Age, mileage and brand are near 0.5 (no information).
-2. **On real inspections it is worse than age alone.** Checked on 150,000 real UK inspection outcomes: **0.585**, while simply ordering cars by age gives **0.646** and
-   the comparison model trained on real inspections gives 0.68 to 0.72. Example: it puts a 2022 Hyundai i20 at Moderate and a 2014 Nissan Micra at Low; the
-   comparison model puts the older Micra higher.
-3. **Without a service log it says little.** Its two strong inputs come from the maintenance and inspection records; without them it uses typical values, and the
-   panel says so ("What this level is worth here").
-4. **The electric/hybrid model has no predictive power.** On its own test data ROC-AUC 0.49 (chance); the panel says the level carries no information.
-5. **Forced decisions, all documented:** the augmented third Dataset 1 file was excluded (near-duplicates of test rows); leaky columns removed; Dataset 4 has no age
-   column (grouped by mileage only); the brand index comes from real UK inspection outcomes (no Kaggle dataset measures it); Recall tuning guarded against "flag
-   every car"; a monotone constraint (more past failures never lower the risk) fixed an artefact of mixing two Dataset 1 generators.
+**What improved** (real UK vehicles, riskiest 40% flagged, mean of four situations): Recall 0.447 -> **0.577**, Precision 0.334 -> **0.432**, ROC-AUC
+0.567 -> **0.674**. The levels are real: 16% / 29% / 45% of Low / Moderate / High vehicles had a defect.
 
-**In one honest sentence:** *"I implemented Model 2 exactly as specified and measured it on real data: it learned its synthetic dataset very well, but on real inspections
-it ranks cars worse than their age, so I show it as relative levels, explain what each level is worth, and keep the model trained on real inspections next to it."*
+**Say this yourself: the earlier 0.978 was wrong.** Version 2.0.0 reported ROC-AUC 0.978 on Dataset 1. It was **data leakage**: in that file `Maintenance_Type` gives the label exactly, and
+"more than 180 days since the last maintenance" *is* the label. The model had copied the rule; on real cars it was close to chance. The column was removed, the rule limited, and the figure withdrawn.
+
+**Limitations, in simple words**
+1. **About 0.67, not 0.97.** Inspection defects are hard to predict from a plate. With only the plate the gain over age alone is small but real (+0.015 ROC-AUC, 95% interval +0.014 to +0.017);
+   with the odometer and the last inspection the model reaches 0.688 (age alone 0.646).
+2. **The electric / hybrid branch is not better than age alone when only the plate is known** (+0.003, interval -0.013 to +0.018): Dataset 5 carries no signal after the strict dropping and there are few real electric cars.
+3. **The Dutch check** gives 0.652 (age alone 0.642): the order of risk transfers, the absolute rates do not, hence levels and not percentages.
+4. **Services are learned from rule-generated labels.** No real data set links a service log to failures, so "days since the last maintenance" has a limited weight.
+5. **Vehicles under 3 or over 20 years** are outside the real data: the level is an extrapolation (the API says so), but more age or kilometres can never lower the risk.
+
+**In one honest sentence:** *"I found leakage in my own first result, removed it, trained with synthetic vehicles that imitate real ones, and measured everything on real vehicles the models had
+never seen: the numbers are lower than before and, this time, true."*
 
 ## The comparison model (real inspections)
 XGBoost per system trained on real UK MOT inspections and validated on Dutch ones; ROC-AUC 0.68 to 0.72; most of its level is the age of the car; it adds more when the
@@ -57,12 +62,10 @@ else's car). The key lives only in `.env` (never in the browser or in git), with
 login, as the SRS requires): it proves "an authorised workshop", not *who* wrote the record.
 
 ## Hard questions, short answers
-* **"Why is Model 2 so good on its data and so weak on real cars?"** — Because its labels were generated by rules (synthetic). It learned those rules (0.978) but real
-  failures do not follow them (0.585 on real inspections).
-* **"Then why use it?"** — The specification requires it, and it is implemented exactly. The measurement on real data is the honest part: it is why the levels are
-  relative, why the panel explains their worth, and why the real-inspection model stays next to it.
-* **"Does this predict breakdowns?"** — No. Model 2 imitates a synthetic "maintenance required" label; the comparison model predicts a defect at the next annual
-  inspection. Neither is a breakdown probability.
+* **"Why did the ROC-AUC fall from 0.978 to 0.67?"** - Because 0.978 was leakage (the label was a rule on two input columns). On real cars that model scored 0.57; this one scores 0.67.
+* **"Is training on synthetic data cheating?"** - No: synthetic rows are only in training, they come from a part of the vehicles used for nothing else, and every result is on real vehicles.
+  Training on the real rows instead gives the same result, which shows the synthetic ones are faithful.
+* **"Does this predict breakdowns?"** — No. Both Model 2 and the comparison model rank the risk that the next annual inspection finds a defect. Neither is a breakdown probability.
 * **"Does it work in Israel?"** — Neither model has been validated on Israeli cars; the data that would allow it (inspection results, individual odometers) are not open.
 * **"Is the mileage right?"** — It is an expected value for similar cars, calibrated to official averages, with a wide range; when the model would exaggerate, the official
   average is shown instead and flagged.

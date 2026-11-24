@@ -1,7 +1,13 @@
 import json
+import os
+import re
 from pathlib import Path
 
 import pytest
+
+# The tests use their own Redis database (15): the recorded rows they cache must never reach the running application.
+if os.environ.get("REDIS_URL"):
+    os.environ["REDIS_URL"] = re.sub(r"/\d*$", "", os.environ["REDIS_URL"]) + "/15"
 
 FIXTURES = Path(__file__).parent / "fixtures"
 TEST_WRITE_KEY = "test-workshop-key"            # test value only: the real key lives in .env and is never read by the tests

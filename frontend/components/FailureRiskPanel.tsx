@@ -23,9 +23,14 @@ export function FailureRiskPanel({ risk }: { risk: FailureRisk }) {
           ["Days since service", num(i.days_since_last_maintenance)],
           ["Past failures", num(i.failure_history)],
           ["Brand index", num(i.brand_reliability_index, 1)],
-          ["Last service", i.maintenance_type && i.maintenance_type !== "Unknown" ? String(i.maintenance_type) : "N/A"],
         ]
-      : [["Km since service", num(i.last_service_distance)]];
+      : [
+          ["Age", `${num(i.vehicle_age)}y`],
+          ["Mileage", `${num(i.km)} km · ${KM_SOURCE[String(i.km_source)] ?? i.km_source}`],
+          ["Km since service", num(i.last_service_distance)],
+          ["Past failures", num(i.failure_history)],
+          ["Brand index", num(i.brand_reliability_index, 1)],
+        ];
   return (
     <article className="card-shadow rounded-2xl border border-line bg-surface p-6" data-testid="failure-risk">
       <CardHeader

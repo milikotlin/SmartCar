@@ -1,4 +1,4 @@
-"""Feature definitions shared by the offline training (ml/src/spec_model1.py, spec_model2.py) and the API, for the models built exactly as
+"""Feature definitions shared by the offline training (ml/src/model1_train.py, model2_train.py) and the API, for the models built exactly as
 Smart_Car_Models.pdf specifies. Anything a pickled pipeline refers to must live here, so that the backend can load it.
 """
 import re
@@ -6,6 +6,7 @@ import re
 import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.impute import KNNImputer
 
 # ------------------------------------------------------------------ Model 1 (odometer regression)
 M1_NUMERIC = ["age", "engine_cc", "automatic"]          # automatic: 1 automatic / 0 manual / NaN unknown (filled by the KNN imputer, K=5)
@@ -45,18 +46,62 @@ class FrequencyEncoder(BaseEstimator, TransformerMixin):
         return np.array(["make_model_frequency"])
 
 
+FUEL_LEVELS = ["diesel", "electric", "hybrid", "lpg_cng", "petrol"]
+
+
+class VehicleKNNImputer(BaseEstimator, TransformerMixin):
+    """KNN imputer (K=5) for engine size and transmission "based on similar vehicles": similar = same fuel, close age and engine, on STANDARDISED columns.
+
+    Input columns: age, engine_cc, automatic, fuel. Output: age, engine_cc, automatic. The neighbours are real Kaggle listings with both values present (the only
+    source that has the transmission), at most `max_reference` of them; identical queries are imputed once. An electric car has no engine: 0, never imputed.
+    """
+
+    def __init__(self, n_neighbors: int = 5, max_reference: int = 8000, random_state: int = 42):
+        self.n_neighbors, self.max_reference, self.random_state = n_neighbors, max_reference, random_state
+
+    @staticmethod
+    def _matrix(X) -> np.ndarray:
+        d = X if isinstance(X, pd.DataFrame) else pd.DataFrame(X, columns=["age", "engine_cc", "automatic", "fuel"])
+        num = d[["age", "engine_cc", "automatic"]].apply(pd.to_numeric, errors="coerce").to_numpy(float).copy()
+        num[(d["fuel"] == "electric").to_numpy(), 1] = 0.0
+        return np.column_stack([num] + [(d["fuel"] == f).to_numpy(float) for f in FUEL_LEVELS])
+
+    def _scale(self, m: np.ndarray) -> np.ndarray:
+        out = m.copy()
+        out[:, :3] = (m[:, :3] - self.mean_) / self.std_
+        out[:, 3:] = m[:, 3:] * 3.0                       # another fuel is further away than any usual difference in age or engine
+        return out
+
+    def fit(self, X, y=None):
+        m = self._matrix(X)
+        ref = m[~np.isnan(m[:, :3]).any(axis=1)]
+        rng = np.random.default_rng(self.random_state)
+        if len(ref) > self.max_reference:
+            ref = ref[rng.choice(len(ref), self.max_reference, replace=False)]
+        self.mean_, self.std_ = ref[:, :3].mean(axis=0), ref[:, :3].std(axis=0) + 1e-9
+        self.imputer_ = KNNImputer(n_neighbors=self.n_neighbors).fit(self._scale(ref))
+        return self
+
+    def transform(self, X) -> np.ndarray:
+        m = self._matrix(X)
+        miss = np.isnan(m[:, :3]).any(axis=1)
+        if miss.any():
+            q = np.where(np.isnan(m[miss]), -999.0, m[miss])
+            uniq, inv = np.unique(q, axis=0, return_inverse=True)
+            uniq = np.where(uniq == -999.0, np.nan, uniq)
+            filled = self.imputer_.transform(self._scale(uniq))
+            filled[:, :3] = filled[:, :3] * self.std_ + self.mean_
+            m[miss] = filled[np.asarray(inv).ravel()]
+        return m[:, :3]
+
+    def get_feature_names_out(self, input_features=None):
+        return np.array(["age", "engine_cc", "automatic"])
+
+
 # ------------------------------------------------------------------ Model 2 (predictive maintenance classifier)
-M2_NUMERIC = ["vehicle_age", "km", "days_since_last_maintenance", "failure_history", "brand_reliability_index",
-              "d4_engine_fault_rate", "d4_brake_fault_rate", "d4_battery_fault_rate"]
-M2_CATEGORICAL = ["maintenance_type"]
-M2_FEATURES = M2_NUMERIC + M2_CATEGORICAL
-M2_EV_NUMERIC = ["last_service_distance", "service_frequency", "time_since_last_fault", "driving_distance"]
-MAINTENANCE_TYPES = ["Oil", "Tires", "Brakes", "Battery/Electrical", "Major repair", "Routine inspection"]
-# Dataset 1 vocabulary (two generators with different labels) -> one shared vocabulary
-D1_MAINTENANCE_TYPE = {"Oil Change": "Oil", "Oil Check": "Oil", "Tire Rotation": "Tires", "Tire Replacement": "Tires", "Brake Service": "Brakes",
-                       "Battery Service": "Battery/Electrical", "Electrical Repair": "Battery/Electrical", "Engine Overhaul": "Major repair",
-                       "Transmission Service": "Major repair", "Cooling System Repair": "Major repair", "Routine Inspection": "Routine inspection"}
-# our maintenance_records.maintenance_category -> the same vocabulary
-CATEGORY_TO_MAINTENANCE_TYPE = {"oil": "Oil", "tires": "Tires", "brakes": "Brakes", "brake_fluid": "Brakes", "battery": "Battery/Electrical",
-                                "coolant": "Routine inspection", "filters": "Routine inspection", "other": "Routine inspection"}
+# Maintenance_Type of Dataset 1 is NOT used: in the 250K file it determines the label exactly (every "Oil Check" is 0, every "Oil Change" is 1): data leakage.
+M2_FEATURES = ["vehicle_age", "km", "km_measured", "days_since_last_maintenance", "failure_history", "brand_reliability_index",
+               "d4_engine_fault_rate", "d4_brake_fault_rate", "d4_battery_fault_rate"]
+M2_EV_EXTRA = ["last_service_distance", "service_frequency", "time_since_last_fault", "driving_distance"]          # Dataset 5 columns left after the strict dropping
+M2_EV_FEATURES = M2_FEATURES + M2_EV_EXTRA
 KM_BINS = [0, 20_000, 50_000, 100_000, 150_000, 200_000, 300_000, np.inf]       # mileage groups for the Dataset 4 aggregation

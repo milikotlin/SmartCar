@@ -1,8 +1,8 @@
-"""Model 2 built as Smart_Car_Models.pdf specifies: predictive maintenance classifier (Dataset 1 for combustion vehicles, enriched with the Dataset 4
-failure distribution by mileage; a dedicated Dataset 5 model for electric / hybrid vehicles). Trained offline by ml/src/spec_model2.py.
+"""Model 2 (Smart_Car_Models.pdf): predictive maintenance classifier with a combustion branch (Kaggle Dataset 1 + Dataset 4 failure distribution) and an electric / hybrid branch
+(Dataset 5 + the electric rows of Dataset 1), both augmented with synthetic vehicles generated from real inspections. Trained by ml/src/model2_train.py; this module only predicts.
 
-The output is a probability score; the dashboard shows it as three levels (Low / Moderate / High = tertiles of the training probabilities), never as a
-percentage, because the labels of Datasets 1 and 5 are synthetic and the model has not been validated on real vehicles (see docs/MODEL_CARDS.md).
+The score is calibrated on real UK inspection outcomes and shown as three levels (thirds of real vehicles), never as a percentage: there are no Israeli outcomes to check it against.
+An input that is not known stays unknown (the model was trained with masked inputs); it is never replaced by zero.
 """
 import json
 from dataclasses import dataclass, field
@@ -12,43 +12,46 @@ import joblib
 import numpy as np
 import pandas as pd
 
-from app.ml.spec_features import KM_BINS, M2_EV_NUMERIC, M2_FEATURES
+from app.ml.spec_features import KM_BINS, M2_EV_FEATURES, M2_FEATURES
 
 LEVELS = ("low", "moderate", "high")
+SCENARIO_NAMES = {(False, False): "no records (plate only)", (True, False): "odometer known", (False, True): "last inspection known", (True, True): "odometer + last inspection"}
 
 
 @dataclass
 class SpecRiskInputs:
     vehicle_age: int
-    km: float | None
+    km: float | None                                # the odometer shown to the user (reported, recorded or the Model 1 estimate)
     km_source: str                                  # user_reported | measured | estimated (Model 1)
     fuel: str
     make: str
+    km_model_scale: float | None = None             # the same odometer on Model 1's own (training) scale; None: `km` is used as it is
     days_since_last_maintenance: float | None = None
-    failure_history: int = 0                        # recorded inspection results with a defect
-    maintenance_type: str | None = None             # of the latest maintenance record, in the Dataset 1 vocabulary
-    last_service_distance: float | None = None      # km since the latest service (EV model)
+    failure_history: int | None = None              # None = no inspection on file; 0 = the last one was clean; n = the last one had a defect (n inspections with a defect on file)
+    last_service_distance: float | None = None      # km since the latest service (electric / hybrid branch)
 
 
 @dataclass
 class SpecRiskResult:
-    branch: str                                     # "ice" (Dataset 1) | "ev" (Dataset 5)
-    probability: float                              # internal; shown only as a level
+    branch: str                                     # "ice" | "ev"
+    probability: float                              # calibrated on real UK vehicles; shown only as a level
     level: str
     cut_probabilities: list[float]
     observed_rate_by_level: list[float | None]
     inputs: dict = field(default_factory=dict)
-    assumed: list[str] = field(default_factory=list)  # inputs that were unknown and replaced by the training median
+    assumed: list[str] = field(default_factory=list)  # inputs that are not known for this vehicle
+    scenario: str = ""                              # what was known (key of card[branch]["by_scenario"])
+    in_data_range: bool = True                      # vehicle age inside the real data (3-20 years)
 
 
 class SpecRiskModel:
     def __init__(self, artifact_dir: Path):
         d = Path(artifact_dir) / "spec"
-        self.ice = joblib.load(d / "model2_ice_pipeline.joblib")
-        self.ev = joblib.load(d / "model2_ev_pipeline.joblib")
+        self.pipelines = {b: joblib.load(d / f"model2_{b}_pipeline.joblib") for b in ("ice", "ev")}
         self.card = json.loads((d / "model2_card.json").read_text(encoding="utf-8"))
         self.bri = self.card["brand_reliability_index"]
         self.d4 = self.card["dataset4_aggregation"]
+        self.age_range = tuple(self.card["data_age_range"])
 
     def brand_index(self, make: str) -> float:
         return float(self.bri["index"].get((make or "").strip().lower(), self.bri["default"]))
@@ -59,32 +62,31 @@ class SpecRiskModel:
         return {"d4_engine_fault_rate": r["engine_failure_imminent"], "d4_brake_fault_rate": r["brake_issue_imminent"], "d4_battery_fault_rate": r["battery_issue_imminent"]}
 
     def predict(self, x: SpecRiskInputs) -> SpecRiskResult:
+        branch = "ev" if x.fuel in ("electric", "hybrid") else "ice"
+        part, cols = self.card[branch], M2_EV_FEATURES if branch == "ev" else M2_FEATURES
+        km = x.km if x.km_model_scale is None else x.km_model_scale
+        known_odo = x.km_source in ("user_reported", "measured")
+        row = {"vehicle_age": x.vehicle_age, "km": km, "km_measured": float(known_odo), "days_since_last_maintenance": x.days_since_last_maintenance,
+               "failure_history": None if x.failure_history is None else min(x.failure_history, 2), "brand_reliability_index": self.brand_index(x.make), **self.d4_rates(km),
+               "last_service_distance": x.last_service_distance}
         assumed = []
-        if x.fuel in ("electric", "hybrid"):
-            branch, part = "ev", self.card["ev"]
-            row = {"last_service_distance": x.last_service_distance, "service_frequency": None, "time_since_last_fault": None, "driving_distance": None}
-            for k, v in row.items():
-                if v is None:
-                    assumed.append(k.replace("_", " "))
-            df = pd.DataFrame([row], columns=M2_EV_NUMERIC).astype(float)
-            p = float(self.ev.predict_proba(df)[0, 1])
-            inputs = {k: v for k, v in row.items() if v is not None}
-        else:
-            branch, part = "ice", self.card["ice"]
-            row = {"vehicle_age": x.vehicle_age, "km": x.km, "days_since_last_maintenance": x.days_since_last_maintenance, "failure_history": x.failure_history,
-                   "brand_reliability_index": self.brand_index(x.make), **self.d4_rates(x.km), "maintenance_type": x.maintenance_type or "Unknown"}
-            if x.days_since_last_maintenance is None:
-                assumed.append("days since the last maintenance")
-            if x.maintenance_type is None:
-                assumed.append("type of the last maintenance")
-            df = pd.DataFrame([row], columns=M2_FEATURES)
-            for c in M2_FEATURES:
-                if c != "maintenance_type":
-                    df[c] = df[c].astype(float)
-            p = float(self.ice.predict_proba(df)[0, 1])
-            inputs = {k: v for k, v in row.items() if v is not None}
-            inputs["km_source"] = x.km_source
+        if x.days_since_last_maintenance is None:
+            assumed.append("days since the last maintenance")
+        if x.failure_history is None:
+            assumed.append("result of the last inspection")
+        if not known_odo:
+            assumed.append("true odometer (Model 1 estimate used)")
+        if branch == "ev" and x.last_service_distance is None:
+            assumed.append("km since the last service")
+        df = pd.DataFrame([{c: row.get(c) for c in cols}], columns=cols).astype(float)
+        situation = SCENARIO_NAMES[(known_odo, x.failure_history is not None)]
+        a, b = part["platt_by_scenario"][situation]                      # calibrated on real UK validation vehicles for which the same things were known
+        raw = float(np.clip(self.pipelines[branch].predict_proba(df)[0, 1], 1e-6, 1 - 1e-6))
+        p = float(1 / (1 + np.exp(-(a * np.log(raw / (1 - raw)) + b))))
         cuts = part["levels"]["cut_probabilities"]
         level = LEVELS[0] if p <= cuts[0] else (LEVELS[1] if p <= cuts[1] else LEVELS[2])
+        # what the dashboard shows: the odometer as the user knows it, next to the value on the model's scale
+        shown = {"vehicle_age": x.vehicle_age, "km": x.km, "km_source": x.km_source, "km_model_scale": km, **{c: row.get(c) for c in cols if c not in ("vehicle_age", "km", "km_measured")}}
         return SpecRiskResult(branch=branch, probability=p, level=level, cut_probabilities=cuts, observed_rate_by_level=part["levels"]["test_rate_by_level"],
-                              inputs=inputs, assumed=assumed)
+                              inputs={k: v for k, v in shown.items() if v is not None}, assumed=assumed, scenario=situation,
+                              in_data_range=self.age_range[0] <= x.vehicle_age <= self.age_range[1])

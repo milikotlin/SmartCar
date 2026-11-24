@@ -11,7 +11,7 @@ const INPUT_LABEL: Record<string, string> = {
   d4_engine_fault_rate: "d4_engine_fault_rate",
   d4_brake_fault_rate: "d4_brake_fault_rate",
   d4_battery_fault_rate: "d4_battery_fault_rate",
-  maintenance_type: "maintenance_type",
+  km_model_scale: "km (Model 1 scale)",
   last_service_distance: "last_service_distance",
 };
 
@@ -33,7 +33,7 @@ export function MlMetricsDrawer({ failure, inspection }: { failure: FailureRisk 
       <div className="grid gap-6 border-t border-line px-6 py-5 min-[1100px]:grid-cols-2">
         {failure && (
           <section>
-            <h3 className="text-[13px] font-bold uppercase tracking-wider text-ink">Benchmarks · ROC-AUC</h3>
+            <h3 className="text-[13px] font-bold uppercase tracking-wider text-ink">Benchmarks · ROC-AUC on real inspections</h3>
             <table className="mt-2 w-full border-collapse">
               <thead>
                 <tr>
@@ -52,7 +52,7 @@ export function MlMetricsDrawer({ failure, inspection }: { failure: FailureRisk 
                 ))}
               </tbody>
             </table>
-            <h3 className="mt-5 text-[13px] font-bold uppercase tracking-wider text-ink">Model 2 · held-out rate by level</h3>
+            <h3 className="mt-5 text-[13px] font-bold uppercase tracking-wider text-ink">Model 2 · real defect rate by level</h3>
             <div className="mt-2 grid grid-cols-3 gap-2">
               {LEVELS.map((l, i) => (
                 <div key={l} className="rounded-lg bg-chip px-3 py-2 text-center">
@@ -77,7 +77,7 @@ export function MlMetricsDrawer({ failure, inspection }: { failure: FailureRisk 
               </dl>
               {failure.assumed.length > 0 && (
                 <p className="mt-2 text-[12.5px] text-ink-soft" data-testid="failure-risk-assumed">
-                  <span className="font-bold text-ink">Median-imputed:</span> {failure.assumed.join(", ")}
+                  <span className="font-bold text-ink">Not known:</span> {failure.assumed.join(", ")}
                 </p>
               )}
             </>

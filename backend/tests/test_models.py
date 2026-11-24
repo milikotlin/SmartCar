@@ -24,12 +24,36 @@ def test_model1_is_the_pipeline_the_experiments_chose(models):
     encoder = steps["prep"].named_transformers_["make_model"].named_steps["encode"]
     assert type(encoder).__name__ == ("FrequencyEncoder" if card["chosen"]["encoding"] == "frequency" else "TargetEncoder")
     imputer = steps["prep"].named_transformers_["numeric"].named_steps["impute"]
-    assert type(imputer).__name__ == "KNNImputer" and imputer.n_neighbors == 5                                   # KNN imputer, K=5
+    assert type(imputer).__name__ == "VehicleKNNImputer" and imputer.imputer_.n_neighbors == 5                                   # KNN imputer, K=5
     scores = card["algorithm_experiment"]["scores"]
-    assert min(scores, key=lambda k: (scores[k]["cv_rmse"], scores[k]["cv_mae"])) == card["chosen"]["algorithm"]  # chosen purely by RMSE, then MAE
+    assert min(scores, key=lambda k: scores[k]["score"]) == card["chosen"]["algorithm"]                          # chosen purely by RMSE on the two REAL validation sets
+    assert all({"rmse", "mae", "r2"} <= set(s[v]) for s in scores.values() for v in ("kaggle_val", "official_val"))
     assert {"Linear Regression + StandardScaler", "Ridge + StandardScaler", "Ridge + MinMaxScaler", "Random Forest (no scaling)", "XGBoost (no scaling)"} <= set(scores)
     assert set(card["encoding_experiment"]["scores"]) == {"target", "frequency"}
-    assert card["rows_by_dataset"] == {"d7_uk": 93580, "d3_cardekho": 13082, "d8_in": 7196}
+    assert card["rows_by_dataset"] == {"d7_uk": 93580, "d3_cardekho": 13082, "d8_in": 7196}                       # the original Kaggle rows are all there
+
+
+def test_model1_augmentation_is_synthetic_faithful_and_tested_on_real_data_only(models):
+    card = json.loads((ART / "spec" / "model1_card.json").read_text(encoding="utf-8"))
+    assert card["synthetic_training_rows"] == 250_000
+    f = card["synthetic_fidelity"]["official (against real vehicles the generator never saw)"]
+    assert max(f["ks_statistic"].values()) < 0.05 and f["largest_spearman_difference"] < 0.05                     # same distributions and correlations as real vehicles
+    cmp = card["comparison_with_previous_version"]
+    real, kaggle = cmp["real odometers (the same 6,000 official test vehicles)"], cmp["kaggle_test (same 20% of the listings)"]
+    assert real["new"]["rmse"] < 0.8 * real["previous"]["rmse"] and real["new"]["mae"] < 0.8 * real["previous"]["mae"] and real["new"]["r2"] > real["previous"]["r2"] + 0.3
+    assert kaggle["new"]["rmse"] < 1.01 * kaggle["previous"]["rmse"]                                             # and the Kaggle performance is kept
+    o = card["overfitting_check"]
+    assert o["synthetic_train_r2"] - o["official_val_real_r2"] < 0.1 and o["kaggle_train_r2"] - o["kaggle_val_r2"] < 0.05
+    assert card["test"]["official_test"]["r2"] < 0.95 and card["test"]["kaggle_test"]["r2"] < 0.95               # realistic, not artificially perfect
+
+
+def test_model1_gives_model2_the_odometer_on_its_own_scale(models):
+    f = {"age": 8, "engine_cc": 1600, "automatic": 1.0, "fuel": "petrol", "owner_type": "First", "make_model": "toyota|corolla"}
+    est = models.mileage.estimate(f, "private")
+    base = models.mileage.model2_km(f)
+    assert 20_000 < base < 200_000
+    assert models.mileage.model2_km(f, est.km, est.km) == pytest.approx(base)                                     # an odometer equal to the estimate changes nothing
+    assert models.mileage.model2_km(f, 1.5 * est.km, est.km) == pytest.approx(1.5 * base)
 
 
 def test_model1_is_monotone_in_age_and_the_range_brackets_the_estimate(models):
@@ -60,11 +84,21 @@ def test_model1_unknown_engine_and_transmission_are_imputed_and_said(models):
 def test_model1_flags_low_reliability(models):
     ev = m1("electric", 3)
     assert ev.reliability == "low" and "electric" in ev.reliability_reason
-    for age in range(8, 14):
+    for age in range(9, 16):
         e = m1("hybrid", age)
         assert e.reliability == "low" and "hybrid" in e.reliability_reason
     assert m1("hybrid", 5).reliability == "ok" and m1("petrol", 8).reliability == "ok"
-    assert any("capped" in n for n in m1(age=80).notes) and any("official yearly rates" in n for n in m1(age=25).notes)
+    assert any("capped" in n for n in m1(age=80).notes) and any("official yearly rates" in n for n in m1(age=28).notes)
+
+
+def test_model1_shows_the_official_average_when_the_model_exaggerates(models):
+    e = m1("diesel", 1, own="leasing", engine=1968, automatic=1.0, mm="skoda|superb")
+    if e.reliability == "low":
+        assert "official average" in e.reliability_reason and e.annual_km <= 40_000
+    for fuel in ("petrol", "diesel", "hybrid"):
+        for own in ("private", "leasing", "company", "rental"):
+            for age in range(1, 26):
+                assert m1(fuel, age, own).annual_km <= 40_000, (fuel, own, age)
 
 
 def test_model1_calibration_matches_cbs(models):
